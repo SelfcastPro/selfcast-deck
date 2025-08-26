@@ -1,0 +1,904 @@
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=utf-8">
+<meta name=Generator content="Microsoft Word 15 (filtered)">
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin:0cm;
+	font-size:12.0pt;
+	font-family:"Calibri",sans-serif;}
+.MsoChpDefault
+	{font-family:"Calibri",sans-serif;}
+@page WordSection1
+	{size:595.3pt 841.9pt;
+	margin:3.0cm 2.0cm 3.0cm 2.0cm;}
+div.WordSection1
+	{page:WordSection1;}
+-->
+</style>
+
+</head>
+
+<body lang=DA style='word-wrap:break-word'>
+
+<div class=WordSection1>
+
+<p class=MsoNormal>&lt;!doctype html&gt;</p>
+
+<p class=MsoNormal>&lt;html lang=&quot;en&quot;&gt;</p>
+
+<p class=MsoNormal>&lt;head&gt;</p>
+
+<p class=MsoNormal>&lt;meta charset=&quot;utf-8&quot; /&gt;</p>
+
+<p class=MsoNormal>&lt;meta name=&quot;viewport&quot;
+content=&quot;width=device-width, initial-scale=1&quot; /&gt;</p>
+
+<p class=MsoNormal>&lt;title&gt;Selfcast Talent Presentation Generator –
+Prototype v1.1&lt;/title&gt;</p>
+
+<p class=MsoNormal>&lt;style&gt;</p>
+
+<p class=MsoNormal> 
+:root{--bg:#0b0b0b;--fg:#f5f5f5;--muted:#b7b7b7;--accent:#e51c23;--card:#151515;--line:#222;}</p>
+
+<p class=MsoNormal>  *{box-sizing:border-box}</p>
+
+<p class=MsoNormal>  html,body{height:100%}</p>
+
+<p class=MsoNormal> 
+body{margin:0;background:var(--bg);color:var(--fg);font-family:ui-sans-serif,
+system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, &quot;Apple Color
+Emoji&quot;,&quot;Segoe UI Emoji&quot;}</p>
+
+<p class=MsoNormal>  a{color:inherit}</p>
+
+<p class=MsoNormal>  .app{display:grid;grid-template-rows:auto
+1fr;min-height:100%}</p>
+
+<p class=MsoNormal> 
+header{display:flex;gap:16px;align-items:center;justify-content:space-between;padding:14px
+18px;border-bottom:1px solid
+var(--line);background:linear-gradient(180deg,#0d0d0d,#0a0a0a)}</p>
+
+<p class=MsoNormal>  header .brand{display:flex;align-items:center;gap:12px}</p>
+
+<p class=MsoNormal> 
+.logo{width:28px;height:28px;border-radius:6px;background:var(--accent);display:grid;place-items:center;font-weight:800}</p>
+
+<p class=MsoNormal>  .logo span{font-size:18px;color:white}</p>
+
+<p class=MsoNormal>  .title{font-weight:700;letter-spacing:.3px}</p>
+
+<p class=MsoNormal>  .toolbar{display:flex;gap:8px;flex-wrap:wrap}</p>
+
+<p class=MsoNormal>  .btn{background:#1f1f1f;border:1px solid
+#2a2a2a;color:var(--fg);padding:10px 12px;border-radius:10px;cursor:pointer}</p>
+
+<p class=MsoNormal>  .btn:hover{border-color:#3a3a3a}</p>
+
+<p class=MsoNormal>  .btn.accent{background:var(--accent);border-color:#c0161d}</p>
+
+<p class=MsoNormal>  .btn.ghost{background:transparent;border-color:#2a2a2a}</p>
+
+<p class=MsoNormal>  .pane{display:grid;grid-template-columns:340px
+1fr;min-height:0}</p>
+
+<p class=MsoNormal>  .sidebar{border-right:1px solid var(--line);padding:14px
+14px 120px;overflow:auto}</p>
+
+<p class=MsoNormal>  .field{display:grid;gap:6px;margin-bottom:12px}</p>
+
+<p class=MsoNormal>  label{font-size:12px;color:var(--muted)}</p>
+
+<p class=MsoNormal>  input, textarea, select{background:var(--card);border:1px
+solid #242424;color:var(--fg);border-radius:10px;padding:10px 12px;width:100%}</p>
+
+<p class=MsoNormal>  textarea{min-height:140px;resize:vertical}</p>
+
+<p class=MsoNormal>  .hint{font-size:12px;color:var(--muted)}</p>
+
+<p class=MsoNormal>  .chips{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 0}</p>
+
+<p class=MsoNormal>  .chip{font-size:12px;border:1px solid
+#2a2a2a;border-radius:999px;padding:4px 8px;color:var(--muted)}</p>
+
+<p class=MsoNormal>  .stage{position:relative;overflow:hidden}</p>
+
+<p class=MsoNormal>  .slides{height:100%;display:grid;place-items:center}</p>
+
+<p class=MsoNormal>  .slide{width:100%;height:100%;display:none}</p>
+
+<p class=MsoNormal>  .slide.active{display:block}</p>
+
+<p class=MsoNormal> 
+.deck{width:100%;height:100%;display:grid;place-items:center}</p>
+
+<p class=MsoNormal> 
+.frame{width:min(1024px,92vw);height:min(576px,72vh);background:#0e0e0e;border:1px
+solid #242424;border-radius:20px;box-shadow:0 30px 60px
+rgba(0,0,0,.35);position:relative;overflow:hidden}</p>
+
+<p class=MsoNormal>  .frame .inner{position:absolute;inset:0;padding:24px}</p>
+
+<p class=MsoNormal>  .cover .title{font-size:40px;font-weight:800}</p>
+
+<p class=MsoNormal>  .cover .subtitle{margin-top:8px;color:var(--muted)}</p>
+
+<p class=MsoNormal>  .cover
+.meta{position:absolute;bottom:24px;left:24px;font-size:13px;color:var(--muted)}</p>
+
+<p class=MsoNormal> 
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:8px}</p>
+
+<p class=MsoNormal>  .grid .card{background:#121212;border:1px solid
+#222;border-radius:14px;display:grid;grid-template-rows:140px auto}</p>
+
+<p class=MsoNormal>  .card
+img{width:100%;height:140px;object-fit:cover;border-top-left-radius:14px;border-top-right-radius:14px;background:#0b0b0b}</p>
+
+<p class=MsoNormal>  .card .info{padding:10px 12px}</p>
+
+<p class=MsoNormal>  .card .info .name{font-weight:700}</p>
+
+<p class=MsoNormal>  .talent{display:grid;grid-template-columns:58%
+42%;gap:18px;align-items:stretch}</p>
+
+<p class=MsoNormal>  .hero{background:#101010;border:1px solid
+#222;border-radius:16px;overflow:hidden;display:grid}</p>
+
+<p class=MsoNormal>  .hero img{width:100%;height:100%;object-fit:cover}</p>
+
+<p class=MsoNormal>  .facts{display:grid;gap:10px}</p>
+
+<p class=MsoNormal>  .facts .box{background:#101010;border:1px solid
+#222;border-radius:16px;padding:14px}</p>
+
+<p class=MsoNormal>  .facts .kvs{display:grid;grid-template-columns:auto
+1fr;gap:6px 12px}</p>
+
+<p class=MsoNormal>  .facts .k{color:var(--muted)}</p>
+
+<p class=MsoNormal>  .facts .links
+a{display:inline-block;margin-right:8px;margin-bottom:6px;background:#161616;border:1px
+solid #2a2a2a;border-radius:999px;padding:6px
+10px;font-size:12px;text-decoration:none}</p>
+
+<p class=MsoNormal>  .footer-slide{display:grid;grid-template-columns:1fr
+auto;gap:16px;height:100%}</p>
+
+<p class=MsoNormal>  .footer-left{display:grid;align-content:center;gap:12px}</p>
+
+<p class=MsoNormal> 
+.qr{width:140px;height:140px;background:conic-gradient(from
+0deg,var(--accent),#333);border-radius:10px;display:grid;place-items:center;font-size:12px}</p>
+
+<p class=MsoNormal>  .nav{position:absolute;inset:auto 16px 16px
+16px;display:flex;justify-content:space-between;pointer-events:none}</p>
+
+<p class=MsoNormal>  .nav .btn{pointer-events:auto}</p>
+
+<p class=MsoNormal> 
+.toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:#111;border:1px
+solid #2a2a2a;padding:10px
+14px;border-radius:10px;color:var(--muted);display:none}</p>
+
+<p class=MsoNormal>  .toast.show{display:block}</p>
+
+<p class=MsoNormal>&lt;/style&gt;</p>
+
+<p class=MsoNormal>&lt;/head&gt;</p>
+
+<p class=MsoNormal>&lt;body&gt;</p>
+
+<p class=MsoNormal>&lt;div class=&quot;app&quot;&gt;</p>
+
+<p class=MsoNormal>  &lt;header&gt;</p>
+
+<p class=MsoNormal>    &lt;div class=&quot;brand&quot;&gt;</p>
+
+<p class=MsoNormal>      &lt;div class=&quot;logo&quot;
+aria-label=&quot;Selfcast logo&quot;&gt;&lt;span&gt;S&lt;/span&gt;&lt;/div&gt;</p>
+
+<p class=MsoNormal>      &lt;div&gt;</p>
+
+<p class=MsoNormal>        &lt;div class=&quot;title&quot;&gt;Selfcast Talent
+Presentation – Prototype v1.1&lt;/div&gt;</p>
+
+<p class=MsoNormal>        &lt;div class=&quot;hint&quot;&gt;Paste Role URL or
+JSON → choose filter → &lt;b&gt;Generate&lt;/b&gt;. Use ← → for
+slides.&lt;/div&gt;</p>
+
+<p class=MsoNormal>      &lt;/div&gt;</p>
+
+<p class=MsoNormal>    &lt;/div&gt;</p>
+
+<p class=MsoNormal>    &lt;div class=&quot;toolbar&quot;&gt;</p>
+
+<p class=MsoNormal>      &lt;button class=&quot;btn ghost&quot;
+id=&quot;btnPrev&quot; title=&quot;Previous slide&quot;&gt;←
+Prev&lt;/button&gt;</p>
+
+<p class=MsoNormal>      &lt;button class=&quot;btn ghost&quot;
+id=&quot;btnNext&quot; title=&quot;Next slide&quot;&gt;Next →&lt;/button&gt;</p>
+
+<p class=MsoNormal>      &lt;button class=&quot;btn&quot;
+id=&quot;btnPrint&quot; title=&quot;Print / Save as PDF&quot;&gt;Export
+PDF&lt;/button&gt;</p>
+
+<p class=MsoNormal>      &lt;button class=&quot;btn accent&quot;
+id=&quot;btnGenerate&quot;&gt;Generate&lt;/button&gt;</p>
+
+<p class=MsoNormal>    &lt;/div&gt;</p>
+
+<p class=MsoNormal>  &lt;/header&gt;</p>
+
+<p class=MsoNormal>  &lt;div class=&quot;pane&quot;&gt;</p>
+
+<p class=MsoNormal>    &lt;aside class=&quot;sidebar&quot;&gt;</p>
+
+<p class=MsoNormal>      &lt;div class=&quot;field&quot;&gt;</p>
+
+<p class=MsoNormal>        &lt;label&gt;Project / Deck Title&lt;/label&gt;</p>
+
+<p class=MsoNormal>        &lt;input id=&quot;inpTitle&quot;
+placeholder=&quot;e.g. Blacklane – International Faces&quot;
+value=&quot;Casting Presentation – International Faces&quot; /&gt;</p>
+
+<p class=MsoNormal>      &lt;/div&gt;</p>
+
+<p class=MsoNormal>      &lt;div class=&quot;field&quot;&gt;</p>
+
+<p class=MsoNormal>        &lt;label&gt;Role URL (Producer)&lt;/label&gt;</p>
+
+<p class=MsoNormal>        &lt;input id=&quot;inpRole&quot;
+placeholder=&quot;https://producer.selfcast.com/production/.../role/...&quot;
+value=&quot;https://producer.selfcast.com/production/6b84cd97-f7e1-4637-83b8-12c40ba8eedb/role/b95af7ac-5a69-466d-9aa4-43baec5bb7be&quot;
+/&gt;</p>
+
+<p class=MsoNormal>        &lt;div class=&quot;hint&quot;&gt;Note: Live fetch
+requires API—this prototype uses pasted JSON.&lt;/div&gt;</p>
+
+<p class=MsoNormal>      &lt;/div&gt;</p>
+
+<p class=MsoNormal>      &lt;div class=&quot;field&quot;&gt;</p>
+
+<p class=MsoNormal>        &lt;label&gt;Paste Role JSON (sample
+included)&lt;/label&gt;</p>
+
+<p class=MsoNormal>        &lt;textarea
+id=&quot;inpJson&quot;&gt;&lt;/textarea&gt;</p>
+
+<p class=MsoNormal>        &lt;div class=&quot;chips&quot;&gt;</p>
+
+<p class=MsoNormal>          &lt;div
+class=&quot;chip&quot;&gt;status&lt;/div&gt;</p>
+
+<p class=MsoNormal>          &lt;div
+class=&quot;chip&quot;&gt;shortlisted&lt;/div&gt;</p>
+
+<p class=MsoNormal>          &lt;div
+class=&quot;chip&quot;&gt;best_image&lt;/div&gt;</p>
+
+<p class=MsoNormal>          &lt;div
+class=&quot;chip&quot;&gt;gallery[]&lt;/div&gt;</p>
+
+<p class=MsoNormal>          &lt;div
+class=&quot;chip&quot;&gt;requested_uploads[]&lt;/div&gt;</p>
+
+<p class=MsoNormal>          &lt;div
+class=&quot;chip&quot;&gt;profile_url&lt;/div&gt;</p>
+
+<p class=MsoNormal>        &lt;/div&gt;</p>
+
+<p class=MsoNormal>      &lt;/div&gt;</p>
+
+<p class=MsoNormal>      &lt;div class=&quot;field&quot;&gt;</p>
+
+<p class=MsoNormal>        &lt;label&gt;Options&lt;/label&gt;</p>
+
+<p class=MsoNormal>        &lt;div&gt;</p>
+
+<p class=MsoNormal>          &lt;label
+style=&quot;display:flex;gap:8px;align-items:center;font-size:13px;color:var(--muted)&quot;&gt;&lt;input
+type=&quot;checkbox&quot; id=&quot;optGrid&quot; checked /&gt; Include grid
+summary&lt;/label&gt;</p>
+
+<p class=MsoNormal>          &lt;label
+style=&quot;display:flex;gap:8px;align-items:center;font-size:13px;color:var(--muted)&quot;&gt;&lt;input
+type=&quot;checkbox&quot; id=&quot;optQR&quot; checked /&gt; Show profile link
+buttons&lt;/label&gt;</p>
+
+<p class=MsoNormal>        &lt;/div&gt;</p>
+
+<p class=MsoNormal>      &lt;/div&gt;</p>
+
+<p class=MsoNormal>      &lt;div class=&quot;field&quot;&gt;</p>
+
+<p class=MsoNormal>        &lt;label&gt;Filter talents by status&lt;/label&gt;</p>
+
+<p class=MsoNormal>        &lt;select id=&quot;selFilter&quot;&gt;</p>
+
+<p class=MsoNormal>          &lt;option value=&quot;in_review&quot;
+selected&gt;IN REVIEW only&lt;/option&gt;</p>
+
+<p class=MsoNormal>          &lt;option value=&quot;shortlisted&quot;&gt;ALL
+SHORTLISTED&lt;/option&gt;</p>
+
+<p class=MsoNormal>          &lt;option value=&quot;all&quot;&gt;All
+candidates&lt;/option&gt;</p>
+
+<p class=MsoNormal>        &lt;/select&gt;</p>
+
+<p class=MsoNormal>        &lt;div class=&quot;hint&quot;&gt;Matches
+&lt;code&gt;status&lt;/code&gt; (IN_REVIEW / SHORTLISTED / …) or boolean
+&lt;code&gt;shortlisted&lt;/code&gt;.&lt;/div&gt;</p>
+
+<p class=MsoNormal>      &lt;/div&gt;</p>
+
+<p class=MsoNormal>      &lt;div class=&quot;field&quot;&gt;</p>
+
+<p class=MsoNormal>        &lt;button class=&quot;btn accent&quot;
+id=&quot;btnGenerate2&quot;&gt;Generate Deck&lt;/button&gt;</p>
+
+<p class=MsoNormal>      &lt;/div&gt;</p>
+
+<p class=MsoNormal>      &lt;div class=&quot;hint&quot;&gt;Tip: After generate,
+press &lt;b&gt;Cmd/Ctrl+P&lt;/b&gt; → Save as PDF.&lt;/div&gt;</p>
+
+<p class=MsoNormal>    &lt;/aside&gt;</p>
+
+<p class=MsoNormal>    &lt;main class=&quot;stage&quot;&gt;</p>
+
+<p class=MsoNormal>      &lt;div class=&quot;slides&quot;
+id=&quot;slides&quot;&gt;&lt;/div&gt;</p>
+
+<p class=MsoNormal>      &lt;div class=&quot;nav&quot;&gt;</p>
+
+<p class=MsoNormal>        &lt;button class=&quot;btn ghost&quot;
+id=&quot;navPrev&quot;&gt;←&lt;/button&gt;</p>
+
+<p class=MsoNormal>        &lt;button class=&quot;btn ghost&quot;
+id=&quot;navNext&quot;&gt;→&lt;/button&gt;</p>
+
+<p class=MsoNormal>      &lt;/div&gt;</p>
+
+<p class=MsoNormal>    &lt;/main&gt;</p>
+
+<p class=MsoNormal>  &lt;/div&gt;</p>
+
+<p class=MsoNormal>&lt;/div&gt;</p>
+
+<p class=MsoNormal>&lt;div class=&quot;toast&quot;
+id=&quot;toast&quot;&gt;&lt;/div&gt;</p>
+
+<p class=MsoNormal>&lt;script&gt;</p>
+
+<p class=MsoNormal>const toast=(msg)=&gt;{const
+t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=&gt;t.classList.remove('show'),1800)};</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>// --- SAMPLE DATA ---</p>
+
+<p class=MsoNormal>const sample = {</p>
+
+<p class=MsoNormal>  project: &quot;Blacklane – International Faces&quot;,</p>
+
+<p class=MsoNormal>  role_url:
+&quot;https://producer.selfcast.com/production/6b84cd97-f7e1-4637-83b8-12c40ba8eedb/role/b95af7ac-5a69-466d-9aa4-43baec5bb7be&quot;,</p>
+
+<p class=MsoNormal>  talents: [</p>
+
+<p class=MsoNormal>    {</p>
+
+<p class=MsoNormal>      name: &quot;Fab Leigh Fisher&quot;,</p>
+
+<p class=MsoNormal>      location: &quot;Stockholm, Sweden&quot;,</p>
+
+<p class=MsoNormal>      height_cm: 186,</p>
+
+<p class=MsoNormal>      level: &quot;Professional&quot;,</p>
+
+<p class=MsoNormal>      tshirt: &quot;L&quot;,</p>
+
+<p class=MsoNormal>      status: &quot;SHORTLISTED&quot;,</p>
+
+<p class=MsoNormal>      shortlisted: true,</p>
+
+<p class=MsoNormal>      profile_url:
+&quot;https://selfcast.com/talent/fableigh&quot;,</p>
+
+<p class=MsoNormal>      best_image:
+&quot;https://via.placeholder.com/800x600.jpg?text=Fab+Leigh+Fisher&quot;,</p>
+
+<p class=MsoNormal>      gallery: [</p>
+
+<p class=MsoNormal>       
+&quot;https://via.placeholder.com/400x300.jpg?text=Fab+1&quot;,</p>
+
+<p class=MsoNormal>       
+&quot;https://via.placeholder.com/400x300.jpg?text=Fab+2&quot;</p>
+
+<p class=MsoNormal>      ],</p>
+
+<p class=MsoNormal>      requested_uploads: [</p>
+
+<p class=MsoNormal>        {label:&quot;Selftape – Scene A&quot;,
+type:&quot;video&quot;, url:&quot;https://example.com/selftape-fab.mp4&quot;},</p>
+
+<p class=MsoNormal>        {label:&quot;Requested Photo&quot;,
+type:&quot;image&quot;,
+url:&quot;https://via.placeholder.com/600x800.jpg?text=Requested+Photo&quot;}</p>
+
+<p class=MsoNormal>      ]</p>
+
+<p class=MsoNormal>    },</p>
+
+<p class=MsoNormal>    {</p>
+
+<p class=MsoNormal>      name: &quot;Anna Sanderson&quot;,</p>
+
+<p class=MsoNormal>      location: &quot;Berlin, Germany&quot;,</p>
+
+<p class=MsoNormal>      height_cm: 172,</p>
+
+<p class=MsoNormal>      level: &quot;Middle&quot;,</p>
+
+<p class=MsoNormal>      tshirt: &quot;M&quot;,</p>
+
+<p class=MsoNormal>      status: &quot;IN_REVIEW&quot;,</p>
+
+<p class=MsoNormal>      shortlisted: false,</p>
+
+<p class=MsoNormal>      profile_url:
+&quot;https://selfcast.com/talent/annasanderson&quot;,</p>
+
+<p class=MsoNormal>      best_image:
+&quot;https://via.placeholder.com/800x600.jpg?text=Anna+Sanderson&quot;,</p>
+
+<p class=MsoNormal>      gallery: [</p>
+
+<p class=MsoNormal>       
+&quot;https://via.placeholder.com/400x300.jpg?text=Anna+1&quot;,</p>
+
+<p class=MsoNormal>       
+&quot;https://via.placeholder.com/400x300.jpg?text=Anna+2&quot;</p>
+
+<p class=MsoNormal>      ],</p>
+
+<p class=MsoNormal>      requested_uploads: [</p>
+
+<p class=MsoNormal>        {label:&quot;Selftape – Intro&quot;,
+type:&quot;video&quot;, url:&quot;https://example.com/selftape-anna.mp4&quot;}</p>
+
+<p class=MsoNormal>      ]</p>
+
+<p class=MsoNormal>    },</p>
+
+<p class=MsoNormal>    {</p>
+
+<p class=MsoNormal>      name: &quot;Jamal Carter&quot;,</p>
+
+<p class=MsoNormal>      location: &quot;Copenhagen, Denmark&quot;,</p>
+
+<p class=MsoNormal>      height_cm: 181,</p>
+
+<p class=MsoNormal>      level: &quot;New&quot;,</p>
+
+<p class=MsoNormal>      tshirt: &quot;M&quot;,</p>
+
+<p class=MsoNormal>      status: &quot;APPLIED&quot;,</p>
+
+<p class=MsoNormal>      shortlisted: false,</p>
+
+<p class=MsoNormal>      profile_url:
+&quot;https://selfcast.com/talent/jamalcarter&quot;,</p>
+
+<p class=MsoNormal>      best_image:
+&quot;https://via.placeholder.com/800x600.jpg?text=Jamal+Carter&quot;,</p>
+
+<p class=MsoNormal>      gallery: [</p>
+
+<p class=MsoNormal>       
+&quot;https://via.placeholder.com/400x300.jpg?text=Jamal+1&quot;</p>
+
+<p class=MsoNormal>      ],</p>
+
+<p class=MsoNormal>      requested_uploads: []</p>
+
+<p class=MsoNormal>    }</p>
+
+<p class=MsoNormal>  ]</p>
+
+<p class=MsoNormal>};</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>const inpJson = document.getElementById('inpJson');</p>
+
+<p class=MsoNormal>inpJson.value = JSON.stringify(sample, null, 2);</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>const slidesEl = document.getElementById('slides');</p>
+
+<p class=MsoNormal>let currentIndex = 0;</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>function clearSlides(){slidesEl.innerHTML='';}</p>
+
+<p class=MsoNormal>function setActive(idx){</p>
+
+<p class=MsoNormal>  const all=[...document.querySelectorAll('.slide')];</p>
+
+<p class=MsoNormal>  if(!all.length) return;</p>
+
+<p class=MsoNormal>  all.forEach((el,i)=&gt;el.classList.toggle('active',
+i===idx));</p>
+
+<p class=MsoNormal>  currentIndex = Math.max(0, Math.min(idx, all.length-1));</p>
+
+<p class=MsoNormal>}</p>
+
+<p class=MsoNormal>function next(){setActive(currentIndex+1)}</p>
+
+<p class=MsoNormal>function prev(){setActive(currentIndex-1)}</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>function k(v){return v==null?'–':v}</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>function buildCover(title, count, roleUrl, filterLabel){</p>
+
+<p class=MsoNormal>  const slide = document.createElement('section');</p>
+
+<p class=MsoNormal>  slide.className='slide';</p>
+
+<p class=MsoNormal>  const roleLink = roleUrl ? `&lt;a
+href=&quot;${escapeAttr(roleUrl)}&quot; target=&quot;_blank&quot;
+rel=&quot;noopener&quot;&gt;Open role ↗&lt;/a&gt;` : '';</p>
+
+<p class=MsoNormal>  slide.innerHTML = `</p>
+
+<p class=MsoNormal>    &lt;div class=&quot;deck&quot;&gt;&lt;div
+class=&quot;frame cover&quot;&gt;&lt;div class=&quot;inner&quot;&gt;</p>
+
+<p class=MsoNormal>      &lt;div
+class=&quot;title&quot;&gt;${escapeHtml(title)}&lt;/div&gt;</p>
+
+<p class=MsoNormal>      &lt;div
+class=&quot;subtitle&quot;&gt;${escapeHtml(filterLabel)} • ${count}
+talents&lt;/div&gt;</p>
+
+<p class=MsoNormal>      &lt;div class=&quot;meta&quot;&gt;${roleLink} •
+Generated by Selfcast • ${new Date().toLocaleDateString()}&lt;/div&gt;</p>
+
+<p class=MsoNormal>    &lt;/div&gt;&lt;/div&gt;&lt;/div&gt;`;</p>
+
+<p class=MsoNormal>  slidesEl.appendChild(slide);</p>
+
+<p class=MsoNormal>}</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>function buildGrid(talents, roleUrl){</p>
+
+<p class=MsoNormal>  const slide = document.createElement('section');</p>
+
+<p class=MsoNormal>  slide.className='slide';</p>
+
+<p class=MsoNormal>  const cards = talents.map(t=&gt;`</p>
+
+<p class=MsoNormal>    &lt;div class=&quot;card&quot;&gt;</p>
+
+<p class=MsoNormal>      &lt;img
+src=&quot;${escapeAttr(t.best_image||'https://via.placeholder.com/600x400?text=Image')}&quot;
+alt=&quot;${escapeAttr(t.name)}&quot; /&gt;</p>
+
+<p class=MsoNormal>      &lt;div class=&quot;info&quot;&gt;</p>
+
+<p class=MsoNormal>        &lt;div
+class=&quot;name&quot;&gt;${escapeHtml(t.name)}&lt;/div&gt;</p>
+
+<p class=MsoNormal>        &lt;div
+class=&quot;hint&quot;&gt;${escapeHtml(t.location||'')}&lt;/div&gt;</p>
+
+<p class=MsoNormal>      &lt;/div&gt;</p>
+
+<p class=MsoNormal>    &lt;/div&gt;</p>
+
+<p class=MsoNormal>  `).join('');</p>
+
+<p class=MsoNormal>  const more = roleUrl ? `&lt;a class=&quot;btn&quot;
+href=&quot;${escapeAttr(roleUrl)}&quot; target=&quot;_blank&quot;
+rel=&quot;noopener&quot;&gt;View all candidates ↗&lt;/a&gt;` : '';</p>
+
+<p class=MsoNormal>  slide.innerHTML = `</p>
+
+<p class=MsoNormal>    &lt;div class=&quot;deck&quot;&gt;&lt;div
+class=&quot;frame&quot;&gt;&lt;div class=&quot;inner&quot;&gt;</p>
+
+<p class=MsoNormal>      &lt;div
+style=&quot;display:flex;justify-content:space-between;align-items:end;margin-bottom:8px&quot;&gt;</p>
+
+<p class=MsoNormal>        &lt;h2
+style=&quot;margin:0&quot;&gt;Overview&lt;/h2&gt;</p>
+
+<p class=MsoNormal>        &lt;div&gt;${more}&lt;/div&gt;</p>
+
+<p class=MsoNormal>      &lt;/div&gt;</p>
+
+<p class=MsoNormal>      &lt;div class=&quot;grid&quot;&gt;${cards}&lt;/div&gt;</p>
+
+<p class=MsoNormal>    &lt;/div&gt;&lt;/div&gt;&lt;/div&gt;`;</p>
+
+<p class=MsoNormal>  slidesEl.appendChild(slide);</p>
+
+<p class=MsoNormal>}</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>function buildTalent(t){</p>
+
+<p class=MsoNormal>  const slide = document.createElement('section');</p>
+
+<p class=MsoNormal>  slide.className='slide';</p>
+
+<p class=MsoNormal>  const gallery =
+(t.gallery||[]).slice(0,3).map(u=&gt;`&lt;img src=&quot;${escapeAttr(u)}&quot;
+alt=&quot;${escapeAttr(t.name)} gallery&quot;
+style=&quot;width:100%;height:110px;object-fit:cover;border-radius:10px;border:1px
+solid #222&quot;/&gt;`).join('');</p>
+
+<p class=MsoNormal>  const reqs = (t.requested_uploads||[]).map(r=&gt;`&lt;a
+href=&quot;${escapeAttr(r.url)}&quot; target=&quot;_blank&quot;
+rel=&quot;noopener&quot;&gt;${escapeHtml(r.label||r.type||'Requested')}&lt;/a&gt;`).join('');</p>
+
+<p class=MsoNormal>  slide.innerHTML = `</p>
+
+<p class=MsoNormal>    &lt;div class=&quot;deck&quot;&gt;&lt;div
+class=&quot;frame&quot;&gt;&lt;div class=&quot;inner&quot;&gt;</p>
+
+<p class=MsoNormal>      &lt;div class=&quot;talent&quot;&gt;</p>
+
+<p class=MsoNormal>        &lt;div class=&quot;hero&quot;&gt;&lt;img
+src=&quot;${escapeAttr(t.best_image||'https://via.placeholder.com/800x600?text=Image')}&quot;
+alt=&quot;${escapeAttr(t.name)}&quot;/&gt;&lt;/div&gt;</p>
+
+<p class=MsoNormal>        &lt;div class=&quot;facts&quot;&gt;</p>
+
+<p class=MsoNormal>          &lt;div class=&quot;box&quot;&gt;</p>
+
+<p class=MsoNormal>            &lt;h2 style=&quot;margin:0 0 6px
+0&quot;&gt;${escapeHtml(t.name)}&lt;/h2&gt;</p>
+
+<p class=MsoNormal>            &lt;div class=&quot;kvs&quot;&gt;</p>
+
+<p class=MsoNormal>              &lt;div
+class=&quot;k&quot;&gt;Location&lt;/div&gt;&lt;div&gt;${escapeHtml(t.location||'')}&lt;/div&gt;</p>
+
+<p class=MsoNormal>              &lt;div
+class=&quot;k&quot;&gt;Height&lt;/div&gt;&lt;div&gt;${k(t.height_cm)}
+cm&lt;/div&gt;</p>
+
+<p class=MsoNormal>              &lt;div
+class=&quot;k&quot;&gt;Level&lt;/div&gt;&lt;div&gt;${escapeHtml(t.level||'')}&lt;/div&gt;</p>
+
+<p class=MsoNormal>              &lt;div
+class=&quot;k&quot;&gt;T-shirt&lt;/div&gt;&lt;div&gt;${escapeHtml(t.tshirt||'')}&lt;/div&gt;</p>
+
+<p class=MsoNormal>            &lt;/div&gt;</p>
+
+<p class=MsoNormal>          &lt;/div&gt;</p>
+
+<p class=MsoNormal>          &lt;div class=&quot;box&quot;&gt;</p>
+
+<p class=MsoNormal>            &lt;div class=&quot;hint&quot;
+style=&quot;margin-bottom:6px&quot;&gt;Requested videos &amp;
+photos&lt;/div&gt;</p>
+
+<p class=MsoNormal>            &lt;div class=&quot;links&quot;&gt;${reqs ||
+'&lt;span class=&quot;hint&quot;&gt;No requested
+uploads&lt;/span&gt;'}&lt;/div&gt;</p>
+
+<p class=MsoNormal>          &lt;/div&gt;</p>
+
+<p class=MsoNormal>          &lt;div class=&quot;box&quot;&gt;</p>
+
+<p class=MsoNormal>            &lt;div class=&quot;hint&quot;
+style=&quot;margin-bottom:6px&quot;&gt;Gallery&lt;/div&gt;</p>
+
+<p class=MsoNormal>            &lt;div
+style=&quot;display:grid;grid-template-columns:repeat(3,1fr);gap:8px&quot;&gt;${gallery
+|| '&lt;span class=&quot;hint&quot;&gt;No extra
+images&lt;/span&gt;'}&lt;/div&gt;</p>
+
+<p class=MsoNormal>          &lt;/div&gt;</p>
+
+<p class=MsoNormal>          &lt;div class=&quot;box&quot;&gt;</p>
+
+<p class=MsoNormal>            &lt;a class=&quot;btn&quot;
+style=&quot;text-decoration:none;display:inline-block&quot;
+href=&quot;${escapeAttr(t.profile_url||'#')}&quot; target=&quot;_blank&quot;
+rel=&quot;noopener&quot;&gt;Open full profile ↗&lt;/a&gt;</p>
+
+<p class=MsoNormal>          &lt;/div&gt;</p>
+
+<p class=MsoNormal>        &lt;/div&gt;</p>
+
+<p class=MsoNormal>      &lt;/div&gt;</p>
+
+<p class=MsoNormal>    &lt;/div&gt;&lt;/div&gt;&lt;/div&gt;`;</p>
+
+<p class=MsoNormal>  slidesEl.appendChild(slide);</p>
+
+<p class=MsoNormal>}</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>function buildFooter(){</p>
+
+<p class=MsoNormal>  const slide = document.createElement('section');</p>
+
+<p class=MsoNormal>  slide.className='slide';</p>
+
+<p class=MsoNormal>  slide.innerHTML = `</p>
+
+<p class=MsoNormal>    &lt;div class=&quot;deck&quot;&gt;&lt;div
+class=&quot;frame&quot;&gt;&lt;div class=&quot;inner footer-slide&quot;&gt;</p>
+
+<p class=MsoNormal>      &lt;div class=&quot;footer-left&quot;&gt;</p>
+
+<p class=MsoNormal>        &lt;h2 style=&quot;margin:0&quot;&gt;Next
+steps&lt;/h2&gt;</p>
+
+<p class=MsoNormal>        &lt;div class=&quot;hint&quot;&gt;Shortlist your
+favorites and reply with selections. We can arrange callbacks and holds
+same-day.&lt;/div&gt;</p>
+
+<p class=MsoNormal>        &lt;div class=&quot;hint&quot;&gt;Questions? Contact
+casting@selfcast.com • +45 22 81 31 13&lt;/div&gt;</p>
+
+<p class=MsoNormal>      &lt;/div&gt;</p>
+
+<p class=MsoNormal>      &lt;div class=&quot;qr&quot;&gt;SELFCAST&lt;/div&gt;</p>
+
+<p class=MsoNormal>    &lt;/div&gt;&lt;/div&gt;&lt;/div&gt;`;</p>
+
+<p class=MsoNormal>  slidesEl.appendChild(slide);</p>
+
+<p class=MsoNormal>}</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>function generate(){</p>
+
+<p class=MsoNormal>  clearSlides();</p>
+
+<p class=MsoNormal>  let data;</p>
+
+<p class=MsoNormal>  try{</p>
+
+<p class=MsoNormal>    data =
+JSON.parse(document.getElementById('inpJson').value.trim());</p>
+
+<p class=MsoNormal>  }catch(e){ toast('Invalid JSON – using sample'); data =
+sample; }</p>
+
+<p class=MsoNormal>  const title = document.getElementById('inpTitle').value ||
+data.project || 'Casting Presentation';</p>
+
+<p class=MsoNormal>  const includeGrid =
+document.getElementById('optGrid').checked;</p>
+
+<p class=MsoNormal>  const roleUrl = (document.getElementById('inpRole').value
+|| data.role_url || '').trim();</p>
+
+<p class=MsoNormal>  const filterMode =
+document.getElementById('selFilter').value;</p>
+
+<p class=MsoNormal>  const talentsRaw =
+Array.isArray(data.talents)?data.talents:[];</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>  const norm = (s)=&gt; String(s||'').toUpperCase();</p>
+
+<p class=MsoNormal>  const filtered = talentsRaw.filter(t=&gt;{</p>
+
+<p class=MsoNormal>    if(filterMode==='all') return true;</p>
+
+<p class=MsoNormal>    const s = norm(t.status);</p>
+
+<p class=MsoNormal>    const sl = !!t.shortlisted;</p>
+
+<p class=MsoNormal>    if(filterMode==='in_review') return s==='IN_REVIEW';</p>
+
+<p class=MsoNormal>    if(filterMode==='shortlisted') return s==='SHORTLISTED'
+|| sl===true;</p>
+
+<p class=MsoNormal>    return true;</p>
+
+<p class=MsoNormal>  });</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>  const label = filterMode==='in_review' ? 'IN REVIEW'</p>
+
+<p class=MsoNormal>              : filterMode==='shortlisted' ? 'ALL
+SHORTLISTED'</p>
+
+<p class=MsoNormal>              : 'ALL CANDIDATES';</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>  buildCover(title, filtered.length, roleUrl, label);</p>
+
+<p class=MsoNormal>  if(includeGrid) buildGrid(filtered, roleUrl);</p>
+
+<p class=MsoNormal>  filtered.forEach(buildTalent);</p>
+
+<p class=MsoNormal>  buildFooter();</p>
+
+<p class=MsoNormal>  setActive(0);</p>
+
+<p class=MsoNormal>  toast('Deck generated');</p>
+
+<p class=MsoNormal>}</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>function exportPdf(){ window.print(); }</p>
+
+<p class=MsoNormal>function escapeHtml(s){return
+String(s).replace(/[&amp;&lt;&gt;&quot;']/g,m=&gt;({&quot;&amp;&quot;:&quot;&amp;amp;&quot;,&quot;&lt;&quot;:&quot;&amp;lt;&quot;,&quot;&gt;&quot;:&quot;&amp;gt;&quot;,&quot;\&quot;&quot;:&quot;&amp;quot;&quot;,&quot;'&quot;:&quot;&amp;#39;&quot;}[m]))}</p>
+
+<p class=MsoNormal>function escapeAttr(s){return escapeHtml(s)}</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>['btnGenerate','btnGenerate2'].forEach(id=&gt;document.getElementById(id).addEventListener('click',generate));</p>
+
+<p class=MsoNormal>['btnNext','navNext'].forEach(id=&gt;document.getElementById(id).addEventListener('click',()=&gt;setActive(currentIndex+1)));</p>
+
+<p class=MsoNormal>['btnPrev','navPrev'].forEach(id=&gt;document.getElementById(id).addEventListener('click',()=&gt;setActive(currentIndex-1)));</p>
+
+<p class=MsoNormal>document.getElementById('btnPrint').addEventListener('click',exportPdf);</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>document.addEventListener('keydown',e=&gt;{if(e.key==='ArrowRight')
+setActive(currentIndex+1); if(e.key==='ArrowLeft')
+setActive(currentIndex-1);});</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+<p class=MsoNormal>// Auto-generate on load</p>
+
+<p class=MsoNormal>generate();</p>
+
+<p class=MsoNormal>&lt;/script&gt;</p>
+
+<p class=MsoNormal>&lt;/body&gt;</p>
+
+<p class=MsoNormal>&lt;/html&gt;</p>
+
+</div>
+
+</body>
+
+</html>
