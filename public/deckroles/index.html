@@ -26,20 +26,27 @@
   .divider{height:1px;background:#222;margin:16px 0}
 
   /* Presentation surface */
-  .sheet{background:var(--paper);color:var(--fg);border-radius:18px;padding:40px}
+  .sheet{background:var(--paper);color:var(--fg);border-radius:18px;padding:28px} /* mindre padding */
   .hero{width:100%;height:220px;object-fit:cover;object-position:top;border-radius:16px;border:1px solid var(--line)}
+
   /* 2-up role layout */
-  .rolegrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+  .rolegrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
   .rolecard{border:1px solid var(--line);border-radius:16px;background:#fff;overflow:hidden}
   .imgwrap{position:relative}
   .imgwrap img{display:block;width:100%;height:220px;object-fit:cover;object-position:top}
-  .rolecta{position:absolute;right:10px;bottom:10px;background:var(--accent);color:#fff;text-decoration:none;font-weight:800;border:none;border-radius:10px;padding:8px 12px}
-  .cap{padding:12px 14px}
+  .rolecta{position:absolute;right:8px;bottom:8px;background:var(--accent);color:#fff;text-decoration:none;font-weight:800;border:none;border-radius:10px;padding:6px 10px;font-size:12px} /* mindre rød knap */
+  .cap{padding:10px 12px}
 
-  /* Prominent “How it works” callout */
-  .how{background:#ffe8ea;border:1px solid var(--accent);border-radius:16px;padding:18px}
-  .how h2{margin:0 0 10px}
+  /* Prominent (men mindre) “How it works” callout */
+  .how{background:#ffe8ea;border:1px solid var(--accent);border-radius:14px;padding:12px} /* ~halv størrelse */
+  .how h2{margin:0 0 6px;font-size:18px}
+  .how p{margin:6px 0;font-size:14px;line-height:1.45}
   .green{color:var(--green);font-weight:700}
+
+  /* Typografi: større brand */
+  .proj-title{font-size:34px;font-weight:900;letter-spacing:0} /* størst – projekt navn (Norlys) */
+  .wordmark{letter-spacing:.18em;font-weight:900;font-size:20px} /* SELFCAST større */
+  .subtitle{color:#6b7280;font-size:13px;font-weight:700;letter-spacing:.06em} /* CASTING MADE EASY lidt større/tykkere */
 
   /* Print – continuous A4, no forced page breaks */
   @media print{
@@ -47,10 +54,13 @@
     html, body { background:#fff; }
     .no-print{display:none!important}
     .sheet{border:none;box-shadow:none;border-radius:0;padding:0}
-    .sheet .pad{padding:16px 0}
+    .sheet .pad{padding:12px 0}
     .max{max-width:794px;margin:0 auto;padding:0} /* ~A4 width @96dpi */
     .imgwrap img, .hero{height:200px}
   }
+
+  /* Lidt strammere lodret spacing */
+  .pad > * + *{margin-top:14px}
 </style>
 </head>
 <body>
@@ -74,7 +84,7 @@
         </div>
         <div>
           <label>Project name</label>
-          <input id="projectName" placeholder="e.g. H&M – Fall Campaign"/>
+          <input id="projectName" placeholder="e.g. Norlys – Campaign"/>
         </div>
       </div>
       <div class="between">
@@ -82,7 +92,7 @@
           <button class="btn secondary" id="btn-new">New project</button>
           <div id="saveStatus" class="muted"></div>
         </div>
-        <div class="muted">Projects are saved in your browser.</div>
+        <div class="muted">Tip: Når du laver PDF, fjern “Headers and footers” i print-dialogen.</div>
       </div>
     </div>
 
@@ -102,7 +112,7 @@
       <div class="row">
         <div>
           <label>Subtitle</label>
-          <input id="brandSubtitle" value="Casting Made Easy"/>
+          <input id="brandSubtitle" value="CASTING MADE EASY"/>
         </div>
         <div>
           <label>Show wordmark</label>
