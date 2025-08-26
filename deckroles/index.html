@@ -15,15 +15,14 @@
   a{color:inherit}
   .max{max-width:1100px;margin:0 auto;padding:20px}
 
-  /* Top bar */
   .top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:14px}
   .btn{display:inline-flex;align-items:center;gap:8px;background:var(--accent);border:none;color:#fff;
        padding:10px 14px;border-radius:12px;cursor:pointer;font-weight:700;text-decoration:none}
   .btn.ghost{background:#262626}
   .btn.link{background:transparent;color:#fff;text-decoration:underline}
   .right{display:flex;gap:10px;align-items:center}
+  .status{font-size:12px;color:#9ca3af}
 
-  /* Cards & form */
   .card{background:#151515;border:1px solid var(--line);border-radius:16px;padding:16px}
   .stack{display:flex;flex-direction:column;gap:12px}
   .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
@@ -32,7 +31,6 @@
   input,select,textarea{width:100%;padding:10px;border-radius:10px;border:1px solid #2a2a2a;background:#0f0f0f;color:#f5f5f5}
   textarea{min-height:110px}
 
-  /* Preview pages (white) */
   .sheet{background:var(--paperWhite);color:var(--inkBlack);border-radius:18px;padding:28px}
   .pad>*+*{margin-top:14px}
   .coverTop{display:flex;justify-content:space-between;align-items:flex-start}
@@ -45,7 +43,6 @@
   .how p{margin:6px 0;font-size:14px;line-height:1.45}
   .green{color:var(--green);font-weight:700}
 
-  /* Roles grid (two-up) */
   .rolegrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
   .rolecard{border:1px solid var(--lineLight);border-radius:16px;background:#fff;overflow:hidden}
   .imgwrap{position:relative}
@@ -53,11 +50,8 @@
   .rolecta{position:absolute;right:8px;bottom:8px;background:var(--accent);color:#fff;text-decoration:none;
            font-weight:800;border:none;border-radius:10px;padding:6px 10px;font-size:12px}
   .cap{padding:10px 12px;font-weight:800}
-
   .muted{color:#aaa;font-size:12px}
-  .divider{height:1px;background:#222;margin:12px 0}
 
-  /* Print */
   @media print{
     @page{size:A4;margin:12mm}
     html,body{background:#fff}
@@ -74,6 +68,8 @@
         <div class="wordmark" id="wm-small">SELFCAST</div>
       </div>
       <div class="right">
+        <button class="btn" id="btn-save">Save</button>
+        <span class="status" id="save-status">Not saved</span>
         <button class="btn" id="btn-print">Download PDF</button>
         <button class="btn ghost" id="btn-share">Copy share link</button>
         <a class="btn ghost" id="btn-open-share" href="#" target="_blank" rel="noreferrer">Open read-only</a>
@@ -81,7 +77,6 @@
       </div>
     </div>
 
-    <!-- Builder -->
     <div class="card stack">
       <h2>Builder</h2>
       <div class="row">
@@ -123,13 +118,11 @@
       </div>
     </div>
 
-    <!-- Roles list (builder) -->
     <div id="rolesWrap" class="stack"></div>
     <div style="margin:12px 0">
       <button class="btn" id="btn-add-role">+ Add role</button>
     </div>
 
-    <!-- Bookmarklet block -->
     <div class="card">
       <h3>Bookmarklet (for private role pages)</h3>
       <p class="muted">
@@ -140,7 +133,6 @@
       </p>
     </div>
 
-    <!-- Preview -->
     <div id="preview" class="stack" style="margin-top:14px"></div>
   </div>
 
