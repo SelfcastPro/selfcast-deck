@@ -20,12 +20,16 @@
        padding:10px 14px;border-radius:12px;cursor:pointer;font-weight:700}
   .no-print{display:inline-flex}
 
-  /* Typography */
+  /* Header */
+  .head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px}
+  .brand{display:flex;align-items:center;gap:12px}
+  .word{ text-align:right }
   .proj-title{font-size:34px;font-weight:900}
   .wordmark{letter-spacing:.18em;font-weight:900;font-size:20px}
   .subtitle{color:#6b7280;font-size:13px;font-weight:700;letter-spacing:.06em}
+  .logoimg{height:40px;border-radius:8px;border:1px solid #eee}
 
-  /* Roles grid */
+  /* Roles grid (two-up) */
   .rolegrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
   .rolecard{border:1px solid var(--line);border-radius:16px;background:#fff;overflow:hidden}
   .imgwrap{position:relative}
@@ -34,7 +38,7 @@
            font-weight:800;border:none;border-radius:10px;padding:6px 10px;font-size:12px}
   .cap{padding:10px 12px}
 
-  /* How callout */
+  /* “How it works” red callout */
   .how{background:#ffe8ea;border:1px solid var(--accent);border-radius:14px;padding:12px}
   .how h2{margin:0 0 6px;font-size:18px}
   .how p{margin:6px 0;font-size:14px;line-height:1.45}
@@ -52,11 +56,9 @@
 </head>
 <body>
   <div class="max">
-    <!-- Download PDF button -->
     <div class="bar no-print">
       <button class="btn" id="btn-print">Download PDF</button>
     </div>
-
     <div id="app"></div>
   </div>
 
@@ -67,10 +69,8 @@
   function unpack(s){const json = decodeURIComponent(escape(atob(s))); return JSON.parse(json);}
   function esc(s){return (s||"").replace(/[&<>"']/g,m=>({ "&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;" }[m]));}
 
-  // print button
   document.getElementById('btn-print').addEventListener('click', () => window.print());
 
-  // data
   let data;
   try{
     const d = qs("d"); if(!d) throw new Error("Missing data");
@@ -81,19 +81,18 @@
     return;
   }
 
-  const { projectName, brand, contact, roles, showHow } = data;
+  const { projectName, brand = {}, contact = {}, roles = [], showHow } = data;
 
   const cover = `
     <section class="sheet"><div class="pad">
-      <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+      <div class="head">
         <div><div class="proj-title">${esc(projectName||"Presentation")}</div></div>
-        <div style="display:flex;align-items:center;gap:12px">
-          ${brand?.showWordmark!==false ? `
-            <div style="text-align:right">
-              <div class="wordmark">${esc(brand?.wordmark||"SELFCAST")}</div>
-              <div class="subtitle">${esc(brand?.subtitle||"CASTING MADE EASY")}</div>
-            </div>` : ``}
-          ${brand?.logoUrl ? `<img src="${esc(brand.logoUrl)}" alt="Logo" style="height:40px;border-radius:8px;border:1px solid #eee">` : ``}
+        <div class="brand">
+          <div class="word">
+            <div class="wordmark">${esc(brand.wordmark || "SELFCAST")}</div>
+            <div class="subtitle">${esc(brand.subtitle || "CASTING MADE EASY")}</div>
+          </div>
+          ${brand.logoUrl ? `<img src="${esc(brand.logoUrl)}" alt="Logo" class="logoimg" onerror="this.remove()">` : ``}
         </div>
       </div>
     </div></section>
@@ -109,7 +108,7 @@
         <p><strong>Add to Shortlist</strong><br>Move Talents forward in the process, or book a Talent directly.</p>
         <div style="margin-top:10px;border-top:1px dashed var(--accent);padding-top:8px;color:#111">
           <div style="font-size:13px">If you need assistance:</div>
-          <div style="color:#6b7280">${esc(contact?.person||"Selfcast")}${contact?.email?` · ${esc(contact.email)}`:""}${contact?.phone?` · ${esc(contact.phone)}`:""}</div>
+          <div style="color:#6b7280">${esc(contact.person||"Selfcast")}${contact.email?` · ${esc(contact.email)}`:""}${contact.phone?` · ${esc(contact.phone)}`:""}</div>
         </div>
       </div>
     </div></section>
@@ -118,7 +117,7 @@
   const rolesGrid = `
     <section class="sheet"><div class="pad">
       <div class="rolegrid">
-        ${(roles||[]).map(r=>`
+        ${roles.map(r=>`
           <div class="rolecard">
             <div class="imgwrap">
               ${r.hero ? `<img src="${esc(r.hero)}" alt="${esc(r.title)}">` : `<div style="height:220px;background:#f4f4f5"></div>`}
