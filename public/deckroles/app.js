@@ -1,5 +1,5 @@
 (() => {
-  // ---------- Storage helpers (projects) ----------
+  // ---------- Storage helpers ----------
   const STORE_KEY = "scDeckProjects";
   const loadAll = () => JSON.parse(localStorage.getItem(STORE_KEY) || "{}");
   const saveAll = (obj) => localStorage.setItem(STORE_KEY, JSON.stringify(obj));
@@ -7,19 +7,9 @@
   // ---------- State ----------
   const state = {
     projectName: "Untitled",
-    brand: { logoUrl:"", wordmark:"SELFCAST", subtitle:"Casting Made Easy", showWordmark:true },
+    brand: { logoUrl:"", wordmark:"SELFCAST", subtitle:"CASTING MADE EASY", showWordmark:true },
     contact: { person:"Maria Christina Jarltoft", email:"maria@jarltoft.dk", phone:"+4522813113" },
-    roles: [
-      { title:"Mother and daughter",
-        roleUrl:"https://producer.selfcast.com/production/175e757e-470c-4367-b674-c588f44f18d8/role/ef4e98c5-09ca-48ef-9cd2-35ff87a883e4",
-        hero:"" },
-      { title:"Couple age 65+",
-        roleUrl:"https://producer.selfcast.com/production/175e757e-470c-4367-b674-c588f44f18d8/role/59f7f37c-e20f-4662-b992-7e2af363a849",
-        hero:"" },
-      { title:"Men age 20–30",
-        roleUrl:"https://producer.selfcast.com/production/175e757e-470c-4367-b674-c588f44f18d8/role/20c3c9d1-65a0-4fb1-88cb-aa1fc3bcaf58",
-        hero:"" },
-    ],
+    roles: [],
     showHow:true,
   };
 
@@ -49,7 +39,7 @@
     el.addEventListener('change', e => { setter(e.target.value); render(); autosaveTick(); });
   }
 
-  // ---------- Roles UI (editor) ----------
+  // ---------- Roles editor ----------
   function roleCard(role, index){
     const wrap = document.createElement('div');
     wrap.className = 'card stack';
@@ -79,7 +69,7 @@
         </div>
       </div>
       <div class="muted">
-        Tip: If Auto-fill can’t read a private page, use <strong>Paste meta</strong> with the bookmarklet below.
+        If Auto-fill can’t read a private page, use <strong>Paste meta</strong> with the bookmarklet below.
       </div>
     `;
 
@@ -104,32 +94,22 @@
           let changed = false;
           if(j.title && !role.title){ role.title = j.title; changed = true; }
           if(j.image && !role.hero){ role.hero = j.image; changed = true; }
-          if(!changed){
-            alert("Fetched, but no new data (page might be private). Try ‘Paste meta’.");
-          }
+          if(!changed) alert("Fetched, but no new data. Try “Paste meta”.");
           render(); autosaveTick();
         }else{
-          alert("Auto-fill couldn’t read this page. Use ‘Paste meta’ below.\n" + (j?.reason || j?.error || ""));
+          alert("Auto-fill couldn’t read this page. Use “Paste meta”.");
         }
       }catch(e){
-        alert("Auto-fill failed. Use ‘Paste meta’ instead.");
+        alert("Auto-fill failed. Use “Paste meta” instead.");
       }
     });
 
     wrap.querySelector('[data-action="paste"]').addEventListener('click', async ()=>{
-      const input = prompt(
-        "Paste JSON like {\"title\":\"...\",\"image\":\"...\"}  \n—or—  \nPaste: Title | https://image-url"
-      );
+      const input = prompt('Paste JSON like {"title":"…","image":"…"} or "Title | https://image"');
       if(!input) return;
       let title = "", image = "";
-      try {
-        const j = JSON.parse(input);
-        title = j.title || ""; image = j.image || j.ogImage || "";
-      } catch {
-        const m = input.split("|");
-        if(m.length >= 2){ title = m[0].trim(); image = m[1].trim(); }
-        else { title = input.trim(); }
-      }
+      try { const j = JSON.parse(input); title = j.title||""; image = j.image||j.ogImage||""; }
+      catch { const m = input.split("|"); if(m.length>=2){ title=m[0].trim(); image=m[1].trim(); } else { title=input.trim(); } }
       if(title) role.title = title;
       if(image) role.hero  = image;
       render(); autosaveTick();
@@ -141,53 +121,45 @@
   function renderRolesEditor(){
     rolesWrap.innerHTML = '';
     state.roles.forEach((r,i)=> rolesWrap.appendChild(roleCard(r,i)));
-    // Render bookmarklet helper once under the editor
-    const helperId = "bm-help";
-    let bm = document.getElementById(helperId);
-    if(!bm){
-      bm = document.createElement('div');
-      bm.id = helperId;
+    // Bookmarklet helper (vises en gang)
+    if(!document.getElementById('bm-help')){
+      const bm = document.createElement('div');
+      bm.id = 'bm-help';
       bm.className = 'card stack no-print';
       bm.innerHTML = `
         <h3>Bookmarklet (for private role pages)</h3>
         <div class="muted">
-          1) Drag this link to your bookmarks bar: 
+          1) Drag this link to your bookmarks bar:
           <a id="bm-link" href="#">Selfcast → Copy role meta</a><br/>
-          2) Open the role page while logged in, click the bookmark → it copies meta to clipboard.<br/>
-          3) Click “Paste meta” on the role card here and paste.
+          2) Open the role page (logged in), click the bookmark → meta kopieres til clipboard.<br/>
+          3) Klik “Paste meta” her og indsæt.
         </div>
       `;
       rolesWrap.after(bm);
-      const code = `javascript:(()=>{try{const h1=document.querySelector('h1,.role-title')?.innerText||document.title;const img=(Array.from(document.images).map(i=>i.src).find(Boolean))||'';const j=JSON.stringify({title:h1,image:img});if(navigator.clipboard){navigator.clipboard.writeText(j).then(()=>alert('Copied role meta to clipboard:\\n'+j)).catch(()=>prompt('Copy this JSON:',j));}else{prompt('Copy this JSON:',j);} }catch(e){alert('Bookmarklet failed.');}})();`;
+      const code = `javascript:(()=>{try{const h1=document.querySelector('h1,.role-title')?.innerText||document.title;const img=(Array.from(document.images).map(i=>i.src).find(Boolean))||'';const j=JSON.stringify({title:h1,image:img});if(navigator.clipboard){navigator.clipboard.writeText(j).then(()=>alert('Copied:\\n'+j)).catch(()=>prompt('Copy this JSON:',j));}else{prompt('Copy this JSON:',j);} }catch(e){alert('Bookmarklet failed.');}})();`;
       const a = bm.querySelector('#bm-link');
-      a.setAttribute('href', code);
-      a.style.color = '#9ac1ff';
-      a.style.textDecoration = 'underline';
+      a.href = code; a.style.color = '#9ac1ff'; a.style.textDecoration = 'underline';
     }
   }
 
   // ---------- Presentation ----------
   function cover(){
-    const b = state.brand, c = state.contact;
+    const b = state.brand;
     const box = document.createElement('section');
     box.className = 'sheet';
     box.innerHTML = `
       <div class="pad">
         <div class="between" style="align-items:flex-start;">
           <div>
-            <div style="font-size:26px;font-weight:900;margin:0 0 6px">${esc(state.projectName || 'Role Presentation')}</div>
-            <div class="muted" style="color:#6b7280">${new Date().toLocaleDateString()}</div>
+            <div class="proj-title">${esc(state.projectName || 'Role Presentation')}</div>
           </div>
           <div class="logo" style="display:flex;align-items:center;gap:12px;color:#111">
             ${b.showWordmark ? `<div style="text-align:right">
-              <div style="letter-spacing:.18em;font-weight:900">${esc(b.wordmark||'SELFCAST')}</div>
-              <div style="color:#6b7280;font-size:12px">${esc(b.subtitle||'')}</div>
+              <div class="wordmark">${esc(b.wordmark||'SELFCAST')}</div>
+              <div class="subtitle">${esc(b.subtitle||'')}</div>
             </div>` : ``}
             ${b.logoUrl ? `<img src="${esc(b.logoUrl)}" alt="Logo" style="height:40px;border-radius:8px;border:1px solid #eee"/>` : ``}
           </div>
-        </div>
-        <div style="margin-top:28px;border-top:1px solid var(--line);padding-top:10px;color:#6b7280;font-size:12px">
-          Contact: ${esc(c.person||'—')}${c.email?` · ${esc(c.email)}`:''}${c.phone?` · ${esc(c.phone)}`:''}
         </div>
       </div>
     `;
@@ -201,15 +173,15 @@
     sec.innerHTML = `
       <div class="pad">
         <div class="how">
-          <h2 style="font-size:22px;font-weight:900">THIS IS HOW IT WORKS!</h2>
-          <div style="font-size:15px;line-height:1.6;color:#111">
+          <h2>THIS IS HOW IT WORKS!</h2>
+          <div>
             <p><strong>Decline</strong><br/>Click <em>Decline</em> to notify the Talent they’re not selected. They disappear from your list.</p>
             <p><strong><span class="green">Requested videos/photos</span></strong><br/>See new videos or photos uploaded by the Talent for this job.</p>
             <p><strong>Talent picture</strong><br/>Click a Talent’s picture to open their full profile.</p>
             <p><strong>Add to Shortlist</strong><br/>Move Talents forward in the process, or book a Talent directly.</p>
           </div>
-          <div style="margin-top:12px;border-top:1px dashed var(--accent);padding-top:10px;color:#111">
-            <div style="font-size:14px">If you need assistance:</div>
+          <div style="margin-top:10px;border-top:1px dashed var(--accent);padding-top:8px;color:#111">
+            <div style="font-size:13px">If you need assistance:</div>
             <div class="muted" style="margin-top:4px;color:#6b7280">
               Contact ${esc(c.person||'Selfcast')}${c.email?` · ${esc(c.email)}`:''}${c.phone?` · ${esc(c.phone)}`:''}
             </div>
@@ -256,7 +228,7 @@
   function syncProjectBar(){
     const all = loadAll();
     const names = Object.keys(all).sort();
-    selProject.innerHTML = names.length
+    document.getElementById('projectSelect').innerHTML = names.length
       ? names.map(n=>`<option value="${esc(n)}"${n===state.projectName?' selected':''}>${esc(n)}</option>`).join('')
       : `<option value="">(no projects)</option>`;
     inpPName.value = state.projectName || '';
@@ -281,14 +253,14 @@
 
   id('btn-new').addEventListener('click', ()=>{
     state.projectName = 'Untitled';
-    state.brand = { logoUrl:"", wordmark:"SELFCAST", subtitle:"Casting Made Easy", showWordmark:true };
+    state.brand = { logoUrl:"", wordmark:"SELFCAST", subtitle:"CASTING MADE EASY", showWordmark:true };
     state.roles = [];
     render(); autosaveTick();
   });
 
   id('btn-save').addEventListener('click', doSave);
   id('btn-delete').addEventListener('click', ()=>{
-    const name = selProject.value;
+    const name = document.getElementById('projectSelect').value;
     if(!name) return;
     if(!confirm(`Delete project “${name}”?`)) return;
     const all = loadAll();
@@ -299,8 +271,8 @@
     setStatus("Deleted.");
   });
 
-  selProject.addEventListener('change', ()=>{
-    const name = selProject.value;
+  document.getElementById('projectSelect').addEventListener('change', ()=>{
+    const name = document.getElementById('projectSelect').value;
     const all = loadAll();
     if(all[name]){
       const p = all[name];
@@ -331,7 +303,7 @@
   let saveTimer = null;
   function autosaveTick(){
     clearTimeout(saveTimer);
-    saveTimer = setTimeout(()=> { doSave(); }, 800);
+    saveTimer = setTimeout(()=> { doSave(); }, 700);
   }
   function setStatus(msg){
     if(!saveStatus) return;
