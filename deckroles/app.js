@@ -363,3 +363,13 @@
   syncProjectBar();
   render();
 })();
+// Gør snapshot tilgængeligt for knapperne i index.html
+window.currentSnapshot = function currentSnapshot(){
+  return {
+    projectName: state.projectName,
+    brand: state.brand,
+    contact: state.contact,
+    roles: state.roles,
+    showHow: state.showHow
+  };
+};
