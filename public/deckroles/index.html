@@ -25,14 +25,14 @@
   .muted{color:#aaa;font-size:12px}
   .divider{height:1px;background:#222;margin:16px 0}
 
-  /* Presentation surface (preview) */
+  /* Preview surface */
   .sheet{background:var(--paper);color:var(--fg);border-radius:18px;padding:28px}
   .pad>*+*{margin-top:14px}
   .proj-title{font-size:34px;font-weight:900}
   .wordmark{letter-spacing:.18em;font-weight:900;font-size:20px}
   .subtitle{color:#6b7280;font-size:13px;font-weight:700;letter-spacing:.06em}
 
-  /* Roles grid in preview */
+  /* Roles grid */
   .rolegrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
   .rolecard{border:1px solid var(--line);border-radius:16px;background:#fff;overflow:hidden}
   .imgwrap{position:relative}
@@ -64,7 +64,7 @@
         <button class="btn secondary" id="btn-save">Save</button>
         <button class="btn ghost" id="btn-delete">Delete</button>
         <button class="btn" id="btn-print">Download PDF</button>
-        <!-- NEW: share buttons -->
+        <!-- Share buttons -->
         <button class="btn secondary" id="btn-share">Copy share link</button>
         <a class="btn ghost" id="btn-open-share" href="#" target="_blank" rel="noopener">Open read-only</a>
       </div>
@@ -145,7 +145,6 @@
     <div id="preview" class="stack"></div>
   </div>
 
-  <!-- Your builder logic lives here -->
   <script src="/deckroles/app.js" defer></script>
 </body>
 </html>
