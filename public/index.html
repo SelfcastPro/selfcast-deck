@@ -1,31 +1,44 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Selfcast Pro – Talent Presentations</title>
-  <style>
-    :root{--bg:#0b0b0b;--fg:#f5f5f5;--accent:#e51c23;--line:#222}
-    html,body{height:100%;margin:0;background:var(--bg);color:var(--fg);font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial}
-    .wrap{height:100%;display:grid;place-items:center;text-align:center;padding:24px}
-    h1{font-size:28px;margin:0 0 20px}
-    .btn{background:var(--accent);border:none;color:#fff;padding:14px 26px;font-size:16px;border-radius:12px;cursor:pointer;text-decoration:none;display:inline-block}
-    .btn:hover{background:#bf141b}
-    .logo{width:60px;height:60px;border-radius:12px;background:var(--accent);display:grid;place-items:center;font-weight:800;font-size:28px;margin:0 auto 20px}
-    .links{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
-    a.basic{color:#9ac1ff;text-decoration:underline}
-  </style>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Selfcast – Login</title>
+<style>
+  :root{--bg:#0b0b0b;--fg:#f5f5f5;--accent:#e51c23}
+  html,body{height:100%;margin:0;background:var(--bg);color:var(--fg);font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
+  .wrap{height:100%;display:grid;place-items:center}
+  .box{width:100%;max-width:360px;background:#121212;border:1px solid #222;border-radius:16px;padding:22px}
+  h1{margin:0 0 16px;font-size:20px}
+  input{width:100%;padding:12px;border-radius:10px;border:1px solid #2a2a2a;background:#0f0f0f;color:#fff}
+  .btn{margin-top:12px;width:100%;display:inline-block;background:var(--accent);border:none;color:#fff;padding:12px;border-radius:12px;font-weight:700;cursor:pointer}
+  .muted{color:#aaa;font-size:12px;margin-top:10px;text-align:center}
+</style>
 </head>
 <body>
   <div class="wrap">
-    <div>
-      <div class="logo">S</div>
-      <h1>Selfcast Talent Presentations</h1>
-      <div class="links">
-        <a class="btn" href="/deck/">Generate Presentation</a>
-        <a class="basic" href="/deckroles/">Open “Role Presentation”</a>
-      </div>
+    <div class="box">
+      <h1>Team login</h1>
+      <form id="f">
+        <input id="pw" type="password" placeholder="Team password" autofocus/>
+        <button class="btn" type="submit">Continue</button>
+      </form>
+      <div class="muted">Need access? Ask an admin for the password.</div>
     </div>
   </div>
+<script>
+document.getElementById('f').addEventListener('submit', async (e)=>{
+  e.preventDefault();
+  const password = document.getElementById('pw').value.trim();
+  const r = await fetch('/api/login', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({password}) });
+  const j = await r.json();
+  if(j.ok){
+    const next = new URLSearchParams(location.search).get('next') || '/';
+    location.href = next;
+  }else{
+    alert(j.error || 'Login failed');
+  }
+});
+</script>
 </body>
 </html>
