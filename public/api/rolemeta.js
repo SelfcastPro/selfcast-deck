@@ -1,39 +1,58 @@
 // /api/rolemeta.js
-// Henter titel + billede fra producer.selfcast.com role-side via serverless (undgår CORS)
+// Fetch title + hero image from a Selfcast role page (best-effort).
+// NOTE: If the page requires login, we likely get a login HTML and return ok:false.
 
 export default async function handler(req, res) {
   try {
     const url = (req.query.url || "").trim();
-
-    // Sikkerhed: tillad kun producer.selfcast.com + /role/ i stien
+    let u;
     try {
-      const u = new URL(url);
+      u = new URL(url);
       if (u.hostname !== "producer.selfcast.com" || !u.pathname.includes("/role/")) {
-        return res.status(400).json({ error: "Only producer.selfcast.com role URLs are allowed." });
+        return res.status(400).json({ ok: false, error: "Only producer.selfcast.com role URLs are allowed." });
       }
     } catch {
-      return res.status(400).json({ error: "Invalid URL." });
+      return res.status(400).json({ ok: false, error: "Invalid URL." });
     }
 
-    const r = await fetch(url, { headers: { "user-agent": "SelfcastDeck/1.0" } });
+    const r = await fetch(url, { headers: { "user-agent": "SelfcastDeck/1.1 (+vercel)" } });
     const html = await r.text();
 
-    // Naiv udtræk: prøv Open Graph først, ellers <title> og første <img>
     const pick = (re) => (html.match(re)?.[1] || "").trim();
+    const abs = (src) => {
+      try { return new URL(src, u.origin).href; } catch { return src; }
+    };
 
-    const ogTitle = pick(/<meta[^>]+property=["']og:title["'][^>]+content=["']([^"']+)["']/i);
-    const ogImage = pick(/<meta[^>]+property=["']og:image["'][^>]+content=["']([^"']+)["']/i);
-    const titleTag = pick(/<title[^>]*>([^<]+)<\/title>/i);
+    // Try Open Graph first
+    let title =
+      pick(/<meta[^>]+property=["']og:title["'][^>]+content=["']([^"']+)["']/i) ||
+      pick(/<meta[^>]+name=["']title["'][^>]+content=["']([^"']+)["']/i) ||
+      pick(/<title[^>]*>([^<]+)<\/title>/i);
 
-    // simple fallback for hero image (første img i main)
-    const firstImg = pick(/<img[^>]+src=["']([^"']+)["'][^>]*>/i);
+    let image =
+      pick(/<meta[^>]+property=["']og:image:secure_url["'][^>]+content=["']([^"']+)["']/i) ||
+      pick(/<meta[^>]+property=["']og:image["'][^>]+content=["']([^"']+)["']/i);
+
+    if (image) image = abs(image);
+
+    // Fallback: first prominent image
+    if (!image) {
+      const firstImg = pick(/<main[\s\S]*?<img[^>]+src=["']([^"']+)["'][^>]*>/i) ||
+                       pick(/<img[^>]+src=["']([^"']+)["'][^>]*>/i);
+      if (firstImg) image = abs(firstImg);
+    }
+
+    // Heuristic: if page looks like a login wall, fail clearly
+    const looksLikeLogin = /login|sign\s*in|password/i.test(html) && !title && !image;
+    const ok = (!!title || !!image) && !looksLikeLogin;
 
     return res.status(200).json({
-      ok: true,
-      title: ogTitle || titleTag || "",
-      image: ogImage || firstImg || "",
+      ok,
+      title: title || "",
+      image: image || "",
+      reason: ok ? undefined : "Page likely requires login or has no public meta.",
     });
   } catch (e) {
-    return res.status(500).json({ error: "Failed to fetch role metadata." });
+    return res.status(500).json({ ok: false, error: "Failed to fetch role metadata." });
   }
 }
