@@ -1,486 +1,425 @@
-import React, { useMemo, useRef, useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Switch } from "@/components/ui/switch";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Separator } from "@/components/ui/separator";
-import { Download, Plus, Trash2, Upload, Link as LinkIcon, Filter } from "lucide-react";
-import { motion } from "framer-motion";
-
-/**
- * Selfcast – Role Presentation Builder
- * Single-file React component that lets you:
- * - Add roles using the producer.selfcast.com Role URL
- * - Paste/import a CSV of talents for each role (or add manually)
- * - Group talents by pipeline stage: Option, In review, Shortlisted, In dialog, Booked
- * - Render a clean, printable presentation (web + PDF-friendly)
- * - Export via native Print-to-PDF or one-click HTML->PDF
- *
- * CSV columns (header optional, order flexible – matched by name):
- * name, profileUrl, imageUrl, notes, stage
- * stage must be one of: option|in review|shortlisted|in dialog|booked (case-insensitive)
- *
- * Design notes:
- * - Tailwind + shadcn/ui
- * - Crisp grid cards, large imagery, strong whitespace
- * - Final slide: “THIS IS HOW IT WORKS!” + Selfcast contact info
- */
-
-const STAGES = [
-  { key: "option", label: "Option" },
-  { key: "in review", label: "In review" },
-  { key: "shortlisted", label: "Shortlisted" },
-  { key: "in dialog", label: "In dialog" },
-  { key: "booked", label: "Booked" },
-] as const;
-
-type StageKey = typeof STAGES[number]["key"];
-
-interface Talent {
-  id: string;
-  name: string;
-  profileUrl?: string;
-  imageUrl?: string;
-  notes?: string;
-  stage: StageKey;
-}
-
-interface Role {
-  id: string;
-  title: string;
-  roleUrl?: string;
-  heroImageUrl?: string;
-  stageFilter: StageKey | "all";
-  talents: Talent[];
-}
-
-export default function RolePresentationBuilder() {
-  const [brand, setBrand] = useState({
-    logoUrl: "",
-    useWordmark: true,
-    wordmark: "SELFCAST",
-    subtitle: "Casting Made Easy",
-  });
-  const [contact, setContact] = useState({
-    person: "",
-    email: "",
-    phone: "",
-  });
-  const [roles, setRoles] = useState<Role[]>([{
-    id: crypto.randomUUID(),
-    title: "Mother and daughter",
-    roleUrl: "https://producer.selfcast.com/production/175e757e-470c-4367-b674-c588f44f18d8/role/ef4e98c5-09ca-48ef-9cd2-35ff87a883e4",
-    heroImageUrl: "",
-    stageFilter: "all",
-    talents: [],
-  }, {
-    id: crypto.randomUUID(),
-    title: "Couple age 65+",
-    roleUrl: "https://producer.selfcast.com/production/175e757e-470c-4367-b674-c588f44f18d8/role/59f7f37c-e20f-4662-b992-7e2af363a849",
-    heroImageUrl: "",
-    stageFilter: "all",
-    talents: [],
-  }, {
-    id: crypto.randomUUID(),
-    title: "Men age 20–30",
-    roleUrl: "https://producer.selfcast.com/production/175e757e-470c-4367-b674-c588f44f18d8/role/20c3c9d1-65a0-4fb1-88cb-aa1fc3bcaf58",
-    heroImageUrl: "",
-    stageFilter: "all",
-    talents: [],
-  }]);
-
-  const [showHowItWorks, setShowHowItWorks] = useState(true);
-  const printRef = useRef<HTMLDivElement>(null);
-
-  function addRole() {
-    setRoles(r => ([...r, {
-      id: crypto.randomUUID(),
-      title: "New role",
-      roleUrl: "",
-      heroImageUrl: "",
-      stageFilter: "all",
-      talents: [],
-    }]));
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Selfcast – Role Presentation</title>
+<style>
+  :root{
+    --bg:#0b0b0b; --fg:#111; --paper:#fff; --muted:#6b7280; --line:#e5e7eb; --accent:#e51c23;
   }
-
-  function removeRole(id: string) {
-    setRoles(r => r.filter(x => x.id !== id));
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;color:#f5f5f5}
+  .max{max-width:1100px;margin:0 auto;padding:24px}
+  h1,h2,h3{margin:0 0 8px}
+  .card{background:#151515;border:1px solid #222;border-radius:16px;padding:18px}
+  .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .row-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+  label{display:block;font-size:12px;color:#bbb;margin-bottom:6px}
+  input,textarea,select{width:100%;padding:10px;border-radius:10px;border:1px solid #2a2a2a;background:#0f0f0f;color:#f5f5f5}
+  textarea{min-height:120px}
+  .btn{display:inline-flex;align-items:center;gap:8px;background:var(--accent);border:none;color:#fff;padding:12px 18px;border-radius:12px;cursor:pointer;font-weight:600}
+  .btn.secondary{background:#262626}
+  .stack{display:flex;flex-direction:column;gap:12px}
+  .between{display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .muted{color:#aaa;font-size:12px}
+  .grid{display:grid;gap:16px}
+  .g-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .g-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .badge{font-size:11px;border:1px solid #ddd;border-radius:999px;padding:2px 8px;color:#222;background:#fff}
+  .logo{display:flex;align-items:center;gap:12px}
+  .logo .mark{width:40px;height:40px;border-radius:10px;background:var(--accent);display:grid;place-items:center;font-weight:800}
+  .divider{height:1px;background:#222;margin:16px 0}
+  /* Presentation surface */
+  .sheet{background:var(--paper);color:var(--fg);border-radius:18px;padding:40px}
+  .hero{width:100%;height:260px;object-fit:cover;border-radius:16px;border:1px solid var(--line)}
+  .cards{display:grid;gap:16px}
+  .cards.g-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .cards.g-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .tcard{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#fff}
+  .timg{width:100%;height:210px;object-fit:cover;background:#f4f4f5}
+  .tbody{padding:12px 14px}
+  .name{font-weight:700}
+  .small{font-size:12px;color:#6b7280}
+  a.small-link{font-size:12px;color:#2563eb;text-decoration:underline;word-break:break-all}
+  /* Print */
+  @media print{
+    @page{margin:16mm}
+    body{background:#fff}
+    .no-print{display:none!important}
+    .sheet{break-after:page;border:none;box-shadow:none;padding:0}
+    .sheet .pad{padding:24px}
   }
-
-  function updateRole<K extends keyof Role>(id: string, key: K, value: Role[K]) {
-    setRoles(r => r.map(x => x.id === id ? { ...x, [key]: value } : x));
-  }
-
-  function addTalent(roleId: string) {
-    setRoles(r => r.map(role => role.id === roleId ? {
-      ...role,
-      talents: [...role.talents, {
-        id: crypto.randomUUID(),
-        name: "New Talent",
-        stage: "option",
-      }],
-    } : role));
-  }
-
-  function updateTalent(roleId: string, talentId: string, patch: Partial<Talent>) {
-    setRoles(r => r.map(role => role.id === roleId ? {
-      ...role,
-      talents: role.talents.map(t => t.id === talentId ? { ...t, ...patch } : t),
-    } : role));
-  }
-
-  function removeTalent(roleId: string, talentId: string) {
-    setRoles(r => r.map(role => role.id === roleId ? {
-      ...role,
-      talents: role.talents.filter(t => t.id !== talentId),
-    } : role));
-  }
-
-  function parseCSV(text: string): Talent[] {
-    const rows = text.trim().split(/\r?\n/).filter(Boolean);
-    if (rows.length === 0) return [];
-
-    // detect header
-    const first = rows[0].split(",").map(s => s.trim().toLowerCase());
-    const looksLikeHeader = ["name", "profileurl", "imageurl", "notes", "stage"].some(h => first.includes(h));
-
-    const start = looksLikeHeader ? 1 : 0;
-    const toStage = (s: string): StageKey => {
-      const v = s?.trim().toLowerCase();
-      const hit = STAGES.find(x => x.key === v);
-      return (hit?.key ?? "option") as StageKey;
-    };
-
-    const mapRow = (line: string) => {
-      // naive CSV split; good enough for simple pastes
-      const parts = line.split(",").map(s => s.trim());
-      const [c0, c1, c2, c3, c4] = parts;
-      let name = c0, profileUrl = c1, imageUrl = c2, notes = c3, stage = c4;
-      if (looksLikeHeader) {
-        // if header existed, rely on position
-      }
-      return {
-        id: crypto.randomUUID(),
-        name: name || "",
-        profileUrl: profileUrl || "",
-        imageUrl: imageUrl || "",
-        notes: notes || "",
-        stage: toStage(stage || "option"),
-      } as Talent;
-    };
-
-    return rows.slice(start).map(mapRow).filter(t => t.name);
-  }
-
-  function handleCSVImport(roleId: string, csv: string) {
-    const list = parseCSV(csv);
-    setRoles(r => r.map(role => role.id === roleId ? { ...role, talents: [...role.talents, ...list] } : role));
-  }
-
-  function printPDF() {
-    window.print();
-  }
-
-  const StageBadge: React.FC<{ stage: StageKey }> = ({ stage }) => (
-    <span className="text-[11px] rounded-full px-2 py-0.5 border border-black/10">
-      {STAGES.find(s => s.key === stage)?.label}
-    </span>
-  );
-
-  const HeaderBrand = () => (
-    <div className="flex items-center gap-3">
-      {brand.logoUrl ? (
-        <img src={brand.logoUrl} alt="Logo" className="h-8 w-auto rounded" />
-      ) : null}
-      {brand.useWordmark && (
-        <div className="leading-tight">
-          <div className="tracking-[0.2em] text-xl font-black">{brand.wordmark}</div>
-          {brand.subtitle ? <div className="text-xs opacity-70">{brand.subtitle}</div> : null}
+</style>
+</head>
+<body>
+  <div class="max stack">
+    <div class="between">
+      <div class="logo">
+        <div class="mark">S</div>
+        <div>
+          <div style="letter-spacing:.18em;font-weight:900;">SELFCAST</div>
+          <div class="muted">Casting Made Easy</div>
         </div>
-      )}
+      </div>
+      <div class="no-print">
+        <button class="btn" id="btn-print">Download PDF</button>
+      </div>
     </div>
-  );
 
-  const Presentation: React.FC = () => (
-    <div ref={printRef} className="bg-white text-black">
-      {/* Cover */}
-      <section className="min-h-[75vh] p-10 flex flex-col justify-between print:break-after-page">
-        <div className="flex justify-between items-start">
-          <HeaderBrand />
-          <div className="text-right text-sm opacity-60">
-            <div>{new Date().toLocaleDateString()}</div>
+    <!-- Builder -->
+    <div class="card stack no-print">
+      <h2>Builder</h2>
+      <div class="row">
+        <div>
+          <label>Logo URL (optional)</label>
+          <input id="brandLogo" placeholder="https://…/logo.png"/>
+        </div>
+        <div>
+          <label>Wordmark text</label>
+          <input id="brandWordmark" value="SELFCAST"/>
+        </div>
+      </div>
+      <div class="row">
+        <div>
+          <label>Subtitle</label>
+          <input id="brandSubtitle" value="Casting Made Easy"/>
+        </div>
+        <div>
+          <label>Show wordmark</label>
+          <select id="brandShow">
+            <option value="1" selected>Yes</option>
+            <option value="0">No</option>
+          </select>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="row-3">
+        <div>
+          <label>Contact person</label>
+          <input id="contactPerson" placeholder="Maria Christina"/>
+        </div>
+        <div>
+          <label>Email</label>
+          <input id="contactEmail" placeholder="info@selfcast.com"/>
+        </div>
+        <div>
+          <label>Phone</label>
+          <input id="contactPhone" placeholder="+45 …"/>
+        </div>
+      </div>
+    </div>
+
+    <!-- Roles -->
+    <div id="rolesWrap" class="stack no-print"></div>
+    <div class="no-print">
+      <button class="btn" id="btn-add-role">+ Add role</button>
+    </div>
+
+    <!-- Preview -->
+    <div id="preview" class="stack"></div>
+  </div>
+
+<script>
+(() => {
+  const STAGES = [
+    { key:"option", label:"Option" },
+    { key:"in review", label:"In review" },
+    { key:"shortlisted", label:"Shortlisted" },
+    { key:"in dialog", label:"In dialog" },
+    { key:"booked", label:"Booked" },
+  ];
+
+  const state = {
+    brand: { logoUrl:"", wordmark:"SELFCAST", subtitle:"Casting Made Easy", showWordmark:true },
+    contact: { person:"", email:"", phone:"" },
+    roles: [
+      { title:"Mother and daughter",
+        roleUrl:"https://producer.selfcast.com/production/175e757e-470c-4367-b674-c588f44f18d8/role/ef4e98c5-09ca-48ef-9cd2-35ff87a883e4",
+        hero:"", filter:"all", talents:[] },
+      { title:"Couple age 65+",
+        roleUrl:"https://producer.selfcast.com/production/175e757e-470c-4367-b674-c588f44f18d8/role/59f7f37c-e20f-4662-b992-7e2af363a849",
+        hero:"", filter:"all", talents:[] },
+      { title:"Men age 20–30",
+        roleUrl:"https://producer.selfcast.com/production/175e757e-470c-4367-b674-c588f44f18d8/role/20c3c9d1-65a0-4fb1-88cb-aa1fc3bcaf58",
+        hero:"", filter:"all", talents:[] },
+    ],
+    showHow:true,
+  };
+
+  // Bind brand/contact inputs
+  const id = s => document.getElementById(s);
+  id('brandLogo').addEventListener('input', e => { state.brand.logoUrl = e.target.value; render(); });
+  id('brandWordmark').addEventListener('input', e => { state.brand.wordmark = e.target.value; render(); });
+  id('brandSubtitle').addEventListener('input', e => { state.brand.subtitle = e.target.value; render(); });
+  id('brandShow').addEventListener('change', e => { state.brand.showWordmark = e.target.value === "1"; render(); });
+  id('contactPerson').addEventListener('input', e => { state.contact.person = e.target.value; render(); });
+  id('contactEmail').addEventListener('input', e => { state.contact.email = e.target.value; render(); });
+  id('contactPhone').addEventListener('input', e => { state.contact.phone = e.target.value; render(); });
+
+  // Roles UI
+  const rolesWrap = id('rolesWrap');
+  const preview = id('preview');
+
+  function roleCard(role, index){
+    const wrap = document.createElement('div');
+    wrap.className = 'card stack';
+    wrap.innerHTML = `
+      <div class="between">
+        <h3>Role #${index+1}</h3>
+        <button class="btn secondary" data-action="remove">Remove</button>
+      </div>
+      <div class="row">
+        <div>
+          <label>Role title</label>
+          <input data-key="title" value="${escapeHtml(role.title)}"/>
+        </div>
+        <div>
+          <label>Role link (producer.selfcast.com/.../role/...)</label>
+          <input data-key="roleUrl" value="${escapeHtml(role.roleUrl||'')}"/>
+        </div>
+      </div>
+      <div class="row">
+        <div>
+          <label>Hero image URL (optional)</label>
+          <input data-key="hero" value="${escapeHtml(role.hero||'')}" placeholder="Paste the top image URL from the role page"/>
+        </div>
+        <div>
+          <label>Stage filter</label>
+          <select data-key="filter">
+            <option value="all" ${role.filter==='all'?'selected':''}>All stages</option>
+            ${STAGES.map(s=>`<option value="${s.key}" ${role.filter===s.key?'selected':''}>${s.label}</option>`).join('')}
+          </select>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="row">
+        <div class="stack">
+          <strong>Add / edit talents</strong>
+          <div class="stack" data-zone="talents"></div>
+          <button class="btn secondary" data-action="add-talent">+ Add talent</button>
+        </div>
+        <div class="stack">
+          <strong>Bulk import (CSV)</strong>
+          <textarea placeholder="name, profileUrl, imageUrl, notes, stage&#10;Jane Doe, https://producer.selfcast.com/talent/xxxx, https://…/jane.jpg, Great smile, Shortlisted"></textarea>
+          <div class="muted">Tip: paste rows from a spreadsheet. Stage: option | in review | shortlisted | in dialog | booked</div>
+          <button class="btn secondary" data-action="import">Import CSV</button>
+        </div>
+      </div>
+    `;
+    // Wire up events
+    wrap.querySelectorAll('input[data-key], select[data-key]').forEach(el=>{
+      el.addEventListener('input', e=>{
+        const key = el.getAttribute('data-key');
+        role[key] = el.value;
+        render();
+      });
+      el.addEventListener('change', e=>{
+        const key = el.getAttribute('data-key');
+        role[key] = el.value;
+        render();
+      });
+    });
+    wrap.querySelector('[data-action="remove"]').addEventListener('click', ()=>{
+      state.roles.splice(index,1); render();
+    });
+    wrap.querySelector('[data-action="add-talent"]').addEventListener('click', ()=>{
+      role.talents.push({ name:'New Talent', profileUrl:'', imageUrl:'', notes:'', stage:'option' });
+      render();
+    });
+    wrap.querySelector('[data-action="import"]').addEventListener('click', ()=>{
+      const ta = wrap.querySelector('textarea');
+      const list = parseCSV(ta.value);
+      role.talents.push(...list);
+      ta.value = '';
+      render();
+    });
+    // talents list
+    const zone = wrap.querySelector('[data-zone="talents"]');
+    role.talents.forEach((t,i)=>{
+      const row = document.createElement('div');
+      row.className = 'row';
+      row.style.alignItems = 'center';
+      row.innerHTML = `
+        <input placeholder="Name" value="${escapeHtml(t.name||'')}" data-t="${i}" data-k="name"/>
+        <input placeholder="Profile URL" value="${escapeHtml(t.profileUrl||'')}" data-t="${i}" data-k="profileUrl"/>
+        <input placeholder="Image URL" value="${escapeHtml(t.imageUrl||'')}" data-t="${i}" data-k="imageUrl"/>
+        <select data-t="${i}" data-k="stage">
+          ${STAGES.map(s=>`<option value="${s.key}" ${t.stage===s.key?'selected':''}>${s.label}</option>`).join('')}
+        </select>
+        <input placeholder="Notes" value="${escapeHtml(t.notes||'')}" data-t="${i}" data-k="notes"/>
+        <button class="btn secondary" data-action="del" data-t="${i}">Remove</button>
+      `;
+      row.querySelectorAll('input, select').forEach(el=>{
+        el.addEventListener('input', ()=>{
+          const ti = +el.getAttribute('data-t'); const k = el.getAttribute('data-k');
+          role.talents[ti][k] = el.value; render();
+        });
+        el.addEventListener('change', ()=>{
+          const ti = +el.getAttribute('data-t'); const k = el.getAttribute('data-k');
+          role.talents[ti][k] = el.value; render();
+        });
+      });
+      row.querySelector('[data-action="del"]').addEventListener('click', ()=>{
+        const ti = +row.querySelector('[data-action="del"]').getAttribute('data-t');
+        role.talents.splice(ti,1); render();
+      });
+      zone.appendChild(row);
+    });
+    return wrap;
+  }
+
+  function renderBuilder(){
+    rolesWrap.innerHTML = '';
+    state.roles.forEach((r,i)=> rolesWrap.appendChild(roleCard(r,i)));
+  }
+
+  // Presentation
+  function cover(){
+    const b = state.brand, c = state.contact;
+    const box = document.createElement('section');
+    box.className = 'sheet';
+    box.innerHTML = `
+      <div class="pad">
+        <div class="between" style="align-items:flex-start;">
+          <div class="logo" style="color:#111">
+            ${b.logoUrl ? `<img src="${escapeHtml(b.logoUrl)}" alt="Logo" style="height:40px;border-radius:8px;border:1px solid #eee"/>` : `<div class="mark" style="background:${getComputedStyle(document.documentElement).getPropertyValue('--accent')};color:#fff">S</div>`}
+            ${b.showWordmark ? `<div><div style="letter-spacing:.18em;font-weight:900">${escapeHtml(b.wordmark||'SELFCAST')}</div><div style="color:#6b7280;font-size:12px">${escapeHtml(b.subtitle||'')}</div></div>` : ``}
+          </div>
+          <div style="text-align:right;color:#6b7280;font-size:12px">
+            <div>${new Date().toLocaleDateString()}</div>
             <div>Role Presentation</div>
           </div>
         </div>
-        <div className="mt-16">
-          <h1 className="text-4xl font-extrabold mb-2">Selected Roles</h1>
-          <p className="text-lg opacity-80">Auto-generated from Selfcast role links.</p>
-          <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4">
-            {roles.map(r => (
-              <Card key={r.id} className="rounded-2xl shadow-sm border-black/10">
-                <CardHeader>
-                  <CardTitle className="text-base">{r.title}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="text-xs break-all opacity-70">
-                    <LinkIcon className="inline h-3 w-3 mr-1" />{r.roleUrl}
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
+        <div style="margin-top:40px">
+          <h1 style="font-size:34px;font-weight:900;margin:0 0 8px">Selected Roles</h1>
+          <div style="color:#6b7280">Auto-generated from Selfcast role links.</div>
+          <div class="grid g-3" style="margin-top:24px">
+            ${state.roles.map(r=>`
+              <div style="border:1px solid var(--line);border-radius:14px;padding:12px;background:#fff">
+                <div style="font-weight:700">${escapeHtml(r.title)}</div>
+                <div class="small" style="word-break:break-all;margin-top:6px">${escapeHtml(r.roleUrl||'')}</div>
+              </div>
+            `).join('')}
           </div>
         </div>
-        <div className="text-sm opacity-70">
-          <Separator className="my-4" />
-          <div>Contact: {contact.person || "—"} {contact.email ? `· ${contact.email}` : ""} {contact.phone ? `· ${contact.phone}` : ""}</div>
-        </div>
-      </section>
-
-      {/* Per-role pages */}
-      {roles.map((role, idx) => {
-        const talents = role.stageFilter === "all" ? role.talents : role.talents.filter(t => t.stage === role.stageFilter);
-        return (
-          <section key={role.id} className="p-10 print:break-after-page">
-            <div className="flex items-start justify-between">
-              <div>
-                <h2 className="text-3xl font-extrabold">{role.title}</h2>
-                <div className="text-sm opacity-70 break-all flex items-center gap-2 mt-1">
-                  <LinkIcon className="h-3 w-3" />
-                  <a href={role.roleUrl} target="_blank" rel="noreferrer" className="underline">Open role</a>
-                </div>
-              </div>
-              <div className="text-sm opacity-70 flex items-center gap-2">
-                <Filter className="h-4 w-4" />
-                <span>
-                  Showing: <strong>{role.stageFilter === "all" ? "All stages" : STAGES.find(s => s.key === role.stageFilter)?.label}</strong>
-                </span>
-              </div>
-            </div>
-
-            {role.heroImageUrl ? (
-              <img src={role.heroImageUrl} alt="Role hero" className="mt-6 w-full h-64 object-cover rounded-2xl border border-black/10" />
-            ) : null}
-
-            <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-              {talents.length === 0 ? (
-                <div className="col-span-full text-center opacity-60">No talents added yet.</div>
-              ) : talents.map(t => (
-                <motion.div key={t.id} layout initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }}>
-                  <Card className="rounded-2xl overflow-hidden border-black/10">
-                    {t.imageUrl ? (
-                      <img src={t.imageUrl} alt={t.name} className="w-full h-56 object-cover" />
-                    ) : (
-                      <div className="w-full h-56 bg-black/5 flex items-center justify-center text-sm">No image</div>
-                    )}
-                    <CardContent className="p-4">
-                      <div className="flex items-start justify-between gap-3">
-                        <div>
-                          <div className="font-semibold leading-tight">{t.name}</div>
-                          {t.notes ? <div className="text-xs opacity-70 mt-0.5">{t.notes}</div> : null}
-                        </div>
-                        <StageBadge stage={t.stage} />
-                      </div>
-                      {t.profileUrl ? (
-                        <a href={t.profileUrl} target="_blank" rel="noreferrer" className="text-xs underline inline-flex items-center gap-1 mt-2">
-                          <LinkIcon className="h-3 w-3" /> Open profile
-                        </a>
-                      ) : null}
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              ))}
-            </div>
-          </section>
-        );
-      })}
-
-      {showHowItWorks && (
-        <section className="p-10 print:break-after-page">
-          <h2 className="text-3xl font-extrabold mb-6">THIS IS HOW IT WORKS!</h2>
-          <div className="space-y-3 text-[15px] leading-6">
-            <p><strong>When you click Decline</strong><br/>The Talents receive a message that they are not selected and they disappear from your list.</p>
-            <p><strong>When you click Requested videos/photos next to the Talents</strong><br/>You can view videos and images uploaded for this specific job. It could be a monologue, a new presentation or pictures showing how the Talent looks like right now...</p>
-            <p><strong>When you click on the Talent's picture</strong><br/>You can see the Talent's profile and information.</p>
-            <p><strong>Add to Shortlist</strong><br/>Shortlist the Talents you want to pass on in the process. You can also choose to book a Talent. We can see in our system that the talent has been passed on. If you need to present the Talents to others, you can share the URL of all the Talents or a specific talent by sharing the URL of the Talent profile.</p>
-            <p><strong>Selection of talents</strong></p>
-          </div>
-          <Separator className="my-6" />
-          <div className="text-sm opacity-80">
-            <div>If you need assistance:</div>
-            <div>
-              Contact {contact.person || "Selfcast"}
-              {contact.email ? ` · ${contact.email}` : ""}
-              {contact.phone ? ` · ${contact.phone}` : ""}
-            </div>
-          </div>
-        </section>
-      )}
-    </div>
-  );
-
-  return (
-    <div className="mx-auto max-w-6xl p-6 space-y-8">
-      <div className="flex items-start justify-between gap-6">
-        <HeaderBrand />
-        <div className="flex items-center gap-2">
-          <Button onClick={printPDF} className="rounded-2xl"><Download className="h-4 w-4 mr-2"/>Download PDF</Button>
+        <div style="margin-top:28px;border-top:1px solid var(--line);padding-top:10px;color:#6b7280;font-size:12px">
+          Contact: ${escapeHtml(c.person||'—')}${c.email?` · ${escapeHtml(c.email)}`:''}${c.phone?` · ${escapeHtml(c.phone)}`:''}
         </div>
       </div>
+    `;
+    return box;
+  }
 
-      <Tabs defaultValue="builder">
-        <TabsList className="grid grid-cols-3 w-full">
-          <TabsTrigger value="builder">Builder</TabsTrigger>
-          <TabsTrigger value="preview">Preview</TabsTrigger>
-          <TabsTrigger value="help">Help</TabsTrigger>
-        </TabsList>
-
-        {/* Builder */}
-        <TabsContent value="builder" className="space-y-8">
-          <Card className="rounded-2xl">
-            <CardHeader>
-              <CardTitle>Brand</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-3">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-                <div className="md:col-span-2">
-                  <label className="text-sm">Logo URL (optional)</label>
-                  <Input placeholder="https://…/logo.png" value={brand.logoUrl} onChange={e => setBrand({ ...brand, logoUrl: e.target.value })} />
-                </div>
-                <div className="flex items-center gap-3 mt-6 md:mt-0">
-                  <Switch checked={brand.useWordmark} onCheckedChange={v => setBrand({ ...brand, useWordmark: v })} />
-                  <span className="text-sm">Show wordmark</span>
-                </div>
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                <div>
-                  <label className="text-sm">Wordmark text</label>
-                  <Input value={brand.wordmark} onChange={e => setBrand({ ...brand, wordmark: e.target.value })} />
-                </div>
-                <div>
-                  <label className="text-sm">Subtitle</label>
-                  <Input value={brand.subtitle} onChange={e => setBrand({ ...brand, subtitle: e.target.value })} />
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="rounded-2xl">
-            <CardHeader>
-              <CardTitle>Contact</CardTitle>
-            </CardHeader>
-            <CardContent className="grid grid-cols-1 md:grid-cols-3 gap-3">
-              <div>
-                <label className="text-sm">Contact person</label>
-                <Input value={contact.person} onChange={e => setContact({ ...contact, person: e.target.value })} />
-              </div>
-              <div>
-                <label className="text-sm">Email</label>
-                <Input value={contact.email} onChange={e => setContact({ ...contact, email: e.target.value })} />
-              </div>
-              <div>
-                <label className="text-sm">Phone</label>
-                <Input value={contact.phone} onChange={e => setContact({ ...contact, phone: e.target.value })} />
-              </div>
-            </CardContent>
-          </Card>
-
-          <div className="space-y-6">
-            {roles.map((role, idx) => (
-              <Card key={role.id} className="rounded-2xl">
-                <CardHeader className="flex flex-row items-center justify-between">
-                  <CardTitle className="w-full">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3 items-center">
-                      <Input value={role.title} onChange={e => updateRole(role.id, "title", e.target.value)} />
-                      <div className="flex gap-3">
-                        <Input placeholder="Role link (producer.selfcast.com/…)" value={role.roleUrl || ""} onChange={e => updateRole(role.id, "roleUrl", e.target.value)} />
-                        <a className="text-sm underline whitespace-nowrap flex items-center" href={role.roleUrl} target="_blank" rel="noreferrer">Open</a>
-                      </div>
-                    </div>
-                  </CardTitle>
-                  <Button variant="ghost" onClick={() => removeRole(role.id)}><Trash2 className="h-4 w-4"/></Button>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-3 items-center">
-                    <div className="md:col-span-2">
-                      <label className="text-sm">Hero image URL (optional)</label>
-                      <Input placeholder="Paste role header image URL (top of the role page)" value={role.heroImageUrl || ""} onChange={e => updateRole(role.id, "heroImageUrl", e.target.value)} />
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Filter className="h-4 w-4"/>
-                      <select className="border rounded-md px-2 py-2 text-sm" value={role.stageFilter} onChange={e => updateRole(role.id, "stageFilter", e.target.value as any)}>
-                        <option value="all">Show: All stages</option>
-                        {STAGES.map(s => <option key={s.key} value={s.key}>Show: {s.label}</option>)}
-                      </select>
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                    <div className="space-y-2">
-                      <div className="text-sm font-medium">Add / edit talents</div>
-                      <div className="space-y-3 max-h-[360px] overflow-auto pr-1">
-                        {role.talents.map(t => (
-                          <div key={t.id} className="grid grid-cols-12 gap-2 items-center">
-                            <Input className="col-span-3" placeholder="Name" value={t.name} onChange={e => updateTalent(role.id, t.id, { name: e.target.value })} />
-                            <Input className="col-span-4" placeholder="Profile URL" value={t.profileUrl || ""} onChange={e => updateTalent(role.id, t.id, { profileUrl: e.target.value })} />
-                            <Input className="col-span-4" placeholder="Image URL" value={t.imageUrl || ""} onChange={e => updateTalent(role.id, t.id, { imageUrl: e.target.value })} />
-                            <select className="col-span-1 border rounded-md px-2 py-2 text-xs" value={t.stage} onChange={e => updateTalent(role.id, t.id, { stage: e.target.value as StageKey })}>
-                              {STAGES.map(s => <option key={s.key} value={s.key}>{s.label}</option>)}
-                            </select>
-                            <Input className="col-span-9" placeholder="Notes (optional)" value={t.notes || ""} onChange={e => updateTalent(role.id, t.id, { notes: e.target.value })} />
-                            <Button variant="ghost" className="col-span-3" onClick={() => removeTalent(role.id, t.id)}><Trash2 className="h-4 w-4 mr-1"/>Remove</Button>
-                          </div>
-                        ))}
-                      </div>
-                      <Button onClick={() => addTalent(role.id)} className="rounded-2xl mt-2"><Plus className="h-4 w-4 mr-2"/>Add talent</Button>
-                    </div>
-
-                    <div className="space-y-2">
-                      <div className="text-sm font-medium">Bulk import (CSV)</div>
-                      <Textarea placeholder={`name, profileUrl, imageUrl, notes, stage\nJane Doe, https://producer.selfcast.com/talent/xxxx, https://…/jane.jpg, Great smile, Shortlisted`} rows={10} onBlur={(e) => handleCSVImport(role.id, e.target.value)} />
-                      <div className="text-xs opacity-70">Tip: paste a CSV exported from your role list, or build it quickly by copying rows from a spreadsheet.</div>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-            <Button onClick={addRole} className="rounded-2xl"><Plus className="h-4 w-4 mr-2"/>Add role</Button>
+  function roleSheet(role){
+    const page = document.createElement('section');
+    page.className = 'sheet';
+    const list = (role.filter==='all') ? role.talents : role.talents.filter(t=>t.stage===role.filter);
+    page.innerHTML = `
+      <div class="pad">
+        <div class="between">
+          <div>
+            <h2 style="font-size:28px;font-weight:900">${escapeHtml(role.title)}</h2>
+            ${role.roleUrl?`<a class="small-link" href="${escapeHtml(role.roleUrl)}" target="_blank" rel="noreferrer">Open role</a>`:''}
           </div>
-        </TabsContent>
+          <div class="small" style="color:#6b7280">Showing: <strong>${role.filter==='all'?'All stages':(STAGES.find(s=>s.key===role.filter)||{}).label}</strong></div>
+        </div>
+        ${role.hero?`<img class="hero" src="${escapeHtml(role.hero)}" alt="Role hero"/>`:''}
+        <div class="cards g-4" style="margin-top:18px">
+          ${list.length? list.map(t=>`
+            <div class="tcard">
+              ${t.imageUrl?`<img class="timg" src="${escapeHtml(t.imageUrl)}" alt="${escapeHtml(t.name)}">`:`<div class="timg" style="display:grid;place-items:center;color:#9aa">No image</div>`}
+              <div class="tbody">
+                <div class="between">
+                  <div>
+                    <div class="name">${escapeHtml(t.name||'')}</div>
+                    ${t.notes?`<div class="small" style="margin-top:2px">${escapeHtml(t.notes)}</div>`:''}
+                  </div>
+                  <span class="badge">${(STAGES.find(s=>s.key===t.stage)||{}).label||'Option'}</span>
+                </div>
+                ${t.profileUrl?`<a class="small-link" href="${escapeHtml(t.profileUrl)}" target="_blank" rel="noreferrer" style="margin-top:6px;display:inline-block">Open profile</a>`:''}
+              </div>
+            </div>
+          `).join('') : `<div class="small" style="color:#6b7280">No talents added yet.</div>`}
+        </div>
+      </div>
+    `;
+    return page;
+  }
 
-        {/* Preview */}
-        <TabsContent value="preview">
-          <Presentation />
-        </TabsContent>
+  function howItWorks(){
+    const c = state.contact;
+    const sec = document.createElement('section');
+    sec.className = 'sheet';
+    sec.innerHTML = `
+      <div class="pad">
+        <h2 style="font-size:28px;font-weight:900;margin-bottom:10px">THIS IS HOW IT WORKS!</h2>
+        <div style="font-size:15px;line-height:1.6;color:#111">
+          <p><strong>When you click Decline</strong><br/>The Talents receive a message that they are not selected and they disappear from your list.</p>
+          <p><strong>When you click Requested videos/photos next to the Talents</strong><br/>You can view videos and images uploaded for this specific job. It could be a monologue, a new presentation or pictures showing how the Talent looks like right now...</p>
+          <p><strong>When you click on the Talent's picture</strong><br/>You can see the Talent's profile and information.</p>
+          <p><strong>Add to Shortlist</strong><br/>Shortlist the Talents you want to pass on in the process. You can also choose to book a Talent. We can see in our system that the talent has been passed on. If you need to present the Talents to others, you can share the URL of all the Talents or a specific talent by sharing the URL of the Talent profile.</p>
+          <p><strong>Selection of talents</strong></p>
+        </div>
+        <div style="margin-top:18px;border-top:1px solid var(--line);padding-top:10px;color:#111">
+          <div style="font-size:14px">If you need assistance:</div>
+          <div class="small" style="margin-top:4px;color:#6b7280">
+            Contact ${escapeHtml(c.person||'Selfcast')}${c.email?` · ${escapeHtml(c.email)}`:''}${c.phone?` · ${escapeHtml(c.phone)}`:''}
+          </div>
+        </div>
+      </div>
+    `;
+    return sec;
+  }
 
-        {/* Help */}
-        <TabsContent value="help" className="prose max-w-none">
-          <h2>How to use</h2>
-          <ol>
-            <li>Paste your <strong>Role link</strong> (producer.selfcast.com/…/role/…).</li>
-            <li>(Optional) Paste a <strong>Hero image URL</strong> — you can copy the top image URL from the Role page.</li>
-            <li>Import talents via <strong>CSV</strong> or add them manually. Use stages: Option, In review, Shortlisted, In dialog, Booked.</li>
-            <li>Go to <strong>Preview</strong> to see the presentation pages.</li>
-            <li>Click <strong>Download PDF</strong> (uses your browser’s Print to PDF).</li>
-          </ol>
-          <h3>Branding</h3>
-          <p>Either paste a <strong>Logo URL</strong> or toggle the wordmark. Default wordmark is “SELFCAST”.</p>
-          <h3>Contact block</h3>
-          <p>Fill in contact person, email and phone — shown on cover + final slide.</p>
-        </TabsContent>
-      </Tabs>
+  function render(){
+    // Builder list
+    renderBuilder();
+    // Preview pages
+    preview.innerHTML = '';
+    preview.appendChild(cover());
+    state.roles.forEach(r => preview.appendChild(roleSheet(r)));
+    if(state.showHow) preview.appendChild(howItWorks());
+  }
 
-      <style>{`
-        /* Print optimizations */
-        @media print {
-          @page { margin: 16mm; }
-          html, body { background: white; }
-          button, [role="tablist"], .shadcn-no-print { display: none !important; }
-          .print\\:break-after-page { break-after: page; }
-        }
-      `}</style>
-    </div>
-  );
-}
+  // Utils
+  function parseCSV(text){
+    const rows = text.split(/\r?\n/).map(r=>r.trim()).filter(Boolean);
+    if(!rows.length) return [];
+    const first = rows[0].toLowerCase().split(',').map(x=>x.trim());
+    const hasHeader = ['name','profileurl','imageurl','notes','stage'].some(h=>first.includes(h));
+    const start = hasHeader?1:0;
+    const normStage = s=>{
+      s = (s||'').toLowerCase().trim();
+      const hit = STAGES.find(x=>x.key===s);
+      return hit?hit.key:'option';
+    };
+    const out = [];
+    for(let i=start;i<rows.length;i++){
+      const parts = rows[i].split(',').map(s=>s.trim());
+      const [c0,c1,c2,c3,c4] = parts;
+      out.push({
+        name:c0||'',
+        profileUrl:c1||'',
+        imageUrl:c2||'',
+        notes:c3||'',
+        stage:normStage(c4||'option')
+      });
+    }
+    return out.filter(x=>x.name);
+  }
+  function escapeHtml(s){ return (s||'').replace(/[&<>\"']/g, m=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',\"'\":'&#39;' }[m])); }
 
+  // Add role button
+  id('btn-add-role').addEventListener('click', ()=>{
+    state.roles.push({ title:'New role', roleUrl:'', hero:'', filter:'all', talents:[] });
+    render();
+  });
+  // Print
+  id('btn-print').addEventListener('click', ()=> window.print());
+
+  render();
+})();
+</script>
+</body>
+</html>
