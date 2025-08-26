@@ -1,37 +1,61 @@
 (() => {
+  const STORAGE_KEY = "sc_deckroles_project_v1";
+
   // ----------------- State -----------------
-  const state = {
+  const defaultState = {
     projectName: "Untitled",
     brand: { logoUrl:"", wordmark:"SELFCAST", subtitle:"CASTING MADE EASY", showWordmark:true },
     contact: { person:"", email:"", phone:"" },
-    roles: [
-      { title:"", roleUrl:"", hero:"" },
-    ],
+    roles: [{ title:"", roleUrl:"", hero:"" }],
     showHow: true,
   };
+  let state = load() || defaultState;
 
   // --------------- Utilities ----------------
   const $ = (id) => document.getElementById(id);
   const esc = (s) => (s||"").replace(/[&<>"']/g,m=>({ "&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;" }[m]));
-  const setStatus = (msg) => { console.log(msg); };
+  const setStatus = (msg) => { const el=$('save-status'); if(el){ el.textContent = msg; } };
 
-  // Pack/unpack for share links
-  function pack(obj){
-    const json = JSON.stringify(obj);
-    return btoa(unescape(encodeURIComponent(json))); // UTF-8 safe base64
-  }
-  function makeShareUrl(){
-    const data = pack({
+  function snapshot(){
+    return {
       projectName: state.projectName,
       brand: state.brand,
       contact: state.contact,
       roles: state.roles,
       showHow: state.showHow
-    });
+    };
+  }
+  function save(manual=false){
+    try{
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(snapshot()));
+      setStatus(manual ? "Saved ✓" : "Autosaved");
+    }catch(e){ setStatus("Save failed"); }
+  }
+  function load(){
+    try{
+      const raw = localStorage.getItem(STORAGE_KEY);
+      return raw ? JSON.parse(raw) : null;
+    }catch{ return null; }
+  }
+
+  function pack(obj){
+    const json = JSON.stringify(obj);
+    return btoa(unescape(encodeURIComponent(json)));
+  }
+  function makeShareUrl(){
+    const data = pack(snapshot());
     return `${location.origin}/view/?d=${data}`;
   }
 
-  // --------------- Inputs (brand/contact) ---------------
+  // --------------- Wire inputs ---------------
+  $('brandLogo').value = state.brand.logoUrl;
+  $('brandWordmark').value = state.brand.wordmark;
+  $('brandSubtitle').value = state.brand.subtitle;
+  $('brandShow').value = state.brand.showWordmark ? "1" : "0";
+  $('contactPerson').value = state.contact.person;
+  $('contactEmail').value = state.contact.email;
+  $('contactPhone').value = state.contact.phone;
+
   $('brandLogo').addEventListener('input', e => { state.brand.logoUrl = e.target.value; render(); });
   $('brandWordmark').addEventListener('input', e => { state.brand.wordmark = e.target.value; render(); });
   $('brandSubtitle').addEventListener('input', e => { state.brand.subtitle = e.target.value; render(); });
@@ -83,8 +107,8 @@
 
     wrap.querySelectorAll('input[data-k]').forEach(inp=>{
       inp.addEventListener('input', ()=>{
-        const k = inp.getAttribute('data-k');
-        role[k] = inp.value; render();
+        role[inp.getAttribute('data-k')] = inp.value;
+        render();
       });
     });
     wrap.querySelector('#projName').addEventListener('input', e=>{
@@ -132,15 +156,16 @@
 
   // --------------- Top bar buttons ----------------
   $('btn-print').addEventListener('click', ()=> window.print());
-
   $('btn-share').addEventListener('click', async ()=>{
     const url = makeShareUrl();
     try{ await navigator.clipboard.writeText(url); setStatus('Share link copied'); }
     catch{ prompt('Copy this link:', url); }
   });
-
   $('btn-open-share').addEventListener('click', (e)=>{
     e.currentTarget.href = makeShareUrl();
+  });
+  $('btn-save').addEventListener('click', ()=>{
+    save(true);
   });
 
   // --------------- Presentation builders ----------------
@@ -162,7 +187,6 @@
         </div>
       </div>
     `;
-    // also update small wordmark in the black topbar for nice UX
     const wmSmall = document.getElementById('wm-small');
     if (wmSmall) wmSmall.textContent = b.showWordmark ? (b.wordmark || 'SELFCAST') : '';
     return sec;
@@ -209,7 +233,7 @@
   }
 
   function render(){
-    // rebuild editor list
+    // editor
     rolesWrap.innerHTML = '';
     state.roles.forEach((r,i)=> rolesWrap.appendChild(roleEditor(r,i)));
 
@@ -219,6 +243,9 @@
     preview.appendChild(cover());
     if (state.showHow) preview.appendChild(howItWorks());
     preview.appendChild(rolesGrid());
+
+    // autosave on every render
+    save(false);
   }
 
   // Initial paint
