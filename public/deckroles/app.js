@@ -29,6 +29,7 @@
   const preview    = id('preview');
   const selProject = id('projectSelect');
   const inpPName   = id('projectName');
+  const saveStatus = id('saveStatus');
 
   // ---------- Bind brand/contact ----------
   bindInput('brandLogo',     (v)=> state.brand.logoUrl  = v);
@@ -41,21 +42,24 @@
 
   function bindInput(elId, setter){
     const el = id(elId); if(!el) return;
-    el.addEventListener('input', e => { setter(e.target.value); render(); });
+    el.addEventListener('input', e => { setter(e.target.value); render(); autosaveTick(); });
   }
   function bindSelect(elId, setter){
     const el = id(elId); if(!el) return;
-    el.addEventListener('change', e => { setter(e.target.value); render(); });
+    el.addEventListener('change', e => { setter(e.target.value); render(); autosaveTick(); });
   }
 
-  // ---------- Roles UI (simple) ----------
+  // ---------- Roles UI ----------
   function roleCard(role, index){
     const wrap = document.createElement('div');
     wrap.className = 'card stack';
     wrap.innerHTML = `
       <div class="between">
         <h3>Role #${index+1}</h3>
-        <button class="btn secondary" data-action="remove">Remove</button>
+        <div class="stack" style="flex-direction:row;gap:8px">
+          <button class="btn secondary" data-action="autofill">Auto-fill</button>
+          <button class="btn secondary" data-action="remove">Remove</button>
+        </div>
       </div>
       <div class="row">
         <div>
@@ -74,15 +78,35 @@
         </div>
       </div>
     `;
+
     // events
     wrap.querySelectorAll('input[data-key]').forEach(el=>{
       el.addEventListener('input', ()=>{
-        role[el.getAttribute('data-key')] = el.value; render();
+        role[el.getAttribute('data-key')] = el.value; render(); autosaveTick();
       });
     });
     wrap.querySelector('[data-action="remove"]').addEventListener('click', ()=>{
-      state.roles.splice(index,1); render();
+      state.roles.splice(index,1); render(); autosaveTick();
     });
+    wrap.querySelector('[data-action="autofill"]').addEventListener('click', async ()=>{
+      const url = role.roleUrl?.trim();
+      if(!url){ alert("Add a role URL first."); return; }
+      try{
+        const q = "/api/rolemeta?url=" + encodeURIComponent(url);
+        const r = await fetch(q);
+        const j = await r.json();
+        if(j?.ok){
+          if(j.title) role.title = j.title;
+          if(j.image) role.hero  = j.image;
+          render(); autosaveTick();
+        }else{
+          alert("Could not auto-fill this URL.");
+        }
+      }catch(e){
+        alert("Auto-fill failed.");
+      }
+    });
+
     return wrap;
   }
 
@@ -143,10 +167,10 @@
       <div class="pad">
         <h2 style="font-size:28px;font-weight:900;margin-bottom:12px">THIS IS HOW IT WORKS!</h2>
         <div style="font-size:15px;line-height:1.6;color:#111">
-          <p><strong>Decline</strong><br/>Clicking <em>Decline</em> tells the Talent they’re not selected and removes them from your list.</p>
-          <p><strong><span class="green">Requested videos/photos</span></strong><br/>Use this to see any new videos or photos the Talent has uploaded for this job.</p>
-          <p><strong>Talent picture</strong><br/>Click a Talent’s picture to open their profile with full info.</p>
-          <p><strong>Add to Shortlist</strong><br/>Add Talents you want to move forward. You can also choose to book a Talent directly.</p>
+          <p><strong>Decline</strong><br/>Click <em>Decline</em> to notify the Talent they’re not selected. They disappear from your list.</p>
+          <p><strong><span style="color:#16a34a">Requested videos/photos</span></strong><br/>See new videos or photos uploaded by the Talent for this job.</p>
+          <p><strong>Talent picture</strong><br/>Click a Talent’s picture to open their full profile.</p>
+          <p><strong>Add to Shortlist</strong><br/>Move Talents forward in the process, or book a Talent directly.</p>
         </div>
         <div style="margin-top:18px;border-top:1px solid var(--line);padding-top:10px;color:#111">
           <div style="font-size:14px">If you need assistance:</div>
@@ -168,18 +192,17 @@
     syncProjectBar();
   }
 
-  // ---------- Project bar (save/open/delete) ----------
+  // ---------- Project bar ----------
   function syncProjectBar(){
-    // fill dropdown
     const all = loadAll();
     const names = Object.keys(all).sort();
-    selProject.innerHTML = names.map(n=>`<option value="${esc(n)}"${n===state.projectName?' selected':''}>${esc(n)}</option>`).join('') +
-      (state.projectName && !names.includes(state.projectName) ? `<option selected>${esc(state.projectName)}</option>` : names.length?``:`<option value="">(no projects)</option>`);
+    selProject.innerHTML = names.length
+      ? names.map(n=>`<option value="${esc(n)}"${n===state.projectName?' selected':''}>${esc(n)}</option>`).join('')
+      : `<option value="">(no projects)</option>`;
     inpPName.value = state.projectName || '';
   }
 
   function snapshot(){
-    // deep clone without functions
     return JSON.parse(JSON.stringify({
       projectName: state.projectName,
       brand: state.brand,
@@ -189,38 +212,31 @@
     }));
   }
 
-  // Buttons & inputs
+  // Buttons
   id('btn-add-role').addEventListener('click', ()=>{
     state.roles.push({ title:'New role', roleUrl:'', hero:'' });
-    render();
+    render(); autosaveTick();
   });
   id('btn-print').addEventListener('click', ()=> window.print());
 
   id('btn-new').addEventListener('click', ()=>{
     state.projectName = 'Untitled';
     state.brand = { logoUrl:"", wordmark:"SELFCAST", subtitle:"Casting Made Easy", showWordmark:true };
-    // keep contact defaults from current
     state.roles = [];
-    render();
+    render(); autosaveTick();
   });
 
-  id('btn-save').addEventListener('click', ()=>{
-    const name = inpPName.value.trim() || 'Untitled';
-    state.projectName = name;
-    const all = loadAll();
-    all[name] = snapshot();
-    saveAll(all);
-    render();
-  });
-
+  id('btn-save').addEventListener('click', doSave);
   id('btn-delete').addEventListener('click', ()=>{
     const name = selProject.value;
     if(!name) return;
+    if(!confirm(`Delete project “${name}”?`)) return;
     const all = loadAll();
     delete all[name];
     saveAll(all);
     if(state.projectName === name){ state.projectName = 'Untitled'; }
     render();
+    setStatus("Deleted.");
   });
 
   selProject.addEventListener('change', ()=>{
@@ -234,6 +250,7 @@
       state.roles   = p.roles || [];
       state.showHow = p.showHow ?? true;
       render();
+      setStatus(`Loaded “${name}”.`);
     }
   });
 
@@ -241,10 +258,31 @@
     state.projectName = inpPName.value;
   });
 
+  function doSave(){
+    const name = (inpPName.value || state.projectName || 'Untitled').trim();
+    state.projectName = name || 'Untitled';
+    const all = loadAll();
+    all[state.projectName] = snapshot();
+    saveAll(all);
+    render();
+    setStatus("Saved.");
+  }
+
+  let saveTimer = null;
+  function autosaveTick(){
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(()=> { doSave(); }, 800); // lille auto-save
+  }
+  function setStatus(msg){
+    if(!saveStatus) return;
+    saveStatus.textContent = msg;
+    setTimeout(()=>{ saveStatus.textContent = ""; }, 1500);
+  }
+
   // ---------- Utils ----------
   function esc(s){ return (s||'').replace(/[&<>\"']/g, m=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;', "'":'&#39;' }[m])); }
 
-  // Init: seed dropdown and render
+  // Init
   syncProjectBar();
   render();
 })();
