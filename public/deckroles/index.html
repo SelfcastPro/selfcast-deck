@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Selfcast – Presentation</title>
+<title>Selfcast – Role Presentation Builder</title>
 <style>
   :root{
     --bg:#0b0b0b; --fg:#111; --paper:#fff; --muted:#6b7280; --line:#e5e7eb; --accent:#e51c23; --green:#16a34a;
@@ -11,27 +11,33 @@
   *{box-sizing:border-box}
   html,body{margin:0;padding:0;background:var(--bg);font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;color:#f5f5f5}
   .max{max-width:1100px;margin:0 auto;padding:24px}
+  h1,h2,h3{margin:0 0 8px}
+  .card{background:#151515;border:1px solid #222;border-radius:16px;padding:18px}
+  .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .row-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+  label{display:block;font-size:12px;color:#bbb;margin-bottom:6px}
+  input,select{width:100%;padding:10px;border-radius:10px;border:1px solid #2a2a2a;background:#0f0f0f;color:#f5f5f5}
+  .btn{display:inline-flex;align-items:center;gap:8px;background:var(--accent);border:none;color:#fff;padding:12px 18px;border-radius:12px;cursor:pointer;font-weight:600}
+  .btn.secondary{background:#262626}
+  .btn.ghost{background:transparent;border:1px solid #333}
+  .stack{display:flex;flex-direction:column;gap:12px}
+  .between{display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .muted{color:#aaa;font-size:12px}
+  .divider{height:1px;background:#222;margin:16px 0}
+
+  /* Presentation surface (preview) */
   .sheet{background:var(--paper);color:var(--fg);border-radius:18px;padding:28px}
   .pad>*+*{margin-top:14px}
-
-  /* Top bar */
-  .bar{display:flex;justify-content:flex-end;align-items:center;margin-bottom:12px}
-  .btn{display:inline-flex;align-items:center;gap:8px;background:var(--accent);border:none;color:#fff;
-       padding:10px 14px;border-radius:12px;cursor:pointer;font-weight:700}
-  .no-print{display:inline-flex}
-
-  /* Typography */
   .proj-title{font-size:34px;font-weight:900}
   .wordmark{letter-spacing:.18em;font-weight:900;font-size:20px}
   .subtitle{color:#6b7280;font-size:13px;font-weight:700;letter-spacing:.06em}
 
-  /* Roles grid */
+  /* Roles grid in preview */
   .rolegrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
   .rolecard{border:1px solid var(--line);border-radius:16px;background:#fff;overflow:hidden}
   .imgwrap{position:relative}
   .imgwrap img{display:block;width:100%;height:220px;object-fit:cover;object-position:top}
-  .rolecta{position:absolute;right:8px;bottom:8px;background:var(--accent);color:#fff;text-decoration:none;
-           font-weight:800;border:none;border-radius:10px;padding:6px 10px;font-size:12px}
+  .rolecta{position:absolute;right:8px;bottom:8px;background:var(--accent);color:#fff;text-decoration:none;font-weight:800;border:none;border-radius:10px;padding:6px 10px;font-size:12px}
   .cap{padding:10px 12px}
 
   /* How callout */
@@ -44,95 +50,102 @@
   @media print{
     @page{size:A4;margin:12mm}
     html,body{background:#fff}
+    .no-print{display:none!important}
     .sheet{border:none;border-radius:0;padding:0}
     .max{max-width:794px;margin:0 auto;padding:0}
-    .no-print{display:none !important}
   }
 </style>
 </head>
 <body>
-  <div class="max">
-    <!-- Download PDF button -->
-    <div class="bar no-print">
-      <button class="btn" id="btn-print">Download PDF</button>
+  <div class="max stack">
+    <div class="between">
+      <div class="muted">Role Presentation Builder</div>
+      <div class="no-print" style="display:flex;gap:8px">
+        <button class="btn secondary" id="btn-save">Save</button>
+        <button class="btn ghost" id="btn-delete">Delete</button>
+        <button class="btn" id="btn-print">Download PDF</button>
+        <!-- NEW: share buttons -->
+        <button class="btn secondary" id="btn-share">Copy share link</button>
+        <a class="btn ghost" id="btn-open-share" href="#" target="_blank" rel="noopener">Open read-only</a>
+      </div>
     </div>
 
-    <div id="app"></div>
+    <!-- Project manager -->
+    <div class="card stack no-print">
+      <h2>Project</h2>
+      <div class="row">
+        <div>
+          <label>Open project</label>
+          <select id="projectSelect"></select>
+        </div>
+        <div>
+          <label>Project name</label>
+          <input id="projectName" placeholder="e.g. Norlys – Campaign"/>
+        </div>
+      </div>
+      <div class="between">
+        <div class="stack" style="flex-direction:row;gap:8px">
+          <button class="btn secondary" id="btn-new">New project</button>
+          <div id="saveStatus" class="muted"></div>
+        </div>
+        <div class="muted">Tip: When saving as PDF, uncheck “Headers and footers” in the print dialog.</div>
+      </div>
+    </div>
+
+    <!-- Brand + Contact -->
+    <div class="card stack no-print">
+      <h2>Brand & contact</h2>
+      <div class="row">
+        <div>
+          <label>Client logo URL (optional)</label>
+          <input id="brandLogo" placeholder="https://…/logo.png"/>
+        </div>
+        <div>
+          <label>Wordmark text</label>
+          <input id="brandWordmark" value="SELFCAST"/>
+        </div>
+      </div>
+      <div class="row">
+        <div>
+          <label>Subtitle</label>
+          <input id="brandSubtitle" value="CASTING MADE EASY"/>
+        </div>
+        <div>
+          <label>Show wordmark</label>
+          <select id="brandShow">
+            <option value="1" selected>Yes</option>
+            <option value="0">No</option>
+          </select>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="row-3">
+        <div>
+          <label>Contact person</label>
+          <input id="contactPerson" placeholder="Maria Christina Jarltoft"/>
+        </div>
+        <div>
+          <label>Email</label>
+          <input id="contactEmail" placeholder="maria@jarltoft.dk"/>
+        </div>
+        <div>
+          <label>Phone</label>
+          <input id="contactPhone" placeholder="+4522813113"/>
+        </div>
+      </div>
+    </div>
+
+    <!-- Roles (simple editor) -->
+    <div id="rolesWrap" class="stack no-print"></div>
+    <div class="no-print">
+      <button class="btn" id="btn-add-role">+ Add role</button>
+    </div>
+
+    <!-- Preview -->
+    <div id="preview" class="stack"></div>
   </div>
 
-<script>
-(function(){
-  // helpers
-  function qs(p){return new URLSearchParams(location.search).get(p)||"";}
-  function unpack(s){const json = decodeURIComponent(escape(atob(s))); return JSON.parse(json);}
-  function esc(s){return (s||"").replace(/[&<>"']/g,m=>({ "&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;" }[m]));}
-
-  // print button
-  document.getElementById('btn-print').addEventListener('click', () => window.print());
-
-  // data
-  let data;
-  try{
-    const d = qs("d"); if(!d) throw new Error("Missing data");
-    data = unpack(d);
-  }catch(e){
-    document.getElementById("app").innerHTML =
-      '<div class="sheet"><div class="pad"><h1>Invalid link</h1><p>The share link is missing or broken.</p></div></div>';
-    return;
-  }
-
-  const { projectName, brand, contact, roles, showHow } = data;
-
-  const cover = `
-    <section class="sheet"><div class="pad">
-      <div style="display:flex;justify-content:space-between;align-items:flex-start;">
-        <div><div class="proj-title">${esc(projectName||"Presentation")}</div></div>
-        <div style="display:flex;align-items:center;gap:12px">
-          ${brand?.showWordmark!==false ? `
-            <div style="text-align:right">
-              <div class="wordmark">${esc(brand?.wordmark||"SELFCAST")}</div>
-              <div class="subtitle">${esc(brand?.subtitle||"CASTING MADE EASY")}</div>
-            </div>` : ``}
-          ${brand?.logoUrl ? `<img src="${esc(brand.logoUrl)}" alt="Logo" style="height:40px;border-radius:8px;border:1px solid #eee">` : ``}
-        </div>
-      </div>
-    </div></section>
-  `;
-
-  const how = `
-    <section class="sheet"><div class="pad">
-      <div class="how">
-        <h2>THIS IS HOW IT WORKS!</h2>
-        <p><strong>Decline</strong><br>Click <em>Decline</em> to notify the Talent they’re not selected. They disappear from your list.</p>
-        <p><strong><span class="green">Requested videos/photos</span></strong><br>See new videos or photos uploaded by the Talent for this job.</p>
-        <p><strong>Talent picture</strong><br>Click a Talent’s picture to open their full profile.</p>
-        <p><strong>Add to Shortlist</strong><br>Move Talents forward in the process, or book a Talent directly.</p>
-        <div style="margin-top:10px;border-top:1px dashed var(--accent);padding-top:8px;color:#111">
-          <div style="font-size:13px">If you need assistance:</div>
-          <div style="color:#6b7280">${esc(contact?.person||"Selfcast")}${contact?.email?` · ${esc(contact.email)}`:""}${contact?.phone?` · ${esc(contact.phone)}`:""}</div>
-        </div>
-      </div>
-    </div></section>
-  `;
-
-  const rolesGrid = `
-    <section class="sheet"><div class="pad">
-      <div class="rolegrid">
-        ${(roles||[]).map(r=>`
-          <div class="rolecard">
-            <div class="imgwrap">
-              ${r.hero ? `<img src="${esc(r.hero)}" alt="${esc(r.title)}">` : `<div style="height:220px;background:#f4f4f5"></div>`}
-              ${r.roleUrl ? `<a class="rolecta" href="${esc(r.roleUrl)}" target="_blank" rel="noreferrer">Open role</a>` : ``}
-            </div>
-            <div class="cap"><div style="font-weight:800">${esc(r.title||"")}</div></div>
-          </div>
-        `).join("")}
-      </div>
-    </div></section>
-  `;
-
-  document.getElementById("app").innerHTML = cover + (showHow!==false?how:"") + rolesGrid;
-})();
-</script>
+  <!-- Your builder logic lives here -->
+  <script src="/deckroles/app.js" defer></script>
 </body>
 </html>
