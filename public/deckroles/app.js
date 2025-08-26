@@ -49,7 +49,7 @@
     el.addEventListener('change', e => { setter(e.target.value); render(); autosaveTick(); });
   }
 
-  // ---------- Roles UI ----------
+  // ---------- Roles UI (editor) ----------
   function roleCard(role, index){
     const wrap = document.createElement('div');
     wrap.className = 'card stack';
@@ -126,7 +126,6 @@
           <div>
             <div style="font-size:26px;font-weight:900;margin:0 0 6px">${esc(state.projectName || 'Role Presentation')}</div>
             <div class="muted" style="color:#6b7280">${new Date().toLocaleDateString()}</div>
-            <div class="rolebar">Roles: <strong>${state.roles.map(r=>esc(r.title)).join(' · ')}</strong></div>
           </div>
           <div class="logo" style="display:flex;align-items:center;gap:12px;color:#111">
             ${b.showWordmark ? `<div style="text-align:right">
@@ -144,39 +143,49 @@
     return box;
   }
 
-  function roleSheet(role){
-    const page = document.createElement('section');
-    page.className = 'sheet';
-    page.innerHTML = `
-      <div class="pad">
-        <div class="between">
-          <h2 style="font-size:28px;font-weight:900">${esc(role.title)}</h2>
-          <a class="cta" href="${esc(role.roleUrl||'#')}" target="_blank" rel="noreferrer">Open role</a>
-        </div>
-        ${role.hero?`<img class="hero" src="${esc(role.hero)}" alt="Role hero"/>`:''}
-      </div>
-    `;
-    return page;
-  }
-
   function howItWorks(){
     const c = state.contact;
     const sec = document.createElement('section');
     sec.className = 'sheet';
     sec.innerHTML = `
       <div class="pad">
-        <h2 style="font-size:28px;font-weight:900;margin-bottom:12px">THIS IS HOW IT WORKS!</h2>
-        <div style="font-size:15px;line-height:1.6;color:#111">
-          <p><strong>Decline</strong><br/>Click <em>Decline</em> to notify the Talent they’re not selected. They disappear from your list.</p>
-          <p><strong><span style="color:#16a34a">Requested videos/photos</span></strong><br/>See new videos or photos uploaded by the Talent for this job.</p>
-          <p><strong>Talent picture</strong><br/>Click a Talent’s picture to open their full profile.</p>
-          <p><strong>Add to Shortlist</strong><br/>Move Talents forward in the process, or book a Talent directly.</p>
-        </div>
-        <div style="margin-top:18px;border-top:1px solid var(--line);padding-top:10px;color:#111">
-          <div style="font-size:14px">If you need assistance:</div>
-          <div class="muted" style="margin-top:4px;color:#6b7280">
-            Contact ${esc(c.person||'Selfcast')}${c.email?` · ${esc(c.email)}`:''}${c.phone?` · ${esc(c.phone)}`:''}
+        <div class="how">
+          <h2 style="font-size:22px;font-weight:900">THIS IS HOW IT WORKS!</h2>
+          <div style="font-size:15px;line-height:1.6;color:#111">
+            <p><strong>Decline</strong><br/>Click <em>Decline</em> to notify the Talent they’re not selected. They disappear from your list.</p>
+            <p><strong><span class="green">Requested videos/photos</span></strong><br/>See new videos or photos uploaded by the Talent for this job.</p>
+            <p><strong>Talent picture</strong><br/>Click a Talent’s picture to open their full profile.</p>
+            <p><strong>Add to Shortlist</strong><br/>Move Talents forward in the process, or book a Talent directly.</p>
           </div>
+          <div style="margin-top:12px;border-top:1px dashed var(--accent);padding-top:10px;color:#111">
+            <div style="font-size:14px">If you need assistance:</div>
+            <div class="muted" style="margin-top:4px;color:#6b7280">
+              Contact ${esc(c.person||'Selfcast')}${c.email?` · ${esc(c.email)}`:''}${c.phone?` · ${esc(c.phone)}`:''}
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+    return sec;
+  }
+
+  function rolesSection(){
+    const sec = document.createElement('section');
+    sec.className = 'sheet';
+    sec.innerHTML = `
+      <div class="pad">
+        <div class="rolegrid">
+          ${state.roles.map(r=>`
+            <div class="rolecard">
+              <div class="imgwrap">
+                ${r.hero ? `<img src="${esc(r.hero)}" alt="${esc(r.title)}"/>` : `<div style="height:220px;background:#f4f4f5"></div>`}
+                ${r.roleUrl ? `<a class="rolecta" href="${esc(r.roleUrl)}" target="_blank" rel="noreferrer">Open role</a>` : ``}
+              </div>
+              <div class="cap">
+                <div style="font-weight:800">${esc(r.title)}</div>
+              </div>
+            </div>
+          `).join('')}
         </div>
       </div>
     `;
@@ -186,9 +195,12 @@
   function render(){
     renderRolesEditor();
     preview.innerHTML = '';
+    // Cover
     preview.appendChild(cover());
-    state.roles.forEach(r => preview.appendChild(roleSheet(r)));
+    // Prominent HOW section directly after cover
     if(state.showHow) preview.appendChild(howItWorks());
+    // Roles grid (2 per row)
+    preview.appendChild(rolesSection());
     syncProjectBar();
   }
 
@@ -271,7 +283,7 @@
   let saveTimer = null;
   function autosaveTick(){
     clearTimeout(saveTimer);
-    saveTimer = setTimeout(()=> { doSave(); }, 800); // lille auto-save
+    saveTimer = setTimeout(()=> { doSave(); }, 800);
   }
   function setStatus(msg){
     if(!saveStatus) return;
