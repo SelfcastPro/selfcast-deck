@@ -58,6 +58,7 @@
         <h3>Role #${index+1}</h3>
         <div class="stack" style="flex-direction:row;gap:8px">
           <button class="btn secondary" data-action="autofill">Auto-fill</button>
+          <button class="btn secondary" data-action="paste">Paste meta</button>
           <button class="btn secondary" data-action="remove">Remove</button>
         </div>
       </div>
@@ -77,6 +78,9 @@
           <input data-key="hero" value="${esc(role.hero||'')}" placeholder="Top image URL from the role page"/>
         </div>
       </div>
+      <div class="muted">
+        Tip: If Auto-fill can’t read a private page, use <strong>Paste meta</strong> with the bookmarklet below.
+      </div>
     `;
 
     // events
@@ -85,26 +89,50 @@
         role[el.getAttribute('data-key')] = el.value; render(); autosaveTick();
       });
     });
+
     wrap.querySelector('[data-action="remove"]').addEventListener('click', ()=>{
       state.roles.splice(index,1); render(); autosaveTick();
     });
+
     wrap.querySelector('[data-action="autofill"]').addEventListener('click', async ()=>{
-      const url = role.roleUrl?.trim();
+      const url = (role.roleUrl || "").trim();
       if(!url){ alert("Add a role URL first."); return; }
       try{
-        const q = "/api/rolemeta?url=" + encodeURIComponent(url);
-        const r = await fetch(q);
+        const r = await fetch("/api/rolemeta?url=" + encodeURIComponent(url));
         const j = await r.json();
         if(j?.ok){
-          if(j.title) role.title = j.title;
-          if(j.image) role.hero  = j.image;
+          let changed = false;
+          if(j.title && !role.title){ role.title = j.title; changed = true; }
+          if(j.image && !role.hero){ role.hero = j.image; changed = true; }
+          if(!changed){
+            alert("Fetched, but no new data (page might be private). Try ‘Paste meta’.");
+          }
           render(); autosaveTick();
         }else{
-          alert("Could not auto-fill this URL.");
+          alert("Auto-fill couldn’t read this page. Use ‘Paste meta’ below.\n" + (j?.reason || j?.error || ""));
         }
       }catch(e){
-        alert("Auto-fill failed.");
+        alert("Auto-fill failed. Use ‘Paste meta’ instead.");
       }
+    });
+
+    wrap.querySelector('[data-action="paste"]').addEventListener('click', async ()=>{
+      const input = prompt(
+        "Paste JSON like {\"title\":\"...\",\"image\":\"...\"}  \n—or—  \nPaste: Title | https://image-url"
+      );
+      if(!input) return;
+      let title = "", image = "";
+      try {
+        const j = JSON.parse(input);
+        title = j.title || ""; image = j.image || j.ogImage || "";
+      } catch {
+        const m = input.split("|");
+        if(m.length >= 2){ title = m[0].trim(); image = m[1].trim(); }
+        else { title = input.trim(); }
+      }
+      if(title) role.title = title;
+      if(image) role.hero  = image;
+      render(); autosaveTick();
     });
 
     return wrap;
@@ -113,6 +141,29 @@
   function renderRolesEditor(){
     rolesWrap.innerHTML = '';
     state.roles.forEach((r,i)=> rolesWrap.appendChild(roleCard(r,i)));
+    // Render bookmarklet helper once under the editor
+    const helperId = "bm-help";
+    let bm = document.getElementById(helperId);
+    if(!bm){
+      bm = document.createElement('div');
+      bm.id = helperId;
+      bm.className = 'card stack no-print';
+      bm.innerHTML = `
+        <h3>Bookmarklet (for private role pages)</h3>
+        <div class="muted">
+          1) Drag this link to your bookmarks bar: 
+          <a id="bm-link" href="#">Selfcast → Copy role meta</a><br/>
+          2) Open the role page while logged in, click the bookmark → it copies meta to clipboard.<br/>
+          3) Click “Paste meta” on the role card here and paste.
+        </div>
+      `;
+      rolesWrap.after(bm);
+      const code = `javascript:(()=>{try{const h1=document.querySelector('h1,.role-title')?.innerText||document.title;const img=(Array.from(document.images).map(i=>i.src).find(Boolean))||'';const j=JSON.stringify({title:h1,image:img});if(navigator.clipboard){navigator.clipboard.writeText(j).then(()=>alert('Copied role meta to clipboard:\\n'+j)).catch(()=>prompt('Copy this JSON:',j));}else{prompt('Copy this JSON:',j);} }catch(e){alert('Bookmarklet failed.');}})();`;
+      const a = bm.querySelector('#bm-link');
+      a.setAttribute('href', code);
+      a.style.color = '#9ac1ff';
+      a.style.textDecoration = 'underline';
+    }
   }
 
   // ---------- Presentation ----------
@@ -195,11 +246,8 @@
   function render(){
     renderRolesEditor();
     preview.innerHTML = '';
-    // Cover
     preview.appendChild(cover());
-    // Prominent HOW section directly after cover
     if(state.showHow) preview.appendChild(howItWorks());
-    // Roles grid (2 per row)
     preview.appendChild(rolesSection());
     syncProjectBar();
   }
