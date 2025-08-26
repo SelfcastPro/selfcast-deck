@@ -6,47 +6,35 @@
 <title>Selfcast – Role Presentation Builder</title>
 <style>
   :root{
-    --bg:#0b0b0b; --fg:#111; --paper:#fff; --muted:#6b7280; --line:#e5e7eb; --accent:#e51c23; --green:#16a34a;
+    --bg:#0b0b0b; --fg:#f5f5f5; --paper:#fff; --muted:#9ca3af; --line:#222; --accent:#e51c23;
   }
   *{box-sizing:border-box}
-  html,body{margin:0;padding:0;background:var(--bg);font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;color:#f5f5f5}
+  html,body{margin:0;background:var(--bg);color:var(--fg);font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
   .max{max-width:1100px;margin:0 auto;padding:24px}
-  h1,h2,h3{margin:0 0 8px}
+  .bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+  .brand{display:flex;align-items:center;gap:10px}
+  .brand .mark{width:34px;height:34px;border-radius:10px;background:var(--accent);display:grid;place-items:center;font-weight:900}
+  .btn{display:inline-flex;align-items:center;gap:8px;background:var(--accent);border:none;color:#fff;padding:10px 14px;border-radius:10px;cursor:pointer;font-weight:700}
+  .btn.secondary{background:#262626}
+  .stack{display:flex;flex-direction:column;gap:12px}
   .card{background:#151515;border:1px solid #222;border-radius:16px;padding:18px}
   .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
   .row-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
   label{display:block;font-size:12px;color:#bbb;margin-bottom:6px}
-  input,select{width:100%;padding:10px;border-radius:10px;border:1px solid #2a2a2a;background:#0f0f0f;color:#f5f5f5}
-  .btn{display:inline-flex;align-items:center;gap:8px;background:var(--accent);border:none;color:#fff;padding:12px 18px;border-radius:12px;cursor:pointer;font-weight:600}
-  .btn.secondary{background:#262626}
-  .btn.ghost{background:transparent;border:1px solid #333}
-  .stack{display:flex;flex-direction:column;gap:12px}
-  .between{display:flex;align-items:center;justify-content:space-between;gap:12px}
-  .muted{color:#aaa;font-size:12px}
+  input,textarea,select{width:100%;padding:10px;border-radius:10px;border:1px solid #2a2a2a;background:#0f0f0f;color:#f5f5f5}
+  textarea{min-height:120px}
   .divider{height:1px;background:#222;margin:16px 0}
-
-  /* Preview surface */
-  .sheet{background:var(--paper);color:var(--fg);border-radius:18px;padding:28px}
-  .pad>*+*{margin-top:14px}
-  .proj-title{font-size:34px;font-weight:900}
-  .wordmark{letter-spacing:.18em;font-weight:900;font-size:20px}
-  .subtitle{color:#6b7280;font-size:13px;font-weight:700;letter-spacing:.06em}
-
-  /* Roles grid */
-  .rolegrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
-  .rolecard{border:1px solid var(--line);border-radius:16px;background:#fff;overflow:hidden}
-  .imgwrap{position:relative}
-  .imgwrap img{display:block;width:100%;height:220px;object-fit:cover;object-position:top}
-  .rolecta{position:absolute;right:8px;bottom:8px;background:var(--accent);color:#fff;text-decoration:none;font-weight:800;border:none;border-radius:10px;padding:6px 10px;font-size:12px}
-  .cap{padding:10px 12px}
-
-  /* How callout */
-  .how{background:#ffe8ea;border:1px solid var(--accent);border-radius:14px;padding:12px}
-  .how h2{margin:0 0 6px;font-size:18px}
-  .how p{margin:6px 0;font-size:14px;line-height:1.45}
-  .green{color:#16a34a;font-weight:700}
-
-  /* Print */
+  /* Presentation surface */
+  .sheet{background:var(--paper);color:#111;border-radius:18px;padding:28px}
+  .hero{width:100%;height:260px;object-fit:cover;object-position:top;border-radius:16px;border:1px solid #e5e7eb}
+  .cards{display:grid;gap:16px}
+  .cards.g-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .tcard{border:1px solid #e5e7eb;border-radius:16px;overflow:hidden;background:#fff}
+  .timg{width:100%;height:210px;object-fit:cover;object-position:top;background:#f4f4f5}
+  .tbody{padding:12px 14px}
+  .name{font-weight:700}
+  .small{font-size:12px;color:#6b7280}
+  a.small-link{font-size:12px;color:#dc2626;text-decoration:underline;word-break:break-all}
   @media print{
     @page{size:A4;margin:12mm}
     html,body{background:#fff}
@@ -55,49 +43,44 @@
     .max{max-width:794px;margin:0 auto;padding:0}
   }
 </style>
+
+<!-- === Client gate: kræv login cookie, ellers til /login === -->
+<script>
+(function () {
+  var ok = document.cookie.split('; ').some(function (c){return c.indexOf('sc_auth=ok')===0;});
+  if (!ok) {
+    var next = encodeURIComponent(location.pathname + location.search + location.hash);
+    location.replace('/login/?next=' + next);
+  }
+})();
+</script>
 </head>
 <body>
   <div class="max stack">
-    <div class="between">
-      <div class="muted">Role Presentation Builder</div>
-      <div class="no-print" style="display:flex;gap:8px">
-        <button class="btn secondary" id="btn-save">Save</button>
-        <button class="btn ghost" id="btn-delete">Delete</button>
+
+    <!-- Topbar -->
+    <div class="bar no-print">
+      <div class="brand">
+        <div class="mark">S</div>
+        <div>
+          <div style="letter-spacing:.18em;font-weight:900;">SELFCAST</div>
+          <div style="font-size:12px;color:#9ca3af">CASTING MADE EASY</div>
+        </div>
+      </div>
+      <div class="stack" style="flex-direction:row;gap:8px;flex-wrap:wrap">
         <button class="btn" id="btn-print">Download PDF</button>
-        <!-- Share buttons -->
-        <button class="btn secondary" id="btn-share">Copy share link</button>
-        <a class="btn ghost" id="btn-open-share" href="#" target="_blank" rel="noopener">Open read-only</a>
+        <button class="btn secondary" id="btn-share" title="Copy share link">Copy share link</button>
+        <a class="btn secondary" id="btn-open-share" href="#" target="_blank" rel="noreferrer">Open read-only</a>
+        <button class="btn secondary" id="btn-logout">Log out</button>
       </div>
     </div>
 
-    <!-- Project manager -->
+    <!-- Builder -->
     <div class="card stack no-print">
-      <h2>Project</h2>
+      <h2 style="margin:0">Builder</h2>
       <div class="row">
         <div>
-          <label>Open project</label>
-          <select id="projectSelect"></select>
-        </div>
-        <div>
-          <label>Project name</label>
-          <input id="projectName" placeholder="e.g. Norlys – Campaign"/>
-        </div>
-      </div>
-      <div class="between">
-        <div class="stack" style="flex-direction:row;gap:8px">
-          <button class="btn secondary" id="btn-new">New project</button>
-          <div id="saveStatus" class="muted"></div>
-        </div>
-        <div class="muted">Tip: When saving as PDF, uncheck “Headers and footers” in the print dialog.</div>
-      </div>
-    </div>
-
-    <!-- Brand + Contact -->
-    <div class="card stack no-print">
-      <h2>Brand & contact</h2>
-      <div class="row">
-        <div>
-          <label>Client logo URL (optional)</label>
+          <label>Logo URL (optional)</label>
           <input id="brandLogo" placeholder="https://…/logo.png"/>
         </div>
         <div>
@@ -130,21 +113,46 @@
         </div>
         <div>
           <label>Phone</label>
-          <input id="contactPhone" placeholder="+4522813113"/>
+          <input id="contactPhone" placeholder="+45 22 28 13 13"/>
         </div>
       </div>
     </div>
 
-    <!-- Roles (simple editor) -->
+    <!-- Roles -->
     <div id="rolesWrap" class="stack no-print"></div>
     <div class="no-print">
       <button class="btn" id="btn-add-role">+ Add role</button>
     </div>
 
-    <!-- Preview -->
+    <!-- Preview target -->
     <div id="preview" class="stack"></div>
   </div>
 
+  <!-- Builder JS -->
   <script src="/deckroles/app.js" defer></script>
+
+  <!-- Share helpers + logout -->
+  <script>
+    // pack/unpack must mirror the ones used by app.js currentSnapshot()
+    function pack(obj){ return btoa(unescape(encodeURIComponent(JSON.stringify(obj)))); }
+    function makeShareUrl(){
+      if(!window.currentSnapshot){ alert('Snapshot not ready'); return location.href; }
+      var data = pack(window.currentSnapshot());
+      return location.origin + '/view/?d=' + data;
+    }
+    document.getElementById('btn-share').addEventListener('click', async ()=>{
+      var url = makeShareUrl();
+      try{ await navigator.clipboard.writeText(url); alert('Share link copied to clipboard'); }
+      catch(e){ prompt('Copy this link:', url); }
+    });
+    document.getElementById('btn-open-share').addEventListener('click', (e)=>{
+      var url = makeShareUrl();
+      e.currentTarget.href = url;
+    });
+    document.getElementById('btn-logout').addEventListener('click', async ()=>{
+      try{ await fetch('/api/logout'); }catch(e){}
+      location.replace('/login/');
+    });
+  </script>
 </body>
 </html>
