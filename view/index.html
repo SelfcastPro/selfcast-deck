@@ -49,22 +49,12 @@ var LZString=function(){function o(o,r){if(!t[o]){t[o]={};for(var n=0;n<o.length
 function qs(k){return new URLSearchParams(location.search).get(k)||"";}
 function esc(s){return (s||"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[m]));}
 function decodeLegacyBase64(s){
-  try{
-    // old links often had '+' which some servers turn into spaces
-    s = s.replace(/ /g, '+');
-    const json = decodeURIComponent(escape(atob(s)));
-    return JSON.parse(json);
-  }catch(e){ return null; }
+  try{ s=s.replace(/ /g,'+'); const json = decodeURIComponent(escape(atob(s))); return JSON.parse(json); }
+  catch(e){ return null; }
 }
 function decodeSmart(s){
-  // try new compressed format
-  try{
-    const j = LZString.decompressFromEncodedURIComponent(s);
-    if(j){ return JSON.parse(j); }
-  }catch(_){}
-  // fallback to old base64
-  const legacy = decodeLegacyBase64(s);
-  if(legacy) return legacy;
+  try{ const j=LZString.decompressFromEncodedURIComponent(s); if(j){ return JSON.parse(j); } }catch(_){}
+  const legacy=decodeLegacyBase64(s); if(legacy) return legacy;
   throw new Error("Could not decode data");
 }
 
@@ -128,7 +118,7 @@ const grid = `
 
 document.getElementById("app").innerHTML = cover + grid;
 
-// auto print (from builder) if &print=1
+// auto print if &print=1 (from builder)
 if (new URLSearchParams(location.search).get("print")==="1") {
   setTimeout(()=>window.print(), 200);
 }
