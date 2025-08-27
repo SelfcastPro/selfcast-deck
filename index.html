@@ -10,7 +10,8 @@
   *{box-sizing:border-box}
   html,body{height:100%;margin:0;background:var(--bg);color:var(--fg);font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
   .wrap{min-height:100%;display:grid;place-items:center;padding:24px}
-  .card{width:min(720px,92vw);background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:0 10px 30px rgba(0,0,0,.35);padding:22px}
+  .stack{width:min(720px,92vw);display:grid;gap:16px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:0 10px 30px rgba(0,0,0,.35);padding:22px}
   .row{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:14px}
   .brand{display:flex;align-items:center;gap:12px}
   .mark{width:38px;height:38px;border-radius:10px;background:var(--accent);display:grid;place-items:center;font-weight:900}
@@ -18,8 +19,10 @@
   .word .t{letter-spacing:.18em;font-weight:900}
   .word .s{font-size:12px;opacity:.8;font-weight:700;letter-spacing:.06em}
   h1{margin:0 0 8px;font-size:28px;font-weight:900}
+  h2{margin:0 0 6px;font-size:20px;font-weight:800}
   p{margin:0;color:var(--muted)}
-  .btns{display:flex;gap:10px;margin-top:14px}
+  ul{margin:8px 0 0 18px;color:var(--muted)}
+  .btns{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
   .btn{display:inline-flex;align-items:center;gap:8px;background:var(--accent);border:none;color:#fff;
        padding:12px 18px;border-radius:12px;cursor:pointer;font-weight:700;text-decoration:none}
   .btn.secondary{background:#2a2a2a;color:#fff;border:1px solid #333}
@@ -28,27 +31,44 @@
 </head>
 <body>
   <div class="wrap">
-    <div class="card">
-      <div class="row">
-        <div class="brand">
-          <div class="mark">S</div>
-          <div class="word">
-            <div class="t">SELFCAST</div>
-            <div class="s">CASTING MADE EASY</div>
+    <div class="stack">
+      <!-- Box 1: Production Role Builder (uændret) -->
+      <div class="card">
+        <div class="row">
+          <div class="brand">
+            <div class="mark">S</div>
+            <div class="word">
+              <div class="t">SELFCAST</div>
+              <div class="s">CASTING MADE EASY</div>
+            </div>
+          </div>
+          <div>
+            <a id="auth-btn" class="btn secondary" href="/login/">Log in</a>
           </div>
         </div>
-        <div>
-          <a id="auth-btn" class="btn secondary" href="/login/">Log in</a>
+
+        <h1>Production Role Builder</h1>
+        <p>Select what you want to open. The <strong>builder</strong> requires login. 
+           Any <strong>read-only presentation</strong> link you share can be viewed without login.</p>
+
+        <div class="btns">
+          <a class="btn" href="/deckroles/">Open Builder</a>
+          <a class="btn secondary" href="/view/">Open Presentation (read-only)</a>
         </div>
       </div>
 
-      <h1>Production Role Builder</h1>
-      <p>Select what you want to open. The <strong>builder</strong> requires login. 
-         Any <strong>read-only presentation</strong> link you share can be viewed without login.</p>
-
-      <div class="btns">
-        <a class="btn" href="/deckroles/">Open Builder</a>
-        <a class="btn secondary" href="/view/">Open Presentation (read-only)</a>
+      <!-- Box 2: Talent Presentation build (NY) -->
+      <div class="card">
+        <h2>Talent Presentation build</h2>
+        <p>Generate a client-ready presentation from one or more role links. Choose status (Option / In review / Shortlisted / In dialog / Booked), pick each talent’s best images, and export as PDF or share live.</p>
+        <ul>
+          <li>Requires login (team only)</li>
+          <li>Supports manual image selection per talent</li>
+          <li>Hide talents with too few images</li>
+        </ul>
+        <div class="btns">
+          <a class="btn" href="/deck/">Open Talent Presentation build</a>
+        </div>
       </div>
     </div>
   </div>
