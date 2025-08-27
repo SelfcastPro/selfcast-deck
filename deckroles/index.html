@@ -4,72 +4,73 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>Selfcast – Production Role Builder</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64'%3E%3Crect rx='12' width='64' height='64' fill='%23e51c23'/%3E%3Ctext x='50%' y='54%' dominant-baseline='middle' text-anchor='middle' font-family='Arial,Helvetica,sans-serif' font-size='36' fill='white'%3ES%3C/text%3E%3C/svg%3E">
 <style>
   :root{
-    --bg:#0b0b0b; --panel:#141414; --ink:#f5f5f5; --muted:#9ca3af;
-    --line:#222; --paper:#fff; --accent:#e51c23; --green:#16a34a;
+    --bg:#0b0b0b; --panel:#131313; --muted:#9aa3af; --ink:#f5f5f5;
+    --line:#222; --accent:#e51c23; --green:#16a34a;
+    --paper:#fff; --ink2:#111;
   }
   *{box-sizing:border-box}
   html,body{margin:0;background:var(--bg);color:var(--ink);font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
-  .max{max-width:1100px;margin:0 auto;padding:16px}
-  .bar{display:flex;gap:10px;align-items:center;margin-bottom:16px}
-  .btn{background:var(--accent);color:#fff;border:none;border-radius:10px;padding:10px 14px;font-weight:700;cursor:pointer}
-  .btn.ghost{background:#262626}
-  .btn.small{padding:8px 10px;font-size:13px}
-  .panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px}
-  .grid{display:grid;gap:10px}
-  .g-2{grid-template-columns:1fr 1fr}
-  .g-3{grid-template-columns:1fr 1fr 1fr}
-  label{display:block;font-size:12px;color:var(--muted);margin:2px 0 6px}
-  input,select,textarea{width:100%;background:#0f0f0f;border:1px solid #2a2a2a;border-radius:10px;color:var(--ink);padding:10px}
-  textarea{min-height:110px}
-  h2{margin:0 0 8px}
-  .divider{height:1px;background:#222;margin:12px 0}
-  .muted{color:var(--muted);font-size:12px}
-  .rolecard{background:#111;border:1px solid #202020;border-radius:14px;padding:12px}
+  a{color:#fff}
+  .max{max-width:1100px;margin:0 auto;padding:18px}
+  .bar{display:flex;gap:10px;align-items:center;position:sticky;top:0;padding:12px 0;background:linear-gradient(180deg,rgba(11,11,11,.95),rgba(11,11,11,.85));z-index:10}
+  .btn{background:var(--accent);border:none;color:#fff;padding:10px 14px;border-radius:12px;cursor:pointer;font-weight:700}
+  .btn.gray{background:#2a2a2a}
+  .btn.outline{background:transparent;border:1px solid #444}
+  .stack{display:flex;flex-direction:column;gap:10px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px}
   .row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-  .row-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
-  .between{display:flex;justify-content:space-between;align-items:center}
-  /* Bookmarklet link must be white */
-  .bookmark a{color:#fff;text-decoration:underline}
-  /* Presentation preview (read-only look) */
-  .sheet{background:var(--paper);color:#111;border-radius:18px;padding:24px}
-  .rolegrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
-  .card{background:#fff;border:1px solid #e5e7eb;border-radius:16px;overflow:hidden}
-  .hero{width:100%;height:240px;object-fit:cover;object-position:top;background:#f4f4f5;display:block}
-  .cap{padding:10px 12px}
-  .open{position:absolute;right:10px;bottom:10px;background:var(--accent);color:#fff;font-weight:800;border:none;border-radius:12px;padding:6px 10px;font-size:12px;text-decoration:none}
-  .imgwrap{position:relative}
+  label{display:block;font-size:12px;color:var(--muted);margin-bottom:6px}
+  input,select{width:100%;padding:10px;border-radius:10px;border:1px solid #2a2a2a;background:#0f0f0f;color:#f5f5f5}
+  .muted{color:var(--muted);font-size:12px}
+  .between{display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .inline-btns{display:flex;gap:8px;flex-wrap:wrap}
+  .link-white{color:#fff;text-decoration:underline}
+  /* Preview (what prints) */
+  .sheet{background:var(--paper);color:var(--ink2);border-radius:18px;padding:22px}
+  .proj-title{font-size:32px;font-weight:900}
+  .wordmark{letter-spacing:.18em;font-weight:900;font-size:18px}
+  .subtitle{color:#6b7280;font-size:12px;font-weight:700;letter-spacing:.06em}
   .how{background:#ffe8ea;border:1px solid var(--accent);border-radius:14px;padding:12px}
-  .how h3{margin:0 0 6px}
+  .how h2{margin:0 0 6px;font-size:18px}
   .how p{margin:6px 0;font-size:14px;line-height:1.45}
   .green{color:var(--green);font-weight:700}
-
-  /* Print (PDF) */
+  .grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+  .rolecard{border:1px solid #e5e7eb;border-radius:16px;background:#fff;overflow:hidden}
+  .imgwrap{position:relative}
+  .imgwrap img{display:block;width:100%;height:240px;object-fit:cover;object-position:top}
+  .rolecta{position:absolute;right:10px;bottom:10px;background:var(--accent);color:#fff;text-decoration:none;
+    font-weight:800;border:none;border-radius:10px;padding:6px 10px;font-size:12px}
+  .cap{padding:10px 12px}
+  /* Print: hide builder UI, print only the .print-surface */
   @media print{
     @page{size:A4;margin:12mm}
     body{background:#fff}
-    .bar,.panel.no-print{display:none!important}
-    .sheet{border:none;border-radius:0;padding:0}
-    .max{max-width:794px;padding:0}
+    .no-print{display:none !important}
+    .print-surface{display:block !important}
+    .sheet{border-radius:0;padding:0}
   }
 </style>
 </head>
 <body>
   <div class="max">
     <!-- top bar -->
-    <div class="bar">
+    <div class="bar no-print">
       <button class="btn" id="btn-save">Save</button>
-      <button class="btn" id="btn-pdf">Download PDF</button>
-      <button class="btn ghost" id="btn-share">Copy share link</button>
-      <a class="btn ghost" id="btn-open-share" href="#" target="_blank" rel="noreferrer">Open read-only</a>
-      <a class="btn ghost" href="/logout">Log out</a>
+      <button class="btn gray" id="btn-pdf">Download PDF</button>
+      <button class="btn gray" id="btn-share">Copy share link</button>
+      <a class="btn outline" id="btn-open-share" href="#" target="_blank" rel="noreferrer">Open read-only</a>
+      <button class="btn outline" id="btn-clear">Clear all</button>
+      <a class="btn outline" href="/logout/" id="btn-logout">Log out</a>
+      <span id="status" class="muted"></span>
     </div>
 
     <!-- Builder -->
-    <div class="panel">
-      <h2>Production settings</h2>
-      <div class="grid g-2">
+    <div class="card stack no-print">
+      <h2 style="margin:0">Production settings</h2>
+      <div class="row">
         <div>
           <label>Project name</label>
           <input id="projectName" placeholder="e.g. Coca-Cola Campaign"/>
@@ -79,7 +80,7 @@
           <input id="brandWordmark" value="SELFCAST"/>
         </div>
       </div>
-      <div class="grid g-2" style="margin-top:10px">
+      <div class="row">
         <div>
           <label>Logo URL (optional)</label>
           <input id="brandLogo" placeholder="https://…/logo.png"/>
@@ -92,17 +93,14 @@
           </select>
         </div>
       </div>
-      <div class="grid g-2" style="margin-top:10px">
+      <div class="row">
         <div>
           <label>Subtitle</label>
           <input id="brandSubtitle" value="CASTING MADE EASY"/>
         </div>
         <div></div>
       </div>
-
-      <div class="divider"></div>
-
-      <div class="grid g-3">
+      <div class="row">
         <div>
           <label>Contact person</label>
           <input id="contactPerson" placeholder="Maria Christina Jarltoft"/>
@@ -111,33 +109,41 @@
           <label>Email</label>
           <input id="contactEmail" placeholder="maria@selfcast.com"/>
         </div>
+      </div>
+      <div class="row">
         <div>
           <label>Phone</label>
           <input id="contactPhone" placeholder="+45 …"/>
         </div>
+        <div></div>
       </div>
     </div>
 
-    <!-- Roles -->
-    <div id="rolesWrap" class="grid" style="margin-top:12px"></div>
-    <div style="margin-top:10px">
-      <button class="btn" id="btn-add-role">+ Add role</button>
-    </div>
-
-    <!-- Bookmarklet help -->
-    <div class="panel bookmark" style="margin-top:14px">
-      <h2>Bookmarklet (for private role pages)</h2>
-      <ol class="muted" style="line-height:1.5">
-        <li>Drag this link to your bookmarks bar: <a id="bm" href="javascript:(()=>{try{const img=document.querySelector('img, [data-testid*=image], .hero img');const title=document.querySelector('h1,h2,[data-testid*=title]');const d={title:title?title.textContent.trim():document.title,hero:img?img.src:''};navigator.clipboard.writeText(JSON.stringify(d)).then(()=>alert('Selfcast: meta copied to clipboard')).catch(()=>prompt('Copy meta:',JSON.stringify(d)));}catch(e){prompt('Copy meta:',JSON.stringify({title:document.title,hero:''}))}})();">Selfcast → Copy role meta</a></li>
+    <!-- Bookmarklet block (moved above roles) -->
+    <div class="card no-print" id="bookmarklet">
+      <div class="between">
+        <strong>Bookmarklet (for private role pages)</strong>
+        <span class="muted">Tip: Links are white on dark theme.</span>
+      </div>
+      <ol class="muted" style="margin-top:8px">
+        <li>Drag this link to your bookmarks bar:
+          <a class="link-white" id="bm-link" href="#">Selfcast → Copy role meta</a>
+        </li>
         <li>Open the role page (logged in), click the bookmark → meta copied to clipboard.</li>
         <li>Click “Paste meta” on a role and paste.</li>
       </ol>
     </div>
 
-    <!-- Live preview -->
-    <div id="preview" class="grid" style="margin-top:14px"></div>
+    <!-- Roles -->
+    <div id="rolesWrap" class="stack no-print"></div>
+    <div class="no-print" style="margin-top:8px">
+      <button class="btn" id="btn-add-role">+ Add role</button>
+    </div>
+
+    <!-- Preview (what prints) -->
+    <div id="preview" class="stack print-surface" style="display:block;margin-top:14px"></div>
   </div>
 
-  <script src="/deckroles/app.js"></script>
+  <script src="/deckroles/app.js" defer></script>
 </body>
 </html>
