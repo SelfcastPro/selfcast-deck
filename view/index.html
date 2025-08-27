@@ -5,9 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>Selfcast – Presentation</title>
 <style>
-  :root{
-    --bg:#0b0b0b; --fg:#111; --paper:#fff; --muted:#6b7280; --line:#e5e7eb; --accent:#e51c23; --green:#16a34a;
-  }
+  :root{--bg:#0b0b0b;--fg:#111;--paper:#fff;--muted:#6b7280;--line:#e5e7eb;--accent:#e51c23;--green:#16a34a}
   *{box-sizing:border-box}
   html,body{margin:0;padding:0;background:var(--bg);font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;color:#f5f5f5}
   .max{max-width:1100px;margin:0 auto;padding:24px}
@@ -15,23 +13,19 @@
   .btn{display:inline-flex;align-items:center;gap:8px;background:var(--accent);border:none;color:#fff;padding:10px 14px;border-radius:12px;cursor:pointer;font-weight:700}
   .sheet{background:var(--paper);color:var(--fg);border-radius:18px;padding:28px}
   .pad>*+*{margin-top:14px}
-
   .proj-title{font-size:34px;font-weight:900}
   .wordmark{letter-spacing:.18em;font-weight:900;font-size:20px}
   .subtitle{color:#6b7280;font-size:13px;font-weight:700;letter-spacing:.06em}
-
   .how{background:#ffe8ea;border:1px solid var(--accent);border-radius:14px;padding:12px}
   .how h2{margin:0 0 6px;font-size:18px}
   .how p{margin:6px 0;font-size:14px;line-height:1.45}
   .green{color:#16a34a;font-weight:700}
-
-  .rolegrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px; margin-top:20px}
+  .rolegrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px;margin-top:20px}
   .rolecard{border:1px solid var(--line);border-radius:16px;background:#fff;overflow:hidden}
   .imgwrap{position:relative}
   .imgwrap img{display:block;width:100%;height:230px;object-fit:cover;object-position:top}
   .rolecta{position:absolute;right:10px;bottom:10px;background:var(--accent);color:#fff;text-decoration:none;font-weight:800;border:none;border-radius:10px;padding:6px 10px;font-size:12px}
   .cap{padding:10px 12px}
-
   @media print{
     @page{size:A4;margin:12mm}
     html,body{background:#fff}
@@ -43,80 +37,65 @@
 </head>
 <body>
   <div class="max">
-    <div class="bar no-print">
-      <button class="btn" id="btn-print">Download PDF</button>
-    </div>
+    <div class="bar no-print"><button class="btn" id="btn-print">Download PDF</button></div>
     <div id="app"></div>
   </div>
 
 <script>
-/* LZString (URI) – same tiny build as in builder */
-!function(r){function t(r){return o.charAt(r)}function e(r){return r.charCodeAt(0)}var n=String.fromCharCode,o="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+-$",i={};i.compressToEncodedURIComponent=function(r){return null==r?"":i._compress(r,6,function(r){return t(r)})},i.decompressFromEncodedURIComponent=function(r){return null==r?"":""==r?null:i._decompress(r.length,32,function(t){return function(r,t){if(!i._uriSafe)for(var e={},n=0;n<o.length;n++)e[o.charAt(n)]=n;i._uriSafe=!0;return e[r.charAt(t)]}(r,t)})},i._compress=function(r,t,e){if(null==r)return"";var n,o,i,s={},a={},l="",c="",u="",f=2,d=3,h=2,p=[],v=0,g=0;for(i=0;i<r.length;i+=1)if(l=r.charAt(i),Object.prototype.hasOwnProperty.call(s,l)||(s[l]=d++,a[l]=!0),c=u+l,Object.prototype.hasOwnProperty.call(s,c))u=c;else{if(Object.prototype.hasOwnProperty.call(a,u)){if(u.charCodeAt(0)<256){for(n=0;n<h;n++)v<<=1,g==t-1?(g=0,p.push(e(v)),v=0):g++;for(o=u.charCodeAt(0),n=0;n<8;n++)v=v<<1|1&o,g==t-1?(g=0,p.push(e(v)),v=0):g++,o>>=1}else{for(o=1,n=0;n<h;n++)v=v<<1|o,g==t-1?(g=0,p.push(e(v)),v=0):g++,o=0;for(o=u.charCodeAt(0),n=0;n<16;n++)v=v<<1|1&o,g==t-1?(g=0,p.push(e(v)),v=0):g++,o>>=1}f--,0==f&&(f=Math.pow(2,h),h++),delete a[u]}else for(o=s[u],n=0;n<h;n++)v=v<<1|1&o,g==t-1?(g=0,p.push(e(v)),v=0):g++,o>>=1;f--,0==f&&(f=Math.pow(2,h),h++),s[c]=d++,u=String(l)}if(""!==u){if(Object.prototype.hasOwnProperty.call(a,u)){if(u.charCodeAt(0)<256){for(n=0;n<h;n++)v<<=1,g==t-1?(g=0,p.push(e(v)),v=0):g++;for(o=u.charCodeAt(0),n=0;n<16;n++)v=v<<1|1&o,g==t-1?(g=0,p.push(e(v)),v=0):g++,o>>=1}else{for(o=1,n=0;n<h;n++)v=v<<1|o,g==t-1?(g=0,p.push(e(v)),v=0):g++,o=0;for(o=u.charCodeAt(0),n=0;n<16;n++)v=v<<1|1&o,g==t-1?(g=0,p.push(e(v)),v=0):g++,o>>=1}f--,0==f&&(f=Math.pow(2,h),h++),delete a[u]}else for(o=s[u],n=0;n<h;n++)v=v<<1|1&o,g==t-1?(g=0,p.push(e(v)),v=0):g++,o>>=1;f--,0==f&&(f=Math.pow(2,h),h++)}for(o=2,n=0;n<h;n++)v=v<<1|o&1,g==t-1?(g=0,p.push(e(v)),v=0):g++,o>>=1;for(;;){if(v<<=1,g==t-1){p.push(e(v));break}g++}return p.join("")},i._decompress=function(r,t,e){var o,i,s,a,l,c,u,f=[],d=4,h=4,p=3,v="",g=[],m={val:e(0),position:t,index:1};for(o=0;o<3;o+=1)f[o]=o;for(s=0,c=Math.pow(2,2),u=1;u!=c;)a=m.val&m.position,m.position>>=1,0==m.position&&(m.position=t,m.val=e(m.index++)),s|=(a>0?1:0)*u,u<<=1;switch(s){case 0:for(s=0,c=Math.pow(2,8),u=1;u!=c;)a=m.val&m.position,m.position>>=1,0==m.position&&(m.position=t,m.val=e(m.index++)),s|=(a>0?1:0)*u,u<<=1;g[3]=String.fromCharCode(s);break;case 1:for(s=0,c=Math.pow(2,16),u=1;u!=c;)a=m.val&m.position,m.position>>=1,0==m.position&&(m.position=t,m.val=e(m.index++)),s|=(a>0?1:0)*u,u<<=1;g[3]=String.fromCharCode(s);break;case 2:return""}for(l=g[3],f[3]=l,i=l;!0;){if(m.index>r)return"";for(s=0,c=Math.pow(2,p),u=1;u!=c;)a=m.val&m.position,m.position>>=1,0==m.position&&(m.position=t,m.val=e(m.index++)),s|=(a>0?1:0)*u,u<<=1;switch(l=s){case 0:for(s=0,c=Math.pow(2,8),u=1;u!=c;)a=m.val&m.position,m.position>>=1,0==m.position&&(m.position=t,m.val=e(m.index++)),s|=(a>0?1:0)*u,u<<=1;f[h++]=String.fromCharCode(s),l=h-1,d--;break;case 1:for(s=0,c=Math.pow(2,16),u=1;u!=c;)a=m.val&m.position,m.position>>=1,0==m.position&&(m.position=t,m.val=e(m.index++)),s|=(a>0?1:0)*u,u<<=1;f[h++]=String.fromCharCode(s),l=h-1,d--;break;case 2:return i}if(0==d&&(d=Math.pow(2,p),p++),f[l])v=f[l];else{if(l!==h)return null;v=i+String.fromCharCode(i.charCodeAt(0))}i+=v.charAt(0),f[h++]=i,i=v}};
-const LZ=LZ||i;
+!function(r){function t(r){return o.charAt(r)}function e(r){return r.charCodeAt(0)}var n=String.fromCharCode,o="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+-$",i={};i.compressToEncodedURIComponent=function(r){return null==r?"":i._compress(r,6,function(r){return t(r)})},i.decompressFromEncodedURIComponent=function(r){return null==r?"":""==r?null:i._decompress(r.length,32,function(t){return function(r,t){if(!i._uriSafe)for(var e={},n=0;n<o.length;n++)e[o.charAt(n)]=n;i._uriSafe=!0;return e[r.charAt(t)]}(r,t)})},i._compress=function(r,t,e){if(null==r)return"";var n,o,i,s={},a={},l="",c="",u="",f=2,d=3,h=2,p=[],v=0,g=0;for(i=0;i<r.length;i+=1)if(l=r.charAt(i),Object.prototype.hasOwnProperty.call(s,l)||(s[l]=d++,a[l]=!0),c=u+l,Object.prototype.hasOwnProperty.call(s,c))u=c;else{if(Object.prototype.hasOwnProperty.call(a,u)){if(u.charCodeAt(0)<256){for(n=0;n<h;n++)v<<=1,g==t-1?(g=0,p.push(e(v)),v=0):g++;for(o=u.charCodeAt(0),n=0;n<8;n++)v=v<<1|1&o,g==t-1?(g=0,p.push(e(v)),v=0):g++,o>>=1}else{for(o=1,n=0;n<h;n++)v=v<<1|o,g==t-1?(g=0,p.push(e(v)),v=0):g++,o=0;for(o=u.charCodeAt(0),n=0;n<16;n++)v=v<<1|1&o,g==t-1?(g=0,p.push(e(v)),v=0):g++,o>>=1}f--,0==f&&(f=Math.pow(2,h),h++),delete a[u]}else for(o=s[u],n=0;n<h;n++)v=v<<1|1&o,g==t-1?(g=0,p.push(e(v)),v=0):g++,o>>=1;f--,0==f&&(f=Math.pow(2,h),h++),s[c]=d++,u=String(l)}if(""!==u){if(Object.prototype.hasOwnProperty.call(a,u)){if(u.charCodeAt(0)<256){for(n=0;n<h;n++)v<<=1,g==t-1?(g=0,p.push(e(v)),v=0):g++;for(o=u.charCodeAt(0),n=0;n<8;n++)v=v<<1|1&o,g==t-1?(g=0,p.push(e(v)),v=0):g++,o>>=1}else{for(o=1,n=0;n<h;n++)v=v<<1|o,g==t-1?(g=0,p.push(e(v)),v=0):g++,o=0;for(o=u.charCodeAt(0),n=0;n<16;n++)v=v<<1|1&o,g==t-1?(g=0,p.push(e(v)),v=0):g++,o>>=1}f--,0==f&&(f=Math.pow(2,h),h++),delete a[u]}else for(o=s[u],n=0;n<h;n++)v=v<<1|1&o,g==t-1?(g=0,p.push(e(v)),v=0):g++,o>>=1;f--,0==f&&(f=Math.pow(2,h),h++)}for(o=2,n=0;n<h;n++)v=v<<1|o&1,g==t-1?(g=0,p.push(e(v)),v=0):g++,o>>=1;for(;;){if(v<<=1,g==t-1){p.push(e(v));break}g++}return p.join("")},i._decompress=function(r,t,e){var o,i,s,a,l,c,u,f=[],d=4,h=4,p=3,v="",g=[],m={val:e(0),position:t,index:1};for(o=0;o<3;o+=1)f[o]=o;for(s=0,c=Math.pow(2,2),u=1;u!=c;)a=m.val&m.position,m.position>>=1,0==m.position&&(m.position=t,m.val=e(m.index++)),s|=(a>0?1:0)*u,u<<=1;switch(s){case 0:for(s=0,c=Math.pow(2,8),u=1;u!=c;)a=m.val&m.position,m.position>>=1,0==m.position&&(m.position=t,m.val=e(m.index++)),s|=(a>0?1:0)*u,u<<=1;g[3]=String.fromCharCode(s);break;case 1:for(s=0,c=Math.pow(2,16),u=1;u!=c;)a=m.val&m.position,m.position>>=1,0==m.position&&(m.position=t,m.val=e(m.index++)),s|=(a>0?1:0)*u,u<<=1;g[3]=String.fromCharCode(s);break;case 2:return""}for(l=g[3],f[3]=l,i=l;!0;){if(m.index>r)return"";for(s=0,c=Math.pow(2,p),u=1;u!=c;)a=m.val&m.position,m.position>>=1,0==m.position&&(m.position=t,m.val=e(m.index++)),s|=(a>0?1:0)*u,u<<=1;switch(l=s){case 0:for(s=0,c=Math.pow(2,8),u=1;u!=c;)a=m.val&m.position,m.position>>=1,0==m.position&&(m.position=t,m.val=e(m.index++)),s|=(a>0?1:0)*u,u<<=1;f[h++]=String.fromCharCode(s),l=h-1,d--;break;case 1:for(s=0,c=Math.pow(2,16),u=1;u!=c;)a=m.val&m.position,m.position>>=1,0==m.position&&(m.position=t,m.val=e(m.index++)),s|=(a>0?1:0)*u,u<<=1;f[h++]=String.fromCharCode(s),l=h-1,d--;break;case 2:return i}if(0==d&&(d=Math.pow(2,p),p++),f[l])v=f[l];else{if(l!==h)return null;v=i+String.fromCharCode(i.charCodeAt(0))}i+=v.charAt(0),f[h++]=i,i=v}};
+const LZ=i;
 
-const qs = (p)=>new URLSearchParams(location.search).get(p)||"";
+const qs = p=>new URLSearchParams(location.search).get(p)||"";
 const esc = s => (s||"").replace(/[&<>"']/g,m=>({ "&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;" }[m]));
 document.getElementById('btn-print').addEventListener('click', ()=>window.print());
 
 let data;
-try{
-  const d = qs("d"); if(!d) throw new Error("Missing");
-  data = JSON.parse(LZ.decompressFromEncodedURIComponent(d));
-}catch(e){
-  document.getElementById("app").innerHTML =
-    '<div class="sheet"><div class="pad"><h1>Invalid link</h1><p>The share link is missing or broken.</p></div></div>';
-  throw e;
-}
+try{ const d=qs("d"); if(!d) throw 0; data=JSON.parse(LZ.decompressFromEncodedURIComponent(d)); }
+catch{ document.getElementById("app").innerHTML='<div class="sheet"><div class="pad"><h1>Invalid link</h1><p>The share link is missing or broken.</p></div></div>'; throw 0;}
 
 const { projectName, brand, contact, roles, showHow } = data;
 
 const cover = `
-  <section class="sheet"><div class="pad">
-    <div style="display:flex;justify-content:space-between;align-items:flex-start;">
-      <div style="display:flex;align-items:center;gap:12px">
-        ${brand?.logoUrl ? `<img src="${esc(brand.logoUrl)}" alt="Logo" style="height:40px;border-radius:8px;border:1px solid #eee">` : ``}
-        <div class="proj-title">${esc(projectName||"Presentation")}</div>
-      </div>
-      <div style="text-align:right">
-        ${brand?.showWordmark!==false ? `
-          <div class="wordmark">${esc(brand?.wordmark||"SELFCAST")}</div>
-          <div class="subtitle">${esc(brand?.subtitle||"CASTING MADE EASY")}</div>` : ``}
-      </div>
+<section class="sheet"><div class="pad">
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+    <div style="display:flex;align-items:center;gap:12px">
+      ${brand?.logoUrl?`<img src="${esc(brand.logoUrl)}" alt="Logo" style="height:40px;border-radius:8px;border:1px solid #eee">`:``}
+      <div class="proj-title">${esc(projectName||"Presentation")}</div>
     </div>
-  </div></section>
-`;
+    <div style="text-align:right">
+      ${brand?.showWordmark!==false?`<div class="wordmark">${esc(brand?.wordmark||"SELFCAST")}</div><div class="subtitle">${esc(brand?.subtitle||"CASTING MADE EASY")}</div>`:``}
+    </div>
+  </div>
+</div></section>`;
 
-const how = showHow===false? "" : `
-  <section class="sheet"><div class="pad">
-    <div class="how">
-      <h2>THIS IS HOW IT WORKS!</h2>
-      <p><strong>Decline</strong><br>Click <em>Decline</em> to notify the Talent they’re not selected. They disappear from your list.</p>
-      <p><strong><span class="green">Requested videos/photos</span></strong><br>See new videos or photos uploaded by the Talent for this job.</p>
-      <p><strong>Talent picture</strong><br>Click a Talent’s picture to open their full profile.</p>
-      <p><strong>Add to Shortlist</strong><br>Move Talents forward in the process, or book a Talent directly.</p>
-      <div style="margin-top:10px;border-top:1px dashed var(--accent);padding-top:8px;color:#111">
-        <div style="font-size:13px">If you need assistance:</div>
-        <div style="color:#6b7280">${esc(contact?.person||"Selfcast")}${contact?.email?` · ${esc(contact.email)}`:""}${contact?.phone?` · ${esc(contact.phone)}`:""}</div>
-      </div>
+const how = showHow===false?"":
+`<section class="sheet"><div class="pad">
+  <div class="how">
+    <h2>THIS IS HOW IT WORKS!</h2>
+    <p><strong>Decline</strong><br>Click <em>Decline</em> to notify the Talent they’re not selected. They disappear from your list.</p>
+    <p><strong><span class="green">Requested videos/photos</span></strong><br>See new videos or photos uploaded by the Talent for this job.</p>
+    <p><strong>Talent picture</strong><br>Click a Talent’s picture to open their full profile.</p>
+    <p><strong>Add to Shortlist</strong><br>Move Talents forward in the process, or book a Talent directly.</p>
+    <div style="margin-top:10px;border-top:1px dashed var(--accent);padding-top:8px;color:#111">
+      <div style="font-size:13px">If you need assistance:</div>
+      <div style="color:#6b7280">${esc(contact?.person||"Selfcast")}${contact?.email?` · ${esc(contact.email)}`:""}${contact?.phone?` · ${esc(contact.phone)}`:""}</div>
     </div>
-  </div></section>
-`;
+  </div>
+</div></section>`;
 
 const rolesGrid = `
-  <section class="sheet"><div class="pad">
-    <div class="rolegrid">
-      ${(roles||[]).map(r=>`
-        <div class="rolecard">
-          <div class="imgwrap">
-            ${r.hero ? `<img src="${esc(r.hero)}" alt="${esc(r.title)}">` : `<div style="height:230px;background:#f4f4f5"></div>`}
-            ${r.roleUrl ? `<a class="rolecta" href="${esc(r.roleUrl)}" target="_blank" rel="noreferrer">Open role</a>` : ``}
-          </div>
-          <div class="cap"><div style="font-weight:800">${esc(r.title||"")}</div></div>
+<section class="sheet"><div class="pad">
+  <div class="rolegrid">
+    ${(roles||[]).map(r=>`
+      <div class="rolecard">
+        <div class="imgwrap">
+          ${r.hero?`<img src="${esc(r.hero)}" alt="${esc(r.title)}">`:`<div style="height:230px;background:#f4f4f5"></div>`}
+          ${r.roleUrl?`<a class="rolecta" href="${esc(r.roleUrl)}" target="_blank" rel="noreferrer">Open role</a>`:``}
         </div>
-      `).join('')}
-    </div>
-  </div></section>
-`;
+        <div class="cap"><div style="font-weight:800">${esc(r.title||"")}</div></div>
+      </div>`).join('')}
+  </div>
+</div></section>`;
 
 document.getElementById("app").innerHTML = cover + how + rolesGrid;
 </script>
