@@ -25,6 +25,12 @@ function decodeHtml(s){ const d=document.createElement('textarea'); d.innerHTML=
 function saveProject(){ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); setStatus("Saved"); }
 function loadProject(){ try{ const raw=localStorage.getItem(STORAGE_KEY); if(raw) Object.assign(state, JSON.parse(raw)); }catch{} }
 
+// ------------------ Bookmarklet ------------------
+function buildBookmarklet(){
+  const code = `(function(){try{const img=document.querySelector('meta[property="og:image"]')?.content||document.querySelector('img,[data-testid*=image],.hero img')?.src||'';const title=document.querySelector('meta[property="og:title"]')?.content||document.querySelector('h1,h2,[data-testid*=title]')?.textContent||document.title;const d={title:title?.trim(),hero:img};navigator.clipboard.writeText(JSON.stringify(d)).then(()=>alert('Selfcast: meta copied to clipboard')).catch(()=>prompt('Copy meta:',JSON.stringify(d)));}catch(e){prompt('Copy meta:',JSON.stringify({title:document.title,hero:''}))}})();`;
+  return "javascript:" + encodeURIComponent(code);
+}
+
 // ------------------ Builder UI ------------------
 function bindInputs(){
   id('projectName').addEventListener('input',e=>{state.projectName=e.target.value; render();});
@@ -58,14 +64,9 @@ function bindInputs(){
   id('bm-link').href = buildBookmarklet();
 }
 
-function buildBookmarklet(){
-  const code = `(function(){try{const img=document.querySelector('meta[property="og:image"]')?.content||document.querySelector('img,[data-testid*=image],.hero img')?.src||'';const title=document.querySelector('meta[property="og:title"]')?.content||document.querySelector('h1,h2,[data-testid*=title]')?.textContent||document.title;const d={title:title?.trim(),hero:img};navigator.clipboard.writeText(JSON.stringify(d)).then(()=>alert('Selfcast: meta copied to clipboard')).catch(()=>prompt('Copy meta:',JSON.stringify(d)));}catch(e){prompt('Copy meta:',JSON.stringify({title:document.title,hero:''}))}})();`;
-  return "javascript:" + encodeURIComponent(code);
-}
-
 function roleCard(role, i){
   const el=document.createElement('div');
-  el.className='card stack no-print';
+  el.className='rolecard';
   el.innerHTML=`
     <div class="between">
       <strong>Role #${i+1}</strong>
@@ -75,7 +76,7 @@ function roleCard(role, i){
         <button class="btn outline" data-a="remove">Remove</button>
       </div>
     </div>
-    <div class="row">
+    <div class="row" style="margin-top:10px">
       <div><label>Role title</label><input data-k="title" value="${esc(role.title)}"/></div>
       <div><label>Role link (producer.selfcast.com/.../role/...)</label><input data-k="roleUrl" value="${esc(role.roleUrl||'')}"/></div>
     </div>
@@ -108,7 +109,7 @@ function renderBuilder(){
 
 function cover(){
   const b=state.brand,c=state.contact;
-  const el=document.createElement('section'); el.className='sheet';
+  const el=document.createElement('div'); el.className='sheet';
   el.innerHTML=`
     <div class="between" style="align-items:flex-start;">
       <div style="display:flex;align-items:center;gap:12px">
@@ -130,19 +131,19 @@ function howItWorks(){
     <p><strong><span class="green">Requested videos/photos</span></strong><br>See new videos or photos uploaded by the Talent for this job.</p>
     <p><strong>Talent picture</strong><br>Click a Talent’s picture to open their full profile.</p>
     <p><strong>Add to Shortlist</strong><br>Move Talents forward in the process, or book a Talent directly.</p>
-    <div style="margin-top:10px;border-top:1px dashed var(--accent);padding-top:8px;color:#111">
+    <div style="margin-top:10px;border-top:1px dashed #e51c23;padding-top:8px;color:#111">
       <div style="font-size:13px">If you need assistance:</div>
       <div style="color:#6b7280">${esc(c?.person||"Selfcast")}${c?.email?` · ${esc(c.email)}`:""}${c?.phone?` · ${esc(c.phone)}`:""}</div>
     </div>
   </div>`;
 }
 function rolesGrid(){
-  const el=document.createElement('section'); el.className='sheet';
+  const el=document.createElement('div'); el.className='sheet';
   el.innerHTML=`<div class="grid2" style="margin-top:6px">
     ${state.roles.map(r=>`
       <div class="rolecard">
         <div class="imgwrap">
-          ${r.hero?`<img src="${esc(r.hero)}" alt="${esc(r.title)}">`:`<div style="height:240px;background:#f4f4f5"></div>`}
+          ${r.hero?`<img src="${esc(r.hero)}" alt="${esc(r.title)}">`:`<div style="height:240px;background:#1b1b1b"></div>`}
           ${r.roleUrl?`<a class="rolecta" href="${esc(r.roleUrl)}" target="_blank" rel="noreferrer">Open role</a>`:``}
         </div>
         <div class="cap"><div style="font-weight:800">${esc(r.title||'')}</div></div>
@@ -152,6 +153,9 @@ function rolesGrid(){
 }
 function renderPreview(){ const p=id('preview'); p.innerHTML=''; p.appendChild(cover()); p.appendChild(rolesGrid()); }
 function applyMeta(role, txt){ try{ const o=JSON.parse(txt); if(o.title) role.title=o.title; if(o.hero) role.hero=o.hero; render(); setStatus("Meta pasted"); }catch{ alert('Could not read meta JSON.'); }}
+
+// Render all
+function render(){ renderBuilder(); renderPreview(); }
 
 // Boot
 (function(){
