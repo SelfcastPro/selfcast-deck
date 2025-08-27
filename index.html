@@ -2,65 +2,70 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Selfcast – Tools</title>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Selfcast — Production Role Builder</title>
+<meta name="color-scheme" content="dark light">
 <style>
-  :root{--bg:#0b0b0b;--fg:#fff;--muted:#bdbdbd;--accent:#e51c23}
+  :root{--bg:#0b0b0b;--card:#141414;--fg:#f5f5f5;--muted:#b3b3b3;--line:#222;--accent:#e51c23}
+  *{box-sizing:border-box}
   html,body{height:100%;margin:0;background:var(--bg);color:var(--fg);font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
-  .wrap{min-height:100%;display:grid;place-items:center}
-  .card{background:#121212;border:1px solid #222;border-radius:16px;padding:28px;width:min(680px,92vw);box-shadow:0 10px 30px rgba(0,0,0,.25)}
-  h1{margin:0 0 10px;font-size:28px}
-  p{margin:0 0 18px;color:var(--muted)}
-  .row{display:flex;gap:10px;flex-wrap:wrap}
-  a.btn,button.btn{display:inline-flex;align-items:center;gap:8px;background:var(--accent);border:none;color:#fff;
-    padding:12px 18px;border-radius:12px;cursor:pointer;font-weight:700;text-decoration:none}
-  a.secondary{background:#262626}
-  .right{display:flex;gap:10px;flex-wrap:wrap}
-  .top{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+  .wrap{min-height:100%;display:grid;place-items:center;padding:24px}
+  .card{width:min(720px,92vw);background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:0 10px 30px rgba(0,0,0,.35);padding:22px}
+  .row{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:14px}
+  .brand{display:flex;align-items:center;gap:12px}
+  .mark{width:38px;height:38px;border-radius:10px;background:var(--accent);display:grid;place-items:center;font-weight:900}
+  .word{line-height:1}
+  .word .t{letter-spacing:.18em;font-weight:900}
+  .word .s{font-size:12px;opacity:.8;font-weight:700;letter-spacing:.06em}
+  h1{margin:0 0 8px;font-size:28px;font-weight:900}
+  p{margin:0;color:var(--muted)}
+  .btns{display:flex;gap:10px;margin-top:14px}
+  .btn{display:inline-flex;align-items:center;gap:8px;background:var(--accent);border:none;color:#fff;
+       padding:12px 18px;border-radius:12px;cursor:pointer;font-weight:700;text-decoration:none}
+  .btn.secondary{background:#2a2a2a;color:#fff;border:1px solid #333}
+  .right{margin-left:auto}
 </style>
-<script>
-  /* === Client gate: kræv sc_auth=ok cookie, ellers send til /login === */
-  (function () {
-    var ok = document.cookie.split('; ').some(function (c){return c.indexOf('sc_auth=ok')===0;});
-    if (!ok) {
-      var next = encodeURIComponent(location.pathname + location.search + location.hash);
-      location.replace('/login/?next=' + next);
-    }
-  })();
-</script>
 </head>
 <body>
-<div class="wrap">
-  <div class="card">
-    <div class="top">
-      <div style="display:flex;align-items:center;gap:10px">
-        <div style="width:34px;height:34px;border-radius:9px;background:#e51c23;display:grid;place-items:center;font-weight:900">S</div>
+  <div class="wrap">
+    <div class="card">
+      <div class="row">
+        <div class="brand">
+          <div class="mark">S</div>
+          <div class="word">
+            <div class="t">SELFCAST</div>
+            <div class="s">CASTING MADE EASY</div>
+          </div>
+        </div>
         <div>
-          <div style="letter-spacing:.18em;font-weight:900">SELFCAST</div>
-          <div style="font-size:12px;color:#9ca3af">CASTING MADE EASY</div>
+          <a id="auth-btn" class="btn secondary" href="/login/">Log in</a>
         </div>
       </div>
-      <div class="right">
-        <button class="btn" id="btn-logout" title="Log out">Log out</button>
+
+      <h1>Production Role Builder</h1>
+      <p>Select what you want to open. The <strong>builder</strong> requires login. 
+         Any <strong>read-only presentation</strong> link you share can be viewed without login.</p>
+
+      <div class="btns">
+        <a class="btn" href="/deckroles/">Open Builder</a>
+        <a class="btn secondary" href="/view/">Open Presentation (read-only)</a>
       </div>
     </div>
-
-    <h1>Selfcast Tools</h1>
-    <p>Vælg hvad du vil åbne. (Builder kræver login – links du deler fra builderen kan ses uden login.)</p>
-
-    <div class="row">
-      <a class="btn" href="/deckroles/">Open Builder</a>
-      <a class="btn secondary" href="/view/">Open Read-only (share receiver)</a>
-    </div>
   </div>
-</div>
 
 <script>
-  // Simple logout
-  document.getElementById('btn-logout').addEventListener('click', async ()=>{
-    try { await fetch('/api/logout'); } catch(e){}
-    location.replace('/login/');
-  });
+  // Toggle "Log in" / "Log out" based on cookie from /api/login
+  function hasAuth(){
+    return document.cookie.split(';').some(c => c.trim().startsWith('sc_auth=ok'));
+  }
+  const ab = document.getElementById('auth-btn');
+  if (hasAuth()){
+    ab.textContent = 'Log out';
+    ab.href = '/api/logout';
+  } else {
+    ab.textContent = 'Log in';
+    ab.href = '/login/';
+  }
 </script>
 </body>
 </html>
