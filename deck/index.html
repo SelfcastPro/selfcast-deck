@@ -181,11 +181,15 @@ const MOCK={
   ]
  }
 };
-async function fetchRole(roleId){
-  // TODO: replace with real fetch to your serverless /api/role
-  const r=MOCK[roleId];
-  if(r) return {roleId,title:r.title,talents:structuredClone(r.talents)};
-  return {roleId,title:`Role ${roleId}`,talents:[]};
+async function fetchRoleData(roleId) {
+  // Kalder vores nye serverless endpoint (sikker token på serveren)
+  const params = new URLSearchParams({ roleId });
+  const r = await fetch(`/api/role?${params.toString()}`, { headers: { "Accept": "application/json" }});
+  if (!r.ok) {
+    const txt = await r.text().catch(()=>"");
+    throw new Error(`API error ${r.status}: ${txt}`);
+  }
+  return r.json();
 }
 
 /* state */
