@@ -4,25 +4,148 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>Selfcast – Production Role Builder</title>
-<link rel="stylesheet" href="/deckroles/style.css"/>
+<style>
+  :root{
+    --bg:#0b0b0b; --fg:#f5f5f5; --paper:#111; --muted:#aaa; --line:#222;
+    --accent:#e51c23; --green:#16a34a; --card:#151515; --input:#0f0f0f;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--fg);font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
+  a{color:#9cc1ff}
+  .max{max-width:1100px;margin:0 auto;padding:18px}
+  .bar{display:flex;gap:10px;align-items:center;justify-content:flex-start;flex-wrap:wrap;margin-bottom:14px}
+  .btn{display:inline-flex;align-items:center;gap:8px;background:var(--accent);border:none;color:#fff;
+       padding:10px 14px;border-radius:12px;cursor:pointer;font-weight:700;text-decoration:none}
+  .btn.secondary{background:#2a2a2a;color:#fff}
+  .btn:disabled{opacity:.6;cursor:default}
+  .right{margin-left:auto}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px}
+  label{display:block;font-size:12px;color:#bbb;margin:0 0 6px}
+  input,select,textarea{width:100%;padding:10px;border-radius:10px;border:1px solid #2a2a2a;background:var(--input);color:#f5f5f5}
+  textarea{min-height:110px}
+  .grid{display:grid;gap:12px}
+  .g-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .g-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .between{display:flex;justify-content:space-between;align-items:center;gap:10px}
+  .muted{color:#aaa;font-size:12px}
+  .divider{height:1px;background:#222;margin:14px 0}
+  .section-title{font-weight:900;margin-bottom:6px}
+  .no-print{display:block}
+
+  /* PREVIEW */
+  .sheet{background:#fff;color:#111;border-radius:18px;padding:28px}
+  .proj-title{font-size:34px;font-weight:900}
+  .wordmark{letter-spacing:.18em;font-weight:900;font-size:20px}
+  .subtitle{color:#6b7280;font-size:13px;font-weight:700;letter-spacing:.06em}
+  .rolegrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+  .rolecard{border:1px solid #e5e7eb;border-radius:16px;background:#fff;overflow:hidden}
+  .imgwrap{position:relative;background:#f4f4f5}
+  .imgwrap img{display:block;width:100%;height:240px;object-fit:cover;object-position:top}
+  .rolecta{position:absolute;right:8px;bottom:8px;background:var(--accent);color:#fff;text-decoration:none;
+           font-weight:800;border:none;border-radius:10px;padding:6px 10px;font-size:12px}
+  .cap{padding:10px 12px;font-weight:800}
+
+  /* HOW box (smaller, red tone) */
+  .how{background:#ffe8ea;border:1px solid var(--accent);border-radius:14px;padding:12px}
+  .how h2{margin:0 0 6px;font-size:18px}
+  .how p{margin:6px 0;font-size:14px;line-height:1.45}
+  .green{color:#16a34a;font-weight:700}
+
+  /* Print */
+  @media print{
+    @page{size:A4;margin:12mm}
+    html,body{background:#fff}
+    .no-print{display:none!important}
+    .sheet{border:none;border-radius:0;padding:0}
+    .max{max-width:794px;margin:0 auto;padding:0}
+  }
+</style>
 </head>
 <body>
   <div class="max">
+    <!-- Top actions -->
     <div class="bar no-print">
       <button class="btn" id="btn-save">💾 Save</button>
       <button class="btn" id="btn-print">Download PDF</button>
       <button class="btn" id="btn-share">Copy share link</button>
-      <a id="btn-open-share" class="btn secondary" target="_blank">Open read-only</a>
+      <a id="btn-open-share" class="btn secondary" target="_blank" rel="noreferrer">Open read-only</a>
       <a class="btn secondary right" href="/api/logout">Log out</a>
     </div>
 
-    <div class="card no-print" style="margin-bottom:18px">
+    <!-- Project name -->
+    <div class="card no-print" style="margin-bottom:14px">
       <label>Project name</label>
-      <input id="projectName" placeholder="e.g. Coca-Cola Campaign" />
+      <input id="projectName" placeholder="e.g. Coca-Cola Campaign"/>
     </div>
 
-    <div id="builder"></div>
-    <div id="preview"></div>
+    <!-- BRAND + CONTACT -->
+    <div class="grid g-2 no-print">
+      <div class="card">
+        <div class="section-title">Brand</div>
+        <div class="grid g-2">
+          <div>
+            <label>Logo URL (optional)</label>
+            <input id="brandLogo" placeholder="https://…/logo.png"/>
+          </div>
+          <div>
+            <label>Wordmark text</label>
+            <input id="brandWordmark" value="SELFCAST"/>
+          </div>
+        </div>
+        <div class="grid g-2" style="margin-top:12px">
+          <div>
+            <label>Subtitle</label>
+            <input id="brandSubtitle" value="CASTING MADE EASY"/>
+          </div>
+          <div>
+            <label>Show wordmark</label>
+            <select id="brandShow">
+              <option value="1" selected>Yes</option>
+              <option value="0">No</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="section-title">Contact</div>
+        <div class="grid g-3">
+          <div>
+            <label>Contact person</label>
+            <input id="contactPerson" placeholder="Maria Christina Jarltoft"/>
+          </div>
+          <div>
+            <label>Email</label>
+            <input id="contactEmail" placeholder="maria@jarltoft.dk"/>
+          </div>
+          <div>
+            <label>Phone</label>
+            <input id="contactPhone" placeholder="+45 …"/>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bookmarklet help -->
+    <div class="card no-print" style="margin:14px 0">
+      <div class="section-title">Bookmarklet (for private role pages)</div>
+      <ol class="muted" style="margin:0;padding-left:16px;line-height:1.55">
+        <li>Drag this link to your bookmarks bar:
+          <a href="javascript:(()=>{try{const img=document.querySelector('img, meta[property=og:image]')?.content||document.querySelector('img')?.src||'';const data={title:document.title||'',hero:img,url:location.href};navigator.clipboard.writeText(JSON.stringify(data)).then(()=>alert('Role meta copied to clipboard'))}catch(e){alert('Could not copy meta')}})();">Selfcast → Copy role meta</a>
+        </li>
+        <li>Open the role page (logged in), click the bookmark → meta copied to clipboard.</li>
+        <li>Click “Paste meta” on the role and paste.</li>
+      </ol>
+    </div>
+
+    <!-- Roles builder -->
+    <div id="rolesWrap" class="no-print"></div>
+    <div class="no-print" style="margin:10px 0 16px">
+      <button class="btn" id="btn-add-role">+ Add role</button>
+    </div>
+
+    <!-- Preview -->
+    <div id="preview" class="grid" style="gap:16px"></div>
   </div>
 
   <script src="/deckroles/app.js"></script>
