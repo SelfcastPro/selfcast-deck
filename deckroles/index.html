@@ -17,8 +17,7 @@
   label{display:block;font-size:12px;color:#bbb;margin-bottom:6px}
   input,textarea,select{width:100%;padding:10px;border-radius:10px;border:1px solid #2a2a2a;background:#0f0f0f;color:#f5f5f5}
   textarea{min-height:120px}
-  .btn{display:inline-flex;align-items:center;gap:8px;background:var(--accent);border:none;color:#fff;
-       padding:10px 14px;border-radius:12px;cursor:pointer;font-weight:700}
+  .btn{display:inline-flex;align-items:center;gap:8px;background:var(--accent);border:none;color:#fff;padding:10px 14px;border-radius:12px;cursor:pointer;font-weight:700}
   .btn.secondary{background:#262626}
   .btn.ghost{background:transparent;border:1px solid #333}
   .toolbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
@@ -27,29 +26,26 @@
   .card{background:#151515;border:1px solid #222;border-radius:16px;padding:18px}
   .between{display:flex;justify-content:space-between;align-items:center}
   .muted{color:#aaa;font-size:12px}
-  .logoMark{width:40px;height:40px;border-radius:10px;background:var(--accent);display:grid;place-items:center;font-weight:800}
 
   /* COVER */
   .proj-title{font-size:34px;font-weight:900}
   .wordmark{letter-spacing:.18em;font-weight:900;font-size:20px}
   .subtitle{color:#6b7280;font-size:13px;font-weight:700;letter-spacing:.06em}
 
-  /* How callout */
+  /* HOW */
   .how{background:#ffe8ea;border:1px solid var(--accent);border-radius:14px;padding:12px}
   .how h2{margin:0 0 6px;font-size:18px}
   .how p{margin:6px 0;font-size:14px;line-height:1.45}
   .green{color:#16a34a;font-weight:700}
 
-  /* Roles */
-  .rolegrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px; margin-top:20px}
+  /* ROLES */
+  .rolegrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px;margin-top:20px}
   .rolecard{border:1px solid var(--line);border-radius:16px;background:#fff;overflow:hidden}
   .imgwrap{position:relative}
   .imgwrap img{display:block;width:100%;height:230px;object-fit:cover;object-position:top}
-  .rolecta{position:absolute;right:10px;bottom:10px;background:var(--accent);color:#fff;text-decoration:none;
-           font-weight:800;border:none;border-radius:10px;padding:6px 10px;font-size:12px}
+  .rolecta{position:absolute;right:10px;bottom:10px;background:var(--accent);color:#fff;text-decoration:none;font-weight:800;border:none;border-radius:10px;padding:6px 10px;font-size:12px}
   .cap{padding:10px 12px}
 
-  /* Print */
   @media print{
     @page{size:A4;margin:12mm}
     html,body{background:#fff}
@@ -119,16 +115,16 @@
       </div>
     </div>
 
-    <!-- Role editor (very slim: just title + links) -->
+    <!-- Role editor -->
     <div id="rolesWrap" class="stack"></div>
     <div class="no-print">
       <button class="btn" id="btn-add-role">+ Add role</button>
     </div>
 
-    <!-- Preview output -->
+    <!-- Preview -->
     <div id="preview" class="stack"></div>
 
-    <!-- Bookmarklet helper (unchanged) -->
+    <!-- Bookmarklet helper -->
     <div class="card no-print">
       <div class="stack">
         <strong>Bookmarklet (for private role pages)</strong>
@@ -139,6 +135,7 @@
     </div>
   </div>
 
+<!-- IMPORTANT: keep the path exactly like this -->
 <script src="app.js"></script>
 </body>
 </html>
