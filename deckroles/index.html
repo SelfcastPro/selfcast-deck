@@ -6,58 +6,47 @@
 <title>Selfcast – Production Role Builder</title>
 <style>
   :root{
-    --bg:#0b0b0b; --fg:#111; --paper:#fff; --muted:#6b7280; --line:#e5e7eb; --accent:#e51c23; --green:#16a34a;
+    --bg:#0b0b0b; --fg:#f5f5f5; --paper:#1a1a1a; --line:#333; --accent:#e51c23; --green:#16a34a;
   }
   *{box-sizing:border-box}
-  html,body{margin:0;padding:0;background:var(--bg);font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;color:#f5f5f5}
+  html,body{margin:0;padding:0;background:var(--bg);font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;color:var(--fg)}
   .max{max-width:1100px;margin:0 auto;padding:20px}
   .stack{display:flex;flex-direction:column;gap:14px}
   .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-  .row-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
   label{display:block;font-size:12px;color:#bbb;margin-bottom:6px}
-  input,textarea,select{width:100%;padding:10px;border-radius:10px;border:1px solid #2a2a2a;background:#0f0f0f;color:#f5f5f5}
-  textarea{min-height:120px}
+  input,select{width:100%;padding:10px;border-radius:10px;border:1px solid #2a2a2a;background:#0f0f0f;color:#f5f5f5}
   .btn{display:inline-flex;align-items:center;gap:8px;background:var(--accent);border:none;color:#fff;padding:10px 14px;border-radius:12px;cursor:pointer;font-weight:700}
   .btn.secondary{background:#262626}
-  .btn.ghost{background:transparent;border:1px solid #333}
-  .toolbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-  .sheet{background:var(--paper);color:var(--fg);border-radius:18px;padding:28px}
-  .pad>*+*{margin-top:14px}
+  .btn.ghost{background:transparent;border:1px solid #444;color:#fff}
+  .toolbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:14px}
   .card{background:#151515;border:1px solid #222;border-radius:16px;padding:18px}
-  .between{display:flex;justify-content:space-between;align-items:center}
   .muted{color:#aaa;font-size:12px}
+  a{color:#fff;text-decoration:underline}
 
-  /* COVER */
   .proj-title{font-size:34px;font-weight:900}
   .wordmark{letter-spacing:.18em;font-weight:900;font-size:20px}
-  .subtitle{color:#6b7280;font-size:13px;font-weight:700;letter-spacing:.06em}
+  .subtitle{color:#aaa;font-size:13px;font-weight:700;letter-spacing:.06em}
 
-  /* HOW */
-  .how{background:#ffe8ea;border:1px solid var(--accent);border-radius:14px;padding:12px}
-  .how h2{margin:0 0 6px;font-size:18px}
-  .how p{margin:6px 0;font-size:14px;line-height:1.45}
-  .green{color:#16a34a;font-weight:700}
-
-  /* ROLES */
   .rolegrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px;margin-top:20px}
-  .rolecard{border:1px solid var(--line);border-radius:16px;background:#fff;overflow:hidden}
+  .rolecard{border:1px solid var(--line);border-radius:16px;background:#fff;overflow:hidden;color:#111}
   .imgwrap{position:relative}
   .imgwrap img{display:block;width:100%;height:230px;object-fit:cover;object-position:top}
   .rolecta{position:absolute;right:10px;bottom:10px;background:var(--accent);color:#fff;text-decoration:none;font-weight:800;border:none;border-radius:10px;padding:6px 10px;font-size:12px}
   .cap{padding:10px 12px}
 
+  .how{background:#ffe8ea;border:1px solid var(--accent);border-radius:14px;padding:12px;color:#111}
+  .how h2{margin:0 0 6px;font-size:18px}
+  .green{color:var(--green);font-weight:700}
+
   @media print{
     @page{size:A4;margin:12mm}
-    html,body{background:#fff}
-    .sheet{border:none;border-radius:0;padding:0}
-    .max{max-width:794px;margin:0 auto;padding:0}
-    .no-print{display:none !important}
+    html,body{background:#fff;color:#111}
+    .toolbar{display:none!important}
   }
 </style>
 </head>
 <body>
   <div class="max stack">
-    <!-- Top bar -->
     <div class="toolbar no-print">
       <button class="btn" id="btn-save">Save</button>
       <button class="btn" id="btn-print">Download PDF</button>
@@ -67,7 +56,7 @@
       <span id="status" class="muted"></span>
     </div>
 
-    <!-- Project + brand -->
+    <!-- Project + Brand -->
     <div class="card stack">
       <div class="row">
         <div>
@@ -117,25 +106,22 @@
 
     <!-- Role editor -->
     <div id="rolesWrap" class="stack"></div>
-    <div class="no-print">
-      <button class="btn" id="btn-add-role">+ Add role</button>
-    </div>
+    <div class="no-print"><button class="btn" id="btn-add-role">+ Add role</button></div>
 
     <!-- Preview -->
     <div id="preview" class="stack"></div>
 
-    <!-- Bookmarklet helper -->
+    <!-- Bookmarklet -->
     <div class="card no-print">
       <div class="stack">
         <strong>Bookmarklet (for private role pages)</strong>
-        <div class="muted">1) Drag this link to your bookmarks bar: <a id="bm" href="javascript:(()=>{try{const d={title:document.querySelector('h1, h2')?.innerText||document.title, hero:(document.querySelector('img')||{}).src||'', url:location.href}; navigator.clipboard.writeText(JSON.stringify(d)); alert('Copied role meta to clipboard');}catch(e){alert('Could not copy meta') }})();">Selfcast → Copy role meta</a></div>
+        <div class="muted">1) Drag this link to your bookmarks bar: <a id="bm" href="javascript:(()=>{try{const d={title:document.querySelector('h1, h2')?.innerText||document.title, hero:(document.querySelector('img')||{}).src||'', url:location.href}; navigator.clipboard.writeText(JSON.stringify(d)); alert('Copied role meta to clipboard');}catch(e){alert('Could not copy meta')} })();">Selfcast → Copy role meta</a></div>
         <div class="muted">2) Open the role page (logged in), click the bookmark → meta copied to clipboard.</div>
         <div class="muted">3) Click “Paste meta” on a role and paste.</div>
       </div>
     </div>
   </div>
 
-<!-- IMPORTANT: keep the path exactly like this -->
 <script src="app.js"></script>
 </body>
 </html>
