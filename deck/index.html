@@ -1,30 +1,31 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Selfcast Talent Presentation Generator – Prototype v3</title>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Selfcast – Talent Presentation</title>
 <style>
-  :root{--bg:#0b0b0b;--fg:#f5f5f5;--muted:#b7b7b7;--accent:#e51c23;--card:#151515;--line:#222}
+  :root{--bg:#0b0b0b;--fg:#f5f5f5;--muted:#b7b7b7;--accent:#e51c23;--card:#141414;--line:#222}
   *{box-sizing:border-box}
   html,body{height:100%}
-  body{margin:0;background:var(--bg);color:var(--fg);font-family:ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial}
+  body{margin:0;background:var(--bg);color:var(--fg);font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
   a{color:inherit}
   .app{display:grid;grid-template-rows:auto 1fr;min-height:100%}
-  header{display:flex;gap:16px;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid var(--line);background:linear-gradient(180deg,#0d0d0d,#0a0a0a)}
-  .logo{width:28px;height:28px;border-radius:6px;background:var(--accent);display:grid;place-items:center;font-weight:800}
-  .title{font-weight:700;letter-spacing:.3px}
+  header{display:flex;gap:12px;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid var(--line);background:#0d0d0d}
+  .brand{display:flex;gap:10px;align-items:center}
+  .logo{width:28px;height:28px;border-radius:8px;background:var(--accent);display:grid;place-items:center;font-weight:900}
+  .title{font-weight:800;letter-spacing:.2px}
   .toolbar{display:flex;gap:8px;flex-wrap:wrap}
-  .btn{background:#1f1f1f;border:1px solid #2a2a2a;color:var(--fg);padding:10px 12px;border-radius:10px;cursor:pointer}
-  .btn:hover{border-color:#3a3a3a}
-  .btn.accent{background:var(--accent);border-color:#c0161d}
-  .btn.ghost{background:transparent;border-color:#2a2a2a}
+  .btn{background:#1f1f1f;border:1px solid #2a2a2a;color:#fff;padding:10px 12px;border-radius:10px;cursor:pointer;text-decoration:none}
+  .btn.accent{background:var(--accent);border-color:#bf141b}
+  .btn.ghost{background:transparent}
   .pane{display:grid;grid-template-columns:360px 1fr;min-height:0}
-  .sidebar{border-right:1px solid var(--line);padding:14px 14px 120px;overflow:auto}
+  .sidebar{border-right:1px solid var(--line);padding:14px 14px 100px;overflow:auto;background:#0e0e0e}
   .field{display:grid;gap:6px;margin-bottom:12px}
   label{font-size:12px;color:var(--muted)}
-  input, textarea, select{background:var(--card);border:1px solid #242424;color:var(--fg);border-radius:10px;padding:10px 12px;width:100%}
-  textarea{min-height:120px;resize:vertical}
+  input,textarea,select{width:100%;background:var(--card);border:1px solid var(--line);color:#fff;border-radius:10px;padding:10px 12px}
+  textarea{min-height:110px;resize:vertical}
+  .hint{font-size:12px;color:var(--muted)}
   .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
   .chip{font-size:12px;border:1px solid #2a2a2a;border-radius:999px;padding:4px 8px;color:var(--muted)}
   .stage{position:relative;overflow:hidden}
@@ -32,11 +33,11 @@
   .slide{width:100%;height:100%;display:none}
   .slide.active{display:block}
   .deck{width:100%;height:100%;display:grid;place-items:center}
-  .frame{width:min(1024px,92vw);height:min(576px,72vh);background:#0e0e0e;border:1px solid #242424;border-radius:20px;box-shadow:0 30px 60px rgba(0,0,0,.35);position:relative;overflow:hidden}
-  .frame .inner{position:absolute;inset:0;padding:24px}
-  .cover .title{font-size:36px;font-weight:800}
+  .frame{width:min(1024px,92vw);height:min(576px,72vh);background:#101010;border:1px solid #242424;border-radius:20px;box-shadow:0 30px 60px rgba(0,0,0,.35);position:relative;overflow:hidden}
+  .frame .inner{position:absolute;inset:0;padding:22px}
+  .cover .title{font-size:36px;font-weight:900}
   .cover .subtitle{margin-top:6px;color:var(--muted)}
-  .cover .meta{position:absolute;bottom:24px;left:24px;font-size:13px;color:var(--muted)}
+  .cover .meta{position:absolute;bottom:22px;left:22px;font-size:13px;color:var(--muted)}
   .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:8px}
   .grid .card{background:#121212;border:1px solid #222;border-radius:14px;display:grid;grid-template-rows:140px auto}
   .card img{width:100%;height:140px;object-fit:cover;border-top-left-radius:14px;border-top-right-radius:14px;background:#0b0b0b}
@@ -49,7 +50,7 @@
   .facts .box{background:#101010;border:1px solid #222;border-radius:16px;padding:14px}
   .facts .kvs{display:grid;grid-template-columns:auto 1fr;gap:6px 12px}
   .facts .k{color:var(--muted)}
-  .facts .links a{display:inline-block;margin-right:8px;margin-bottom:6px;background:#161616;border:1px solid #2a2a2a;border-radius:999px;padding:6px 10px;font-size:12px;text-decoration:none}
+  .links a{display:inline-block;margin-right:8px;margin-bottom:6px;background:#161616;border:1px solid #2a2a2a;border-radius:999px;padding:6px 10px;font-size:12px;text-decoration:none}
   .pick{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
   .pick .thumb{position:relative;border-radius:12px;overflow:hidden;border:1px solid #222}
   .pick img{width:100%;height:110px;object-fit:cover;display:block}
@@ -64,12 +65,10 @@
 <body>
 <div class="app">
   <header>
-    <div style="display:flex;gap:12px;align-items:center">
-      <div class="logo"><span>S</span></div>
-      <div>
-        <div class="title">Selfcast Talent Presentation – v3</div>
-        <div class="chips"><span class="chip">Multi‑role</span><span class="chip">Status filters</span><span class="chip">Image picker</span></div>
-      </div>
+    <div class="brand">
+      <a class="btn ghost" href="/" style="margin-right:8px">← Home</a>
+      <div class="logo">S</div>
+      <div class="title">Talent Presentation</div>
     </div>
     <div class="toolbar">
       <button class="btn ghost" id="btnPrev">← Prev</button>
@@ -78,56 +77,48 @@
       <button class="btn accent" id="btnGenerate">Generate</button>
     </div>
   </header>
+
   <div class="pane">
     <aside class="sidebar">
       <div class="field">
-        <label>Project / Deck Title</label>
-        <input id="inpTitle" placeholder="e.g. Blacklane – International Faces" value="Casting Presentation" />
+        <label>Deck Title</label>
+        <input id="inpTitle" value="Casting Presentation"/>
       </div>
 
       <div class="field">
-        <label>Paste <b>Role URLs or Codes</b> – one per line</label>
-        <textarea id="inpRoles" placeholder="https://producer.selfcast.com/production/.../role/...
-https://producer.selfcast.com/production/.../role/..."></textarea>
-        <div class="hint">Du kan indsætte hele URL’en eller kun <code>roleId</code>. v3 loader én rolle ad gangen og lader dig skifte imellem dem.</div>
+        <label>Role URLs or roleId (one per line)</label>
+        <textarea id="inpRoles" placeholder="https://producer.selfcast.com/production/.../role/...\nrole-id-2"></textarea>
+        <div class="hint">Du kan indsætte hele URL’en eller bare roleId.</div>
       </div>
 
       <div class="field">
-        <label>Status to include</label>
-        <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px">
-          <label><input type="checkbox" class="chkStatus" value="OPTION"/> Option</label>
-          <label><input type="checkbox" class="chkStatus" value="IN_REVIEW" checked/> In review</label>
-          <label><input type="checkbox" class="chkStatus" value="SHORTLISTED"/> Shortlisted</label>
-          <label><input type="checkbox" class="chkStatus" value="IN_DIALOG"/> In dialog</label>
-          <label><input type="checkbox" class="chkStatus" value="BOOKED"/> Booked</label>
+        <label>Statuses to include</label>
+        <div class="chips">
+          <label class="chip"><input type="checkbox" class="st" value="OPTION"> Option</label>
+          <label class="chip"><input type="checkbox" class="st" value="IN_REVIEW" checked> In review</label>
+          <label class="chip"><input type="checkbox" class="st" value="SHORTLISTED"> Shortlisted</label>
+          <label class="chip"><input type="checkbox" class="st" value="IN_DIALOG"> In dialog</label>
+          <label class="chip"><input type="checkbox" class="st" value="BOOKED"> Booked</label>
         </div>
       </div>
 
       <div class="field">
-        <label>Image rules</label>
+        <label>Hide talents with fewer than N images</label>
         <div style="display:flex;gap:8px;align-items:center">
-          <label style="display:flex;gap:6px;align-items:center"><input type="checkbox" id="chkRequireImages" checked/> Hide talents with fewer than</label>
-          <input id="minImages" type="number" value="1" min="0" max="9" style="width:70px"/> images
+          <input id="minImages" type="number" value="1" min="0" max="9" style="width:80px"/>
+          <span class="hint">(best_image + gallery)</span>
         </div>
-        <div class="hint">Du kan også <em>manuelt</em> vælge billeder på hver talentslide.</div>
       </div>
 
       <div class="field">
         <label>Options</label>
-        <label style="display:flex;gap:8px;align-items:center;font-size:13px;color:var(--muted)"><input type="checkbox" id="optGrid" checked/> Include grid summary</label>
-        <label style="display:flex;gap:8px;align-items:center;font-size:13px;color:var(--muted)"><input type="checkbox" id="optProfileBtn" checked/> Show profile link button</label>
+        <label style="display:flex;gap:8px;align-items:center;font-size:13px;color:var(--muted)"><input id="optGrid" type="checkbox" checked> Include overview grid</label>
       </div>
 
       <div class="field">
-        <label>Active role</label>
-        <select id="selRole"></select>
-        <div class="hint">Skift mellem de indlæste roller.</div>
+        <button class="btn accent" id="btnGenerate2">Generate</button>
       </div>
-
-      <div class="field">
-        <button class="btn accent" id="btnGenerate2">Generate Deck</button>
-      </div>
-      <div class="hint">Tip: Efter generate → <b>Cmd/Ctrl+P</b> for PDF.</div>
+      <div class="hint">Tip: Brug ← → til at bladre. Print til PDF via knappen.</div>
     </aside>
 
     <main class="stage">
@@ -142,141 +133,134 @@ https://producer.selfcast.com/production/.../role/..."></textarea>
 <div class="toast" id="toast"></div>
 
 <script>
-const toast=(msg)=>{const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1600)};
 const slidesEl=document.getElementById('slides');
-let currentIndex=0; function clearSlides(){slidesEl.innerHTML=''}
+let currentIndex=0;
+const toast=(m)=>{const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1500)}
+function clearSlides(){slidesEl.innerHTML=''}
 function setActive(i){const all=[...document.querySelectorAll('.slide')]; if(!all.length) return; all.forEach((el,idx)=>el.classList.toggle('active',idx===i)); currentIndex=Math.max(0,Math.min(i,all.length-1))}
 function next(){setActive(currentIndex+1)} function prev(){setActive(currentIndex-1)}
-function escapeHtml(s){return String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[m]))}
-function escapeAttr(s){return escapeHtml(s)}
+['btnNext','navNext'].forEach(id=>document.getElementById(id).addEventListener('click',()=>next()));
+['btnPrev','navPrev'].forEach(id=>document.getElementById(id).addEventListener('click',()=>prev()));
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight')next(); if(e.key==='ArrowLeft')prev()});
+document.getElementById('btnPrint').addEventListener('click',()=>window.print());
 
-// --- MOCK: sample data per roleId so you can demo today ---
-// You can replace fetchRoleData() with a real API call later.
-const SAMPLE_ROLES = {
-  // role from your message (maps three talents you listed)
-  "e8714815-ebe4-48b7-b6b0-4df9e6afb694": {
-    title: "Presentation – In Review",
+function escHtml(s){return String(s).replace(/[&<>\"']/g,m=>({\"&\":\"&amp;\",\"<\":\"&lt;\",\">\":\"&gt;\",\"\\\"\":\"&quot;\",\"'\":\"&#39;\"}[m]))}
+function escAttr(s){return escHtml(s)}
+const k=(v)=>v==null?'–':v;
+
+function parseRoleIds(text){
+  return text.split(/\\n|,|\\s+/).map(s=>s.trim()).filter(Boolean).map(s=>{
+    const m=s.match(/role\\/([a-f0-9\\-]{36})/i); return m?m[1]:s;
+  });
+}
+
+// -------- MOCK DATA so you can demo today (replace with real API later)
+const MOCK = {
+  // Example role (you can add more here for demo)
+  "b95af7ac-5a69-466d-9aa4-43baec5bb7be": {
+    title: "Blacklane – International Faces",
     talents: [
-      { id:"95a8c098-7a9c-451c-85bd-d129623fa9c6", name:"Hugo P", status:"IN_REVIEW", country:"Denmark", profile_url:"https://producer.selfcast.com/talent/95a8c098-7a9c-451c-85bd-d129623fa9c6", best_image:"https://via.placeholder.com/900x1200?text=Hugo+P", gallery:["https://via.placeholder.com/600x800?text=Hugo+1","https://via.placeholder.com/600x800?text=Hugo+2"], requested_uploads:[] },
-      { id:"08f385e4-480e-4b81-ad95-99831896a520", name:"Hjalte IG", status:"IN_REVIEW", country:"Denmark", profile_url:"https://producer.selfcast.com/talent/08f385e4-480e-4b81-ad95-99831896a520", best_image:"https://via.placeholder.com/900x1200?text=Hjalte+IG", gallery:["https://via.placeholder.com/600x800?text=Hjalte+1"], requested_uploads:[] },
-      { id:"133e8d11-064c-4a4a-8ca4-702592b6a9a5", name:"Ken S", status:"IN_REVIEW", country:"Denmark", profile_url:"https://producer.selfcast.com/talent/133e8d11-064c-4a4a-8ca4-702592b6a9a5", best_image:"https://via.placeholder.com/900x1200?text=Ken+S", gallery:["https://via.placeholder.com/600x800?text=Ken+1","https://via.placeholder.com/600x800?text=Ken+2","https://via.placeholder.com/600x800?text=Ken+3"], requested_uploads:[] },
-      { id:"extra-1", name:"Another Talent", status:"SHORTLISTED", country:"Sweden", profile_url:"https://example.com/talent/extra-1", best_image:"https://via.placeholder.com/900x1200?text=Extra", gallery:["https://via.placeholder.com/600x800?text=Extra+1"], requested_uploads:[] }
+      {id:"t1",name:"Fab Leigh Fisher",status:"IN_REVIEW",country:"Sweden",profile_url:"https://producer.selfcast.com/talent/95a8c098-7a9c-451c-85bd-d129623fa9c6",best_image:"https://via.placeholder.com/900x1200?text=Fab",gallery:["https://via.placeholder.com/600x800?text=Fab+1","https://via.placeholder.com/600x800?text=Fab+2"],requested_uploads:[{label:"Selftape A",type:"video",url:"#"}]},
+      {id:"t2",name:"Anna Sanderson",status:"SHORTLISTED",country:"Germany",profile_url:"https://producer.selfcast.com/talent/08f385e4-480e-4b81-ad95-99831896a520",best_image:"https://via.placeholder.com/900x1200?text=Anna",gallery:["https://via.placeholder.com/600x800?text=Anna+1"]},
+      {id:"t3",name:"Ken S",status:"IN_REVIEW",country:"Denmark",profile_url:"https://producer.selfcast.com/talent/133e8d11-064c-4a4a-8ca4-702592b6a9a5",best_image:"https://via.placeholder.com/900x1200?text=Ken",gallery:["https://via.placeholder.com/600x800?text=Ken+1","https://via.placeholder.com/600x800?text=Ken+2","https://via.placeholder.com/600x800?text=Ken+3"]}
     ]
   }
 };
 
-function parseRoleIds(input){
-  return input.split(/\n|,|\s+/).map(s=>s.trim()).filter(Boolean).map(s=>{
-    const m=s.match(/role\/([a-f0-9\-]{36})/i); return m?m[1]:s;});
-}
-
 async function fetchRoleData(roleId){
-  // Replace this with a real fetch when API is ready
-  if(SAMPLE_ROLES[roleId]) return { roleId, title: SAMPLE_ROLES[roleId].title, talents: structuredClone(SAMPLE_ROLES[roleId].talents) };
-  // fallback empty
-  return { roleId, title: `Role ${roleId}`, talents: [] };
-}
-
-function selectedStatuses(){
-  return [...document.querySelectorAll('.chkStatus:checked')].map(i=>i.value);
+  // TODO: Replace with real fetch from your API (or serverless proxy on Vercel)
+  if(MOCK[roleId]) return {roleId, title: MOCK[roleId].title, talents: structuredClone(MOCK[roleId].talents)};
+  return {roleId, title:`Role ${roleId}`, talents: []};
 }
 
 function ensureSelectedImages(t){
-  // Default selection: best_image + first two gallery
   const imgs=[]; if(t.best_image) imgs.push(t.best_image); (t.gallery||[]).forEach(u=>imgs.push(u));
   if(!t._selectedImages) t._selectedImages = imgs.slice(0,3);
 }
 
 function buildCover(title,count,roleUrl,label){
-  const slide=document.createElement('section'); slide.className='slide';
-  slide.innerHTML=`<div class="deck"><div class="frame cover"><div class="inner">
-    <div class="title">${escapeHtml(title)}</div>
-    <div class="subtitle">${escapeHtml(label)} • ${count} talents</div>
-    <div class="meta">${roleUrl?`<a href="${escapeAttr(roleUrl)}" target="_blank">Open role ↗</a> • `:''}Generated ${new Date().toLocaleDateString()}</div>
-  </div></div></div>`; slidesEl.appendChild(slide);
+  const s=document.createElement('section'); s.className='slide';
+  s.innerHTML=`<div class="deck"><div class="frame cover"><div class="inner">
+    <div class="title">${escHtml(title)}</div>
+    <div class="subtitle">${escHtml(label)} • ${count} talents</div>
+    <div class="meta">${roleUrl?`<a href="${escAttr(roleUrl)}" target="_blank">Open role ↗</a> • `:''}${new Date().toLocaleDateString()}</div>
+  </div></div></div>`;
+  slidesEl.appendChild(s);
 }
-
 function buildGrid(talents, roleUrl){
-  const slide=document.createElement('section'); slide.className='slide';
+  const s=document.createElement('section'); s.className='slide';
   const cards=talents.map(t=>`<div class="card">
-    <img src="${escapeAttr((t._selectedImages&&t._selectedImages[0])||t.best_image||'https://via.placeholder.com/600x400?text=Image')}" alt="${escapeAttr(t.name)}"/>
-    <div class="info"><div class="name">${escapeHtml(t.name)}</div><div class="hint">${escapeHtml(t.country||'')}</div></div>
+    <img src="${escAttr((t._selectedImages&&t._selectedImages[0])||t.best_image||'https://via.placeholder.com/600x400?text=Image')}" alt="${escAttr(t.name)}"/>
+    <div class="info"><div class="name">${escHtml(t.name)}</div><div class="hint">${escHtml(t.country||'')}</div></div>
   </div>`).join('');
-  const more = roleUrl ? `<a class="btn" href="${escapeAttr(roleUrl)}" target="_blank">View all candidates ↗</a>` : '';
-  slide.innerHTML=`<div class="deck"><div class="frame"><div class="inner">
+  const more=roleUrl?`<a class="btn" href="${escAttr(roleUrl)}" target="_blank">View all candidates ↗</a>`:'';
+  s.innerHTML=`<div class="deck"><div class="frame"><div class="inner">
     <div style="display:flex;justify-content:space-between;align-items:end;margin-bottom:8px"><h2 style="margin:0">Overview</h2><div>${more}</div></div>
     <div class="grid">${cards}</div>
-  </div></div></div>`; slidesEl.appendChild(slide);
+  </div></div></div>`;
+  slidesEl.appendChild(s);
 }
-
 function buildTalent(t){
   ensureSelectedImages(t);
-  const slide=document.createElement('section'); slide.className='slide';
-  const allImgs=[...(t.best_image?[t.best_image]:[]), ...((t.gallery)||[])];
-  const pick=allImgs.map(u=>`<label class="thumb"><input type="checkbox" ${t._selectedImages.includes(u)?'checked':''} data-url="${escapeAttr(u)}"/><img src="${escapeAttr(u)}" alt="${escapeAttr(t.name)}"/></label>`).join('');
-  const links=(t.requested_uploads||[]).map(r=>`<a href="${escapeAttr(r.url)}" target="_blank">${escapeHtml(r.label||r.type||'Requested')}</a>`).join('');
-  slide.innerHTML=`<div class="deck"><div class="frame"><div class="inner">
+  const s=document.createElement('section'); s.className='slide';
+  const all=[...(t.best_image?[t.best_image]:[]), ...((t.gallery)||[])];
+  const pick=all.map(u=>`<label class="thumb"><input type="checkbox" ${t._selectedImages.includes(u)?'checked':''} data-url="${escAttr(u)}"/><img src="${escAttr(u)}" alt="${escAttr(t.name)}"/></label>`).join('');
+  const reqs=(t.requested_uploads||[]).map(r=>`<a href="${escAttr(r.url)}" target="_blank">${escHtml(r.label||r.type||'Requested')}</a>`).join('');
+  s.innerHTML=`<div class="deck"><div class="frame"><div class="inner">
     <div class="talent">
-      <div class="hero"><img src="${escapeAttr(t._selectedImages[0]||t.best_image||'https://via.placeholder.com/900x1200?text=Image')}" alt="${escapeAttr(t.name)}"/></div>
+      <div class="hero"><img src="${escAttr(t._selectedImages[0]||t.best_image||'https://via.placeholder.com/900x1200?text=Image')}" alt="${escAttr(t.name)}"/></div>
       <div class="facts">
-        <div class="box">
-          <h2 style="margin:0 0 6px 0">${escapeHtml(t.name)} <span class="badge">${escapeHtml(t.status||'')}</span></h2>
+        <div class="box"><h2 style="margin:0 0 6px 0">${escHtml(t.name)} <span class="badge">${escHtml(t.status||'')}</span></h2>
           <div class="kvs">
-            <div class="k">Country</div><div>${escapeHtml(t.country||'')}</div>
-            <div class="k">Profile</div><div>${t.profile_url?`<a href="${escapeAttr(t.profile_url)}" target="_blank">Open profile ↗</a>`:'—'}</div>
+            <div class="k">Country</div><div>${escHtml(t.country||'')}</div>
+            <div class="k">Profile</div><div>${t.profile_url?`<a href="${escAttr(t.profile_url)}" target="_blank">Open profile ↗</a>`:'—'}</div>
           </div>
         </div>
-        <div class="box">
-          <div class="hint" style="margin-bottom:6px">Requested videos & photos</div>
-          <div class="links">${links||'<span class="hint">No requested uploads</span>'}</div>
+        <div class="box"><div class="hint" style="margin-bottom:6px">Requested videos & photos</div>
+          <div class="links">${reqs||'<span class="hint">No requested uploads</span>'}</div>
         </div>
-        <div class="box">
-          <div class="hint" style="margin-bottom:6px">Select images for this talent (first image becomes hero)</div>
+        <div class="box"><div class="hint" style="margin-bottom:6px">Select images for this talent (first becomes hero)</div>
           <div class="pick">${pick||'<span class="hint">No images</span>'}</div>
         </div>
       </div>
     </div>
   </div></div></div>`;
-  // attach handlers
-  slide.querySelectorAll('input[type="checkbox"]').forEach(cb=>{
+  // checkbox handlers
+  s.querySelectorAll('input[type="checkbox"]').forEach(cb=>{
     cb.addEventListener('change',()=>{
       const url=cb.getAttribute('data-url');
       if(cb.checked){ if(!t._selectedImages.includes(url)) t._selectedImages.push(url); }
       else{ t._selectedImages=t._selectedImages.filter(x=>x!==url); }
-      // update hero
-      const hero=slide.querySelector('.hero img');
-      hero.src=(t._selectedImages[0]||t.best_image||'https://via.placeholder.com/900x1200?text=Image');
-    })
+      s.querySelector('.hero img').src = (t._selectedImages[0]||t.best_image||'https://via.placeholder.com/900x1200?text=Image');
+    });
   });
-  slidesEl.appendChild(slide);
+  slidesEl.appendChild(s);
 }
-
 function buildFooter(){
-  const slide=document.createElement('section'); slide.className='slide';
-  slide.innerHTML=`<div class="deck"><div class="frame"><div class="inner" style="display:grid;align-content:center;gap:10px">
+  const s=document.createElement('section'); s.className='slide';
+  s.innerHTML=`<div class="deck"><div class="frame"><div class="inner" style="display:grid;align-content:center;gap:10px">
     <h2 style="margin:0">Next steps</h2>
-    <div class="hint">Share the deck or export as PDF. Use profile links to review full materials.</div>
-  </div></div></div>`; slidesEl.appendChild(slide);
+    <div class="hint">Share live link or export PDF. Use profile links to review full materials.</div>
+  </div></div></div>`;
+  slidesEl.appendChild(s);
 }
 
 async function generate(){
   clearSlides();
   const title=document.getElementById('inpTitle').value.trim()||'Casting Presentation';
-  const reqImages=document.getElementById('chkRequireImages').checked; const minImages=parseInt(document.getElementById('minImages').value||'0',10);
-  const statuses=selectedStatuses();
+  const statuses=[...document.querySelectorAll('.st:checked')].map(x=>x.value);
+  const min=parseInt(document.getElementById('minImages').value||'0',10);
   const roles=parseRoleIds(document.getElementById('inpRoles').value||'');
-  const selRole=document.getElementById('selRole'); selRole.innerHTML=''; roles.forEach(r=>{const o=document.createElement('option'); o.value=r; o.textContent=r; selRole.appendChild(o)});
-  const activeRole=roles[0]; if(!activeRole){ toast('No roles provided – using sample role'); }
-  const roleData=await fetchRoleData(activeRole||'e8714815-ebe4-48b7-b6b0-4df9e6afb694');
+  const roleId=roles[0] || 'b95af7ac-5a69-466d-9aa4-43baec5bb7be'; // fallback demo
 
-  // filter
-  let talents=roleData.talents||[]; talents=talents.filter(t=>!statuses.length||statuses.includes(String(t.status||'').toUpperCase()));
-  // require images
-  talents=talents.map(t=>{ensureSelectedImages(t); return t});
-  if(reqImages){ talents=talents.filter(t=> (t.best_image?1:0) + (t.gallery?t.gallery.length:0) >= minImages ); }
+  const data=await fetchRoleData(roleId);
+  let talents=(data.talents||[]).map(t=>{ensureSelectedImages(t); return t});
 
-  const label = statuses.length? ('Statuses: '+statuses.join(', ')) : 'All statuses';
-  const roleUrl = `https://producer.selfcast.com/production/ROLE/role/${roleData.roleId}`;
+  if(statuses.length) talents=talents.filter(t=>statuses.includes(String(t.status||'').toUpperCase()));
+  if(min>0) talents=talents.filter(t=> ((t.best_image?1:0)+(t.gallery?t.gallery.length:0))>=min );
+
+  const label=statuses.length?('Statuses: '+statuses.join(', ')):'All statuses';
+  const roleUrl=`https://producer.selfcast.com/production/ROLE/role/${data.roleId}`;
 
   buildCover(title, talents.length, roleUrl, label);
   if(document.getElementById('optGrid').checked) buildGrid(talents, roleUrl);
@@ -285,31 +269,9 @@ async function generate(){
   setActive(0); toast('Deck generated');
 }
 
-// Seed example values from your message
-const exampleRoles = [
-  'https://producer.selfcast.com/production/c9210379-b1ac-4ac9-8f9a-41d304fa6114/role/e8714815-ebe4-48b7-b6b0-4df9e6afb694'
-];
-document.getElementById('inpRoles').value = exampleRoles.join('\n');
-
-// Wire up controls
+// Wire up
 ['btnGenerate','btnGenerate2'].forEach(id=>document.getElementById(id).addEventListener('click',generate));
-['btnNext','navNext'].forEach(id=>document.getElementById(id).addEventListener('click',()=>setActive(currentIndex+1)));
-['btnPrev','navPrev'].forEach(id=>document.getElementById(id).addEventListener('click',()=>setActive(currentIndex-1)));
-document.getElementById('btnPrint').addEventListener('click',()=>window.print());
-
-document.getElementById('selRole').addEventListener('change', async (e)=>{
-  // re-generate for a different role selection
-  const roles=parseRoleIds(document.getElementById('inpRoles').value||'');
-  const roleId=e.target.value; if(!roleId) return;
-  // Temporarily put the chosen role first to reuse generate()
-  const lines=roles.filter(r=>r!==roleId); lines.unshift(roleId); document.getElementById('inpRoles').value=lines.join('\n');
-  generate();
-});
-
-document.addEventListener('keydown',e=>{if(e.key==='ArrowRight') setActive(currentIndex+1); if(e.key==='ArrowLeft') setActive(currentIndex-1)});
-
-// auto-generate once on load
-generate();
+generate(); // first render
 </script>
 </body>
 </html>
