@@ -3,11 +3,10 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Selfcast – Talent Presentation</title>
+<title>Selfcast – Talent Presentation (Role Picker)</title>
 <style>
   :root{--bg:#0b0b0b;--fg:#f5f5f5;--muted:#b7b7b7;--accent:#e51c23;--card:#141414;--line:#222}
-  *{box-sizing:border-box}
-  html,body{height:100%}
+  *{box-sizing:border-box} html,body{height:100%}
   body{margin:0;background:var(--bg);color:var(--fg);font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
   a{color:inherit}
   .app{display:grid;grid-template-rows:auto 1fr;min-height:100%}
@@ -19,16 +18,20 @@
   .btn{background:#1f1f1f;border:1px solid #2a2a2a;color:#fff;padding:10px 12px;border-radius:10px;cursor:pointer;text-decoration:none}
   .btn.accent{background:var(--accent);border-color:#bf141b}
   .btn.ghost{background:transparent}
-  .pane{display:grid;grid-template-columns:360px 1fr;min-height:0}
-  .sidebar{border-right:1px solid var(--line);padding:14px 14px 100px;overflow:auto;background:#0e0e0e}
+  .pane{display:grid;grid-template-columns:380px 320px 1fr;min-height:0}
+  .col{border-right:1px solid var(--line);padding:14px;overflow:auto}
+  .col:last-child{border-right:none}
   .field{display:grid;gap:6px;margin-bottom:12px}
   label{font-size:12px;color:var(--muted)}
   input,textarea,select{width:100%;background:var(--card);border:1px solid var(--line);color:#fff;border-radius:10px;padding:10px 12px}
-  textarea{min-height:110px;resize:vertical}
+  textarea{min-height:100px;resize:vertical}
   .hint{font-size:12px;color:var(--muted)}
   .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
   .chip{font-size:12px;border:1px solid #2a2a2a;border-radius:999px;padding:4px 8px;color:var(--muted)}
-  .stage{position:relative;overflow:hidden}
+  .list{display:grid;gap:6px}
+  .rowPick{display:grid;grid-template-columns:auto 1fr auto;gap:8px;align-items:center;background:#121212;border:1px solid #222;border-radius:10px;padding:8px}
+  .rowPick img{width:48px;height:48px;object-fit:cover;border-radius:8px;background:#0b0b0b}
+  .tag{font-size:11px;border:1px solid #2a2a2a;border-radius:999px;padding:2px 6px;color:var(--muted)}
   .slides{height:100%;display:grid;place-items:center}
   .slide{width:100%;height:100%;display:none}
   .slide.active{display:block}
@@ -79,16 +82,17 @@
   </header>
 
   <div class="pane">
-    <aside class="sidebar">
+    <!-- COL 1: Role input & filters -->
+    <aside class="col">
       <div class="field">
         <label>Deck Title</label>
         <input id="inpTitle" value="Casting Presentation"/>
       </div>
 
       <div class="field">
-        <label>Role URLs or roleId (one per line)</label>
-        <textarea id="inpRoles" placeholder="https://producer.selfcast.com/production/.../role/...\nrole-id-2"></textarea>
-        <div class="hint">Du kan indsætte hele URL’en eller bare roleId.</div>
+        <label>Paste 1 role URL (or roleId)</label>
+        <textarea id="inpRole" placeholder="https://producer.selfcast.com/production/.../role/...\neller kun roleId"></textarea>
+        <div class="hint">Loader listen (op til 50+) for dén rolle.</div>
       </div>
 
       <div class="field">
@@ -110,18 +114,26 @@
         </div>
       </div>
 
-      <div class="field">
-        <label>Options</label>
-        <label style="display:flex;gap:8px;align-items:center;font-size:13px;color:var(--muted)"><input id="optGrid" type="checkbox" checked> Include overview grid</label>
+      <div class="field" style="display:flex;gap:8px">
+        <button class="btn" id="btnLoad">Load role</button>
+        <button class="btn" id="btnSelectAll">Select all</button>
+        <button class="btn" id="btnClear">Clear</button>
       </div>
 
-      <div class="field">
-        <button class="btn accent" id="btnGenerate2">Generate</button>
-      </div>
-      <div class="hint">Tip: Brug ← → til at bladre. Print til PDF via knappen.</div>
+      <div class="hint">1) Indsæt rolle → <b>Load role</b>  2) Vælg talenter  3) <b>Generate</b></div>
     </aside>
 
-    <main class="stage">
+    <!-- COL 2: Talent picker -->
+    <section class="col">
+      <div class="field">
+        <label>Talent Picker (<span id="countSel">0</span> selected)</label>
+        <input id="filterInput" placeholder="Filter by name…"/>
+      </div>
+      <div id="talentList" class="list"></div>
+    </section>
+
+    <!-- COL 3: Slides preview -->
+    <main class="col">
       <div class="slides" id="slides"></div>
       <div class="nav">
         <button class="btn ghost" id="navPrev">←</button>
@@ -133,9 +145,9 @@
 <div class="toast" id="toast"></div>
 
 <script>
+/* utilities */
 const slidesEl=document.getElementById('slides');
-let currentIndex=0;
-const toast=(m)=>{const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1500)}
+let currentIndex=0; const toast=(m)=>{const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1500)}
 function clearSlides(){slidesEl.innerHTML=''}
 function setActive(i){const all=[...document.querySelectorAll('.slide')]; if(!all.length) return; all.forEach((el,idx)=>el.classList.toggle('active',idx===i)); currentIndex=Math.max(0,Math.min(i,all.length-1))}
 function next(){setActive(currentIndex+1)} function prev(){setActive(currentIndex-1)}
@@ -143,41 +155,87 @@ function next(){setActive(currentIndex+1)} function prev(){setActive(currentInde
 ['btnPrev','navPrev'].forEach(id=>document.getElementById(id).addEventListener('click',()=>prev()));
 document.addEventListener('keydown',e=>{if(e.key==='ArrowRight')next(); if(e.key==='ArrowLeft')prev()});
 document.getElementById('btnPrint').addEventListener('click',()=>window.print());
-
-function escHtml(s){return String(s).replace(/[&<>\"']/g,m=>({\"&\":\"&amp;\",\"<\":\"&lt;\",\">\":\"&gt;\",\"\\\"\":\"&quot;\",\"'\":\"&#39;\"}[m]))}
+function escHtml(s){return String(s).replace(/[&<>\"']/g,m=>({ "&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[m]))}
 function escAttr(s){return escHtml(s)}
 const k=(v)=>v==null?'–':v;
+const byId=(id)=>document.getElementById(id);
 
-function parseRoleIds(text){
-  return text.split(/\\n|,|\\s+/).map(s=>s.trim()).filter(Boolean).map(s=>{
-    const m=s.match(/role\\/([a-f0-9\\-]{36})/i); return m?m[1]:s;
-  });
+/* parse roleId from URL or id */
+function parseRoleId(text){
+  const s=(text||'').trim(); if(!s) return '';
+  const m=s.match(/role\\/([a-f0-9\\-]{36})/i); return m?m[1]:s;
 }
 
-// -------- MOCK DATA so you can demo today (replace with real API later)
-const MOCK = {
-  // Example role (you can add more here for demo)
-  "b95af7ac-5a69-466d-9aa4-43baec5bb7be": {
-    title: "Blacklane – International Faces",
-    talents: [
-      {id:"t1",name:"Fab Leigh Fisher",status:"IN_REVIEW",country:"Sweden",profile_url:"https://producer.selfcast.com/talent/95a8c098-7a9c-451c-85bd-d129623fa9c6",best_image:"https://via.placeholder.com/900x1200?text=Fab",gallery:["https://via.placeholder.com/600x800?text=Fab+1","https://via.placeholder.com/600x800?text=Fab+2"],requested_uploads:[{label:"Selftape A",type:"video",url:"#"}]},
-      {id:"t2",name:"Anna Sanderson",status:"SHORTLISTED",country:"Germany",profile_url:"https://producer.selfcast.com/talent/08f385e4-480e-4b81-ad95-99831896a520",best_image:"https://via.placeholder.com/900x1200?text=Anna",gallery:["https://via.placeholder.com/600x800?text=Anna+1"]},
-      {id:"t3",name:"Ken S",status:"IN_REVIEW",country:"Denmark",profile_url:"https://producer.selfcast.com/talent/133e8d11-064c-4a4a-8ca4-702592b6a9a5",best_image:"https://via.placeholder.com/900x1200?text=Ken",gallery:["https://via.placeholder.com/600x800?text=Ken+1","https://via.placeholder.com/600x800?text=Ken+2","https://via.placeholder.com/600x800?text=Ken+3"]}
-    ]
-  }
+/* MOCK DATA – replace with real API later */
+const MOCK={
+ "b95af7ac-5a69-466d-9aa4-43baec5bb7be":{
+  title:"Blacklane – International Faces",
+  talents:[
+   {id:"95a8c098-7a9c-451c-85bd-d129623fa9c6",name:"Hugo P",status:"IN_REVIEW",country:"Denmark",profile_url:"https://producer.selfcast.com/talent/95a8c098-7a9c-451c-85bd-d129623fa9c6",best_image:"https://via.placeholder.com/900x1200?text=Hugo",gallery:["https://via.placeholder.com/600x800?text=Hugo+1","https://via.placeholder.com/600x800?text=Hugo+2"],requested_uploads:[]},
+   {id:"08f385e4-480e-4b81-ad95-99831896a520",name:"Hjalte IG",status:"IN_REVIEW",country:"Denmark",profile_url:"https://producer.selfcast.com/talent/08f385e4-480e-4b81-ad95-99831896a520",best_image:"https://via.placeholder.com/900x1200?text=Hjalte+IG",gallery:["https://via.placeholder.com/600x800?text=Hjalte+1"],requested_uploads:[]},
+   {id:"133e8d11-064c-4a4a-8ca4-702592b6a9a5",name:"Ken S",status:"IN_REVIEW",country:"Denmark",profile_url:"https://producer.selfcast.com/talent/133e8d11-064c-4a4a-8ca4-702592b6a9a5",best_image:"https://via.placeholder.com/900x1200?text=Ken+S",gallery:["https://via.placeholder.com/600x800?text=Ken+1","https://via.placeholder.com/600x800?text=Ken+2","https://via.placeholder.com/600x800?text=Ken+3"],requested_uploads:[]},
+   {id:"x1",name:"Anna S",status:"SHORTLISTED",country:"Germany",profile_url:"#",best_image:"https://via.placeholder.com/900x1200?text=Anna+S",gallery:["https://via.placeholder.com/600x800?text=Anna+1"]},
+   {id:"x2",name:"Jonas K",status:"OPTION",country:"Sweden",profile_url:"#",best_image:"",gallery:[]},
+   {id:"x3",name:"Maja L",status:"IN_DIALOG",country:"Denmark",profile_url:"#",best_image:"https://via.placeholder.com/900x1200?text=Maja+L",gallery:["https://via.placeholder.com/600x800?text=Maja+1"]},
+   {id:"x4",name:"Noah B",status:"BOOKED",country:"Norway",profile_url:"#",best_image:"https://via.placeholder.com/900x1200?text=Noah+B",gallery:["https://via.placeholder.com/600x800?text=Noah+1"]}
+  ]
+ }
 };
-
-async function fetchRoleData(roleId){
-  // TODO: Replace with real fetch from your API (or serverless proxy on Vercel)
-  if(MOCK[roleId]) return {roleId, title: MOCK[roleId].title, talents: structuredClone(MOCK[roleId].talents)};
-  return {roleId, title:`Role ${roleId}`, talents: []};
+async function fetchRole(roleId){
+  // TODO: replace with real fetch to your serverless /api/role
+  const r=MOCK[roleId];
+  if(r) return {roleId,title:r.title,talents:structuredClone(r.talents)};
+  return {roleId,title:`Role ${roleId}`,talents:[]};
 }
+
+/* state */
+let loadedRole=null;        // {roleId,title,talents[]}
+let selectedIds=new Set();  // user-checked ids
 
 function ensureSelectedImages(t){
   const imgs=[]; if(t.best_image) imgs.push(t.best_image); (t.gallery||[]).forEach(u=>imgs.push(u));
-  if(!t._selectedImages) t._selectedImages = imgs.slice(0,3);
+  if(!t._selectedImages) t._selectedImages=imgs.slice(0,3);
 }
 
+/* render picker list */
+function renderPicker(){
+  const list=byId('talentList'); list.innerHTML='';
+  const q=byId('filterInput').value.trim().toLowerCase();
+  const statuses=[...document.querySelectorAll('.st:checked')].map(x=>x.value);
+  const min=parseInt(byId('minImages').value||'0',10);
+
+  let items=(loadedRole?.talents||[]).filter(t=>{
+    const okStatus=!statuses.length||statuses.includes(String(t.status||'').toUpperCase());
+    const imgCount=(t.best_image?1:0)+(t.gallery?t.gallery.length:0);
+    const okImg=imgCount>=min;
+    const okName=!q || (t.name||'').toLowerCase().includes(q);
+    return okStatus && okImg && okName;
+  });
+
+  items.forEach(t=>{
+    ensureSelectedImages(t);
+    const row=document.createElement('div'); row.className='rowPick';
+    row.innerHTML=`
+      <input type="checkbox" ${selectedIds.has(t.id)?'checked':''} data-id="${escAttr(t.id)}"/>
+      <div style="display:flex;gap:10px;align-items:center">
+        <img src="${escAttr(t._selectedImages[0]||t.best_image||'https://via.placeholder.com/120x120?text=No+img')}" alt="${escAttr(t.name)}"/>
+        <div>
+          <div style="font-weight:700">${escHtml(t.name)}</div>
+          <div class="hint">${escHtml(t.country||'')} • <span class="tag">${escHtml(t.status||'')}</span></div>
+        </div>
+      </div>
+      <a class="tag" href="${escAttr(t.profile_url||'#')}" target="_blank">Profile ↗</a>`;
+    row.querySelector('input').addEventListener('change',e=>{
+      if(e.target.checked) selectedIds.add(t.id); else selectedIds.delete(t.id);
+      byId('countSel').textContent=selectedIds.size;
+    });
+    list.appendChild(row);
+  });
+
+  byId('countSel').textContent=selectedIds.size;
+}
+
+/* slides building */
 function buildCover(title,count,roleUrl,label){
   const s=document.createElement('section'); s.className='slide';
   s.innerHTML=`<div class="deck"><div class="frame cover"><div class="inner">
@@ -225,13 +283,12 @@ function buildTalent(t){
       </div>
     </div>
   </div></div></div>`;
-  // checkbox handlers
   s.querySelectorAll('input[type="checkbox"]').forEach(cb=>{
     cb.addEventListener('change',()=>{
       const url=cb.getAttribute('data-url');
       if(cb.checked){ if(!t._selectedImages.includes(url)) t._selectedImages.push(url); }
       else{ t._selectedImages=t._selectedImages.filter(x=>x!==url); }
-      s.querySelector('.hero img').src = (t._selectedImages[0]||t.best_image||'https://via.placeholder.com/900x1200?text=Image');
+      s.querySelector('.hero img').src=(t._selectedImages[0]||t.best_image||'https://via.placeholder.com/900x1200?text=Image');
     });
   });
   slidesEl.appendChild(s);
@@ -245,33 +302,53 @@ function buildFooter(){
   slidesEl.appendChild(s);
 }
 
+/* actions */
+byId('btnLoad').addEventListener('click', async ()=>{
+  const roleId=parseRoleId(byId('inpRole').value);
+  if(!roleId){ toast('Paste a role URL or id'); return; }
+  loadedRole=await fetchRole(roleId);
+  selectedIds=new Set( (loadedRole.talents||[]).map(t=>t.id) ); // default select all
+  renderPicker();
+  toast(`Loaded role • ${loadedRole.talents.length} talents`);
+});
+
+['filterInput', 'minImages'].forEach(id=>byId(id).addEventListener('input',renderPicker));
+document.querySelectorAll('.st').forEach(cb=>cb.addEventListener('change',renderPicker));
+
+byId('btnSelectAll').addEventListener('click',()=>{
+  (loadedRole?.talents||[]).forEach(t=>selectedIds.add(t.id));
+  renderPicker();
+});
+byId('btnClear').addEventListener('click',()=>{
+  selectedIds.clear(); renderPicker();
+});
+
+function getSelectedTalents(){
+  const map=new Map((loadedRole?.talents||[]).map(t=>[t.id,t]));
+  const arr=[...selectedIds].map(id=>map.get(id)).filter(Boolean);
+  return arr;
+}
+
+/* Generate slides from CHECKED talents */
 async function generate(){
   clearSlides();
-  const title=document.getElementById('inpTitle').value.trim()||'Casting Presentation';
+  if(!loadedRole){ toast('Load a role first'); return; }
+  const title=byId('inpTitle').value.trim()||'Casting Presentation';
   const statuses=[...document.querySelectorAll('.st:checked')].map(x=>x.value);
-  const min=parseInt(document.getElementById('minImages').value||'0',10);
-  const roles=parseRoleIds(document.getElementById('inpRoles').value||'');
-  const roleId=roles[0] || 'b95af7ac-5a69-466d-9aa4-43baec5bb7be'; // fallback demo
-
-  const data=await fetchRoleData(roleId);
-  let talents=(data.talents||[]).map(t=>{ensureSelectedImages(t); return t});
-
-  if(statuses.length) talents=talents.filter(t=>statuses.includes(String(t.status||'').toUpperCase()));
-  if(min>0) talents=talents.filter(t=> ((t.best_image?1:0)+(t.gallery?t.gallery.length:0))>=min );
-
   const label=statuses.length?('Statuses: '+statuses.join(', ')):'All statuses';
-  const roleUrl=`https://producer.selfcast.com/production/ROLE/role/${data.roleId}`;
-
+  const roleUrl=`https://producer.selfcast.com/production/ROLE/role/${loadedRole.roleId}`;
+  const talents=getSelectedTalents();
   buildCover(title, talents.length, roleUrl, label);
-  if(document.getElementById('optGrid').checked) buildGrid(talents, roleUrl);
+  buildGrid(talents, roleUrl);
   talents.forEach(buildTalent);
   buildFooter();
   setActive(0); toast('Deck generated');
 }
+['btnGenerate','btnLoad'].forEach(id=>byId(id).addEventListener('click',()=>{}));
+byId('btnGenerate').addEventListener('click',generate);
 
-// Wire up
-['btnGenerate','btnGenerate2'].forEach(id=>document.getElementById(id).addEventListener('click',generate));
-generate(); // first render
+/* initial state */
+setActive(0);
 </script>
 </body>
 </html>
