@@ -37,6 +37,26 @@ function extractPhone(s){
   return m ? m[0] : '';
 }
 
+// ----------------------
+// Noise filter (server-side)
+// ----------------------
+// Behold "software" som whitelist (vi vil gerne se casting software)
+const BLACKLIST = [
+  "metal","steel","iron","aluminium","aluminum","bronze","resin","foundry",
+  "mold","mould","die","forge","forging","investment casting",
+  "orthopedic","orthopaedic","plaster","fracture","dental","dentist",
+  "casting vote","ballot","election"
+];
+
+function isValid(r) {
+  const txt = ((r.title||"") + " " + (r.snippet||"")).toLowerCase();
+  // hvis der slet ikke er blacklist-træf, behold
+  const hit = BLACKLIST.some(term => txt.includes(term));
+  if (!hit) return true;
+  // whitelist: hvis "software" forekommer, behold
+  return txt.includes("software");
+}
+
 async function cse(query, lang) {
   const base = 'https://www.googleapis.com/customsearch/v1';
   const params = new URLSearchParams({
@@ -98,6 +118,7 @@ async function run() {
   }
 
   const out = Array.from(byId.values())
+    .filter(isValid) // <-- filtrér støj fra (men behold 'software')
     .sort((a,b)=> (b.first_seen||'').localeCompare(a.first_seen||''))
     .slice(0, 10000);
 
