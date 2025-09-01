@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Selfcast – Casting Jobs Radar</title>
+<meta name="robots" content="noindex,nofollow" />
+<style>
+  body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;margin:20px;background:#0b0b0b;color:#f5f5f5}
+  a{color:inherit}
+  .wrap{max-width:1200px;margin:0 auto}
+  .top{display:flex;justify-content:space-between;align-items:center;gap:12px}
+  h1{margin:0;font-size:28px;font-weight:900}
+  .btn{background:#1f1f1f;border:1px solid #2a2a2a;color:#fff;padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:700}
+  .controls{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0 18px}
+  input,select{padding:8px;border:1px solid #222;background:#141414;color:#f5f5f5;border-radius:10px}
+  table{width:100%;border-collapse:collapse;background:#141414;border-radius:12px;overflow:hidden}
+  th,td{padding:10px;border-bottom:1px solid #222;vertical-align:top;text-align:left}
+  tr:hover{background:#161616}
+  .pill{display:inline-block;padding:2px 8px;border-radius:999px;background:#1d1d1d;border:1px solid #222;font-size:12px}
+  .small{font-size:12px;color:#b3b3b3}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <h1>Selfcast – Casting Jobs Radar</h1>
+    <a class="btn" href="/radar/">← Contacts</a>
+  </div>
+  <div class="small" id="meta">Loading…</div>
+
+  <div class="controls">
+    <input id="q" type="search" placeholder="Search title, snippet, role, city…" />
+    <select id="country"><option value="">All countries</option></select>
+    <select id="source"><option value="">All sources</option></select>
+    <select id="age"><option value="">Any time</option>
+      <option value="1">Last 24h</option><option value="3">Last 3 days</option>
+      <option value="7">Last 7 days</option><option value="14">Last 14 days</option>
+      <option value="30">Last 30 days</option>
+    </select>
+  </div>
+
+  <table id="tbl" style="display:none">
+    <thead>
+      <tr><th>Title</th><th>Country</th><th>Source</th><th>Snippet</th><th>When</th></tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+</div>
+
+<script>
+const CFG = { dataUrl: './live/jobs.json' };
+
+const $q = document.getElementById('q');
+const $country = document.getElementById('country');
+const $source = document.getElementById('source');
+const $age = document.getElementById('age');
+const $tbl = document.getElementById('tbl');
+const $tbody = document.querySelector('#tbl tbody');
+const $meta = document.getElementById('meta');
+
+const agoDays = (iso) => {
+  if(!iso) return Infinity;
+  const d = (Date.now() - new Date(iso).getTime())/86400000;
+  return d;
+};
+const uniq = (arr) => [...new Set(arr.filter(Boolean))].sort((a,b)=>a.localeCompare(b));
+const esc = (s)=> (s||'').replace(/[&<>"']/g, m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[m]));
+
+let DATA=[];
+fetch(CFG.dataUrl,{cache:'no-store'}).then(r=>r.json()).then(rows=>{
+  DATA = rows.sort((a,b)=> (b.first_seen||b.fetched_at||'').localeCompare(a.first_seen||a.fetched_at||''));
+  $meta.textContent = `Loaded ${DATA.length.toLocaleString()} posts • source: ${CFG.dataUrl}`;
+  // filters
+  uniq(DATA.map(r=>r.country)).forEach(c=>{ const o=document.createElement('option'); o.value=c;o.textContent=c;$country.appendChild(o); });
+  uniq(DATA.map(r=>r.source_domain)).forEach(s=>{ const o=document.createElement('option'); o.value=s;o.textContent=s;$source.appendChild(o); });
+  $tbl.style.display='table';
+  render();
+});
+
+[q,country,source,age]=[$q,$country,$source,$age];
+[q,country,source,age].forEach(el=>el.addEventListener('input',render));
+[$country,$source,$age].forEach(el=>el.addEventListener('change',render));
+
+function matches(r){
+  const q = $q.value.trim().toLowerCase();
+  const cn = $country.value, so=$source.value, days=$age.value?parseInt($age.value,10):null;
+  if (cn && r.country !== cn) return false;
+  if (so && r.source_domain !== so) return false;
+  if (days!=null && agoDays(r.first_seen||r.fetched_at) > days) return false;
+  if (!q) return true;
+  const hay = [r.title,r.snippet,r.query,r.country,r.source_domain].join(' ').toLowerCase();
+  return hay.includes(q);
+}
+function fmtWhen(r){
+  const d = r.first_seen || r.fetched_at;
+  if(!d) return '';
+  const days = Math.floor(agoDays(d));
+  return days===0?'today':(days===1?'yesterday':`${days}d ago`);
+}
+function row(r){
+  return `
+  <tr>
+    <td><a href="${esc(r.link)}" target="_blank" rel="noopener"><strong>${esc(r.title||'(no title)')}</strong></a>
+      ${r.contact_email?`<div class="small">✉️ ${esc(r.contact_email)}</div>`:''}
+      ${r.contact_phone?`<div class="small">☎️ ${esc(r.contact_phone)}</div>`:''}
+      <div class="small">${esc(r.query||'')}</div>
+    </td>
+    <td>${esc(r.country||'')}</td>
+    <td>${esc(r.source_domain||'')}</td>
+    <td>${esc(r.snippet||'')}</td>
+    <td>${esc(fmtWhen(r))}</td>
+  </tr>`;
+}
+function render(){
+  const rows = DATA.filter(matches).slice(0,2000);
+  $tbody.innerHTML = rows.map(row).join('');
+}
+</script>
+</body>
+</html>
