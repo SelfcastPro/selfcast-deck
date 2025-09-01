@@ -50,10 +50,14 @@ const BLACKLIST = [
 
 function isValid(r) {
   const txt = ((r.title||"") + " " + (r.snippet||"")).toLowerCase();
-  // hvis der slet ikke er blacklist-træf, behold
+
+  // 1) Udeluk YouTube-domæner
+  const dom = (r.source_domain || "").toLowerCase();
+  if (dom.includes("youtube.com") || dom.includes("youtu.be")) return false;
+
+  // 2) Blacklist af støj-ord (men whitelist "software")
   const hit = BLACKLIST.some(term => txt.includes(term));
   if (!hit) return true;
-  // whitelist: hvis "software" forekommer, behold
   return txt.includes("software");
 }
 
@@ -118,7 +122,7 @@ async function run() {
   }
 
   const out = Array.from(byId.values())
-    .filter(isValid) // <-- filtrér støj fra (men behold 'software')
+    .filter(isValid) // <-- filtrér YouTube + støj (men behold 'software')
     .sort((a,b)=> (b.first_seen||'').localeCompare(a.first_seen||''))
     .slice(0, 10000);
 
