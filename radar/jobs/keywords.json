@@ -1,100 +1,348 @@
 [
   { "country": "Denmark", "lang": "da", "queries": [
-    "casting Denmark","casting call Denmark","audition Denmark","photoshoot Denmark","model casting Denmark","open call Denmark","extras casting Denmark","film casting Denmark","tv casting Denmark"
+    "casting Denmark -site:youtube.com",
+    "casting call Denmark -site:youtube.com",
+    "audition Denmark -site:youtube.com",
+    "photoshoot Denmark -site:youtube.com",
+    "model casting Denmark -site:youtube.com",
+    "open call Denmark -site:youtube.com",
+    "extras casting Denmark -site:youtube.com",
+    "film casting Denmark -site:youtube.com",
+    "tv casting Denmark -site:youtube.com"
   ]},
   { "country": "Sweden", "lang": "sv", "queries": [
-    "casting Sweden","casting call Sweden","audition Sweden","photoshoot Sweden","model casting Sweden","open call Sweden","extras casting Sweden","film casting Sweden","tv casting Sweden"
+    "casting Sweden -site:youtube.com",
+    "casting call Sweden -site:youtube.com",
+    "audition Sweden -site:youtube.com",
+    "photoshoot Sweden -site:youtube.com",
+    "model casting Sweden -site:youtube.com",
+    "open call Sweden -site:youtube.com",
+    "extras casting Sweden -site:youtube.com",
+    "film casting Sweden -site:youtube.com",
+    "tv casting Sweden -site:youtube.com"
   ]},
   { "country": "Norway", "lang": "no", "queries": [
-    "casting Norway","casting call Norway","audition Norway","photoshoot Norway","model casting Norway","open call Norway","extras casting Norway","film casting Norway","tv casting Norway"
+    "casting Norway -site:youtube.com",
+    "casting call Norway -site:youtube.com",
+    "audition Norway -site:youtube.com",
+    "photoshoot Norway -site:youtube.com",
+    "model casting Norway -site:youtube.com",
+    "open call Norway -site:youtube.com",
+    "extras casting Norway -site:youtube.com",
+    "film casting Norway -site:youtube.com",
+    "tv casting Norway -site:youtube.com"
   ]},
   { "country": "Finland", "lang": "fi", "queries": [
-    "casting Finland","casting call Finland","audition Finland","photoshoot Finland","model casting Finland","open call Finland","extras casting Finland","film casting Finland","tv casting Finland"
+    "casting Finland -site:youtube.com",
+    "casting call Finland -site:youtube.com",
+    "audition Finland -site:youtube.com",
+    "photoshoot Finland -site:youtube.com",
+    "model casting Finland -site:youtube.com",
+    "open call Finland -site:youtube.com",
+    "extras casting Finland -site:youtube.com",
+    "film casting Finland -site:youtube.com",
+    "tv casting Finland -site:youtube.com"
   ]},
   { "country": "Iceland", "lang": "is", "queries": [
-    "casting Iceland","casting call Iceland","audition Iceland","photoshoot Iceland","model casting Iceland","open call Iceland","extras casting Iceland","film casting Iceland","tv casting Iceland"
+    "casting Iceland -site:youtube.com",
+    "casting call Iceland -site:youtube.com",
+    "audition Iceland -site:youtube.com",
+    "photoshoot Iceland -site:youtube.com",
+    "model casting Iceland -site:youtube.com",
+    "open call Iceland -site:youtube.com",
+    "extras casting Iceland -site:youtube.com",
+    "film casting Iceland -site:youtube.com",
+    "tv casting Iceland -site:youtube.com"
   ]},
 
   { "country": "Germany", "lang": "de", "queries": [
-    "casting Germany","casting call Germany","audition Germany","photoshoot Germany","model casting Germany","open call Germany","extras casting Germany","film casting Germany","tv casting Germany"
+    "casting Germany -site:youtube.com",
+    "casting call Germany -site:youtube.com",
+    "audition Germany -site:youtube.com",
+    "photoshoot Germany -site:youtube.com",
+    "model casting Germany -site:youtube.com",
+    "open call Germany -site:youtube.com",
+    "extras casting Germany -site:youtube.com",
+    "film casting Germany -site:youtube.com",
+    "tv casting Germany -site:youtube.com"
   ]},
   { "country": "Austria", "lang": "de", "queries": [
-    "casting Austria","casting call Austria","audition Austria","photoshoot Austria","model casting Austria","open call Austria","extras casting Austria","film casting Austria","tv casting Austria"
+    "casting Austria -site:youtube.com",
+    "casting call Austria -site:youtube.com",
+    "audition Austria -site:youtube.com",
+    "photoshoot Austria -site:youtube.com",
+    "model casting Austria -site:youtube.com",
+    "open call Austria -site:youtube.com",
+    "extras casting Austria -site:youtube.com",
+    "film casting Austria -site:youtube.com",
+    "tv casting Austria -site:youtube.com"
   ]},
   { "country": "Switzerland", "lang": "de", "queries": [
-    "casting Switzerland","casting call Switzerland","audition Switzerland","photoshoot Switzerland","model casting Switzerland","open call Switzerland","extras casting Switzerland","film casting Switzerland","tv casting Switzerland"
+    "casting Switzerland -site:youtube.com",
+    "casting call Switzerland -site:youtube.com",
+    "audition Switzerland -site:youtube.com",
+    "photoshoot Switzerland -site:youtube.com",
+    "model casting Switzerland -site:youtube.com",
+    "open call Switzerland -site:youtube.com",
+    "extras casting Switzerland -site:youtube.com",
+    "film casting Switzerland -site:youtube.com",
+    "tv casting Switzerland -site:youtube.com"
   ]},
   { "country": "Netherlands", "lang": "nl", "queries": [
-    "casting Netherlands","casting call Netherlands","audition Netherlands","photoshoot Netherlands","model casting Netherlands","open call Netherlands","extras casting Netherlands","film casting Netherlands","tv casting Netherlands"
+    "casting Netherlands -site:youtube.com",
+    "casting call Netherlands -site:youtube.com",
+    "audition Netherlands -site:youtube.com",
+    "photoshoot Netherlands -site:youtube.com",
+    "model casting Netherlands -site:youtube.com",
+    "open call Netherlands -site:youtube.com",
+    "extras casting Netherlands -site:youtube.com",
+    "film casting Netherlands -site:youtube.com",
+    "tv casting Netherlands -site:youtube.com"
   ]},
   { "country": "Belgium", "lang": "nl", "queries": [
-    "casting Belgium","casting call Belgium","audition Belgium","photoshoot Belgium","model casting Belgium","open call Belgium","extras casting Belgium","film casting Belgium","tv casting Belgium"
+    "casting Belgium -site:youtube.com",
+    "casting call Belgium -site:youtube.com",
+    "audition Belgium -site:youtube.com",
+    "photoshoot Belgium -site:youtube.com",
+    "model casting Belgium -site:youtube.com",
+    "open call Belgium -site:youtube.com",
+    "extras casting Belgium -site:youtube.com",
+    "film casting Belgium -site:youtube.com",
+    "tv casting Belgium -site:youtube.com"
   ]},
   { "country": "Poland", "lang": "pl", "queries": [
-    "casting Poland","casting call Poland","audition Poland","photoshoot Poland","model casting Poland","open call Poland","extras casting Poland","film casting Poland","tv casting Poland"
+    "casting Poland -site:youtube.com",
+    "casting call Poland -site:youtube.com",
+    "audition Poland -site:youtube.com",
+    "photoshoot Poland -site:youtube.com",
+    "model casting Poland -site:youtube.com",
+    "open call Poland -site:youtube.com",
+    "extras casting Poland -site:youtube.com",
+    "film casting Poland -site:youtube.com",
+    "tv casting Poland -site:youtube.com"
   ]},
 
   { "country": "France", "lang": "fr", "queries": [
-    "casting France","casting call France","audition France","photoshoot France","model casting France","open call France","extras casting France","film casting France","tv casting France"
+    "casting France -site:youtube.com",
+    "casting call France -site:youtube.com",
+    "audition France -site:youtube.com",
+    "photoshoot France -site:youtube.com",
+    "model casting France -site:youtube.com",
+    "open call France -site:youtube.com",
+    "extras casting France -site:youtube.com",
+    "film casting France -site:youtube.com",
+    "tv casting France -site:youtube.com"
   ]},
   { "country": "Spain", "lang": "es", "queries": [
-    "casting Spain","casting call Spain","audition Spain","photoshoot Spain","model casting Spain","open call Spain","extras casting Spain","film casting Spain","tv casting Spain"
+    "casting Spain -site:youtube.com",
+    "casting call Spain -site:youtube.com",
+    "audition Spain -site:youtube.com",
+    "photoshoot Spain -site:youtube.com",
+    "model casting Spain -site:youtube.com",
+    "open call Spain -site:youtube.com",
+    "extras casting Spain -site:youtube.com",
+    "film casting Spain -site:youtube.com",
+    "tv casting Spain -site:youtube.com"
   ]},
   { "country": "Italy", "lang": "it", "queries": [
-    "casting Italy","casting call Italy","audition Italy","photoshoot Italy","model casting Italy","open call Italy","extras casting Italy","film casting Italy","tv casting Italy"
+    "casting Italy -site:youtube.com",
+    "casting call Italy -site:youtube.com",
+    "audition Italy -site:youtube.com",
+    "photoshoot Italy -site:youtube.com",
+    "model casting Italy -site:youtube.com",
+    "open call Italy -site:youtube.com",
+    "extras casting Italy -site:youtube.com",
+    "film casting Italy -site:youtube.com",
+    "tv casting Italy -site:youtube.com"
   ]},
   { "country": "Portugal", "lang": "pt", "queries": [
-    "casting Portugal","casting call Portugal","audition Portugal","photoshoot Portugal","model casting Portugal","open call Portugal","extras casting Portugal","film casting Portugal","tv casting Portugal"
+    "casting Portugal -site:youtube.com",
+    "casting call Portugal -site:youtube.com",
+    "audition Portugal -site:youtube.com",
+    "photoshoot Portugal -site:youtube.com",
+    "model casting Portugal -site:youtube.com",
+    "open call Portugal -site:youtube.com",
+    "extras casting Portugal -site:youtube.com",
+    "film casting Portugal -site:youtube.com",
+    "tv casting Portugal -site:youtube.com"
   ]},
 
   { "country": "Czech Republic", "lang": "cs", "queries": [
-    "casting Czech Republic","casting call Czech Republic","audition Czech Republic","photoshoot Czech Republic","model casting Czech Republic","open call Czech Republic","extras casting Czech Republic","film casting Czech Republic","tv casting Czech Republic"
+    "casting Czech Republic -site:youtube.com",
+    "casting call Czech Republic -site:youtube.com",
+    "audition Czech Republic -site:youtube.com",
+    "photoshoot Czech Republic -site:youtube.com",
+    "model casting Czech Republic -site:youtube.com",
+    "open call Czech Republic -site:youtube.com",
+    "extras casting Czech Republic -site:youtube.com",
+    "film casting Czech Republic -site:youtube.com",
+    "tv casting Czech Republic -site:youtube.com"
   ]},
   { "country": "Slovakia", "lang": "sk", "queries": [
-    "casting Slovakia","casting call Slovakia","audition Slovakia","photoshoot Slovakia","model casting Slovakia","open call Slovakia","extras casting Slovakia","film casting Slovakia","tv casting Slovakia"
+    "casting Slovakia -site:youtube.com",
+    "casting call Slovakia -site:youtube.com",
+    "audition Slovakia -site:youtube.com",
+    "photoshoot Slovakia -site:youtube.com",
+    "model casting Slovakia -site:youtube.com",
+    "open call Slovakia -site:youtube.com",
+    "extras casting Slovakia -site:youtube.com",
+    "film casting Slovakia -site:youtube.com",
+    "tv casting Slovakia -site:youtube.com"
   ]},
   { "country": "Hungary", "lang": "hu", "queries": [
-    "casting Hungary","casting call Hungary","audition Hungary","photoshoot Hungary","model casting Hungary","open call Hungary","extras casting Hungary","film casting Hungary","tv casting Hungary"
+    "casting Hungary -site:youtube.com",
+    "casting call Hungary -site:youtube.com",
+    "audition Hungary -site:youtube.com",
+    "photoshoot Hungary -site:youtube.com",
+    "model casting Hungary -site:youtube.com",
+    "open call Hungary -site:youtube.com",
+    "extras casting Hungary -site:youtube.com",
+    "film casting Hungary -site:youtube.com",
+    "tv casting Hungary -site:youtube.com"
   ]},
   { "country": "Romania", "lang": "ro", "queries": [
-    "casting Romania","casting call Romania","audition Romania","photoshoot Romania","model casting Romania","open call Romania","extras casting Romania","film casting Romania","tv casting Romania"
+    "casting Romania -site:youtube.com",
+    "casting call Romania -site:youtube.com",
+    "audition Romania -site:youtube.com",
+    "photoshoot Romania -site:youtube.com",
+    "model casting Romania -site:youtube.com",
+    "open call Romania -site:youtube.com",
+    "extras casting Romania -site:youtube.com",
+    "film casting Romania -site:youtube.com",
+    "tv casting Romania -site:youtube.com"
   ]},
   { "country": "Bulgaria", "lang": "bg", "queries": [
-    "casting Bulgaria","casting call Bulgaria","audition Bulgaria","photoshoot Bulgaria","model casting Bulgaria","open call Bulgaria","extras casting Bulgaria","film casting Bulgaria","tv casting Bulgaria"
+    "casting Bulgaria -site:youtube.com",
+    "casting call Bulgaria -site:youtube.com",
+    "audition Bulgaria -site:youtube.com",
+    "photoshoot Bulgaria -site:youtube.com",
+    "model casting Bulgaria -site:youtube.com",
+    "open call Bulgaria -site:youtube.com",
+    "extras casting Bulgaria -site:youtube.com",
+    "film casting Bulgaria -site:youtube.com",
+    "tv casting Bulgaria -site:youtube.com"
   ]},
 
   { "country": "Slovenia", "lang": "sl", "queries": [
-    "casting Slovenia","casting call Slovenia","audition Slovenia","photoshoot Slovenia","model casting Slovenia","open call Slovenia","extras casting Slovenia","film casting Slovenia","tv casting Slovenia"
+    "casting Slovenia -site:youtube.com",
+    "casting call Slovenia -site:youtube.com",
+    "audition Slovenia -site:youtube.com",
+    "photoshoot Slovenia -site:youtube.com",
+    "model casting Slovenia -site:youtube.com",
+    "open call Slovenia -site:youtube.com",
+    "extras casting Slovenia -site:youtube.com",
+    "film casting Slovenia -site:youtube.com",
+    "tv casting Slovenia -site:youtube.com"
   ]},
   { "country": "Croatia", "lang": "hr", "queries": [
-    "casting Croatia","casting call Croatia","audition Croatia","photoshoot Croatia","model casting Croatia","open call Croatia","extras casting Croatia","film casting Croatia","tv casting Croatia"
+    "casting Croatia -site:youtube.com",
+    "casting call Croatia -site:youtube.com",
+    "audition Croatia -site:youtube.com",
+    "photoshoot Croatia -site:youtube.com",
+    "model casting Croatia -site:youtube.com",
+    "open call Croatia -site:youtube.com",
+    "extras casting Croatia -site:youtube.com",
+    "film casting Croatia -site:youtube.com",
+    "tv casting Croatia -site:youtube.com"
   ]},
   { "country": "Serbia", "lang": "sr", "queries": [
-    "casting Serbia","casting call Serbia","audition Serbia","photoshoot Serbia","model casting Serbia","open call Serbia","extras casting Serbia","film casting Serbia","tv casting Serbia"
+    "casting Serbia -site:youtube.com",
+    "casting call Serbia -site:youtube.com",
+    "audition Serbia -site:youtube.com",
+    "photoshoot Serbia -site:youtube.com",
+    "model casting Serbia -site:youtube.com",
+    "open call Serbia -site:youtube.com",
+    "extras casting Serbia -site:youtube.com",
+    "film casting Serbia -site:youtube.com",
+    "tv casting Serbia -site:youtube.com"
   ]},
   { "country": "Bosnia and Herzegovina", "lang": "bs", "queries": [
-    "casting Bosnia","casting call Bosnia","audition Bosnia","photoshoot Bosnia","model casting Bosnia","open call Bosnia","extras casting Bosnia","film casting Bosnia","tv casting Bosnia"
+    "casting Bosnia -site:youtube.com",
+    "casting call Bosnia -site:youtube.com",
+    "audition Bosnia -site:youtube.com",
+    "photoshoot Bosnia -site:youtube.com",
+    "model casting Bosnia -site:youtube.com",
+    "open call Bosnia -site:youtube.com",
+    "extras casting Bosnia -site:youtube.com",
+    "film casting Bosnia -site:youtube.com",
+    "tv casting Bosnia -site:youtube.com"
   ]},
   { "country": "North Macedonia", "lang": "mk", "queries": [
-    "casting North Macedonia","casting call North Macedonia","audition North Macedonia","photoshoot North Macedonia","model casting North Macedonia","open call North Macedonia","extras casting North Macedonia","film casting North Macedonia","tv casting North Macedonia"
+    "casting North Macedonia -site:youtube.com",
+    "casting call North Macedonia -site:youtube.com",
+    "audition North Macedonia -site:youtube.com",
+    "photoshoot North Macedonia -site:youtube.com",
+    "model casting North Macedonia -site:youtube.com",
+    "open call North Macedonia -site:youtube.com",
+    "extras casting North Macedonia -site:youtube.com",
+    "film casting North Macedonia -site:youtube.com",
+    "tv casting North Macedonia -site:youtube.com"
   ]},
   { "country": "Albania", "lang": "sq", "queries": [
-    "casting Albania","casting call Albania","audition Albania","photoshoot Albania","model casting Albania","open call Albania","extras casting Albania","film casting Albania","tv casting Albania"
+    "casting Albania -site:youtube.com",
+    "casting call Albania -site:youtube.com",
+    "audition Albania -site:youtube.com",
+    "photoshoot Albania -site:youtube.com",
+    "model casting Albania -site:youtube.com",
+    "open call Albania -site:youtube.com",
+    "extras casting Albania -site:youtube.com",
+    "film casting Albania -site:youtube.com",
+    "tv casting Albania -site:youtube.com"
   ]},
   { "country": "Montenegro", "lang": "me", "queries": [
-    "casting Montenegro","casting call Montenegro","audition Montenegro","photoshoot Montenegro","model casting Montenegro","open call Montenegro","extras casting Montenegro","film casting Montenegro","tv casting Montenegro"
+    "casting Montenegro -site:youtube.com",
+    "casting call Montenegro -site:youtube.com",
+    "audition Montenegro -site:youtube.com",
+    "photoshoot Montenegro -site:youtube.com",
+    "model casting Montenegro -site:youtube.com",
+    "open call Montenegro -site:youtube.com",
+    "extras casting Montenegro -site:youtube.com",
+    "film casting Montenegro -site:youtube.com",
+    "tv casting Montenegro -site:youtube.com"
   ]},
   { "country": "Greece", "lang": "el", "queries": [
-    "casting Greece","casting call Greece","audition Greece","photoshoot Greece","model casting Greece","open call Greece","extras casting Greece","film casting Greece","tv casting Greece"
+    "casting Greece -site:youtube.com",
+    "casting call Greece -site:youtube.com",
+    "audition Greece -site:youtube.com",
+    "photoshoot Greece -site:youtube.com",
+    "model casting Greece -site:youtube.com",
+    "open call Greece -site:youtube.com",
+    "extras casting Greece -site:youtube.com",
+    "film casting Greece -site:youtube.com",
+    "tv casting Greece -site:youtube.com"
   ]},
 
   { "country": "Estonia", "lang": "et", "queries": [
-    "casting Estonia","casting call Estonia","audition Estonia","photoshoot Estonia","model casting Estonia","open call Estonia","extras casting Estonia","film casting Estonia","tv casting Estonia"
+    "casting Estonia -site:youtube.com",
+    "casting call Estonia -site:youtube.com",
+    "audition Estonia -site:youtube.com",
+    "photoshoot Estonia -site:youtube.com",
+    "model casting Estonia -site:youtube.com",
+    "open call Estonia -site:youtube.com",
+    "extras casting Estonia -site:youtube.com",
+    "film casting Estonia -site:youtube.com",
+    "tv casting Estonia -site:youtube.com"
   ]},
   { "country": "Latvia", "lang": "lv", "queries": [
-    "casting Latvia","casting call Latvia","audition Latvia","photoshoot Latvia","model casting Latvia","open call Latvia","extras casting Latvia","film casting Latvia","tv casting Latvia"
+    "casting Latvia -site:youtube.com",
+    "casting call Latvia -site:youtube.com",
+    "audition Latvia -site:youtube.com",
+    "photoshoot Latvia -site:youtube.com",
+    "model casting Latvia -site:youtube.com",
+    "open call Latvia -site:youtube.com",
+    "extras casting Latvia -site:youtube.com",
+    "film casting Latvia -site:youtube.com",
+    "tv casting Latvia -site:youtube.com"
   ]},
   { "country": "Lithuania", "lang": "lt", "queries": [
-    "casting Lithuania","casting call Lithuania","audition Lithuania","photoshoot Lithuania","model casting Lithuania","open call Lithuania","extras casting Lithuania","film casting Lithuania","tv casting Lithuania"
+    "casting Lithuania -site:youtube.com",
+    "casting call Lithuania -site:youtube.com",
+    "audition Lithuania -site:youtube.com",
+    "photoshoot Lithuania -site:youtube.com",
+    "model casting Lithuania -site:youtube.com",
+    "open call Lithuania -site:youtube.com",
+    "extras casting Lithuania -site:youtube.com",
+    "film casting Lithuania -site:youtube.com",
+    "tv casting Lithuania -site:youtube.com"
   ]}
 ]
