@@ -1,67 +1,100 @@
 [
   { "country": "Denmark", "lang": "da", "queries": [
-    "casting Denmark", "casting call Denmark", "audition Denmark",
-    "photoshoot Denmark", "model casting Denmark", "open call Denmark",
-    "extras casting Denmark", "film casting Denmark", "tv casting Denmark"
+    "casting Denmark","casting call Denmark","audition Denmark","photoshoot Denmark","model casting Denmark","open call Denmark","extras casting Denmark","film casting Denmark","tv casting Denmark"
   ]},
   { "country": "Sweden", "lang": "sv", "queries": [
-    "casting Sweden", "casting call Sweden", "audition Sweden",
-    "photoshoot Sweden", "model casting Sweden", "open call Sweden",
-    "extras casting Sweden", "film casting Sweden", "tv casting Sweden"
+    "casting Sweden","casting call Sweden","audition Sweden","photoshoot Sweden","model casting Sweden","open call Sweden","extras casting Sweden","film casting Sweden","tv casting Sweden"
   ]},
   { "country": "Norway", "lang": "no", "queries": [
-    "casting Norway", "casting call Norway", "audition Norway",
-    "photoshoot Norway", "model casting Norway", "open call Norway",
-    "extras casting Norway", "film casting Norway", "tv casting Norway"
+    "casting Norway","casting call Norway","audition Norway","photoshoot Norway","model casting Norway","open call Norway","extras casting Norway","film casting Norway","tv casting Norway"
   ]},
   { "country": "Finland", "lang": "fi", "queries": [
-    "casting Finland", "casting call Finland", "audition Finland",
-    "photoshoot Finland", "model casting Finland", "open call Finland",
-    "extras casting Finland", "film casting Finland", "tv casting Finland"
+    "casting Finland","casting call Finland","audition Finland","photoshoot Finland","model casting Finland","open call Finland","extras casting Finland","film casting Finland","tv casting Finland"
   ]},
+  { "country": "Iceland", "lang": "is", "queries": [
+    "casting Iceland","casting call Iceland","audition Iceland","photoshoot Iceland","model casting Iceland","open call Iceland","extras casting Iceland","film casting Iceland","tv casting Iceland"
+  ]},
+
   { "country": "Germany", "lang": "de", "queries": [
-    "casting Germany", "casting call Germany", "audition Germany",
-    "photoshoot Germany", "model casting Germany", "open call Germany",
-    "extras casting Germany", "film casting Germany", "tv casting Germany"
-  ]},
-  { "country": "France", "lang": "fr", "queries": [
-    "casting France", "casting call France", "audition France",
-    "photoshoot France", "model casting France", "open call France",
-    "extras casting France", "film casting France", "tv casting France"
-  ]},
-  { "country": "Spain", "lang": "es", "queries": [
-    "casting Spain", "casting call Spain", "audition Spain",
-    "photoshoot Spain", "model casting Spain", "open call Spain",
-    "extras casting Spain", "film casting Spain", "tv casting Spain"
-  ]},
-  { "country": "Italy", "lang": "it", "queries": [
-    "casting Italy", "casting call Italy", "audition Italy",
-    "photoshoot Italy", "model casting Italy", "open call Italy",
-    "extras casting Italy", "film casting Italy", "tv casting Italy"
-  ]},
-  { "country": "Poland", "lang": "pl", "queries": [
-    "casting Poland", "casting call Poland", "audition Poland",
-    "photoshoot Poland", "model casting Poland", "open call Poland",
-    "extras casting Poland", "film casting Poland", "tv casting Poland"
-  ]},
-  { "country": "Netherlands", "lang": "nl", "queries": [
-    "casting Netherlands", "casting call Netherlands", "audition Netherlands",
-    "photoshoot Netherlands", "model casting Netherlands", "open call Netherlands",
-    "extras casting Netherlands", "film casting Netherlands", "tv casting Netherlands"
-  ]},
-  { "country": "Belgium", "lang": "nl", "queries": [
-    "casting Belgium", "casting call Belgium", "audition Belgium",
-    "photoshoot Belgium", "model casting Belgium", "open call Belgium",
-    "extras casting Belgium", "film casting Belgium", "tv casting Belgium"
+    "casting Germany","casting call Germany","audition Germany","photoshoot Germany","model casting Germany","open call Germany","extras casting Germany","film casting Germany","tv casting Germany"
   ]},
   { "country": "Austria", "lang": "de", "queries": [
-    "casting Austria", "casting call Austria", "audition Austria",
-    "photoshoot Austria", "model casting Austria", "open call Austria",
-    "extras casting Austria", "film casting Austria", "tv casting Austria"
+    "casting Austria","casting call Austria","audition Austria","photoshoot Austria","model casting Austria","open call Austria","extras casting Austria","film casting Austria","tv casting Austria"
   ]},
   { "country": "Switzerland", "lang": "de", "queries": [
-    "casting Switzerland", "casting call Switzerland", "audition Switzerland",
-    "photoshoot Switzerland", "model casting Switzerland", "open call Switzerland",
-    "extras casting Switzerland", "film casting Switzerland", "tv casting Switzerland"
+    "casting Switzerland","casting call Switzerland","audition Switzerland","photoshoot Switzerland","model casting Switzerland","open call Switzerland","extras casting Switzerland","film casting Switzerland","tv casting Switzerland"
+  ]},
+  { "country": "Netherlands", "lang": "nl", "queries": [
+    "casting Netherlands","casting call Netherlands","audition Netherlands","photoshoot Netherlands","model casting Netherlands","open call Netherlands","extras casting Netherlands","film casting Netherlands","tv casting Netherlands"
+  ]},
+  { "country": "Belgium", "lang": "nl", "queries": [
+    "casting Belgium","casting call Belgium","audition Belgium","photoshoot Belgium","model casting Belgium","open call Belgium","extras casting Belgium","film casting Belgium","tv casting Belgium"
+  ]},
+  { "country": "Poland", "lang": "pl", "queries": [
+    "casting Poland","casting call Poland","audition Poland","photoshoot Poland","model casting Poland","open call Poland","extras casting Poland","film casting Poland","tv casting Poland"
+  ]},
+
+  { "country": "France", "lang": "fr", "queries": [
+    "casting France","casting call France","audition France","photoshoot France","model casting France","open call France","extras casting France","film casting France","tv casting France"
+  ]},
+  { "country": "Spain", "lang": "es", "queries": [
+    "casting Spain","casting call Spain","audition Spain","photoshoot Spain","model casting Spain","open call Spain","extras casting Spain","film casting Spain","tv casting Spain"
+  ]},
+  { "country": "Italy", "lang": "it", "queries": [
+    "casting Italy","casting call Italy","audition Italy","photoshoot Italy","model casting Italy","open call Italy","extras casting Italy","film casting Italy","tv casting Italy"
+  ]},
+  { "country": "Portugal", "lang": "pt", "queries": [
+    "casting Portugal","casting call Portugal","audition Portugal","photoshoot Portugal","model casting Portugal","open call Portugal","extras casting Portugal","film casting Portugal","tv casting Portugal"
+  ]},
+
+  { "country": "Czech Republic", "lang": "cs", "queries": [
+    "casting Czech Republic","casting call Czech Republic","audition Czech Republic","photoshoot Czech Republic","model casting Czech Republic","open call Czech Republic","extras casting Czech Republic","film casting Czech Republic","tv casting Czech Republic"
+  ]},
+  { "country": "Slovakia", "lang": "sk", "queries": [
+    "casting Slovakia","casting call Slovakia","audition Slovakia","photoshoot Slovakia","model casting Slovakia","open call Slovakia","extras casting Slovakia","film casting Slovakia","tv casting Slovakia"
+  ]},
+  { "country": "Hungary", "lang": "hu", "queries": [
+    "casting Hungary","casting call Hungary","audition Hungary","photoshoot Hungary","model casting Hungary","open call Hungary","extras casting Hungary","film casting Hungary","tv casting Hungary"
+  ]},
+  { "country": "Romania", "lang": "ro", "queries": [
+    "casting Romania","casting call Romania","audition Romania","photoshoot Romania","model casting Romania","open call Romania","extras casting Romania","film casting Romania","tv casting Romania"
+  ]},
+  { "country": "Bulgaria", "lang": "bg", "queries": [
+    "casting Bulgaria","casting call Bulgaria","audition Bulgaria","photoshoot Bulgaria","model casting Bulgaria","open call Bulgaria","extras casting Bulgaria","film casting Bulgaria","tv casting Bulgaria"
+  ]},
+
+  { "country": "Slovenia", "lang": "sl", "queries": [
+    "casting Slovenia","casting call Slovenia","audition Slovenia","photoshoot Slovenia","model casting Slovenia","open call Slovenia","extras casting Slovenia","film casting Slovenia","tv casting Slovenia"
+  ]},
+  { "country": "Croatia", "lang": "hr", "queries": [
+    "casting Croatia","casting call Croatia","audition Croatia","photoshoot Croatia","model casting Croatia","open call Croatia","extras casting Croatia","film casting Croatia","tv casting Croatia"
+  ]},
+  { "country": "Serbia", "lang": "sr", "queries": [
+    "casting Serbia","casting call Serbia","audition Serbia","photoshoot Serbia","model casting Serbia","open call Serbia","extras casting Serbia","film casting Serbia","tv casting Serbia"
+  ]},
+  { "country": "Bosnia and Herzegovina", "lang": "bs", "queries": [
+    "casting Bosnia","casting call Bosnia","audition Bosnia","photoshoot Bosnia","model casting Bosnia","open call Bosnia","extras casting Bosnia","film casting Bosnia","tv casting Bosnia"
+  ]},
+  { "country": "North Macedonia", "lang": "mk", "queries": [
+    "casting North Macedonia","casting call North Macedonia","audition North Macedonia","photoshoot North Macedonia","model casting North Macedonia","open call North Macedonia","extras casting North Macedonia","film casting North Macedonia","tv casting North Macedonia"
+  ]},
+  { "country": "Albania", "lang": "sq", "queries": [
+    "casting Albania","casting call Albania","audition Albania","photoshoot Albania","model casting Albania","open call Albania","extras casting Albania","film casting Albania","tv casting Albania"
+  ]},
+  { "country": "Montenegro", "lang": "me", "queries": [
+    "casting Montenegro","casting call Montenegro","audition Montenegro","photoshoot Montenegro","model casting Montenegro","open call Montenegro","extras casting Montenegro","film casting Montenegro","tv casting Montenegro"
+  ]},
+  { "country": "Greece", "lang": "el", "queries": [
+    "casting Greece","casting call Greece","audition Greece","photoshoot Greece","model casting Greece","open call Greece","extras casting Greece","film casting Greece","tv casting Greece"
+  ]},
+
+  { "country": "Estonia", "lang": "et", "queries": [
+    "casting Estonia","casting call Estonia","audition Estonia","photoshoot Estonia","model casting Estonia","open call Estonia","extras casting Estonia","film casting Estonia","tv casting Estonia"
+  ]},
+  { "country": "Latvia", "lang": "lv", "queries": [
+    "casting Latvia","casting call Latvia","audition Latvia","photoshoot Latvia","model casting Latvia","open call Latvia","extras casting Latvia","film casting Latvia","tv casting Latvia"
+  ]},
+  { "country": "Lithuania", "lang": "lt", "queries": [
+    "casting Lithuania","casting call Lithuania","audition Lithuania","photoshoot Lithuania","model casting Lithuania","open call Lithuania","extras casting Lithuania","film casting Lithuania","tv casting Lithuania"
   ]}
 ]
