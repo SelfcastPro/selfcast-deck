@@ -1,0 +1,32 @@
+[
+  { "country": "Denmark", "lang": "da", "queries": [
+    "casting OR audition OR statister site:facebook.com",
+    "casting OR audition OR statister",
+    "\"casting call\" OR audition Denmark"
+  ]},
+  { "country": "Sweden", "lang": "sv", "queries": [
+    "casting OR audition OR statister site:facebook.com",
+    "casting OR audition OR statister",
+    "\"casting call\" OR audition Sweden"
+  ]},
+  { "country": "Norway", "lang": "no", "queries": [
+    "casting OR audition OR statister site:facebook.com",
+    "casting OR audition OR statister",
+    "\"casting call\" OR audition Norway"
+  ]},
+  { "country": "Germany", "lang": "de", "queries": [
+    "Casting OR Audition OR Komparsen OR Statisten site:facebook.com",
+    "Casting OR Audition OR Komparsen OR Statisten",
+    "\"casting call\" OR audition Germany"
+  ]},
+  { "country": "France", "lang": "fr", "queries": [
+    "casting OR audition OR figuration site:facebook.com",
+    "casting OR audition OR figuration",
+    "\"casting call\" OR audition France"
+  ]},
+  { "country": "Spain", "lang": "es", "queries": [
+    "casting OR convocatoria OR figuración site:facebook.com",
+    "casting OR convocatoria OR figuración",
+    "\"casting call\" OR audition Spain"
+  ]}
+]
