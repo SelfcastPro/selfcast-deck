@@ -43,18 +43,6 @@
     "film casting Finland -site:youtube.com",
     "tv casting Finland -site:youtube.com"
   ]},
-  { "country": "Iceland", "lang": "is", "queries": [
-    "casting Iceland -site:youtube.com",
-    "casting call Iceland -site:youtube.com",
-    "audition Iceland -site:youtube.com",
-    "photoshoot Iceland -site:youtube.com",
-    "model casting Iceland -site:youtube.com",
-    "open call Iceland -site:youtube.com",
-    "extras casting Iceland -site:youtube.com",
-    "film casting Iceland -site:youtube.com",
-    "tv casting Iceland -site:youtube.com"
-  ]},
-
   { "country": "Germany", "lang": "de", "queries": [
     "casting Germany -site:youtube.com",
     "casting call Germany -site:youtube.com",
@@ -200,17 +188,6 @@
     "film casting Hungary -site:youtube.com",
     "tv casting Hungary -site:youtube.com"
   ]},
-  { "country": "Romania", "lang": "ro", "queries": [
-    "casting Romania -site:youtube.com",
-    "casting call Romania -site:youtube.com",
-    "audition Romania -site:youtube.com",
-    "photoshoot Romania -site:youtube.com",
-    "model casting Romania -site:youtube.com",
-    "open call Romania -site:youtube.com",
-    "extras casting Romania -site:youtube.com",
-    "film casting Romania -site:youtube.com",
-    "tv casting Romania -site:youtube.com"
-  ]},
   { "country": "Bulgaria", "lang": "bg", "queries": [
     "casting Bulgaria -site:youtube.com",
     "casting call Bulgaria -site:youtube.com",
@@ -256,17 +233,6 @@
     "film casting Serbia -site:youtube.com",
     "tv casting Serbia -site:youtube.com"
   ]},
-  { "country": "Bosnia and Herzegovina", "lang": "bs", "queries": [
-    "casting Bosnia -site:youtube.com",
-    "casting call Bosnia -site:youtube.com",
-    "audition Bosnia -site:youtube.com",
-    "photoshoot Bosnia -site:youtube.com",
-    "model casting Bosnia -site:youtube.com",
-    "open call Bosnia -site:youtube.com",
-    "extras casting Bosnia -site:youtube.com",
-    "film casting Bosnia -site:youtube.com",
-    "tv casting Bosnia -site:youtube.com"
-  ]},
   { "country": "North Macedonia", "lang": "mk", "queries": [
     "casting North Macedonia -site:youtube.com",
     "casting call North Macedonia -site:youtube.com",
@@ -277,39 +243,6 @@
     "extras casting North Macedonia -site:youtube.com",
     "film casting North Macedonia -site:youtube.com",
     "tv casting North Macedonia -site:youtube.com"
-  ]},
-  { "country": "Albania", "lang": "sq", "queries": [
-    "casting Albania -site:youtube.com",
-    "casting call Albania -site:youtube.com",
-    "audition Albania -site:youtube.com",
-    "photoshoot Albania -site:youtube.com",
-    "model casting Albania -site:youtube.com",
-    "open call Albania -site:youtube.com",
-    "extras casting Albania -site:youtube.com",
-    "film casting Albania -site:youtube.com",
-    "tv casting Albania -site:youtube.com"
-  ]},
-  { "country": "Montenegro", "lang": "me", "queries": [
-    "casting Montenegro -site:youtube.com",
-    "casting call Montenegro -site:youtube.com",
-    "audition Montenegro -site:youtube.com",
-    "photoshoot Montenegro -site:youtube.com",
-    "model casting Montenegro -site:youtube.com",
-    "open call Montenegro -site:youtube.com",
-    "extras casting Montenegro -site:youtube.com",
-    "film casting Montenegro -site:youtube.com",
-    "tv casting Montenegro -site:youtube.com"
-  ]},
-  { "country": "Greece", "lang": "el", "queries": [
-    "casting Greece -site:youtube.com",
-    "casting call Greece -site:youtube.com",
-    "audition Greece -site:youtube.com",
-    "photoshoot Greece -site:youtube.com",
-    "model casting Greece -site:youtube.com",
-    "open call Greece -site:youtube.com",
-    "extras casting Greece -site:youtube.com",
-    "film casting Greece -site:youtube.com",
-    "tv casting Greece -site:youtube.com"
   ]},
 
   { "country": "Estonia", "lang": "et", "queries": [
