@@ -1,0 +1,8 @@
+      - name: Run crawler
+        env:
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+          GOOGLE_CSE_ID:  ${{ secrets.GOOGLE_CSE_ID }}
+          MAX_QUERIES_PER_RUN: '80'       # fx 80
+          MIN_DELAY_MS: '1200'            # 1.2s mellem kald
+          QUERY_COOLDOWN_HOURS: '18'      # søg samme query igen efter 18 timer
+        run: node scripts/crawl.mjs
