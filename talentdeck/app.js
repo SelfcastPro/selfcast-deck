@@ -1,25 +1,25 @@
-const API_BASE = process.env.SELFCAST_API_BASE || (typeof window !== 'undefined' && window.__API_BASE__);
-const API_KEY  = process.env.SELFCAST_API_KEY  || (typeof window !== 'undefined' && window.__API_KEY__);
+// talentdeck/app.js
 
 const els = {
-  title:       document.getElementById('deckTitle'),
-  input:       document.getElementById('talentInput'),
-  minImages:   document.getElementById('minImages'),
-  load:        document.getElementById('btnLoad'),
-  selectAll:   document.getElementById('btnSelectAll'),
-  clear:       document.getElementById('btnClear'),
-  gen:         document.getElementById('btnGenerate'),
-  pdf:         document.getElementById('btnExportPdf'),
-  prev:        document.getElementById('btnPrev'),
-  next:        document.getElementById('btnNext'),
-  filter:      document.getElementById('filterInput'),
-  list:        document.getElementById('talentList'),
-  preview:     document.getElementById('preview'),
+  title:     document.getElementById('deckTitle'),
+  input:     document.getElementById('talentInput'),
+  minImages: document.getElementById('minImages'), // ignoreres pt. (ét billede pr. talent)
+  load:      document.getElementById('btnLoad'),
+  selectAll: document.getElementById('btnSelectAll'),
+  clear:     document.getElementById('btnClear'),
+  gen:       document.getElementById('btnGenerate'),
+  pdf:       document.getElementById('btnExportPdf'),
+  prev:      document.getElementById('btnPrev'),
+  next:      document.getElementById('btnNext'),
+  filter:    document.getElementById('filterInput'),
+  list:      document.getElementById('talentList'),
+  preview:   document.getElementById('preview'),
 };
 
-let talents = [];      // loaded
-let selected = new Map(); // id -> talent
+let talents = [];           // loaded talents (array)
+let selected = new Map();   // id -> talent (selected)
 
+// Helpers
 function parseLines() {
   return els.input.value
     .split(/\n+/)
@@ -27,37 +27,29 @@ function parseLines() {
     .filter(Boolean);
 }
 
+// Accept full URL (/talent/<id>) OR raw id (uuid/slug/numeric)
 function extractTalentId(s) {
-  // Accept full URL or id
-  const m = s.match(/talent\/(\d+)/i);
+  const m = s.match(/\/talent\/([^/?#]+)/i);
   if (m) return m[1];
-  if (/^\d+$/.test(s)) return s;
+  // accept raw uuid/slug (>=8 chars alnum-dash) or numbers
+  if (/^[a-z0-9-]{8,}$/i.test(s) || /^\d+$/.test(s)) return s;
   return null;
 }
 
+// Fetch via serverless proxy (uses SELFCAST_API_* on server)
 async function fetchTalentById(id) {
-  // Adjust to your real API shape; this mirrors the role deck pattern.
-  const url = `${API_BASE}/talents/${id}`;
-  const res = await fetch(url, { headers: { 'x-api-key': API_KEY } });
-  if (!res.ok) throw new Error(`Fetch failed ${res.status}`);
+  const res = await fetch(`/api/talent?id=${encodeURIComponent(id)}`);
+  if (!res.ok) {
+    const msg = await res.text().catch(() => '');
+    throw new Error(`Talent fetch failed ${res.status} ${msg}`);
+  }
+  // Already normalized by api/talent.js
   const t = await res.json();
-
-  // Normalize to what the deck expects
-  return {
-    id: t.id || id,
-    name: t.name || t.full_name || 'Unnamed',
-    primary_image: t.best_image?.url || t.picture || '',
-    gallery: (t.gallery || []).map(g => g.url).filter(Boolean),
-    profile_url: t.profile_url || t.link || `https://producer.selfcast.com/talent/${id}`,
-    requested_media_url: t.requested_media_url || '', // optional uploader page
-    age: t.age || null,
-    sizes: t.sizes || null,
-    socials: t.socials || null,
-  };
+  return t;
 }
 
 function renderList() {
-  const q = els.filter.value.trim().toLowerCase();
+  const q = (els.filter.value || '').trim().toLowerCase();
   els.list.innerHTML = '';
 
   talents
@@ -70,7 +62,7 @@ function renderList() {
           <input type="checkbox" data-id="${t.id}" ${selected.has(t.id) ? 'checked' : ''}/>
           <span class="avatar" style="background-image:url('${t.primary_image || ''}')"></span>
           <span class="meta">
-            <strong>${t.name}</strong>
+            <strong>${t.name || 'Unnamed'}</strong>
             <small>${t.id}</small>
           </span>
         </label>
@@ -89,35 +81,16 @@ function currentDeckData() {
     talents: arr.map(t => ({
       id: t.id,
       name: t.name,
-      primary_image: t.primary_image,
+      primary_image: t.primary_image || '',
       profile_url: t.profile_url,
-      requested_media_url: t.requested_media_url
-    }))
-  };
-}
-
-return {
-  id: t.id || id,
-  name: t.name || t.full_name || 'Unnamed',
-  primary_image: t.best_image?.url || t.picture || '',
-  // Ingen gallery lige nu:
-  gallery: [],
-  profile_url: t.profile_url || t.link || `https://producer.selfcast.com/talent/${id}`,
-  requested_media_url: t.requested_media_url || ''
-    },
-    talents: arr.map(t => ({
-      id: t.id,
-      name: t.name,
-      primary_image: t.primary_image,
-      gallery: t.gallery,
-      profile_url: t.profile_url,
-      requested_media_url: t.requested_media_url
+      requested_media_url: t.requested_media_url || ''
     }))
   };
 }
 
 function openPreview() {
-  const data = btoa(unescape(encodeURIComponent(JSON.stringify(currentDeckData()))));
+  const json = JSON.stringify(currentDeckData());
+  const data = btoa(unescape(encodeURIComponent(json)));
   els.preview.src = `/view-talent/?data=${data}`;
 }
 
@@ -131,12 +104,18 @@ async function shorten(url) {
     if (!res.ok) return url;
     const j = await res.json();
     return j.link || url;
-  } catch { return url; }
+  } catch {
+    return url;
+  }
 }
 
+// Event handlers
 els.load.onclick = async () => {
   const ids = parseLines().map(extractTalentId).filter(Boolean);
-  if (!ids.length) return alert('Indsæt mindst ét talent link/ID');
+  if (!ids.length) {
+    alert('Indsæt mindst ét talent link/ID');
+    return;
+  }
 
   talents = [];
   selected.clear();
@@ -171,7 +150,8 @@ els.clear.onclick = () => {
 els.list.addEventListener('change', (e) => {
   const cb = e.target;
   if (cb?.dataset?.id) {
-    const t = talents.find(x => x.id == cb.dataset.id);
+    const t = talents.find(x => String(x.id) === String(cb.dataset.id));
+    if (!t) return;
     if (cb.checked) selected.set(t.id, t);
     else selected.delete(t.id);
     openPreview();
@@ -181,14 +161,19 @@ els.list.addEventListener('change', (e) => {
 els.filter.oninput = renderList;
 
 els.gen.onclick = async () => {
-  const data = btoa(unescape(encodeURIComponent(JSON.stringify(currentDeckData()))));
+  const json = JSON.stringify(currentDeckData());
+  const data = btoa(unescape(encodeURIComponent(json)));
   const shareUrl = `${location.origin}/view-talent/?data=${data}`;
   const shortUrl = await shorten(shareUrl);
 
-  // Show in the preview iframe and copy to clipboard
+  // Update preview and copy short link
   els.preview.src = shareUrl;
-  await navigator.clipboard.writeText(shortUrl);
-  alert(`Share link copied:\n${shortUrl}`);
+  try {
+    await navigator.clipboard.writeText(shortUrl);
+    alert(`Share link copied:\n${shortUrl}`);
+  } catch {
+    alert(`Share link:\n${shortUrl}`);
+  }
 };
 
 els.pdf.onclick = () => {
@@ -197,4 +182,4 @@ els.pdf.onclick = () => {
 };
 
 els.prev.onclick = () => history.back();
-els.next.onclick = () => location.href = '/view-talent/';
+els.next.onclick = () => (location.href = '/view-talent/');
