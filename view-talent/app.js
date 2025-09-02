@@ -29,32 +29,32 @@ const ownerPhone = document.getElementById('ownerPhone');
 if (!data) {
   root.innerHTML = '<p style="padding:24px">No data</p>';
 } else {
-  // Deck meta
   deckTitle.textContent = data.title || 'Untitled';
   if (data.owner?.name) ownerName.textContent = data.owner.name;
-  if (data.owner?.email) {
+  if (data.owner?.email){
     ownerEmail.textContent = data.owner.email;
     ownerEmail.href = `mailto:${data.owner.email}`;
   }
   if (data.owner?.phone) ownerPhone.textContent = data.owner.phone;
 
-  // Loop over talents
   (data.talents || []).forEach(t => {
-    const card = el('article', 'card');
+    const card = el('article','card');
 
-    // Hero image
-    const img = el('div', 'hero');
+    // Hero image (sort/hvid + centreret)
+    const img = el('div','hero');
     img.style.backgroundImage = `url('${t.primary_image || ''}')`;
+    img.style.filter = 'grayscale(1)';
+    img.style.backgroundPosition = 'center';
+    img.style.backgroundSize = 'cover';
     card.appendChild(img);
 
     // Name
-    const head = el('div', 'card-head', `<h3>${t.name || 'Untitled'}</h3>`);
+    const head = el('div','card-head', `<h3>${t.name || 'Untitled'}</h3>`);
     card.appendChild(head);
 
-    // Extra info (height + country)
+    // Sub info: height + country
     const subInfo = [t.height_cm ? `${t.height_cm} cm` : '', t.country || '']
-      .filter(Boolean)
-      .join(' · ');
+      .filter(Boolean).join(' · ');
     if (subInfo) {
       const sub = el('div', 'sub-info', `<small style="opacity:.7">${subInfo}</small>`);
       sub.style.padding = '0 16px 8px';
@@ -62,19 +62,21 @@ if (!data) {
     }
 
     // Links
-    const links = el('div', 'links');
+    const links = el('div','links');
+    const emailBtn = t.email ? `<a class="btn small" href="mailto:${encodeURIComponent(t.email)}">Email talent</a>` : '';
     links.innerHTML = `
       <a class="btn small" target="_blank" href="${t.profile_url}">Open profile</a>
       ${t.requested_media_url ? `<a class="btn small" target="_blank" href="${t.requested_media_url}">Requested photos/videos</a>` : ''}
+      ${emailBtn}
     `;
     card.appendChild(links);
 
-    // Interest button → mailto
-    if (data.owner?.email) {
+    // "Mark interest" → mailto til afsenderen
+    if (data.owner?.email){
       const mail = `mailto:${encodeURIComponent(data.owner.email)}?subject=${encodeURIComponent('Interested – ' + (t.name || t.id))}&body=${encodeURIComponent(
         `Hi,\n\nWe’re interested in ${t.name || t.id}.\nProfile: ${t.profile_url}\n\n— Sent from Selfcast Talent Presentation`
       )}`;
-      const interest = el('div', 'interest', `<a class="btn primary" href="${mail}">Mark interest</a>`);
+      const interest = el('div','interest', `<a class="btn primary" href="${mail}">Mark interest</a>`);
       card.appendChild(interest);
     }
 
