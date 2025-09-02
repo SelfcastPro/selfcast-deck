@@ -1,4 +1,4 @@
-// talentdeck/app.js — no-API builder med inline Edit, autosave, recent 20
+// talentdeck/app.js — no-API builder med autosave, recent 20, og korrekt data flow
 
 (function () {
   const STORE_KEY  = 'sc_talentdeck_v1';
@@ -30,7 +30,7 @@
       .filter(Boolean);
   }
 
-  // urlOrId | name | height_cm | country | imageUrl | email | requestedMediaUrl
+  // urlOrId | name | height_cm | country | imageUrl
   function parseLine(line) {
     const parts = line.split('|').map(s => s.trim());
     const urlOrId = parts[0] || '';
@@ -38,8 +38,7 @@
     const height  = parts[2] || '';
     const country = parts[3] || '';
     const imgUrl  = parts[4] || '';
-    const email   = parts[5] || '';
-    const reqMed  = parts[6] || '';
+    const reqMed  = parts[5] || '';
 
     let profile_url = urlOrId;
     if (!/^https?:\/\//i.test(profile_url)) {
@@ -59,7 +58,6 @@
       requested_media_url: reqMed || '',
       height_cm: height || '',
       country: country || '',
-      email: email || ''
     };
   }
 
@@ -139,13 +137,10 @@
                 <input name="name" value="${escapeHtml(t.name || '')}" />
               </label>
               <label class="field">Height (cm)
-                <input name="height_cm" type="number" inputmode="numeric" value="${escapeAttr(t.height_cm || '')}" />
+                <input name="height_cm" type="number" value="${escapeAttr(t.height_cm || '')}" />
               </label>
               <label class="field">Country
                 <input name="country" value="${escapeHtml(t.country || '')}" />
-              </label>
-              <label class="field">Email
-                <input name="email" type="email" value="${escapeHtml(t.email || '')}" />
               </label>
               <label class="field">Profile URL
                 <input name="profile_url" value="${escapeAttr(t.profile_url || '')}" />
@@ -170,7 +165,10 @@
   function escapeHtml(s) {
     return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
   }
-  function escapeAttr(s){ return escapeHtml(s); }
+
+  function escapeAttr(s) {
+    return escapeHtml(s);
+  }
 
   function currentDeckData() {
     const arr = Array.from(selected.values());
@@ -186,8 +184,7 @@
         profile_url: t.profile_url,
         requested_media_url: t.requested_media_url || '',
         height_cm: t.height_cm || '',
-        country: t.country || '',
-        email: t.email || ''
+        country: t.country || ''
       }))
     };
   }
@@ -215,7 +212,7 @@
   els.load.addEventListener('click', () => {
     const lines = parseLines();
     if (!lines.length) {
-      alert('Indsæt mindst ét talent. Format: urlOrId | name | height_cm | country | imageUrl | email | requestedMediaUrl');
+      alert('Indsæt mindst ét talent. Format: urlOrId | name | height_cm | country | imageUrl');
       return;
     }
     for (const line of lines) {
@@ -225,24 +222,31 @@
       selected.set(t.id, t);
       const first = line.split('|')[0].trim(); uniqPushRecent(first);
     }
-    renderList(); saveDeck(); openPreview();
+    renderList();
+    saveDeck();
+    openPreview();
     els.input.value = ''; // klar til næste
   });
 
   els.selectAll.addEventListener('click', () => {
     talents.forEach(t => selected.set(t.id, t));
-    renderList(); saveDeck(); openPreview();
+    renderList();
+    saveDeck();
+    openPreview();
   });
 
   els.clear.addEventListener('click', () => {
-    talents = []; selected.clear(); els.list.innerHTML = '';
-    saveDeck(); openPreview();
+    talents = [];
+    selected.clear();
+    els.list.innerHTML = '';
+    saveDeck();
+    openPreview();
   });
 
   els.filter.addEventListener('input', renderList);
   els.title.addEventListener('input', () => { saveDeck(); openPreview(); });
 
-  // Delegation for Edit/Remove + Save/Cancel
+  // Handle Edit/Remove
   els.list.addEventListener('click', (e) => {
     const editBtn = e.target.closest('.edit-btn');
     const removeBtn = e.target.closest('.remove-btn');
@@ -258,7 +262,9 @@
       const id = removeBtn.dataset.id;
       talents = talents.filter(t => String(t.id) !== String(id));
       selected.delete(id);
-      renderList(); saveDeck(); openPreview();
+      renderList();
+      saveDeck();
+      openPreview();
     }
 
     if (cancelBtn) {
@@ -275,11 +281,12 @@
       if (!t) return;
       if (cb.checked) selected.set(t.id, t);
       else selected.delete(t.id);
-      saveDeck(); openPreview();
+      saveDeck();
+      openPreview();
     }
   });
 
-  // Edit form submit (Save)
+  // Handle Save Edit
   els.list.addEventListener('submit', (e) => {
     const form = e.target.closest('form.edit-panel');
     if (!form) return;
@@ -294,7 +301,6 @@
     t.name = (fd.get('name') || '').toString().trim();
     t.height_cm = (fd.get('height_cm') || '').toString().trim();
     t.country = (fd.get('country') || '').toString().trim();
-    t.email = (fd.get('email') || '').toString().trim();
     t.profile_url = (fd.get('profile_url') || '').toString().trim();
     t.requested_media_url = (fd.get('requested_media_url') || '').toString().trim();
     t.primary_image = (fd.get('primary_image') || '').toString().trim();
@@ -302,7 +308,9 @@
     talents[idx] = t;
     selected.set(t.id, t);
 
-    renderList(); saveDeck(); openPreview();
+    renderList();
+    saveDeck();
+    openPreview();
 
     // keep the edited one open for visual confirmation
     const li = els.list.querySelector(`li[data-id="${CSS.escape(id)}"]`);
@@ -333,9 +341,6 @@
   els.next.addEventListener('click', () => (location.href = '/view-talent/'));
 
   // ---------- init ----------
-  // Klik-bug guard: gør iframen ikke-klikbar
-  if (els.preview) { els.preview.style.pointerEvents = 'none'; els.preview.style.zIndex = '0'; }
-
   const restored = loadDeckFromStorage();
   if (!restored) maybePrefillRecent();
 })();
