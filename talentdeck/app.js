@@ -80,21 +80,30 @@ function renderList() {
 }
 
 function currentDeckData() {
-  const minN = Number(els.minImages.value || 0);
-  const arr = Array.from(selected.values())
-    .filter(t => {
-      const count = (!!t.primary_image ? 1 : 0) + (t.gallery?.length || 0);
-      return count >= minN;
-    });
-
+  const arr = Array.from(selected.values());
   return {
     kind: 'talent-deck',
     title: els.title.value || 'Untitled',
     created_at: new Date().toISOString(),
-    owner: { // appears in the read-only page and mailto
-      name: 'Selfcast',
-      email: 'info@selfcast.com',
-      phone: '+45 22 81 31 13'
+    owner: { name: 'Selfcast', email: 'info@selfcast.com', phone: '+45 22 81 31 13' },
+    talents: arr.map(t => ({
+      id: t.id,
+      name: t.name,
+      primary_image: t.primary_image,
+      profile_url: t.profile_url,
+      requested_media_url: t.requested_media_url
+    }))
+  };
+}
+
+return {
+  id: t.id || id,
+  name: t.name || t.full_name || 'Unnamed',
+  primary_image: t.best_image?.url || t.picture || '',
+  // Ingen gallery lige nu:
+  gallery: [],
+  profile_url: t.profile_url || t.link || `https://producer.selfcast.com/talent/${id}`,
+  requested_media_url: t.requested_media_url || ''
     },
     talents: arr.map(t => ({
       id: t.id,
