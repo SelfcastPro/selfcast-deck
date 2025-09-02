@@ -1,7 +1,7 @@
-// talentdeck/app.js — no-API builder med autosave, recent 20, og korrekt data flow
+// talentdeck/app.js — clean, English, no-API builder with autosave + inline edit
 
 (function () {
-  const STORE_KEY  = 'sc_talentdeck_v1';
+  const STORE_KEY  = 'sc_talentdeck_v3';
   const RECENT_KEY = 'sc_talentdeck_recent_v1';
 
   const els = {
@@ -22,7 +22,10 @@
   let talents  = [];
   let selected = new Map();
 
-  // ---------- helpers ----------
+  // ---------- utils ----------
+  const isHttp = s => /^https?:\/\//i.test(s);
+  const isImageUrl = s => /\.(jpe?g|png|webp|gif)(\?|#|$)/i.test(s) || /picsum\.photos/i.test(s);
+
   function parseLines() {
     return (els.input.value || '')
       .split(/\r?\n/)
@@ -30,41 +33,38 @@
       .filter(Boolean);
   }
 
-  // urlOrId | name | height_cm | country | imageUrl
-  function parseLine(line) {
-    const parts = line.split('|').map(s => s.trim());
-    const urlOrId = parts[0] || '';
-    const name    = parts[1] || '';
-    const height  = parts[2] || '';
-    const country = parts[3] || '';
-    const imgUrl  = parts[4] || '';
-    const reqMed  = parts[5] || '';
+  function toProfileUrl(urlOrId) {
+    if (!urlOrId) return '';
+    if (isHttp(urlOrId)) return urlOrId;
+    const m = urlOrId.match(/\/talent\/([^/?#]+)/i);
+    if (m) return `https://producer.selfcast.com/talent/${m[1]}`;
+    return `https://producer.selfcast.com/talent/${urlOrId}`;
+  }
 
-    let profile_url = urlOrId;
-    if (!/^https?:\/\//i.test(profile_url)) {
-      const m = urlOrId.match(/\/talent\/([^/?#]+)/i);
-      if (m) profile_url = `https://producer.selfcast.com/talent/${m[1]}`;
-      else if (urlOrId) profile_url = `https://producer.selfcast.com/talent/${urlOrId}`;
-    }
-    let id = urlOrId || profile_url;
-    const mid = String(profile_url).match(/\/talent\/([^/?#]+)/i);
-    if (mid) id = mid[1];
+  function idFromProfileUrl(u) {
+    const m = String(u).match(/\/talent\/([^/?#]+)/i);
+    return m ? m[1] : String(u);
+  }
 
+  // Pipe format: profile | name | height | country | image | requested
+  function fromPipe(line) {
+    const p = line.split('|').map(s => s.trim());
+    const profile_url = toProfileUrl(p[0] || '');
     return {
-      id,
-      name: name || id,
-      primary_image: imgUrl || '',
-      profile_url,
-      requested_media_url: reqMed || '',
-      height_cm: height || '',
-      country: country || '',
+      id: idFromProfileUrl(profile_url),
+      name: p[1] || '',
+      height_cm: p[2] || '',
+      country: p[3] || '',
+      primary_image: p[4] || '',
+      requested_media_url: p[5] || '',
+      profile_url
     };
   }
 
-  function uniqPushRecent(urlOrId) {
+  function uniqPushRecent(s) {
     try {
       const rec = JSON.parse(localStorage.getItem(RECENT_KEY) || '[]');
-      const val = String(urlOrId || '').trim();
+      const val = String(s || '').trim();
       if (!val) return;
       const next = [val, ...rec.filter(x => x !== val)].slice(0, 20);
       localStorage.setItem(RECENT_KEY, JSON.stringify(next));
@@ -73,23 +73,19 @@
 
   function saveDeck() {
     try {
-      localStorage.setItem(STORE_KEY, JSON.stringify({
-        title: els.title.value || '',
-        talents
-      }));
-    } catch (e) { console.warn('Could not save deck', e); }
+      localStorage.setItem(STORE_KEY, JSON.stringify({ title: els.title.value || '', talents }));
+    } catch {}
   }
 
   function loadDeckFromStorage() {
     try {
       const raw = localStorage.getItem(STORE_KEY);
       if (!raw) return false;
-      const data = JSON.parse(raw);
-      els.title.value = data.title || '';
-      talents = Array.isArray(data.talents) ? data.talents : [];
+      const d = JSON.parse(raw);
+      els.title.value = d.title || '';
+      talents = Array.isArray(d.talents) ? d.talents : [];
       selected = new Map(talents.map(t => [t.id, t]));
-      renderList();
-      openPreview();
+      renderList(); openPreview();
       return true;
     } catch { return false; }
   }
@@ -103,9 +99,11 @@
   }
 
   function subLine(t) {
-    return [t.height_cm ? `${t.height_cm} cm` : '', t.country || ''].filter(Boolean).join(' · ');
+    return [t.height_cm ? `${t.height_cm} cm` : '', t.country || '']
+      .filter(Boolean).join(' · ');
   }
 
+  // ---------- render ----------
   function renderList() {
     const q = (els.filter.value || '').toLowerCase().trim();
     els.list.innerHTML = '';
@@ -137,7 +135,7 @@
                 <input name="name" value="${escapeHtml(t.name || '')}" />
               </label>
               <label class="field">Height (cm)
-                <input name="height_cm" type="number" value="${escapeAttr(t.height_cm || '')}" />
+                <input name="height_cm" type="number" inputmode="numeric" value="${escapeAttr(t.height_cm || '')}" />
               </label>
               <label class="field">Country
                 <input name="country" value="${escapeHtml(t.country || '')}" />
@@ -149,7 +147,7 @@
                 <input name="requested_media_url" value="${escapeAttr(t.requested_media_url || '')}" />
               </label>
               <label class="field">Image URL
-                <input name="primary_image" value="${escapeAttr(t.primary_image || '')}" placeholder="https://…" />
+                <input name="primary_image" value="${escapeAttr(t.primary_image || '')}" placeholder="https://…/photo.jpg" />
               </label>
             </div>
             <div class="row">
@@ -162,14 +160,10 @@
       });
   }
 
-  function escapeHtml(s) {
-    return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
-  }
+  function escapeHtml(s){ return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
+  function escapeAttr(s){ return escapeHtml(s); }
 
-  function escapeAttr(s) {
-    return escapeHtml(s);
-  }
-
+  // ---------- data for preview ----------
   function currentDeckData() {
     const arr = Array.from(selected.values());
     return {
@@ -208,139 +202,36 @@
     } catch { return url; }
   }
 
-  // ---------- events ----------
-  els.load.addEventListener('click', () => {
+  // ---------- load logic ----------
+  // Supported input:
+  //  (A) "profile | name | height | country | image | requested"
+  //  (B) profile (line)  + optional next lines: "img: url", "req: url"
+  //      If the very next line is an image URL, it becomes the primary image.
+  function loadFromTextarea() {
     const lines = parseLines();
     if (!lines.length) {
-      alert('Indsæt mindst ét talent. Format: urlOrId | name | height_cm | country | imageUrl');
+      alert('Paste at least one talent.\nEither: "profile | name | height_cm | country | imageUrl | requestedUrl"\nOr lines:\n<profile>\nimg: <image>\nreq: <url>');
       return;
     }
-    for (const line of lines) {
-      const t = parseLine(line);
-      const idx = talents.findIndex(x => String(x.id) === String(t.id));
-      if (idx >= 0) talents[idx] = t; else talents.push(t);
-      selected.set(t.id, t);
-      const first = line.split('|')[0].trim(); uniqPushRecent(first);
-    }
-    renderList();
-    saveDeck();
-    openPreview();
-    els.input.value = ''; // klar til næste
-  });
 
-  els.selectAll.addEventListener('click', () => {
-    talents.forEach(t => selected.set(t.id, t));
-    renderList();
-    saveDeck();
-    openPreview();
-  });
+    let last = null;
 
-  els.clear.addEventListener('click', () => {
-    talents = [];
-    selected.clear();
-    els.list.innerHTML = '';
-    saveDeck();
-    openPreview();
-  });
+    for (let i = 0; i < lines.length; i++) {
+      const raw = lines[i];
 
-  els.filter.addEventListener('input', renderList);
-  els.title.addEventListener('input', () => { saveDeck(); openPreview(); });
+      // Pipe format
+      if (raw.includes('|')) {
+        const t = fromPipe(raw);
+        upsert(t);
+        uniqPushRecent(raw.split('|')[0].trim());
+        last = t;
+        continue;
+      }
 
-  // Handle Edit/Remove
-  els.list.addEventListener('click', (e) => {
-    const editBtn = e.target.closest('.edit-btn');
-    const removeBtn = e.target.closest('.remove-btn');
-    const cancelBtn = e.target.closest('.cancel-edit');
-
-    if (editBtn) {
-      const id = editBtn.dataset.id;
-      const li = els.list.querySelector(`li[data-id="${CSS.escape(id)}"]`);
-      if (li) li.classList.toggle('open');
-    }
-
-    if (removeBtn) {
-      const id = removeBtn.dataset.id;
-      talents = talents.filter(t => String(t.id) !== String(id));
-      selected.delete(id);
-      renderList();
-      saveDeck();
-      openPreview();
-    }
-
-    if (cancelBtn) {
-      const li = cancelBtn.closest('li.list-item');
-      if (li) li.classList.remove('open');
-    }
-  });
-
-  // Handle checkbox select/deselect
-  els.list.addEventListener('change', (e) => {
-    const cb = e.target;
-    if (cb?.dataset?.id) {
-      const t = talents.find(x => String(x.id) === String(cb.dataset.id));
-      if (!t) return;
-      if (cb.checked) selected.set(t.id, t);
-      else selected.delete(t.id);
-      saveDeck();
-      openPreview();
-    }
-  });
-
-  // Handle Save Edit
-  els.list.addEventListener('submit', (e) => {
-    const form = e.target.closest('form.edit-panel');
-    if (!form) return;
-    e.preventDefault();
-
-    const id = form.dataset.id;
-    const idx = talents.findIndex(x => String(x.id) === String(id));
-    if (idx < 0) return;
-
-    const fd = new FormData(form);
-    const t = talents[idx];
-    t.name = (fd.get('name') || '').toString().trim();
-    t.height_cm = (fd.get('height_cm') || '').toString().trim();
-    t.country = (fd.get('country') || '').toString().trim();
-    t.profile_url = (fd.get('profile_url') || '').toString().trim();
-    t.requested_media_url = (fd.get('requested_media_url') || '').toString().trim();
-    t.primary_image = (fd.get('primary_image') || '').toString().trim();
-
-    talents[idx] = t;
-    selected.set(t.id, t);
-
-    renderList();
-    saveDeck();
-    openPreview();
-
-    // keep the edited one open for visual confirmation
-    const li = els.list.querySelector(`li[data-id="${CSS.escape(id)}"]`);
-    if (li) li.classList.add('open');
-  });
-
-  els.gen.addEventListener('click', async () => {
-    const json = JSON.stringify(currentDeckData());
-    const data = btoa(unescape(encodeURIComponent(json)));
-    const shareUrl = `${location.origin}/view-talent/?data=${data}`;
-    els.preview.src = shareUrl;
-
-    let urlToCopy = shareUrl;
-    try { urlToCopy = await shorten(shareUrl); } catch {}
-    try {
-      await navigator.clipboard.writeText(urlToCopy);
-      alert(`Share link copied:\n${urlToCopy}`);
-    } catch {
-      alert(`Share link:\n${urlToCopy}`);
-    }
-  });
-
-  els.pdf.addEventListener('click', () => {
-    els.preview.contentWindow?.postMessage({ type: 'print' }, '*');
-  });
-
-  els.prev.addEventListener('click', () => history.back());
-  els.next.addEventListener('click', () => (location.href = '/view-talent/'));
-
-  // ---------- init ----------
-  const restored = loadDeckFromStorage();
-  if (!restored) maybePrefillRecent();
-})();
+      // Prefixed helpers
+      if (raw.toLowerCase().startsWith('img:')) {
+        if (last) {
+          const url = raw.slice(4).trim();
+          if (url) { last.primary_image = url; touch(last); }
+        }
+        continue;
