@@ -1,5 +1,6 @@
-// talentdeck/app.js — manual data + optional scraper (no Selfcast API needed)
+// talentdeck/app.js — ultra-robust no-API version
 
+// ---- Grab DOM ----
 const els = {
   title:     document.getElementById('deckTitle'),
   input:     document.getElementById('talentInput'),
@@ -18,60 +19,55 @@ const els = {
 let talents = [];
 let selected = new Map();
 
-// -------- Helpers --------
-
+// ---- Helpers ----
 function parseLines() {
-  return els.input.value
-    .split(/\n+/)
+  return (els.input.value || '')
+    .split(/\r?\n/)
     .map(s => s.trim())
     .filter(Boolean);
 }
 
-function extractTalentIdOrUrl(s) {
-  // If it looks like a URL, return it; else return raw string as "id"
-  if (/^https?:\/\//i.test(s)) return s;
-  const m = s.match(/\/talent\/([^/?#]+)/i);
-  if (m) return `https://producer.selfcast.com/talent/${m[1]}`;
-  return s; // id or slug
-}
+// Accepts either full URL or raw id
+function normalizeProfile(line) {
+  // support pipe format: urlOrId | name | height | country | imageUrl
+  const parts = line.split('|').map(s => s.trim());
+  const urlOrId = parts[0] || '';
+  const name    = parts[1] || '';
+  const height  = parts[2] || '';
+  const country = parts[3] || '';
+  const imgUrl  = parts[4] || '';
 
-function splitFields(line) {
-  // <urlOrId> | <name> | <height_cm> | <country> | <imageUrl>
-  const parts = line.split('|').map(x => x.trim());
+  // turn into a proper profile URL
+  let profile_url = urlOrId;
+  if (!/^https?:\/\//i.test(profile_url)) {
+    // if it contains /talent/<id>, extract it; else treat as raw id
+    const m = urlOrId.match(/\/talent\/([^/?#]+)/i);
+    if (m) {
+      profile_url = `https://producer.selfcast.com/talent/${m[1]}`;
+    } else if (urlOrId) {
+      profile_url = `https://producer.selfcast.com/talent/${urlOrId}`;
+    }
+  }
+
+  // derive id
+  let id = urlOrId || profile_url;
+  const mid = String(profile_url).match(/\/talent\/([^/?#]+)/i);
+  if (mid) id = mid[1];
+
   return {
-    urlOrId: parts[0] || '',
-    name: parts[1] || '',
-    height_cm: parts[2] || '',
-    country: parts[3] || '',
-    imageUrl: parts[4] || ''
+    id,
+    name: name || id,
+    primary_image: imgUrl || '',      // manual image if provided (5th field)
+    profile_url,
+    requested_media_url: '',
+    height_cm: height || '',
+    country: country || ''
   };
 }
 
-function toProfileUrl(urlOrId) {
-  if (!urlOrId) return '';
-  if (/^https?:\/\//i.test(urlOrId)) return urlOrId;
-  return `https://producer.selfcast.com/talent/${urlOrId}`;
-}
-
-function guessIdFromUrl(u) {
-  const m = String(u).match(/\/talent\/([^/?#]+)/i);
-  return m ? m[1] : String(u);
-}
-
-async function tryScrape(url) {
-  try {
-    const res = await fetch(`/api/scrape?url=${encodeURIComponent(url)}`);
-    if (!res.ok) return null;
-    return await res.json();
-  } catch {
-    return null;
-  }
-}
-
 function renderList() {
-  const q = (els.filter.value || '').trim().toLowerCase();
+  const q = (els.filter.value || '').toLowerCase().trim();
   els.list.innerHTML = '';
-
   talents
     .filter(t => (q ? (t.name || '').toLowerCase().includes(q) : true))
     .forEach(t => {
@@ -130,16 +126,42 @@ async function shorten(url) {
   } catch { return url; }
 }
 
-// -------- Events --------
+// ---- Events ----
+els.load.onclick = () => {
+  try {
+    const lines = parseLines();
+    if (!lines.length) {
+      alert('Indsæt mindst ét talent: URL/ID eller pipe-format: url | name | height_cm | country | imageUrl');
+      return;
+    }
 
-els.load.onclick = async () => {
-  const lines = parseLines();
-  if (!lines.length) return alert('Indsæt mindst ét talent: URL/ID eller pipe-format: url | name | height_cm | country | imageUrl');
+    talents = [];
+    selected.clear();
+    for (const line of lines) {
+      const t = normalizeProfile(line);
+      talents.push(t);
+      selected.set(t.id, t);
+    }
+    renderList();
+    openPreview();
+  } catch (e) {
+    console.error('Load error', e);
+    alert('Kunne ikke loade talenter – tjek konsollen (DevTools).');
+  }
+};
 
+els.selectAll.onclick = () => {
+  talents.forEach(t => selected.set(t.id, t));
+  renderList();
+  openPreview();
+};
+
+els.clear.onclick = () => {
   talents = [];
   selected.clear();
-  renderList();
+  els.list.innerHTML = '';
+  openPreview();
+};
 
-  for (const raw of lines) {
-    const { urlOrId, name, height_cm, country, imageUrl } = splitFields(raw);
-    const profile_url = toP_
+els.list.addEventListener('change', (e) => {
+  const cb = e.target
