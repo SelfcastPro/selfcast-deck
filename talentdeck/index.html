@@ -1,99 +1,70 @@
 <!doctype html>
 <html lang="en" class="dark">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Talent Presentation – Selfcast</title>
-  <meta name="color-scheme" content="dark">
-  <style>
-    :root{
-      --bg:#0b0b0d;--panel:#141418;--muted:#8b8b93;--text:#e9e9ef;--accent:#ff2d55;--line:#23232a;--radius:14px
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%} html.dark{background:var(--bg); color:var(--text); font:16px/1.55 system-ui,-apple-system,Segoe UI,Inter,Roboto,Helvetica,Arial}
-    .topbar{position:sticky;top:0;z-index:10;display:flex;align-items:center;justify-content:space-between;padding:14px 18px;background:rgba(10,10,12,.8);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
-    .brand{display:flex;align-items:baseline;gap:8px}.wordmark{font-weight:800;letter-spacing:.14em}.tagline{font-size:.85rem;color:var(--muted)}
-    .actions{display:flex;gap:8px}
-    .btn{border:1px solid var(--line);background:#1a1a20;color:var(--text);padding:10px 14px;border-radius:12px;cursor:pointer;transition:.15s ease}
-    .btn.primary{background:var(--accent);border-color:transparent;color:#fff;font-weight:700}
-    .layout{display:grid;grid-template-columns:320px 380px 1fr;gap:16px;padding:18px}
-    .left,.middle,.right{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:16px}
-    .label{display:block;font-size:.9rem;color:var(--muted);margin:14px 0 6px}
-    .input,.textarea{width:100%;background:#101014;color:var(--text);border:1px solid var(--line);border-radius:12px;padding:10px 12px;outline:none}
-    .textarea{min-height:120px;resize:vertical}
-    .row{display:flex;gap:10px;margin:12px 0}
-    .preview{width:100%;height:74vh;border:none;background:#0e0e12;border-radius:12px;border:1px solid var(--line)}
-    .pickerHeader{display:flex;gap:10px;align-items:center;margin-bottom:8px}
-    .list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px;max-height:520px;overflow:auto}
-    .list-item{background:#101014;border:1px solid var(--line);border-radius:12px;padding:8px}
-    .chk{display:flex;gap:10px;align-items:center;cursor:pointer}
-    .avatar{width:44px;height:44px;border-radius:10px;background:#222 center/cover no-repeat;border:1px solid #1f1f26}
-    .footer{padding:10px 18px;color:var(--muted);text-align:center}
-  </style>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Selfcast — Talent Presentation Builder</title>
+  <meta name="color-scheme" content="dark light">
+  <link rel="stylesheet" href="./styles.css"/>
 </head>
 <body>
-<header class="topbar">
-  <div class="brand">
-    <span class="wordmark">SELFCAST</span>
-    <span class="tagline">CASTING MADE EASY</span>
-  </div>
-  <div class="actions">
-    <button id="btnPrev" class="btn">← Prev</button>
-    <button id="btnNext" class="btn">Next →</button>
-    <button id="btnExportPdf" class="btn">Export PDF</button>
-    <button id="btnGenerate" class="btn primary">Generate</button>
-  </div>
-</header>
-
-<main class="layout">
-  <section class="left">
-    <h3>Talent Presentation</h3>
-
-    <label class="label">Deck Title</label>
-    <input id="deckTitle" class="input" placeholder="e.g. Adidas – Female Talents" />
-
-    <label class="label">Paste 1 talent URL (or talentId) per line</label>
-    <textarea id="talentInput" class="textarea" rows="6"
-      placeholder="https://producer.selfcast.com/talent/ff986d57-...\nJane | 175 | Denmark | https://picsum.photos/seed/jane/600/800"></textarea>
-
-    <div class="row">
-      <button id="btnLoad" class="btn">Load talents</button>
-      <button id="btnSelectAll" class="btn">Select all</button>
-      <button id="btnClear" class="btn">Clear</button>
+  <header class="topbar">
+    <div class="brand">
+      <div class="wordmark">SELFCAST</div>
+      <div class="tagline">CASTING MADE EASY</div>
     </div>
-
-    <ol class="steps">
-      <li>Indsæt talent links/ID (eller pipe: url | name | height_cm | country | imageUrl)</li>
-      <li>Load talents</li>
-      <li>Vælg talenter</li>
-      <li>Generate</li>
-    </ol>
-  </section>
-
-  <section class="middle">
-    <div class="pickerHeader">
-      <strong>Talent Picker</strong>
-      <input id="filterInput" class="input" placeholder="Filter by name…" />
+    <div class="actions">
+      <button id="btnPrev" class="btn secondary">← Prev</button>
+      <button id="btnNext" class="btn secondary">Next →</button>
+      <button id="btnExportPdf" class="btn">Export PDF</button>
+      <button id="btnGenerate" class="btn primary">Generate</button>
     </div>
-    <ul id="talentList" class="list"></ul>
-  </section>
+  </header>
 
-  <section class="right">
-    <iframe id="preview" class="preview" title="Preview"></iframe>
-  </section>
-</main>
+  <main class="layout">
+    <!-- LEFT -->
+    <section class="left">
+      <h3>Talent Presentation</h3>
 
-<footer class="footer">
-  <small>Powered by <strong>SELFCAST</strong></small>
-</footer>
+      <label for="deckTitle" class="label">Deck Title</label>
+      <input id="deckTitle" class="input" placeholder="e.g. Adidas"/>
 
-<!-- IMPORTANT: use defer (not module) so it always runs -->
-<script src="./app.js?v=3" defer></script>
+      <label for="talentInput" class="label">Paste 1 talent URL (or talentId) per line</label>
+      <textarea id="talentInput" class="textarea" placeholder="https://producer.selfcast.com/talent/…"></textarea>
+
+      <div class="row">
+        <button id="btnLoad" class="btn">Load talents</button>
+        <button id="btnSelectAll" class="btn secondary">Select all</button>
+        <button id="btnClear" class="btn secondary">Clear</button>
+      </div>
+
+      <ol class="steps">
+        <li>Paste links or use pipe: <em>url | name | height_cm | country | imageUrl</em></li>
+        <li>Load talents</li>
+        <li>Select talents</li>
+        <li>Generate</li>
+      </ol>
+    </section>
+
+    <!-- MIDDLE -->
+    <section class="middle">
+      <div class="pickerHeader">
+        <strong>Talent Picker</strong>
+        <input id="filterInput" class="input" placeholder="Filter by name…" style="margin-left:auto; max-width:260px"/>
+      </div>
+      <ul id="talentList" class="list"></ul>
+    </section>
+
+    <!-- RIGHT -->
+    <section class="right">
+      <iframe id="preview" class="preview" title="Preview"></iframe>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <small>Powered by <strong>SELFCAST</strong></small>
+  </footer>
+
+  <script src="./app.js" defer></script>
 </body>
 </html>
-/* --- Click fix: make left/middle above iframe --- */
-.left, .middle, .topbar { position: relative; z-index: 2; }
-.right { position: relative; z-index: 1; }
-
-/* Prevent iframe from blocking clicks outside its box (in case of overlap) */
-.preview { position: relative; z-index: 0; pointer-events: none; }
