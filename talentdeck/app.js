@@ -1,4 +1,4 @@
-// talentdeck/app.js — simple, no-API, autosave + recent 20
+// talentdeck/app.js — no-API builder med inline Edit, autosave, recent 20
 
 (function () {
   const STORE_KEY  = 'sc_talentdeck_v1';
@@ -19,13 +19,8 @@
     preview:   document.getElementById('preview'),
   };
 
-  // Basic sanity (IDs must exist)
-  for (const [k, v] of Object.entries(els)) {
-    if (!v) { console.error('[talentdeck] Missing element:', k); }
-  }
-
-  let talents  = [];          // full list (array of objects)
-  let selected = new Map();   // id -> object
+  let talents  = [];
+  let selected = new Map();
 
   // ---------- helpers ----------
   function parseLines() {
@@ -35,8 +30,7 @@
       .filter(Boolean);
   }
 
-  // Accept "urlOrId | name | height_cm | country | imageUrl | email | requestedMediaUrl"
-  // or just a URL / ID (we’ll derive reasonable defaults)
+  // urlOrId | name | height_cm | country | imageUrl | email | requestedMediaUrl
   function parseLine(line) {
     const parts = line.split('|').map(s => s.trim());
     const urlOrId = parts[0] || '';
@@ -60,7 +54,7 @@
     return {
       id,
       name: name || id,
-      primary_image: imgUrl || '', // sort/hvid sker i view
+      primary_image: imgUrl || '',
       profile_url,
       requested_media_url: reqMed || '',
       height_cm: height || '',
@@ -74,65 +68,18 @@
       const rec = JSON.parse(localStorage.getItem(RECENT_KEY) || '[]');
       const val = String(urlOrId || '').trim();
       if (!val) return;
-      // keep unique, most-recent-first, max 20
       const next = [val, ...rec.filter(x => x !== val)].slice(0, 20);
       localStorage.setItem(RECENT_KEY, JSON.stringify(next));
     } catch {}
   }
 
-  function renderList() {
-    const q = (els.filter.value || '').toLowerCase().trim();
-    els.list.innerHTML = '';
-    talents
-      .filter(t => (q ? (t.name || '').toLowerCase().includes(q) : true))
-      .forEach(t => {
-        const li = document.createElement('li');
-        li.className = 'list-item';
-        const sub = [t.height_cm ? `${t.height_cm} cm` : '', t.country || ''].filter(Boolean).join(' · ');
-        li.innerHTML = `
-          <label class="chk">
-            <input type="checkbox" data-id="${t.id}" ${selected.has(t.id) ? 'checked' : ''}/>
-            <span class="avatar" style="background-image:url('${t.primary_image || ''}')"></span>
-            <span class="meta">
-              <strong>${t.name || 'Unnamed'}</strong>
-              <small>${sub || t.id}</small>
-            </span>
-          </label>
-        `;
-        els.list.appendChild(li);
-      });
-  }
-
-  function currentDeckData() {
-    const arr = Array.from(selected.values());
-    return {
-      kind: 'talent-deck',
-      title: els.title.value || 'Untitled',
-      created_at: new Date().toISOString(),
-      owner: { name: 'Selfcast', email: 'info@selfcast.com', phone: '+45 22 81 31 13' },
-      talents: arr.map(t => ({
-        id: t.id,
-        name: t.name,
-        primary_image: t.primary_image || '',
-        profile_url: t.profile_url,
-        requested_media_url: t.requested_media_url || '',
-        height_cm: t.height_cm || '',
-        country: t.country || '',
-        email: t.email || ''
-      }))
-    };
-  }
-
   function saveDeck() {
     try {
-      const data = {
+      localStorage.setItem(STORE_KEY, JSON.stringify({
         title: els.title.value || '',
         talents
-      };
-      localStorage.setItem(STORE_KEY, JSON.stringify(data));
-    } catch (e) {
-      console.warn('Could not save deck', e);
-    }
+      }));
+    } catch (e) { console.warn('Could not save deck', e); }
   }
 
   function loadDeckFromStorage() {
@@ -142,7 +89,7 @@
       const data = JSON.parse(raw);
       els.title.value = data.title || '';
       talents = Array.isArray(data.talents) ? data.talents : [];
-      selected = new Map(talents.map(t => [t.id, t])); // select all by default
+      selected = new Map(talents.map(t => [t.id, t]));
       renderList();
       openPreview();
       return true;
@@ -157,116 +104,12 @@
     } catch {}
   }
 
-  function openPreview() {
-    const json = JSON.stringify(currentDeckData());
-    const data = btoa(unescape(encodeURIComponent(json)));
-    els.preview.src = `/view-talent/?data=${data}`;
+  function subLine(t) {
+    return [t.height_cm ? `${t.height_cm} cm` : '', t.country || ''].filter(Boolean).join(' · ');
   }
 
-  async function shorten(url) {
-    try {
-      const res = await fetch('/api/bitly', {
-        method: 'POST',
-        headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ long_url: url })
-      });
-      if (!res.ok) return url;
-      const j = await res.json();
-      return j.link || url;
-    } catch { return url; }
-  }
-
-  // ---------- events ----------
-  els.load.addEventListener('click', () => {
-    const lines = parseLines();
-    if (!lines.length) {
-      alert('Indsæt mindst ét talent. Format: urlOrId | name | height_cm | country | imageUrl | email | requestedMediaUrl (felter valgfrie)');
-      return;
-    }
-
-    for (const line of lines) {
-      const t = parseLine(line);
-      // avoid duplicates by id
-      const exists = talents.findIndex(x => String(x.id) === String(t.id));
-      if (exists >= 0) {
-        talents[exists] = t;            // overwrite existing
-      } else {
-        talents.push(t);                 // append
-      }
-      selected.set(t.id, t);
-      // remember recent (first field only)
-      const firstField = line.split('|')[0].trim();
-      uniqPushRecent(firstField);
-    }
-
-    renderList();
-    saveDeck();
-    openPreview();
-    els.input.value = ''; // klar til at tilføje næste talent
-  });
-
-  els.selectAll.addEventListener('click', () => {
-    talents.forEach(t => selected.set(t.id, t));
-    renderList();
-    saveDeck();
-    openPreview();
-  });
-
-  els.clear.addEventListener('click', () => {
-    talents = [];
-    selected.clear();
+  function renderList() {
+    const q = (els.filter.value || '').toLowerCase().trim();
     els.list.innerHTML = '';
-    saveDeck();
-    openPreview();
-  });
-
-  els.list.addEventListener('change', (e) => {
-    const cb = e.target;
-    if (cb?.dataset?.id) {
-      const t = talents.find(x => String(x.id) === String(cb.dataset.id));
-      if (!t) return;
-      if (cb.checked) selected.set(t.id, t);
-      else selected.delete(t.id);
-      saveDeck();
-      openPreview();
-    }
-  });
-
-  els.filter.addEventListener('input', renderList);
-  els.title.addEventListener('input', () => { saveDeck(); openPreview(); });
-
-  els.gen.addEventListener('click', async () => {
-    const json = JSON.stringify(currentDeckData());
-    const data = btoa(unescape(encodeURIComponent(json)));
-    const shareUrl = `${location.origin}/view-talent/?data=${data}`;
-    els.preview.src = shareUrl;
-
-    let urlToCopy = shareUrl;
-    try { urlToCopy = await shorten(shareUrl); } catch {}
-    try {
-      await navigator.clipboard.writeText(urlToCopy);
-      alert(`Share link copied:\n${urlToCopy}`);
-    } catch {
-      alert(`Share link:\n${urlToCopy}`);
-    }
-  });
-
-  els.pdf.addEventListener('click', () => {
-    els.preview.contentWindow?.postMessage({ type: 'print' }, '*');
-  });
-
-  els.prev.addEventListener('click', () => history.back());
-  els.next.addEventListener('click', () => (location.href = '/view-talent/'));
-
-  // ---------- init ----------
-  // Make sure iframe can't steal clicks
-  const preview = document.querySelector('.preview');
-  if (preview) {
-    preview.style.pointerEvents = 'none';
-    preview.style.zIndex = '0';
-  }
-
-  // Restore previous deck (if any). If none, prefill textarea with the recent list.
-  const restored = loadDeckFromStorage();
-  if (!restored) maybePrefillRecent();
-})();
+    talents
+      .filter(t => (q ? (t.name || '').toLowerCase().includ
