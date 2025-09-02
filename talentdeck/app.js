@@ -134,3 +134,8 @@
     const lines = parseLines();
     if (!lines.length) {
       alert('Indsæt mindst ét talent: URL/ID eller pipe-format: url | name | height_cm | country | imageUrl_
+
+            console.log('[talentdeck] ready');
+document.getElementById('btnLoad')?.addEventListener('click', () => {
+  console.log('[talentdeck] Load clicked');
+});
