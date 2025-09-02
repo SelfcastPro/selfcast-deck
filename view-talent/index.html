@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Talent Deck – Selfcast</title>
+  <link rel="stylesheet" href="./styles.css" />
+  <script>
+    window.addEventListener('message', (ev) => {
+      if (ev.data?.type === 'print') window.print();
+    });
+  </script>
+</head>
+<body>
+  <header class="view-topbar print-hide">
+    <div class="brand">
+      <span class="wordmark">SELFCAST</span>
+      <span class="tagline">CASTING MADE EASY</span>
+    </div>
+    <div class="view-actions">
+      <button onclick="window.print()" class="btn">Download PDF</button>
+      <button id="btnShare" class="btn">Copy share link</button>
+      <span id="deckTitle" class="title"></span>
+    </div>
+  </header>
+
+  <main id="root" class="grid"></main>
+
+  <footer class="footer">
+    <small>For assistance: <strong id="ownerName">Selfcast</strong> · <a id="ownerEmail" href="mailto:info@selfcast.com">info@selfcast.com</a> · <span id="ownerPhone">+45 22 81 31 13</span></small>
+  </footer>
+
+  <script src="./app.js" type="module"></script>
+</body>
+</html>
