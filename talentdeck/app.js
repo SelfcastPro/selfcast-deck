@@ -1,9 +1,8 @@
-// talentdeck/app.js
+// talentdeck/app.js – simple version uden API key
 
 const els = {
   title:     document.getElementById('deckTitle'),
   input:     document.getElementById('talentInput'),
-  minImages: document.getElementById('minImages'), // ignoreres pt. (ét billede pr. talent)
   load:      document.getElementById('btnLoad'),
   selectAll: document.getElementById('btnSelectAll'),
   clear:     document.getElementById('btnClear'),
@@ -16,10 +15,9 @@ const els = {
   preview:   document.getElementById('preview'),
 };
 
-let talents = [];           // loaded talents (array)
-let selected = new Map();   // id -> talent (selected)
+let talents = [];
+let selected = new Map();
 
-// Helpers
 function parseLines() {
   return els.input.value
     .split(/\n+/)
@@ -27,29 +25,28 @@ function parseLines() {
     .filter(Boolean);
 }
 
-// Accept full URL (/talent/<id>) OR raw id (uuid/slug/numeric)
+// Tag ID eller URL direkte
 function extractTalentId(s) {
   const m = s.match(/\/talent\/([^/?#]+)/i);
   if (m) return m[1];
-  // accept raw uuid/slug (>=8 chars alnum-dash) or numbers
-  if (/^[a-z0-9-]{8,}$/i.test(s) || /^\d+$/.test(s)) return s;
-  return null;
+  return s; // fallback: brug hele strengen
 }
 
-// Fetch via serverless proxy (uses SELFCAST_API_* on server)
-async function fetchTalentById(id) {
-  const res = await fetch(`/api/talent?id=${encodeURIComponent(id)}`);
-  if (!res.ok) {
-    const msg = await res.text().catch(() => '');
-    throw new Error(`Talent fetch failed ${res.status} ${msg}`);
-  }
-  // Already normalized by api/talent.js
-  const t = await res.json();
-  return t;
+// Her er ingen API – vi laver et simpelt objekt
+async function fetchTalentById(idOrUrl) {
+  return {
+    id: idOrUrl,
+    name: idOrUrl,
+    primary_image: '', // intet billede hvis ikke du manuelt tilføjer
+    profile_url: idOrUrl.startsWith('http') 
+      ? idOrUrl 
+      : `https://producer.selfcast.com/talent/${idOrUrl}`,
+    requested_media_url: ''
+  };
 }
 
 function renderList() {
-  const q = (els.filter.value || '').trim().toLowerCase();
+  const q = (els.filter.value || '').toLowerCase();
   els.list.innerHTML = '';
 
   talents
@@ -60,9 +57,9 @@ function renderList() {
       li.innerHTML = `
         <label class="chk">
           <input type="checkbox" data-id="${t.id}" ${selected.has(t.id) ? 'checked' : ''}/>
-          <span class="avatar" style="background-image:url('${t.primary_image || ''}')"></span>
+          <span class="avatar"></span>
           <span class="meta">
-            <strong>${t.name || 'Unnamed'}</strong>
+            <strong>${t.name}</strong>
             <small>${t.id}</small>
           </span>
         </label>
@@ -81,54 +78,30 @@ function currentDeckData() {
     talents: arr.map(t => ({
       id: t.id,
       name: t.name,
-      primary_image: t.primary_image || '',
+      primary_image: t.primary_image,
       profile_url: t.profile_url,
-      requested_media_url: t.requested_media_url || ''
+      requested_media_url: t.requested_media_url
     }))
   };
 }
 
 function openPreview() {
-  const json = JSON.stringify(currentDeckData());
-  const data = btoa(unescape(encodeURIComponent(json)));
+  const data = btoa(unescape(encodeURIComponent(JSON.stringify(currentDeckData()))));
   els.preview.src = `/view-talent/?data=${data}`;
 }
 
-async function shorten(url) {
-  try {
-    const res = await fetch('/api/bitly', {
-      method: 'POST',
-      headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({ long_url: url })
-    });
-    if (!res.ok) return url;
-    const j = await res.json();
-    return j.link || url;
-  } catch {
-    return url;
-  }
-}
-
-// Event handlers
 els.load.onclick = async () => {
   const ids = parseLines().map(extractTalentId).filter(Boolean);
-  if (!ids.length) {
-    alert('Indsæt mindst ét talent link/ID');
-    return;
-  }
+  if (!ids.length) return alert('Indsæt mindst ét talent link eller ID');
 
   talents = [];
   selected.clear();
   renderList();
 
   for (const id of ids) {
-    try {
-      const t = await fetchTalentById(id);
-      talents.push(t);
-      selected.set(t.id, t);
-    } catch (e) {
-      console.error('Talent fetch error', id, e);
-    }
+    const t = await fetchTalentById(id);
+    talents.push(t);
+    selected.set(t.id, t);
   }
   renderList();
   openPreview();
@@ -150,8 +123,7 @@ els.clear.onclick = () => {
 els.list.addEventListener('change', (e) => {
   const cb = e.target;
   if (cb?.dataset?.id) {
-    const t = talents.find(x => String(x.id) === String(cb.dataset.id));
-    if (!t) return;
+    const t = talents.find(x => x.id === cb.dataset.id);
     if (cb.checked) selected.set(t.id, t);
     else selected.delete(t.id);
     openPreview();
@@ -161,23 +133,18 @@ els.list.addEventListener('change', (e) => {
 els.filter.oninput = renderList;
 
 els.gen.onclick = async () => {
-  const json = JSON.stringify(currentDeckData());
-  const data = btoa(unescape(encodeURIComponent(json)));
+  const data = btoa(unescape(encodeURIComponent(JSON.stringify(currentDeckData()))));
   const shareUrl = `${location.origin}/view-talent/?data=${data}`;
-  const shortUrl = await shorten(shareUrl);
-
-  // Update preview and copy short link
   els.preview.src = shareUrl;
   try {
-    await navigator.clipboard.writeText(shortUrl);
-    alert(`Share link copied:\n${shortUrl}`);
+    await navigator.clipboard.writeText(shareUrl);
+    alert(`Share link copied:\n${shareUrl}`);
   } catch {
-    alert(`Share link:\n${shortUrl}`);
+    alert(`Share link:\n${shareUrl}`);
   }
 };
 
 els.pdf.onclick = () => {
-  // The view page owns print CSS for clean PDF
   els.preview.contentWindow?.postMessage({ type: 'print' }, '*');
 };
 
