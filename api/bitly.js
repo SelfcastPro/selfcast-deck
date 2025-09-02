@@ -1,4 +1,3 @@
-// /api/bitly.js
 export default async function handler(req, res) {
   try {
     if (req.method !== 'POST') return res.status(405).json({error:'Method not allowed'});
@@ -10,10 +9,7 @@ export default async function handler(req, res) {
 
     const resp = await fetch('https://api-ssl.bitly.com/v4/shorten', {
       method:'POST',
-      headers:{
-        'Authorization': `Bearer ${token}`,
-        'Content-Type':'application/json'
-      },
+      headers:{ 'Authorization': `Bearer ${token}`, 'Content-Type':'application/json' },
       body: JSON.stringify({ long_url })
     });
     const json = await resp.json();
