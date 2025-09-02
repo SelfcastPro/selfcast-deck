@@ -1,4 +1,4 @@
-// talentdeck/app.js – simple version uden API key
+// talentdeck/app.js — manual data + optional scraper (no Selfcast API needed)
 
 const els = {
   title:     document.getElementById('deckTitle'),
@@ -18,6 +18,8 @@ const els = {
 let talents = [];
 let selected = new Map();
 
+// -------- Helpers --------
+
 function parseLines() {
   return els.input.value
     .split(/\n+/)
@@ -25,28 +27,49 @@ function parseLines() {
     .filter(Boolean);
 }
 
-// Tag ID eller URL direkte
-function extractTalentId(s) {
+function extractTalentIdOrUrl(s) {
+  // If it looks like a URL, return it; else return raw string as "id"
+  if (/^https?:\/\//i.test(s)) return s;
   const m = s.match(/\/talent\/([^/?#]+)/i);
-  if (m) return m[1];
-  return s; // fallback: brug hele strengen
+  if (m) return `https://producer.selfcast.com/talent/${m[1]}`;
+  return s; // id or slug
 }
 
-// Her er ingen API – vi laver et simpelt objekt
-async function fetchTalentById(idOrUrl) {
+function splitFields(line) {
+  // <urlOrId> | <name> | <height_cm> | <country> | <imageUrl>
+  const parts = line.split('|').map(x => x.trim());
   return {
-    id: idOrUrl,
-    name: idOrUrl,
-    primary_image: '', // intet billede hvis ikke du manuelt tilføjer
-    profile_url: idOrUrl.startsWith('http') 
-      ? idOrUrl 
-      : `https://producer.selfcast.com/talent/${idOrUrl}`,
-    requested_media_url: ''
+    urlOrId: parts[0] || '',
+    name: parts[1] || '',
+    height_cm: parts[2] || '',
+    country: parts[3] || '',
+    imageUrl: parts[4] || ''
   };
 }
 
+function toProfileUrl(urlOrId) {
+  if (!urlOrId) return '';
+  if (/^https?:\/\//i.test(urlOrId)) return urlOrId;
+  return `https://producer.selfcast.com/talent/${urlOrId}`;
+}
+
+function guessIdFromUrl(u) {
+  const m = String(u).match(/\/talent\/([^/?#]+)/i);
+  return m ? m[1] : String(u);
+}
+
+async function tryScrape(url) {
+  try {
+    const res = await fetch(`/api/scrape?url=${encodeURIComponent(url)}`);
+    if (!res.ok) return null;
+    return await res.json();
+  } catch {
+    return null;
+  }
+}
+
 function renderList() {
-  const q = (els.filter.value || '').toLowerCase();
+  const q = (els.filter.value || '').trim().toLowerCase();
   els.list.innerHTML = '';
 
   talents
@@ -54,13 +77,14 @@ function renderList() {
     .forEach(t => {
       const li = document.createElement('li');
       li.className = 'list-item';
+      const sub = [t.height_cm ? `${t.height_cm} cm` : '', t.country || ''].filter(Boolean).join(' · ');
       li.innerHTML = `
         <label class="chk">
           <input type="checkbox" data-id="${t.id}" ${selected.has(t.id) ? 'checked' : ''}/>
-          <span class="avatar"></span>
+          <span class="avatar" style="background-image:url('${t.primary_image || ''}')"></span>
           <span class="meta">
-            <strong>${t.name}</strong>
-            <small>${t.id}</small>
+            <strong>${t.name || 'Unnamed'}</strong>
+            <small>${sub || t.id}</small>
           </span>
         </label>
       `;
@@ -78,75 +102,44 @@ function currentDeckData() {
     talents: arr.map(t => ({
       id: t.id,
       name: t.name,
-      primary_image: t.primary_image,
+      primary_image: t.primary_image || '',
       profile_url: t.profile_url,
-      requested_media_url: t.requested_media_url
+      requested_media_url: t.requested_media_url || '',
+      height_cm: t.height_cm || '',
+      country: t.country || ''
     }))
   };
 }
 
 function openPreview() {
-  const data = btoa(unescape(encodeURIComponent(JSON.stringify(currentDeckData()))));
+  const json = JSON.stringify(currentDeckData());
+  const data = btoa(unescape(encodeURIComponent(json)));
   els.preview.src = `/view-talent/?data=${data}`;
 }
 
-els.load.onclick = async () => {
-  const ids = parseLines().map(extractTalentId).filter(Boolean);
-  if (!ids.length) return alert('Indsæt mindst ét talent link eller ID');
-
-  talents = [];
-  selected.clear();
-  renderList();
-
-  for (const id of ids) {
-    const t = await fetchTalentById(id);
-    talents.push(t);
-    selected.set(t.id, t);
-  }
-  renderList();
-  openPreview();
-};
-
-els.selectAll.onclick = () => {
-  talents.forEach(t => selected.set(t.id, t));
-  renderList();
-  openPreview();
-};
-
-els.clear.onclick = () => {
-  talents = [];
-  selected.clear();
-  els.list.innerHTML = '';
-  openPreview();
-};
-
-els.list.addEventListener('change', (e) => {
-  const cb = e.target;
-  if (cb?.dataset?.id) {
-    const t = talents.find(x => x.id === cb.dataset.id);
-    if (cb.checked) selected.set(t.id, t);
-    else selected.delete(t.id);
-    openPreview();
-  }
-});
-
-els.filter.oninput = renderList;
-
-els.gen.onclick = async () => {
-  const data = btoa(unescape(encodeURIComponent(JSON.stringify(currentDeckData()))));
-  const shareUrl = `${location.origin}/view-talent/?data=${data}`;
-  els.preview.src = shareUrl;
+async function shorten(url) {
   try {
-    await navigator.clipboard.writeText(shareUrl);
-    alert(`Share link copied:\n${shareUrl}`);
-  } catch {
-    alert(`Share link:\n${shareUrl}`);
-  }
-};
+    const res = await fetch('/api/bitly', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ long_url: url })
+    });
+    if (!res.ok) return url;
+    const j = await res.json();
+    return j.link || url;
+  } catch { return url; }
+}
 
-els.pdf.onclick = () => {
-  els.preview.contentWindow?.postMessage({ type: 'print' }, '*');
-};
+// -------- Events --------
 
-els.prev.onclick = () => history.back();
-els.next.onclick = () => (location.href = '/view-talent/');
+els.load.onclick = async () => {
+  const lines = parseLines();
+  if (!lines.length) return alert('Indsæt mindst ét talent: URL/ID eller pipe-format: url | name | height_cm | country | imageUrl');
+
+  talents = [];
+  selected.clear();
+  renderList();
+
+  for (const raw of lines) {
+    const { urlOrId, name, height_cm, country, imageUrl } = splitFields(raw);
+    const profile_url = toP_
