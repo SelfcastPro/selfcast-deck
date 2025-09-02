@@ -12,7 +12,7 @@ html.dark{background:var(--bg); color:var(--text); font:16px/1.55 system-ui,-app
   border-bottom:1px solid var(--line);
 }
 .brand{display:flex; align-items:baseline; gap:10px}
-.wordmark{letter-spacing:.14em}
+.wordmark{letter-spacing:.14em; font-weight:800}
 .tagline{color:var(--muted); font-size:.9rem}
 .actions{display:flex; gap:10px}
 .btn{border:1px solid var(--line); background:#1a1a20; color:var(--text); padding:10px 14px; border-radius:12px; cursor:pointer}
@@ -49,6 +49,7 @@ h3{margin:0 0 6px; font-size:18px}
 /* Footer */
 .footer{padding:16px 18px 24px; color:var(--muted); text-align:center}
 .footer a{color:var(--text)}
+.ver{margin-top:6px; font-size:.8rem; opacity:.7}
 
 /* Print (A4, 12 cards per page, 3 columns) */
 @page{ size:A4; margin:12mm; }
@@ -58,6 +59,6 @@ h3{margin:0 0 6px; font-size:18px}
   .grid{gap:10mm}
   .card{border:none}
   .a{border:1px solid #000}
-  /* force page break after each 12th card */
+  /* break after every 12th card */
   .card:nth-child(12n){ break-after:page; page-break-after:always; }
 }
