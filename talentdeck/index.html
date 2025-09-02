@@ -91,3 +91,9 @@
 <script src="./app.js?v=3" defer></script>
 </body>
 </html>
+/* --- Click fix: make left/middle above iframe --- */
+.left, .middle, .topbar { position: relative; z-index: 2; }
+.right { position: relative; z-index: 1; }
+
+/* Prevent iframe from blocking clicks outside its box (in case of overlap) */
+.preview { position: relative; z-index: 0; pointer-events: none; }
