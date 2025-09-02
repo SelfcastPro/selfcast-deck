@@ -1,28 +1,30 @@
-// talentdeck/app.js — clean, English, no-API builder with autosave + inline edit
-
+// Talent Builder — simple, English, no-API, autosave, recent 20, inline edit
 (function () {
   const STORE_KEY  = 'sc_talentdeck_v3';
   const RECENT_KEY = 'sc_talentdeck_recent_v1';
 
+  const $ = (id) => document.getElementById(id);
   const els = {
-    title:     document.getElementById('deckTitle'),
-    input:     document.getElementById('talentInput'),
-    load:      document.getElementById('btnLoad'),
-    selectAll: document.getElementById('btnSelectAll'),
-    clear:     document.getElementById('btnClear'),
-    gen:       document.getElementById('btnGenerate'),
-    pdf:       document.getElementById('btnExportPdf'),
-    prev:      document.getElementById('btnPrev'),
-    next:      document.getElementById('btnNext'),
-    filter:    document.getElementById('filterInput'),
-    list:      document.getElementById('talentList'),
-    preview:   document.getElementById('preview'),
+    title: $('deckTitle'),
+    input: $('talentInput'),
+    load: $('btnLoad'),
+    selectAll: $('btnSelectAll'),
+    clear: $('btnClear'),
+    gen: $('btnGenerate'),
+    pdf: $('btnExportPdf'),
+    prev: $('btnPrev'),
+    next: $('btnNext'),
+    filter: $('filterInput'),
+    list: $('talentList'),
+    preview: $('preview'),
   };
+
+  // Make sure the preview cannot steal clicks
+  if (els.preview) { els.preview.style.pointerEvents = 'none'; els.preview.style.zIndex = '0'; }
 
   let talents  = [];
   let selected = new Map();
 
-  // ---------- utils ----------
   const isHttp = s => /^https?:\/\//i.test(s);
   const isImageUrl = s => /\.(jpe?g|png|webp|gif)(\?|#|$)/i.test(s) || /picsum\.photos/i.test(s);
 
@@ -46,7 +48,7 @@
     return m ? m[1] : String(u);
   }
 
-  // Pipe format: profile | name | height | country | image | requested
+  // Pipe: profile | name | height | country | image | requested
   function fromPipe(line) {
     const p = line.split('|').map(s => s.trim());
     const profile_url = toProfileUrl(p[0] || '');
@@ -72,12 +74,9 @@
   }
 
   function saveDeck() {
-    try {
-      localStorage.setItem(STORE_KEY, JSON.stringify({ title: els.title.value || '', talents }));
-    } catch {}
+    try { localStorage.setItem(STORE_KEY, JSON.stringify({ title: els.title.value || '', talents })); } catch {}
   }
-
-  function loadDeckFromStorage() {
+  function loadDeck() {
     try {
       const raw = localStorage.getItem(STORE_KEY);
       if (!raw) return false;
@@ -89,8 +88,7 @@
       return true;
     } catch { return false; }
   }
-
-  function maybePrefillRecent() {
+  function prefillRecent() {
     if (els.input.value.trim()) return;
     try {
       const rec = JSON.parse(localStorage.getItem(RECENT_KEY) || '[]');
@@ -99,11 +97,9 @@
   }
 
   function subLine(t) {
-    return [t.height_cm ? `${t.height_cm} cm` : '', t.country || '']
-      .filter(Boolean).join(' · ');
+    return [t.height_cm ? `${t.height_cm} cm` : '', t.country || ''].filter(Boolean).join(' · ');
   }
 
-  // ---------- render ----------
   function renderList() {
     const q = (els.filter.value || '').toLowerCase().trim();
     els.list.innerHTML = '';
@@ -113,7 +109,6 @@
         const li = document.createElement('li');
         li.className = 'list-item';
         li.dataset.id = t.id;
-
         li.innerHTML = `
           <label class="chk">
             <input type="checkbox" data-id="${t.id}" ${selected.has(t.id) ? 'checked' : ''}/>
@@ -123,31 +118,29 @@
               <small>${subLine(t) || t.id}</small>
             </span>
           </label>
-
           <div class="btnrow">
             <button class="btn small edit-btn" data-id="${t.id}">Edit</button>
             <button class="btn small danger remove-btn" data-id="${t.id}">Remove</button>
           </div>
-
           <form class="edit-panel" data-id="${t.id}">
             <div class="edit-grid">
               <label class="field">Name
-                <input name="name" value="${escapeHtml(t.name || '')}" />
+                <input name="name" value="${esc(t.name || '')}"/>
               </label>
               <label class="field">Height (cm)
-                <input name="height_cm" type="number" inputmode="numeric" value="${escapeAttr(t.height_cm || '')}" />
+                <input name="height_cm" type="number" inputmode="numeric" value="${esc(t.height_cm || '')}"/>
               </label>
               <label class="field">Country
-                <input name="country" value="${escapeHtml(t.country || '')}" />
+                <input name="country" value="${esc(t.country || '')}"/>
               </label>
               <label class="field">Profile URL
-                <input name="profile_url" value="${escapeAttr(t.profile_url || '')}" />
+                <input name="profile_url" value="${esc(t.profile_url || '')}" placeholder="https://producer.selfcast.com/talent/..."/>
               </label>
               <label class="field">Requested media URL
-                <input name="requested_media_url" value="${escapeAttr(t.requested_media_url || '')}" />
+                <input name="requested_media_url" value="${esc(t.requested_media_url || '')}" placeholder="https://…"/>
               </label>
               <label class="field">Image URL
-                <input name="primary_image" value="${escapeAttr(t.primary_image || '')}" placeholder="https://…/photo.jpg" />
+                <input name="primary_image" value="${esc(t.primary_image || '')}" placeholder="https://…/photo.jpg"/>
               </label>
             </div>
             <div class="row">
@@ -160,10 +153,8 @@
       });
   }
 
-  function escapeHtml(s){ return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
-  function escapeAttr(s){ return escapeHtml(s); }
+  function esc(s){ return String(s||'').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
 
-  // ---------- data for preview ----------
   function currentDeckData() {
     const arr = Array.from(selected.values());
     return {
@@ -175,7 +166,7 @@
         id: t.id,
         name: t.name,
         primary_image: t.primary_image || '',
-        profile_url: t.profile_url,
+        profile_url: t.profile_url || '',
         requested_media_url: t.requested_media_url || '',
         height_cm: t.height_cm || '',
         country: t.country || ''
@@ -202,17 +193,10 @@
     } catch { return url; }
   }
 
-  // ---------- load logic ----------
-  // Supported input:
-  //  (A) "profile | name | height | country | image | requested"
-  //  (B) profile (line)  + optional next lines: "img: url", "req: url"
-  //      If the very next line is an image URL, it becomes the primary image.
+  // --------- LOAD from textarea ----------
   function loadFromTextarea() {
     const lines = parseLines();
-    if (!lines.length) {
-      alert('Paste at least one talent.\nEither: "profile | name | height_cm | country | imageUrl | requestedUrl"\nOr lines:\n<profile>\nimg: <image>\nreq: <url>');
-      return;
-    }
+    if (!lines.length) { alert('Paste at least one talent link or ID'); return; }
 
     let last = null;
 
@@ -228,10 +212,41 @@
         continue;
       }
 
-      // Prefixed helpers
-      if (raw.toLowerCase().startsWith('img:')) {
-        if (last) {
-          const url = raw.slice(4).trim();
-          if (url) { last.primary_image = url; touch(last); }
-        }
-        continue;
+      // New profile (URL or ID)
+      const profile_url = toProfileUrl(raw);
+      const t = {
+        id: idFromProfileUrl(profile_url),
+        name: '',
+        height_cm: '',
+        country: '',
+        primary_image: '',
+        requested_media_url: '',
+        profile_url
+      };
+      upsert(t);
+      uniqPushRecent(raw);
+      last = t;
+
+      // If next line looks like an image URL, attach it
+      const next = lines[i + 1];
+      if (next && isImageUrl(next)) { t.primary_image = next.trim(); touch(t); i += 1; }
+    }
+
+    renderList(); saveDeck(); openPreview();
+    els.input.value = '';
+  }
+
+  function upsert(t) {
+    const idx = talents.findIndex(x => String(x.id) === String(t.id));
+    if (idx >= 0) talents[idx] = { ...talents[idx], ...t };
+    else talents.push(t);
+    selected.set(t.id, idx >= 0 ? talents[idx] : t);
+  }
+  function touch(t) {
+    const idx = talents.findIndex(x => String(x.id) === String(t.id));
+    if (idx >= 0) talents[idx] = { ...t };
+    selected.set(t.id, talents[idx] || t);
+  }
+
+  // --------- Events ----------
+  els.l
