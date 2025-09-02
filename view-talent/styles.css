@@ -1,51 +1,63 @@
 :root{
-  --bg:#0b0b0d; --panel:#141418; --text:#e9e9ef; --muted:#9a9aa2; --line:#23232a; --accent:#ff2d55;
-  --radius:16px;
+  --bg:#0b0b0d; --card:#141418; --text:#e9e9ef; --muted:#9a9aa2;
+  --line:#23232a; --accent:#ff2d55; --radius:16px;
 }
 *{box-sizing:border-box}
-html.dark,body{height:100%}
-html.dark{background:var(--bg); color:var(--text); font:16px/1.55 system-ui,Inter,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+html,body{height:100%}
+html.dark{background:var(--bg); color:var(--text); font:16px/1.55 system-ui,-apple-system,Segoe UI,Inter,Roboto,Helvetica,Arial}
 
-.view-topbar{
-  position:sticky; top:0; z-index:5; display:flex; justify-content:space-between; align-items:center;
-  padding:14px 18px; background:rgba(10,10,12,.8); backdrop-filter:blur(10px);
+.bar{
+  position:sticky; top:0; z-index:10; display:flex; justify-content:space-between; align-items:center;
+  padding:12px 16px; background:rgba(10,10,12,.85); backdrop-filter:blur(10px);
   border-bottom:1px solid var(--line);
 }
-.brand{display:flex; gap:8px; align-items:baseline}
-.wordmark{font-weight:800; letter-spacing:.14em}
-.tagline{font-size:.85rem; color:var(--muted)}
-.view-actions{display:flex; gap:8px; align-items:center}
-.btn{border:1px solid var(--line); background:#1a1a20; color:var(--text); padding:9px 12px; border-radius:12px; cursor:pointer}
-.btn.primary{background:var(--accent); color:#fff; border-color:transparent}
-.btn.small{font-size:.9rem; padding:7px 10px}
+.brand{display:flex; align-items:baseline; gap:10px}
+.wordmark{letter-spacing:.14em}
+.tagline{color:var(--muted); font-size:.9rem}
+.actions{display:flex; gap:10px}
+.btn{border:1px solid var(--line); background:#1a1a20; color:var(--text); padding:10px 14px; border-radius:12px; cursor:pointer}
+.btn:hover{border-color:#3a3a44}
 
-.title{margin-left:10px; color:var(--muted)}
+.header{padding:18px 18px 0}
+h1{margin:0 0 6px; font-size:28px; font-weight:900}
 
-#root.grid{
-  display:grid; gap:16px; padding:18px;
-  grid-template-columns:repeat(auto-fill,minmax(320px,1fr));
+.grid{
+  padding:18px;
+  display:grid;
+  grid-template-columns:repeat(3, 1fr);
+  gap:18px;
 }
 
+/* Card */
 .card{
-  background:var(--panel); border:1px solid var(--line); border-radius:var(--radius);
+  background:var(--card); border:1px solid var(--line); border-radius:var(--radius);
   overflow:hidden; display:flex; flex-direction:column;
+  break-inside:avoid; page-break-inside:avoid;
 }
-.hero{height:340px; background:#0f0f13 center/cover no-repeat}
-.card-head{padding:14px 16px; border-top:1px solid #00000020}
-.card-head h3{margin:0; font-size:1.05rem}
-.links{display:flex; gap:8px; padding:0 16px 16px}
-.interest{padding:0 16px 16px}
-.footer{padding:14px 18px; color:var(--muted); text-align:center; border-top:1px solid var(--line)}
+.hero{
+  aspect-ratio: 4/5;
+  background:#0f0f12 center/cover no-repeat;
+  filter:grayscale(1);
+}
+.body{padding:12px 14px}
+h3{margin:0 0 6px; font-size:18px}
+.sub{margin:0 0 10px; color:var(--muted); font-size:.95rem}
+.links{display:flex; gap:8px; flex-wrap:wrap}
+.a{display:inline-flex; align-items:center; gap:6px; padding:8px 10px; border-radius:10px; border:1px solid var(--line); background:#1a1a20; color:var(--text); text-decoration:none; font-weight:600}
+.a:hover{border-color:#3a3a44}
 
-/* Print (A4, rene PDF’er) */
-@media print {
-  .print-hide, .view-topbar { display:none !important; }
-  body{background:#fff; color:#000}
-  #root.grid{display:block; padding:0}
-  .card{
-    page-break-inside:avoid; border:none; border-radius:0; margin:0 0 12mm 0;
-  }
-  .hero{height:90mm}
-  .links .btn, .interest .btn{border:1px solid #000; color:#000; background:#fff}
-  .footer{display:none}
+/* Footer */
+.footer{padding:16px 18px 24px; color:var(--muted); text-align:center}
+.footer a{color:var(--text)}
+
+/* Print (A4, 12 cards per page, 3 columns) */
+@page{ size:A4; margin:12mm; }
+@media print{
+  .print-hide{display:none !important}
+  body{background:white; color:black}
+  .grid{gap:10mm}
+  .card{border:none}
+  .a{border:1px solid #000}
+  /* force page break after each 12th card */
+  .card:nth-child(12n){ break-after:page; page-break-after:always; }
 }
