@@ -1,9 +1,9 @@
-// talentdeck/app.js — robust no-API version with logs
+// talentdeck/app.js — simple, no-API, autosave + recent 20
 
-(function(){
-  console.log('[talentdeck] script loaded');
+(function () {
+  const STORE_KEY  = 'sc_talentdeck_v1';
+  const RECENT_KEY = 'sc_talentdeck_recent_v1';
 
-  // ---- Grab DOM ----
   const els = {
     title:     document.getElementById('deckTitle'),
     input:     document.getElementById('talentInput'),
@@ -19,14 +19,15 @@
     preview:   document.getElementById('preview'),
   };
 
-  // Safety: verify all IDs exist
-  for (const [k,v] of Object.entries(els)) {
-    if (!v) { alert('Missing element: ' + k); console.error('Missing element', k); return; }
+  // Basic sanity (IDs must exist)
+  for (const [k, v] of Object.entries(els)) {
+    if (!v) { console.error('[talentdeck] Missing element:', k); }
   }
 
-  let talents = [];
-  let selected = new Map();
+  let talents  = [];          // full list (array of objects)
+  let selected = new Map();   // id -> object
 
+  // ---------- helpers ----------
   function parseLines() {
     return (els.input.value || '')
       .split(/\r?\n/)
@@ -34,23 +35,23 @@
       .filter(Boolean);
   }
 
-  // support "url | name | height | country | imageUrl" OR just plain URL/ID
-  function normalizeProfile(line) {
+  // Accept "urlOrId | name | height_cm | country | imageUrl | email | requestedMediaUrl"
+  // or just a URL / ID (we’ll derive reasonable defaults)
+  function parseLine(line) {
     const parts = line.split('|').map(s => s.trim());
     const urlOrId = parts[0] || '';
     const name    = parts[1] || '';
     const height  = parts[2] || '';
     const country = parts[3] || '';
     const imgUrl  = parts[4] || '';
+    const email   = parts[5] || '';
+    const reqMed  = parts[6] || '';
 
     let profile_url = urlOrId;
     if (!/^https?:\/\//i.test(profile_url)) {
       const m = urlOrId.match(/\/talent\/([^/?#]+)/i);
-      if (m) {
-        profile_url = `https://producer.selfcast.com/talent/${m[1]}`;
-      } else if (urlOrId) {
-        profile_url = `https://producer.selfcast.com/talent/${urlOrId}`;
-      }
+      if (m) profile_url = `https://producer.selfcast.com/talent/${m[1]}`;
+      else if (urlOrId) profile_url = `https://producer.selfcast.com/talent/${urlOrId}`;
     }
     let id = urlOrId || profile_url;
     const mid = String(profile_url).match(/\/talent\/([^/?#]+)/i);
@@ -59,12 +60,24 @@
     return {
       id,
       name: name || id,
-      primary_image: imgUrl || '',
+      primary_image: imgUrl || '', // sort/hvid sker i view
       profile_url,
-      requested_media_url: '',
+      requested_media_url: reqMed || '',
       height_cm: height || '',
-      country: country || ''
+      country: country || '',
+      email: email || ''
     };
+  }
+
+  function uniqPushRecent(urlOrId) {
+    try {
+      const rec = JSON.parse(localStorage.getItem(RECENT_KEY) || '[]');
+      const val = String(urlOrId || '').trim();
+      if (!val) return;
+      // keep unique, most-recent-first, max 20
+      const next = [val, ...rec.filter(x => x !== val)].slice(0, 20);
+      localStorage.setItem(RECENT_KEY, JSON.stringify(next));
+    } catch {}
   }
 
   function renderList() {
@@ -104,9 +117,44 @@
         profile_url: t.profile_url,
         requested_media_url: t.requested_media_url || '',
         height_cm: t.height_cm || '',
-        country: t.country || ''
+        country: t.country || '',
+        email: t.email || ''
       }))
     };
+  }
+
+  function saveDeck() {
+    try {
+      const data = {
+        title: els.title.value || '',
+        talents
+      };
+      localStorage.setItem(STORE_KEY, JSON.stringify(data));
+    } catch (e) {
+      console.warn('Could not save deck', e);
+    }
+  }
+
+  function loadDeckFromStorage() {
+    try {
+      const raw = localStorage.getItem(STORE_KEY);
+      if (!raw) return false;
+      const data = JSON.parse(raw);
+      els.title.value = data.title || '';
+      talents = Array.isArray(data.talents) ? data.talents : [];
+      selected = new Map(talents.map(t => [t.id, t])); // select all by default
+      renderList();
+      openPreview();
+      return true;
+    } catch { return false; }
+  }
+
+  function maybePrefillRecent() {
+    if (els.input.value.trim()) return;
+    try {
+      const rec = JSON.parse(localStorage.getItem(RECENT_KEY) || '[]');
+      if (rec.length) els.input.value = rec.join('\n');
+    } catch {}
   }
 
   function openPreview() {
@@ -128,14 +176,97 @@
     } catch { return url; }
   }
 
-  // ---- Events ----
+  // ---------- events ----------
   els.load.addEventListener('click', () => {
-    console.log('[talentdeck] Load clicked');
     const lines = parseLines();
     if (!lines.length) {
-      alert('Indsæt mindst ét talent: URL/ID eller pipe-format: url | name | height_cm | country | imageUrl_
+      alert('Indsæt mindst ét talent. Format: urlOrId | name | height_cm | country | imageUrl | email | requestedMediaUrl (felter valgfrie)');
+      return;
+    }
 
-            console.log('[talentdeck] ready');
-document.getElementById('btnLoad')?.addEventListener('click', () => {
-  console.log('[talentdeck] Load clicked');
-});
+    for (const line of lines) {
+      const t = parseLine(line);
+      // avoid duplicates by id
+      const exists = talents.findIndex(x => String(x.id) === String(t.id));
+      if (exists >= 0) {
+        talents[exists] = t;            // overwrite existing
+      } else {
+        talents.push(t);                 // append
+      }
+      selected.set(t.id, t);
+      // remember recent (first field only)
+      const firstField = line.split('|')[0].trim();
+      uniqPushRecent(firstField);
+    }
+
+    renderList();
+    saveDeck();
+    openPreview();
+    els.input.value = ''; // klar til at tilføje næste talent
+  });
+
+  els.selectAll.addEventListener('click', () => {
+    talents.forEach(t => selected.set(t.id, t));
+    renderList();
+    saveDeck();
+    openPreview();
+  });
+
+  els.clear.addEventListener('click', () => {
+    talents = [];
+    selected.clear();
+    els.list.innerHTML = '';
+    saveDeck();
+    openPreview();
+  });
+
+  els.list.addEventListener('change', (e) => {
+    const cb = e.target;
+    if (cb?.dataset?.id) {
+      const t = talents.find(x => String(x.id) === String(cb.dataset.id));
+      if (!t) return;
+      if (cb.checked) selected.set(t.id, t);
+      else selected.delete(t.id);
+      saveDeck();
+      openPreview();
+    }
+  });
+
+  els.filter.addEventListener('input', renderList);
+  els.title.addEventListener('input', () => { saveDeck(); openPreview(); });
+
+  els.gen.addEventListener('click', async () => {
+    const json = JSON.stringify(currentDeckData());
+    const data = btoa(unescape(encodeURIComponent(json)));
+    const shareUrl = `${location.origin}/view-talent/?data=${data}`;
+    els.preview.src = shareUrl;
+
+    let urlToCopy = shareUrl;
+    try { urlToCopy = await shorten(shareUrl); } catch {}
+    try {
+      await navigator.clipboard.writeText(urlToCopy);
+      alert(`Share link copied:\n${urlToCopy}`);
+    } catch {
+      alert(`Share link:\n${urlToCopy}`);
+    }
+  });
+
+  els.pdf.addEventListener('click', () => {
+    els.preview.contentWindow?.postMessage({ type: 'print' }, '*');
+  });
+
+  els.prev.addEventListener('click', () => history.back());
+  els.next.addEventListener('click', () => (location.href = '/view-talent/'));
+
+  // ---------- init ----------
+  // Make sure iframe can't steal clicks
+  const preview = document.querySelector('.preview');
+  if (preview) {
+    preview.style.pointerEvents = 'none';
+    preview.style.zIndex = '0';
+  }
+
+  // Restore previous deck (if any). If none, prefill textarea with the recent list.
+  const restored = loadDeckFromStorage();
+  if (!restored) maybePrefillRecent();
+})();
