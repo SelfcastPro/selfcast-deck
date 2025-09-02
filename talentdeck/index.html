@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Talent Presentation – Selfcast</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <span class="wordmark">SELFCAST</span>
+    <span class="tagline">CASTING MADE EASY</span>
+  </div>
+  <div class="actions">
+    <button id="btnPrev" class="btn secondary">← Prev</button>
+    <button id="btnNext" class="btn secondary">Next →</button>
+    <button id="btnExportPdf" class="btn secondary">Export PDF</button>
+    <button id="btnGenerate" class="btn primary">Generate</button>
+  </div>
+</header>
+
+<main class="layout">
+  <section class="left">
+    <h3>Talent Presentation</h3>
+
+    <label class="label">Deck Title</label>
+    <input id="deckTitle" class="input" placeholder="e.g. Adidas – Female Talents" />
+
+    <label class="label">Paste 1 talent URL (or talentId) per line</label>
+    <textarea id="talentInput" class="textarea" rows="6"
+      placeholder="https://producer.selfcast.com/talent/123...\n...or just 123"></textarea>
+
+    <div class="row">
+      <div>
+        <label class="label">Hide talents with fewer than N images</label>
+        <input id="minImages" class="input tiny" type="number" min="0" value="1" />
+        <span class="hint">(best_image + gallery)</span>
+      </div>
+    </div>
+
+    <div class="row">
+      <button id="btnLoad" class="btn">Load talents</button>
+      <button id="btnSelectAll" class="btn">Select all</button>
+      <button id="btnClear" class="btn danger">Clear</button>
+    </div>
+
+    <ol class="steps">
+      <li>Indsæt talent links/ID</li>
+      <li>Load talents</li>
+      <li>Vælg talenter</li>
+      <li>Generate</li>
+    </ol>
+  </section>
+
+  <section class="middle">
+    <div class="pickerHeader">
+      <strong>Talent Picker</strong>
+      <input id="filterInput" class="input" placeholder="Filter by name…" />
+    </div>
+    <ul id="talentList" class="list"></ul>
+  </section>
+
+  <section class="right">
+    <iframe id="preview" class="preview" title="Preview"></iframe>
+  </section>
+</main>
+
+<footer class="footer">
+  <small>Powered by <strong>SELFCAST</strong></small>
+</footer>
+
+<script src="./app.js" type="module"></script>
+</body>
+</html>
