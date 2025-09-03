@@ -1,12 +1,12 @@
-// VIEW v1.0.3 — 3-per-row talent grid with demo mode and Bitly short link.
+// VIEW v1.0.4 — 3-per-row talent grid, Bitly copy, + builder print listener
 (function(){
-  const VERSION = 'v1.0.3';
+  const VERSION = 'v1.0.4';
 
   function readData(){
     const u = new URL(location.href);
     const raw = u.searchParams.get('data');
     const demo = u.searchParams.get('demo');
-    if (demo) return demoDeck();     // <— DEMO: open /view-talent/?demo=1 to see layout
+    if (demo) return demoDeck();
     if (!raw) return null;
     try { return JSON.parse(decodeURIComponent(escape(atob(raw)))); }
     catch(e){ console.error('data parse error', e); return null; }
@@ -76,7 +76,7 @@
     });
   }
 
-  // Buttons
+  // Buttons in the view
   document.getElementById('btnPdf').addEventListener('click', () => window.print());
 
   document.getElementById('btnShare').addEventListener('click', async () => {
@@ -94,6 +94,11 @@
       try { await navigator.clipboard.writeText(longUrl); alert('Link copied:\n' + longUrl); }
       catch { alert('Here is the link:\n' + longUrl); }
     }
+  });
+
+  // 🔧 IMPORTANT: listen for the builder's Export PDF
+  window.addEventListener('message', (ev) => {
+    if (ev.data && ev.data.type === 'print') window.print();
   });
 
   console.log('VIEW loaded', VERSION);
