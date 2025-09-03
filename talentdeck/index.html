@@ -26,11 +26,20 @@
     <section class="left">
       <h3>Talent Presentation</h3>
 
-      <label for="deckTitle" class="label">Deck Title</label>
+      <label class="label" for="deckTitle">Project name</label>
       <input id="deckTitle" class="input" placeholder="e.g. Adidas"/>
 
-      <label for="talentInput" class="label">Paste 1 talent URL (or talentId) per line</label>
-      <textarea id="talentInput" class="textarea" placeholder="https://producer.selfcast.com/talent/…"></textarea>
+      <label class="label" for="ownerName">Contact name</label>
+      <input id="ownerName" class="input" placeholder="Your name"/>
+
+      <label class="label" for="ownerEmail">Contact email</label>
+      <input id="ownerEmail" class="input" placeholder="you@selfcast.com"/>
+
+      <label class="label" for="ownerPhone">Contact phone</label>
+      <input id="ownerPhone" class="input" placeholder="+45 …"/>
+
+      <label class="label" for="talentInput">Paste 1 talent URL (or talentId) per line</label>
+      <textarea id="talentInput" class="textarea" placeholder="https://producer.selfcast.com/talent/…&#10;https://…/image.jpg (optional next line)"></textarea>
 
       <div class="row">
         <button id="btnLoad" class="btn">Load talents</button>
@@ -39,7 +48,7 @@
       </div>
 
       <ol class="steps">
-        <li>Paste links or use pipe: <em>url | name | height_cm | country | imageUrl</em></li>
+        <li>Paste links or use pipe: <em>url | name | height_cm | country | imageUrl | requestedUrl</em></li>
         <li>Load talents</li>
         <li>Select talents</li>
         <li>Generate</li>
@@ -57,6 +66,11 @@
 
     <!-- RIGHT -->
     <section class="right">
+      <div class="row" style="justify-content:flex-end; margin:0 0 8px">
+        <label class="label" style="margin:0; display:flex; align-items:center; gap:8px">
+          <input id="togglePreviewClicks" type="checkbox"/> Enable clicks in preview
+        </label>
+      </div>
       <iframe id="preview" class="preview" title="Preview"></iframe>
     </section>
   </main>
