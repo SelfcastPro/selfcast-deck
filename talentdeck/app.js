@@ -375,4 +375,29 @@
 
   // Export PDF via view (iframe)
   els.pdf?.addEventListener('click', () => {
-    els.preview.contentWindow?.postMessage({ type:
+    els.preview.contentWindow?.postMessage({ type: 'print' }, '*');
+  });
+
+  els.prev?.addEventListener('click', () => history.back());
+  els.next?.addEventListener('click', () => (location.href = '/view-talent/'));
+
+  // Preview click toggle (default: ENABLED)
+  function applyPreviewClicks(){
+    if (!els.preview) return;
+    const on = els.toggleClicks ? els.toggleClicks.checked : true;
+    els.preview.style.pointerEvents = on ? 'auto' : 'none';
+  }
+  if (els.toggleClicks) {
+    els.toggleClicks.checked = true;
+    els.toggleClicks.addEventListener('change', applyPreviewClicks);
+  }
+  applyPreviewClicks();
+
+  // ---------- init ----------
+  const restored = loadDeck();
+  if (!restored) prefillRecent();
+  // If nothing yet, show demo so right side isn’t empty
+  if (!restored) els.preview.src = '/view-talent/?demo=1';
+
+  console.log('[talentdeck v4.1.2] ready');
+})();
