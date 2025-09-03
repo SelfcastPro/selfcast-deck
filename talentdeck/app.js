@@ -1,6 +1,15 @@
-// Talent Builder — simple, English, no-API, autosave, recent 20, inline edit + preview click toggle
+// talentdeck/app.js — Talent Builder v4.1
+// - Contact fields (owner)
+// - Load from lines or pipe format
+// - Inline edit per talent
+// - Autosave (localStorage) + last 20 pasted inputs
+// - Generate: /view-talent/?compact=1&data=... + copy Bitly
+// - Export PDF: postMessage{type:'print'}
+// - Preview clicks enabled by default (toggle)
+
+// ----------------- util -----------------
 (function () {
-  const STORE_KEY  = 'sc_talentdeck_v4';
+  const STORE_KEY  = 'sc_talentdeck_v41';
   const RECENT_KEY = 'sc_talentdeck_recent_v1';
 
   const $ = (id) => document.getElementById(id);
@@ -27,13 +36,21 @@
   let talents  = [];
   let selected = new Map();
 
-  // --- helpers ---
-  const isHttp = s => /^https?:\/\//i.test(s);
-  const isImageUrl = s => /\.(jpe?g|png|webp|gif)(\?|#|$)/i.test(s) || /picsum\.photos/i.test(s);
+  const isHttp = s => /^https?:\/\//i.test(s || '');
+  const isImageUrl = s => /\.(jpe?g|png|webp|gif)(\?|#|$)/i.test(s || '') || /picsum\.photos/i.test(s || '');
+
+  function esc(s){
+    return String(s||'').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+  }
+  function subLine(t){
+    return [t.height_cm ? `${t.height_cm} cm` : '', t.country || ''].filter(Boolean).join(' · ');
+  }
 
   function parseLines() {
     return (els.input.value || '')
-      .split(/\r?\n/).map(s => s.trim()).filter(Boolean);
+      .split(/\r?\n/)
+      .map(s => s.trim())
+      .filter(Boolean);
   }
   function toProfileUrl(urlOrId) {
     if (!urlOrId) return '';
@@ -60,7 +77,6 @@
       profile_url
     };
   }
-
   function uniqPushRecent(s) {
     try {
       const rec = JSON.parse(localStorage.getItem(RECENT_KEY) || '[]');
@@ -71,14 +87,15 @@
     } catch {}
   }
 
+  // ----------------- state -----------------
   function saveDeck() {
     try {
       localStorage.setItem(STORE_KEY, JSON.stringify({
         title: els.title.value || '',
         owner: {
-          name: els.ownerName.value || '',
-          email: els.ownerEmail.value || '',
-          phone: els.ownerPhone.value || ''
+          name : els.ownerName?.value || '',
+          email: els.ownerEmail?.value || '',
+          phone: els.ownerPhone?.value || ''
         },
         talents
       }));
@@ -89,31 +106,28 @@
       const raw = localStorage.getItem(STORE_KEY);
       if (!raw) return false;
       const d = JSON.parse(raw);
-      els.title.value = d.title || '';
-      els.ownerName.value = d.owner?.name || '';
-      els.ownerEmail.value = d.owner?.email || '';
-      els.ownerPhone.value = d.owner?.phone || '';
-      talents = Array.isArray(d.talents) ? d.talents : [];
-      selected = new Map(talents.map(t => [t.id, t]));
+      if (els.title)      els.title.value      = d.title || '';
+      if (els.ownerName)  els.ownerName.value  = d.owner?.name  || '';
+      if (els.ownerEmail) els.ownerEmail.value = d.owner?.email || '';
+      if (els.ownerPhone) els.ownerPhone.value = d.owner?.phone || '';
+      talents  = Array.isArray(d.talents) ? d.talents : [];
+      selected = new Map(talents.map(t => [t.id, t])); // preselect all loaded
       renderList(); openPreview();
       return true;
     } catch { return false; }
   }
   function prefillRecent() {
-    if (els.input.value.trim()) return;
+    if (!els.input || els.input.value.trim()) return;
     try {
       const rec = JSON.parse(localStorage.getItem(RECENT_KEY) || '[]');
       if (rec.length) els.input.value = rec.join('\n');
     } catch {}
   }
 
-  function subLine(t) {
-    return [t.height_cm ? `${t.height_cm} cm` : '', t.country || ''].filter(Boolean).join(' · ');
-  }
-  function esc(s){ return String(s||'').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
-
+  // ----------------- render -----------------
   function renderList() {
-    const q = (els.filter.value || '').toLowerCase().trim();
+    if (!els.list) return;
+    const q = (els.filter?.value || '').toLowerCase().trim();
     els.list.innerHTML = '';
     talents
       .filter(t => (q ? (t.name || '').toLowerCase().includes(q) : true))
@@ -126,14 +140,16 @@
             <input type="checkbox" data-id="${t.id}" ${selected.has(t.id) ? 'checked' : ''}/>
             <span class="avatar" style="background-image:url('${t.primary_image || ''}')"></span>
             <span class="meta">
-              <strong>${t.name || 'Unnamed'}</strong>
-              <small>${subLine(t) || t.id}</small>
+              <strong>${esc(t.name || 'Unnamed')}</strong>
+              <small>${esc(subLine(t) || t.id)}</small>
             </span>
           </label>
+
           <div class="btnrow">
             <button class="btn small edit-btn" data-id="${t.id}">Edit</button>
             <button class="btn small danger remove-btn" data-id="${t.id}">Remove</button>
           </div>
+
           <form class="edit-panel" data-id="${t.id}">
             <div class="edit-grid">
               <label class="field">Name
@@ -165,16 +181,18 @@
       });
   }
 
+  // ----------------- preview payload -----------------
   function currentDeckData() {
-    const arr = Array.from(selected.values());
+    // hvis der ikke er valgt nogen, så tag alle → preview må ALDRIG være tomt
+    const arr = selected.size ? Array.from(selected.values()) : talents.slice();
     return {
       kind: 'talent-deck',
-      title: els.title.value || 'Untitled',
+      title: els.title?.value || 'Untitled',
       created_at: new Date().toISOString(),
       owner: {
-        name: els.ownerName.value || 'Selfcast',
-        email: els.ownerEmail.value || 'info@selfcast.com',
-        phone: els.ownerPhone.value || '+45 22 81 31 13'
+        name : els.ownerName?.value || 'Selfcast',
+        email: els.ownerEmail?.value || 'info@selfcast.com',
+        phone: els.ownerPhone?.value || '+45 22 81 31 13'
       },
       talents: arr.map(t => ({
         id: t.id,
@@ -189,9 +207,10 @@
   }
 
   function openPreview() {
+    if (!els.preview) return;
     const json = JSON.stringify(currentDeckData());
     const data = btoa(unescape(encodeURIComponent(json)));
-    els.preview.src = `/view-talent/?data=${data}`;
+    els.preview.src = `/view-talent/?compact=1&data=${data}`;
   }
 
   async function shorten(url) {
@@ -207,12 +226,11 @@
     } catch { return url; }
   }
 
-  // --------- LOAD ----------
+  // ----------------- loading -----------------
   function loadFromTextarea() {
     const lines = parseLines();
     if (!lines.length) { alert('Paste at least one talent link or ID'); return; }
 
-    let last = null;
     for (let i = 0; i < lines.length; i++) {
       const raw = lines[i];
 
@@ -220,7 +238,6 @@
         const t = fromPipe(raw);
         upsert(t);
         uniqPushRecent(raw.split('|')[0].trim());
-        last = t;
         continue;
       }
 
@@ -233,7 +250,6 @@
       };
       upsert(t);
       uniqPushRecent(raw);
-      last = t;
 
       const next = lines[i + 1];
       if (next && isImageUrl(next)) { t.primary_image = next.trim(); touch(t); i += 1; }
@@ -255,111 +271,7 @@
     selected.set(t.id, talents[idx] || t);
   }
 
-  // --------- Events ----------
-  els.load.addEventListener('click', loadFromTextarea);
+  // ----------------- events -----------------
+  els.load?.addEventListener('click', loadFromTextarea);
 
-  els.selectAll.addEventListener('click', () => {
-    talents.forEach(t => selected.set(t.id, t));
-    renderList(); saveDeck(); openPreview();
-  });
-
-  els.clear.addEventListener('click', () => {
-    talents = []; selected.clear(); els.list.innerHTML = '';
-    saveDeck(); openPreview();
-  });
-
-  [els.title, els.ownerName, els.ownerEmail, els.ownerPhone].forEach(inp =>
-    inp.addEventListener('input', () => { saveDeck(); openPreview(); })
-  );
-
-  els.filter.addEventListener('input', renderList);
-
-  // Edit / Remove / Cancel
-  els.list.addEventListener('click', (e) => {
-    const editBtn = e.target.closest('.edit-btn');
-    const removeBtn = e.target.closest('.remove-btn');
-    const cancelBtn = e.target.closest('.cancel-edit');
-
-    if (editBtn) {
-      const id = editBtn.dataset.id;
-      const li = els.list.querySelector(`li[data-id="${CSS.escape(id)}"]`);
-      if (li) li.classList.toggle('open');
-    }
-    if (removeBtn) {
-      const id = removeBtn.dataset.id;
-      talents = talents.filter(t => String(t.id) !== String(id));
-      selected.delete(id);
-      renderList(); saveDeck(); openPreview();
-    }
-    if (cancelBtn) {
-      const li = cancelBtn.closest('li.list-item');
-      if (li) li.classList.remove('open');
-    }
-  });
-
-  els.list.addEventListener('change', (e) => {
-    const cb = e.target;
-    if (cb?.dataset?.id) {
-      const t = talents.find(x => String(x.id) === String(cb.dataset.id));
-      if (!t) return;
-      if (cb.checked) selected.set(t.id, t);
-      else selected.delete(t.id);
-      saveDeck(); openPreview();
-    }
-  });
-
-  els.list.addEventListener('submit', (e) => {
-    const form = e.target.closest('form.edit-panel');
-    if (!form) return;
-    e.preventDefault();
-
-    const id = form.dataset.id;
-    const idx = talents.findIndex(x => String(x.id) === String(id));
-    if (idx < 0) return;
-
-    const fd = new FormData(form);
-    const t = talents[idx];
-    t.name = (fd.get('name') || '').toString().trim();
-    t.height_cm = (fd.get('height_cm') || '').toString().trim();
-    t.country = (fd.get('country') || '').toString().trim();
-    t.profile_url = (fd.get('profile_url') || '').toString().trim();
-    t.requested_media_url = (fd.get('requested_media_url') || '').toString().trim();
-    t.primary_image = (fd.get('primary_image') || '').toString().trim();
-
-    talents[idx] = t;
-    selected.set(t.id, t);
-    renderList(); saveDeck(); openPreview();
-
-    const li = els.list.querySelector(`li[data-id="${CSS.escape(id)}"]`);
-    if (li) li.classList.add('open');
-  });
-
-  els.gen.addEventListener('click', async () => {
-    const data = btoa(unescape(encodeURIComponent(JSON.stringify(currentDeckData()))));
-    const shareUrl = `${location.origin}/view-talent/?data=${data}`;
-    els.preview.src = shareUrl;
-
-    let urlToCopy = shareUrl;
-    try { urlToCopy = await shorten(shareUrl); } catch {}
-    try { await navigator.clipboard.writeText(urlToCopy); alert(`Share link copied:\n${urlToCopy}`); }
-    catch { alert(`Share link:\n${urlToCopy}`); }
-  });
-
-  els.pdf.addEventListener('click', () => {
-    els.preview.contentWindow?.postMessage({ type: 'print' }, '*');
-  });
-
-  els.prev.addEventListener('click', () => history.back());
-  els.next.addEventListener('click', () => (location.href = '/view-talent/'));
-
-  // Preview click toggle
-  function applyPreviewClicks(){
-    els.preview.style.pointerEvents = els.togglePreviewClicks.checked ? 'auto' : 'none';
-  }
-  els.togglePreviewClicks.addEventListener('change', applyPreviewClicks);
-
-  // Init
-  const restored = loadDeck();
-  if (!restored) prefillRecent();
-  applyPreviewClicks();
-})();
+  e
