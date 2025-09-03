@@ -1,9 +1,14 @@
-// talentdeck/app.js — Talent Builder v4.1.3
-// Right pane always shows data (or demo fallback). Buttons work.
+// talentdeck/app.js — Talent Builder v4.2.0
+// - Preview always shows data (or demo fallback)
+// - Generate copies link (Bitly if configured, long link otherwise)
+// - Export PDF prints the preview iframe
+// - Enable clicks in preview default ON
+// - Project Save/Open/Delete in localStorage
 
 (function () {
-  const STORE_KEY  = 'sc_talentdeck_v413';
-  const RECENT_KEY = 'sc_talentdeck_recent_v1';
+  const STORE_KEY     = 'sc_talentdeck_autosave_v420';
+  const RECENT_KEY    = 'sc_talentdeck_recent_v1';
+  const PROJECTS_KEY  = 'sc_talentdeck_projects_v1';
 
   const $ = (id) => document.getElementById(id);
   const els = {
@@ -24,6 +29,11 @@
     list: $('talentList'),
     preview: $('preview'),
     toggleClicks: $('togglePreviewClicks'),
+
+    saveProject: $('btnSaveProject'),
+    openProject: $('btnOpenProject'),
+    deleteProject: $('btnDeleteProject'),
+    selProject: $('selProject')
   };
 
   let talents  = [];
@@ -82,8 +92,8 @@
     } catch {}
   }
 
-  // ---------- state ----------
-  function saveDeck() {
+  // ---------- state (autosave) ----------
+  function autosave() {
     try {
       localStorage.setItem(STORE_KEY, JSON.stringify({
         title: els.title?.value || '',
@@ -96,7 +106,7 @@
       }));
     } catch {}
   }
-  function loadDeck() {
+  function autoload() {
     try {
       const raw = localStorage.getItem(STORE_KEY);
       if (!raw) return false;
@@ -106,20 +116,67 @@
       if (els.ownerEmail) els.ownerEmail.value = d.owner?.email || '';
       if (els.ownerPhone) els.ownerPhone.value = d.owner?.phone || '';
       talents  = Array.isArray(d.talents) ? d.talents : [];
-      selected = new Map(talents.map(t => [t.id, t])); // preselect all
+      selected = new Map(talents.map(t => [t.id, t]));
       renderList(); openPreview();
       return true;
     } catch { return false; }
   }
-  function prefillRecent() {
-    if (!els.input || els.input.value.trim()) return;
-    try {
-      const rec = JSON.parse(localStorage.getItem(RECENT_KEY) || '[]');
-      if (rec.length) els.input.value = rec.join('\n');
-    } catch {}
+
+  // ---------- projects (named save) ----------
+  function readProjects(){
+    try { return JSON.parse(localStorage.getItem(PROJECTS_KEY) || '{}'); }
+    catch { return {}; }
+  }
+  function writeProjects(obj){
+    try { localStorage.setItem(PROJECTS_KEY, JSON.stringify(obj || {})); } catch {}
+  }
+  function refreshProjectSelect(){
+    const projects = readProjects();
+    const names = Object.keys(projects).sort((a,b)=>a.localeCompare(b));
+    els.selProject.innerHTML = '<option value="">— Select saved project —</option>' +
+      names.map(n=>`<option value="${esc(n)}">${esc(n)}</option>`).join('');
+  }
+  function saveProject(){
+    const name = (els.title?.value || '').trim();
+    if (!name) { alert('Give the project a name first.'); return; }
+    const projects = readProjects();
+    projects[name] = currentDeckData(); // store normalized deck
+    writeProjects(projects);
+    refreshProjectSelect();
+    els.selProject.value = name;
+    alert('Project saved.');
+  }
+  function openProject(){
+    const name = els.selProject.value;
+    if (!name) { alert('Select a saved project first.'); return; }
+    const projects = readProjects();
+    const deck = projects[name];
+    if (!deck) { alert('Not found.'); return; }
+
+    // Fill form
+    els.title.value       = deck.title || '';
+    els.ownerName.value   = deck.owner?.name  || '';
+    els.ownerEmail.value  = deck.owner?.email || '';
+    els.ownerPhone.value  = deck.owner?.phone || '';
+
+    talents  = Array.isArray(deck.talents) ? deck.talents.slice() : [];
+    selected = new Map(talents.map(t => [t.id, t]));
+    renderList(); autosave(); openPreview();
+  }
+  function deleteProject(){
+    const name = els.selProject.value;
+    if (!name) { alert('Select a saved project.'); return; }
+    const ok = confirm(`Delete project "${name}"?`);
+    if (!ok) return;
+    const projects = readProjects();
+    delete projects[name];
+    writeProjects(projects);
+    refreshProjectSelect();
+    els.selProject.value = '';
+    alert('Deleted.');
   }
 
-  // ---------- render ----------
+  // ---------- render list ----------
   function renderList() {
     if (!els.list) return;
     const q = (els.filter?.value || '').toLowerCase().trim();
@@ -205,7 +262,7 @@
 
     const deck = currentDeckData();
     if (!deck.talents || deck.talents.length === 0) {
-      els.preview.src = '/view-talent/?demo=1';   // safety fallback
+      els.preview.src = '/view-talent/?demo=1';   // fallback so it never looks empty
       return;
     }
 
@@ -255,7 +312,7 @@
       if (next && isImageUrl(next)) { t.primary_image = next.trim(); touch(t); i += 1; }
     }
 
-    renderList(); saveDeck(); openPreview();
+    renderList(); autosave(); openPreview();
     els.input.value = '';
   }
 
@@ -273,24 +330,16 @@
 
   // ---------- events ----------
   els.load?.addEventListener('click', loadFromTextarea);
-
-  els.selectAll?.addEventListener('click', () => {
-    talents.forEach(t => selected.set(t.id, t));
-    renderList(); saveDeck(); openPreview();
-  });
-
-  els.clear?.addEventListener('click', () => {
-    talents = []; selected.clear();
-    els.list.innerHTML = '';
-    saveDeck(); openPreview();
-  });
+  els.selectAll?.addEventListener('click', () => { talents.forEach(t => selected.set(t.id, t)); renderList(); autosave(); openPreview(); });
+  els.clear?.addEventListener('click', () => { talents = []; selected.clear(); els.list.innerHTML = ''; autosave(); openPreview(); });
 
   [els.title, els.ownerName, els.ownerEmail, els.ownerPhone]
     .filter(Boolean)
-    .forEach(inp => inp.addEventListener('input', () => { saveDeck(); openPreview(); }));
+    .forEach(inp => inp.addEventListener('input', () => { autosave(); openPreview(); }));
 
   els.filter?.addEventListener('input', renderList);
 
+  // Edit / Remove / Cancel
   els.list?.addEventListener('click', (e) => {
     const editBtn = e.target.closest('.edit-btn');
     const removeBtn = e.target.closest('.remove-btn');
@@ -305,7 +354,7 @@
       const id = removeBtn.dataset.id;
       talents = talents.filter(t => String(t.id) !== String(id));
       selected.delete(id);
-      renderList(); saveDeck(); openPreview();
+      renderList(); autosave(); openPreview();
     }
     if (cancelBtn) {
       const li = cancelBtn.closest('li.list-item');
@@ -320,7 +369,7 @@
       if (!t) return;
       if (cb.checked) selected.set(t.id, t);
       else selected.delete(t.id);
-      saveDeck(); openPreview();
+      autosave(); openPreview();
     }
   });
 
@@ -344,13 +393,13 @@
 
     talents[idx] = t;
     selected.set(t.id, t);
-    renderList(); saveDeck(); openPreview();
+    renderList(); autosave(); openPreview();
 
     const li = els.list.querySelector(`li[data-id="${CSS.escape(id)}"]`);
     if (li) li.classList.add('open');
   });
 
-  // Generate: open + copy short link
+  // Generate: open + copy short link (fallback to long)
   els.gen?.addEventListener('click', async () => {
     const data = btoa(unescape(encodeURIComponent(JSON.stringify(currentDeckData()))));
     const shareUrl = `${location.origin}/view-talent/?compact=1&data=${data}`;
@@ -382,10 +431,14 @@
   }
   applyPreviewClicks();
 
-  // ---------- init ----------
-  const restored = loadDeck();
-  if (!restored) prefillRecent();
-  if (!restored) els.preview.src = '/view-talent/?demo=1';
+  // Project buttons
+  els.saveProject?.addEventListener('click', saveProject);
+  els.openProject?.addEventListener('click', openProject);
+  els.deleteProject?.addEventListener('click', deleteProject);
 
-  console.log('[talentdeck v4.1.3] ready');
+  // ---------- init ----------
+  refreshProjectSelect();
+  const restored = autoload();
+  if (!restored) els.preview.src = '/view-talent/?demo=1';
+  console.log('[talentdeck v4.2.0] ready');
 })();
