@@ -1,6 +1,12 @@
-// /talentdeck/app.js — Talent Builder v4.4.1
+// talentdeck/app.js — Talent Builder v4.3.0
+// - White-on-black card text (handled in VIEW css)
+// - Project logo upload (data URL) -> shown in VIEW header
+// - Generate shared link (Bitly if configured)
+// - Export PDF (Chrome/Safari safe)
+// - Autosave + local projects
+
 (function () {
-  const STORE_KEY     = 'sc_talentdeck_autosave_v420';
+  const STORE_KEY     = 'sc_talentdeck_autosave_v430';
   const PROJECTS_KEY  = 'sc_talentdeck_projects_v1';
 
   const $ = (id) => document.getElementById(id);
@@ -10,21 +16,20 @@
     ownerEmail: $('ownerEmail'),
     ownerPhone: $('ownerPhone'),
 
+    logoInput: $('projectLogo'),
+    logoPreview: $('projectLogoPreview'),
+
     input: $('talentInput'),
     load: $('btnLoad'),
     selectAll: $('btnSelectAll'),
     clear: $('btnClear'),
-
-    // top bar
     pdf: $('btnExportPdf'),
-    copyShare: $('btnCopyShare'),
-
+    share: $('btnCopyShare'),
     filter: $('filterInput'),
     list: $('talentList'),
     preview: $('preview'),
     toggleClicks: $('togglePreviewClicks'),
 
-    // local projects
     saveProject: $('btnSaveProject'),
     openProject: $('btnOpenProject'),
     deleteProject: $('btnDeleteProject'),
@@ -33,6 +38,7 @@
 
   let talents  = [];
   let selected = new Map();
+  let projectLogo = ''; // data URL
 
   // ---------- helpers ----------
   const isHttp = s => /^https?:\/\//i.test(s || '');
@@ -42,7 +48,6 @@
   const subLine = (t)=>[t.height_cm ? `${t.height_cm} cm` : '', t.country || ''].filter(Boolean).join(' · ');
 
   const parseLines = () => (els.input.value || '').split(/\r?\n/).map(s=>s.trim()).filter(Boolean);
-
   function toProfileUrl(urlOrId){
     if (!urlOrId) return '';
     if (isHttp(urlOrId)) return urlOrId;
@@ -51,7 +56,6 @@
     return `https://producer.selfcast.com/talent/${urlOrId}`;
   }
   const idFromProfileUrl = (u)=> (String(u).match(/\/talent\/([^/?#]+)/i)?.[1] || String(u));
-
   function fromPipe(line){
     const p = line.split('|').map(s=>s.trim());
     const profile_url = toProfileUrl(p[0] || '');
@@ -66,12 +70,16 @@
     };
   }
 
+  // ---------- autosave ----------
   function autosave(){
-    try { localStorage.setItem(STORE_KEY, JSON.stringify({
-      title: els.title?.value || '',
-      owner: { name: els.ownerName?.value || '', email: els.ownerEmail?.value || '', phone: els.ownerPhone?.value || '' },
-      talents
-    })); } catch {}
+    try {
+      localStorage.setItem(STORE_KEY, JSON.stringify({
+        title: els.title?.value || '',
+        owner: { name: els.ownerName?.value || '', email: els.ownerEmail?.value || '', phone: els.ownerPhone?.value || '' },
+        project_logo: projectLogo,
+        talents
+      }));
+    } catch {}
   }
   function autoload(){
     try {
@@ -81,6 +89,8 @@
       els.ownerName.value  = d.owner?.name  || '';
       els.ownerEmail.value = d.owner?.email || '';
       els.ownerPhone.value = d.owner?.phone || '';
+      projectLogo          = d.project_logo || '';
+      drawLogoPreview();
       talents  = Array.isArray(d.talents) ? d.talents : [];
       selected = new Map(talents.map(t => [t.id, t]));
       renderList(); openPreview();
@@ -88,7 +98,7 @@
     } catch { return false; }
   }
 
-  // Projects
+  // ---------- projects ----------
   const readProjects  = ()=>{ try{ return JSON.parse(localStorage.getItem(PROJECTS_KEY)||'{}'); }catch{return{}} };
   const writeProjects = (o)=>{ try{ localStorage.setItem(PROJECTS_KEY, JSON.stringify(o||{})); }catch{} };
   function refreshProjectSelect(){
@@ -108,6 +118,8 @@
     els.ownerName.value  = deck.owner?.name  || '';
     els.ownerEmail.value = deck.owner?.email || '';
     els.ownerPhone.value = deck.owner?.phone || '';
+    projectLogo          = deck.project_logo || '';
+    drawLogoPreview();
     talents  = Array.isArray(deck.talents) ? deck.talents.slice() : [];
     selected = new Map(talents.map(t => [t.id, t]));
     renderList(); autosave(); openPreview();
@@ -119,7 +131,7 @@
     refreshProjectSelect(); els.selProject.value=''; alert('Deleted.');
   }
 
-  // Render list
+  // ---------- list render ----------
   function renderList(){
     const q = (els.filter?.value || '').toLowerCase().trim();
     els.list.innerHTML = '';
@@ -158,13 +170,14 @@
       });
   }
 
-  // Payload + preview
+  // ---------- payload + preview ----------
   function currentDeckData(){
     const arr = talents.filter(t => selected.has(t.id));
     return {
       kind: 'talent-deck',
       title: els.title?.value || 'Untitled',
       created_at: new Date().toISOString(),
+      project_logo: projectLogo || '',
       owner: {
         name : els.ownerName?.value || 'Selfcast',
         email: els.ownerEmail?.value || 'info@selfcast.com',
@@ -179,12 +192,12 @@
   }
   function openPreview(){
     const deck = currentDeckData();
-    if (!deck.talents?.length){ els.preview.src = '/view-talent/?demo=1'; return; }
     const data = btoa(unescape(encodeURIComponent(JSON.stringify(deck))));
-    els.preview.src = `/view-talent/?density=12&data=${data}`;
+    const url  = deck.talents?.length ? `/view-talent/?density=12&data=${data}` : '/view-talent/?demo=1';
+    els.preview.src = url;
   }
 
-  // Load from textarea (new items at TOP)
+  // ---------- textarea loader (new items at TOP) ----------
   const isImageUrlLine = (s)=>isImageUrl(s);
   function upsertTop(t){
     const idx = talents.findIndex(x => String(x.id) === String(t.id));
@@ -213,46 +226,51 @@
     renderList(); autosave(); openPreview();
   }
 
-  // --- share & PDF -----------------------------------------------------------
-  function deckUrl({ print = false } = {}) {
-    const deck = currentDeckData();
-    if (!deck.talents?.length) { alert('Select at least one talent'); return null; }
-    const data = btoa(unescape(encodeURIComponent(JSON.stringify(deck))));
-    const base = `${location.origin}/view-talent/?density=12&data=${data}`;
-    return print ? `${base}&print=1` : base;
-  }
-  async function shorten(url) {
+  // ---------- share (Bitly if configured) ----------
+  async function shorten(longUrl){
     try {
-      const r = await fetch('/api/bitly', {
-        method:'POST',
-        headers:{ 'content-type':'application/json' },
-        body: JSON.stringify({ long_url: url })
+      const res = await fetch('/api/bitly', {
+        method:'POST', headers:{'content-type':'application/json'},
+        body: JSON.stringify({ long_url: longUrl })
       });
-      if (!r.ok) return url;
-      const j = await r.json();
-      return j.link || url;
-    } catch { return url; }
+      if (!res.ok) return longUrl;
+      const j = await res.json();
+      return j.link || longUrl;
+    } catch { return longUrl; }
   }
-
-  els.copyShare?.addEventListener('click', async () => {
-    const longUrl = deckUrl({ print:false }); if (!longUrl) return;
+  async function copyShare(){
+    const deck = currentDeckData();
+    const data = btoa(unescape(encodeURIComponent(JSON.stringify(deck))));
+    const longUrl = `${location.origin}/view-talent/?density=12&data=${data}`;
     const shortUrl = await shorten(longUrl);
     try {
       await navigator.clipboard.writeText(shortUrl);
       alert('Share link copied:\n' + shortUrl);
     } catch {
-      prompt('Copy this link', shortUrl);
+      prompt('Copy link:', shortUrl);
     }
+  }
+
+  // ---------- logo input ----------
+  function drawLogoPreview(){
+    if (!els.logoPreview) return;
+    if (projectLogo){
+      els.logoPreview.innerHTML = `<img src="${projectLogo}" alt="Project logo" />`;
+      els.logoPreview.style.display = 'block';
+    } else {
+      els.logoPreview.innerHTML = '';
+      els.logoPreview.style.display = 'none';
+    }
+  }
+  els.logoInput?.addEventListener('change', (e)=>{
+    const f = e.target.files && e.target.files[0];
+    if (!f) { projectLogo=''; drawLogoPreview(); autosave(); openPreview(); return; }
+    const r = new FileReader();
+    r.onload = () => { projectLogo = String(r.result||''); drawLogoPreview(); autosave(); openPreview(); };
+    r.readAsDataURL(f);
   });
 
-  els.pdf?.addEventListener('click', () => {
-    const url = deckUrl({ print:true }); if (!url) return;
-    // Open in a new tab so Chrome renders print backgrounds reliably
-    window.open(url, '_blank', 'noopener');
-  });
-  // ---------------------------------------------------------------------------
-
-  // Events
+  // ---------- events ----------
   els.load?.addEventListener('click', loadFromTextarea);
   els.selectAll?.addEventListener('click', ()=>{ talents.forEach(t=>selected.set(t.id,t)); renderList(); autosave(); openPreview(); });
   els.clear?.addEventListener('click', ()=>{ talents=[]; selected.clear(); els.list.innerHTML=''; autosave(); openPreview(); });
@@ -310,6 +328,10 @@
     const li = els.list.querySelector(`li[data-id="${CSS.escape(id)}"]`); li?.classList.add('open');
   });
 
+  // Buttons
+  els.pdf?.addEventListener('click', ()=>{ els.preview.contentWindow?.postMessage({ type:'print' }, '*'); });
+  els.share?.addEventListener('click', copyShare);
+
   // Preview click toggle (default ON)
   function applyPreviewClicks(){
     const on = els.toggleClicks ? els.toggleClicks.checked : true;
@@ -327,5 +349,5 @@
   // Init
   const restored = autoload();
   if (!restored) els.preview.src = '/view-talent/?demo=1';
-  console.log('[talentdeck v4.4.1] ready');
+  console.log('[talentdeck v4.3.0] ready');
 })();
