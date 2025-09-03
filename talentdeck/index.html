@@ -68,7 +68,7 @@
     <section class="right">
       <div class="row" style="justify-content:flex-end; margin:0 0 8px">
         <label class="label" style="margin:0; display:flex; align-items:center; gap:8px">
-          <input id="togglePreviewClicks" type="checkbox"/> Enable clicks in preview
+          <input id="togglePreviewClicks" type="checkbox" checked/> Enable clicks in preview
         </label>
       </div>
       <iframe id="preview" class="preview" title="Preview"></iframe>
@@ -79,6 +79,7 @@
     <small>Powered by <strong>SELFCAST</strong></small>
   </footer>
 
-  <script src="./app.js" defer></script>
+  <!-- cache-bust the script -->
+  <script src="./app.js?v=4.1.2" defer></script>
 </body>
 </html>
