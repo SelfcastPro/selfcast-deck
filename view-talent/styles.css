@@ -35,7 +35,7 @@ h1{margin:0 0 6px; font-size:28px; font-weight:900}
   break-inside:avoid; page-break-inside:avoid;
 }
 .hero{
-  aspect-ratio: 4/5;
+  aspect-ratio: 4/5;               /* consistent crop */
   background:#0f0f12 center/cover no-repeat;
   filter:grayscale(1);
 }
@@ -52,13 +52,13 @@ h3{margin:0 0 6px; font-size:18px}
 .ver{margin-top:6px; font-size:.8rem; opacity:.7}
 
 /* Print (A4, 12 cards per page, 3 columns) */
-@page{ size:A4; margin:12mm; }
+@page{ size:A4; margin:10mm; }
 @media print{
   .print-hide{display:none !important}
   body{background:white; color:black}
-  .grid{gap:10mm}
-  .card{border:none}
+  .grid{gap:6mm}
+  .card{border:1px solid #000}
   .a{border:1px solid #000}
-  /* break after every 12th card */
+  /* break after every 12th card (4 rows) */
   .card:nth-child(12n){ break-after:page; page-break-after:always; }
 }
