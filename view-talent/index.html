@@ -5,18 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>Talent Presentation — Selfcast</title>
   <meta name="color-scheme" content="dark light">
-  <link rel="stylesheet" href="./styles.css?v=1.2.1"/>
+  <link rel="stylesheet" href="./styles.css?v=1.2.5"/>
 </head>
 <body>
-
-  <!-- Header -->
   <header class="bar">
     <div class="bar-left">
-      <!-- Vises kun hvis app.js sætter src (ellers hidden via CSS/inline style) -->
-      <img id="projLogo" class="projlogo" alt="Project logo" style="display:none"/>
       <h1 id="deckTitle">Untitled</h1>
     </div>
-
     <div class="bar-right">
       <div class="brandline">
         <div class="wordmark">SELFCAST</div>
@@ -27,23 +22,14 @@
         · <a id="cEmail" href="#"></a>
         · <span id="cPhone"></span>
       </div>
-
-      <!-- Skærm-knapper (skjules på print af CSS .print-hide) -->
       <div class="print-hide" style="display:flex; gap:8px; margin-top:6px">
-        <a id="btnPdf"   class="a" href="#" role="button">Download PDF</a>
-        <a id="btnShare" class="a" href="#" role="button">Copy short link</a>
+        <a id="btnPdf" class="a" href="#" role="button">Download PDF</a>
       </div>
     </div>
   </header>
 
-  <!-- Grid med talent-kort (fyldes af app.js) -->
   <main id="root" class="grid"></main>
 
-  <!-- (valgfri) lille bundtekst, skjules på print -->
-  <footer class="footer print-hide">
-    <small>© Selfcast · VIEW v1.2.1</small>
-  </footer>
-
-  <script src="./app.js?v=1.2.1" defer></script>
+  <script src="./app.js?v=1.2.5" defer></script>
 </body>
 </html>
