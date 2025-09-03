@@ -29,59 +29,58 @@ h3{margin:0 0 4px; font-size:17px; font-weight:800; color:#fff}
 .a{display:inline-flex; align-items:center; gap:6px; padding:7px 10px; border-radius:10px; border:1px solid var(--line); background:#1a1a20; color:#fff; text-decoration:none; font-weight:700; font-size:.9rem}
 .a::before{content:"🔗"}
 
-/* Compact on screen (tighter) */
+/* Compact on screen */
 body.compact .grid{gap:12px}
 body.compact h3{font-size:15px}
 body.compact .sub{font-size:.85rem; margin-bottom:6px}
 body.compact .a{font-size:.82rem; padding:6px 8px}
 body.compact .hero{aspect-ratio:3/4}
 
-/* ===================== PRINT (CLEAN WHITE CARDS) ===================== */
+/* ===================== PRINT (3×3 per page + thin page frame) ===================== */
 @page{ size:A4; margin:10mm; }
 @media print{
   .print-hide{display:none !important}
   html,body{background:#fff; color:#000}
 
-  /* slim header so 3 rows fit, and all text black */
+  /* Thin frame that restarts each page */
+  body::before{
+    content:""; position:fixed; inset:6mm;   /* inside page margins */
+    border:.5pt solid #000; border-radius:0; /* THIN black line */
+    pointer-events:none; z-index:9999;
+  }
+
+  /* Make header very compact so 3 rows fit */
   .bar{
     position:static; background:#fff; border-color:#000;
-    margin:0 0 4mm 0; padding:0 0 2mm 0;
+    margin:0 0 3mm 0; padding:0;            /* slimmer */
   }
-  .bar-left h1{font-size:22px !important}
-  .contactline, .contactline a, .wordmark, .tagline{color:#000}
+  .bar-left h1{font-size:18px !important}
+  .brandline{gap:6px}
+  .wordmark,.tagline,.contactline,.contactline a{color:#000}
+  .contactline{font-size:10.5px}
 
-  /* grid spacing for 3×3 per page */
-  .grid{gap:5mm; page-break-inside:avoid; break-inside:avoid}
-
-  /* WHITE cards – no dark box */
+  /* Tight grid & smaller cards so 9 fit */
+  .grid{gap:4.5mm; page-break-inside:avoid; break-inside:avoid}
   .card{
-    background:#fff;                 /* <-- remove dark box */
-    border:0.5pt solid #cfcfd3;      /* thin light border */
-    border-radius:12px;
-    page-break-inside:avoid; break-inside:avoid;
+    background:#fff; border:.5pt solid #cfcfd3;  /* light card border, white background */
+    border-radius:12px; page-break-inside:avoid; break-inside:avoid;
   }
-  .hero{aspect-ratio:3/4; filter:grayscale(1)}  /* make image a touch shorter to fit 3 rows */
-  .body{padding:6px 8px}
-  .card h3{font-size:13px !important; color:#000 !important}
-  .sub{font-size:11px !important; margin-bottom:4px !important; color:#333 !important}
-
-  /* Links: no dark pill, just underlined text */
+  .hero{aspect-ratio:3/4; filter:grayscale(1)}
+  .body{padding:5px 7px}
+  .card h3{font-size:12px !important; color:#000 !important}
+  .sub{font-size:10.5px !important; margin-bottom:4px !important; color:#333 !important}
   .a{
-    background:transparent !important;
-    border:none !important;
-    padding:0 !important;
-    font-size:11px !important;
-    color:#000 !important;
+    background:transparent !important; border:none !important;
+    padding:0 !important; font-size:10px !important; color:#000 !important;
     text-decoration:underline !important;
-    border-radius:0 !important;
   }
   .a::before{content:"🔗"; margin-right:4px}
 
-  /* Exact page breaks: 9 per page (3×3) */
+  /* EXACT page break: every 9 cards */
   .card:nth-child(9n){ break-after:page; page-break-after:always; }
 
-  /* If link has ?compact=1, print 12 per page */
-  body.compact .grid{gap:4.5mm}
+  /* Optional: ?compact=1 → 12 per page */
+  body.compact .grid{gap:4mm}
   body.compact .hero{aspect-ratio:4/5}
   body.compact .card:nth-child(12n){ break-after:page; page-break-after:always; }
 }
