@@ -6,75 +6,51 @@
 html,body{height:100%}
 html.dark{background:var(--bg); color:var(--text); font:16px/1.55 system-ui,-apple-system,Segoe UI,Inter,Roboto,Helvetica,Arial}
 
-/* Header (skærm & print) */
-.bar{
-  display:flex; justify-content:space-between; align-items:flex-start; gap:16px;
-  padding:18px; border-bottom:1px solid var(--line);
-  position:sticky; top:0; z-index:10; background:rgba(10,10,12,.85); backdrop-filter:blur(8px);
-}
-.bar-left h1{margin:0; font-size:26px; line-height:1.1; letter-spacing:.2px}
+/* Header */
+.bar{display:flex; justify-content:space-between; align-items:flex-start; gap:16px;
+  padding:18px; border-bottom:1px solid var(--line); position:sticky; top:0; z-index:10;
+  background:rgba(10,10,12,.85); backdrop-filter:blur(8px);}
+.bar-left h1{margin:0; font-size:26px}
 .bar-right{display:flex; flex-direction:column; align-items:flex-end; gap:6px}
 .brandline{display:flex; gap:10px; align-items:baseline}
 .wordmark{letter-spacing:.14em; font-weight:900}
 .tagline{font-size:.9rem; color:var(--muted)}
 .contactline{font-size:.92rem}
-.contactline a{color:var(--text); text-decoration:underline dotted}
+.contactline a{color:#fff; text-decoration:underline dotted}
 .actions{display:flex; gap:8px}
 .btn{border:1px solid var(--line); background:#1a1a20; color:#fff; padding:10px 14px; border-radius:12px; cursor:pointer; font-weight:700}
 .btn:hover{border-color:#3a3a44}
 
-/* Grid + Cards */
+/* Grid + cards */
 .grid{padding:18px; display:grid; grid-template-columns:repeat(3,1fr); gap:18px}
-.card{
-  background:var(--card); border:1px solid var(--line); border-radius:var(--radius);
-  overflow:hidden; display:flex; flex-direction:column; break-inside:avoid;
-}
-.hero{
-  /* større billede end tekstboks */
-  aspect-ratio: 4/5;
-  background:#0f0f12 center/cover no-repeat;
-  filter:grayscale(1);
-}
+.card{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; display:flex; flex-direction:column; break-inside:avoid}
+.hero{aspect-ratio:4/5; background:#0f0f12 center/cover no-repeat; filter:grayscale(1)}
 .body{padding:10px 12px}
 h3{margin:0 0 4px; font-size:17px; font-weight:800; color:#fff}
 .sub{margin:0 0 8px; color:var(--muted); font-size:.92rem}
 .links{display:flex; gap:8px; flex-wrap:wrap}
-.a{
-  display:inline-flex; align-items:center; gap:6px;
-  padding:7px 10px; border-radius:10px; border:1px solid var(--line);
-  background:#1a1a20; color:#fff; text-decoration:none; font-weight:700; font-size:.9rem;
-}
+.a{display:inline-flex; align-items:center; gap:6px; padding:7px 10px; border-radius:10px; border:1px solid var(--line); background:#1a1a20; color:#fff; text-decoration:none; font-weight:700; font-size:.9rem}
 .a::before{content:"🔗"}
-.a:hover{border-color:#3a3a44}
 
-/* Compact mode (for flere talenter pr. side) — aktiver via &compact=1 */
+/* Compact (more per page) */
 body.compact .grid{gap:12px}
 body.compact h3{font-size:15px}
 body.compact .sub{font-size:.85rem; margin-bottom:6px}
 body.compact .a{font-size:.82rem; padding:6px 8px}
-body.compact .hero{aspect-ratio: 3/4} /* en smule lavere for at få 5 rækker */
+body.compact .hero{aspect-ratio:3/4}
 
-/* Footer (skærm) */
-.footer{padding:16px 18px 24px; color:var(--muted); text-align:center}
-
-/* PRINT */
-@page { size: A4; margin: 10mm; }
+/* Print */
+@page{ size:A4; margin:10mm; }
 @media print{
   .print-hide{display:none !important}
-  /* Side baggrund hvid, men kortene bevarer dark tema med HVID tekst */
-  html,body{background:white; color:black}
-  .bar{position:static; background:white; border-color:#000}
-  .wordmark,.tagline,.contactline,.contactline a{color:black}
-
+  html,body{background:#fff; color:#000}
+  .bar{position:static; background:#fff; border-color:#000}
+  .contactline, .contactline a, .wordmark, .tagline{color:#000}
   .grid{gap:6mm}
   .card{border:1px solid #000; background:#111}
   .card, .card *{color:#fff !important}
   .a{border:1px solid #fff}
-
-  /* Standard: 12 pr. side (4 rækker) */
   .card:nth-child(12n){ break-after:page; page-break-after:always; }
-
-  /* Compact: 15 pr. side (5 rækker) */
   body.compact .card:nth-child(12n){ break-after:auto; page-break-after:auto; }
   body.compact .card:nth-child(15n){ break-after:page; page-break-after:always; }
 }
