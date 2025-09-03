@@ -41,12 +41,15 @@ body.compact .hero{aspect-ratio:3/4}
 @media print{
   .print-hide{display:none !important}
   html,body{background:#fff; color:#000}
-  .bar{position:static; background:#fff; border-color:#000}
+  .bar{position:static; background:#fff; border-color:#000; margin-bottom:6mm}
   .contactline, .contactline a, .wordmark, .tagline{color:#000}
-  .grid{gap:6mm}
-  .card{border:1px solid #000; background:#111}
+
+  .grid{gap:6mm; page-break-inside:avoid; break-inside:avoid}
+  .card{border:1px solid #000; background:#111; page-break-inside:avoid; break-inside:avoid}
   .card, .card *{color:#fff !important}
   .a{border:1px solid #fff}
+
+  /* 3x4 per page */
   .card:nth-child(12n){ break-after:page; page-break-after:always; }
   body.compact .card:nth-child(12n){ break-after:auto; page-break-after:auto; }
   body.compact .card:nth-child(15n){ break-after:page; page-break-after:always; }
