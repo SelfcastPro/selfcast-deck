@@ -1,15 +1,11 @@
-// talentdeck/app.js — Talent Builder v4.3.0
-// - Preview updates live; autosave + local projects
-// - New items are added at TOP
-// - Export PDF opens /view-talent/ in a NEW TAB with ?print=1 (reliable on Safari)
-// - NEW: print density support (9 / 12 / 15 per A4)
-
+// talentdeck/app.js — Talent Builder v4.4.0
+// - Export PDF (opens /view-talent/?print=1 in new tab)
+// - NEW: "Generate shared link" (Bitly short link, copied to clipboard)
+// - New items go to TOP; autosave + local saved projects
 (function () {
   const STORE_KEY     = 'sc_talentdeck_autosave_v420';
   const PROJECTS_KEY  = 'sc_talentdeck_projects_v1';
-
-  // Change this to 9, 12, or 15 to control how many per page on PDF
-  const DEFAULT_PRINT_DENSITY = 12; // ← fits more talents (keep design)
+  const DEFAULT_PRINT_DENSITY = 12; // 9 / 12 / 15 per A4
 
   const $ = (id) => document.getElementById(id);
   const els = {
@@ -23,6 +19,7 @@
     selectAll: $('btnSelectAll'),
     clear: $('btnClear'),
     pdf: $('btnExportPdf'),
+    shareTop: $('btnCopyShare'),
     filter: $('filterInput'),
     list: $('talentList'),
     preview: $('preview'),
@@ -37,14 +34,13 @@
   let talents  = [];
   let selected = new Map();
 
-  // ---------- helpers ----------
+  // helpers
   const isHttp = s => /^https?:\/\//i.test(s || '');
   const isImageUrl = s => /\.(jpe?g|png|webp|gif)(\?|#|$)/i.test(s || '') || /picsum\.photos/i.test(s || '');
-
   const esc = (s)=>String(s||'').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
   const subLine = (t)=>[t.height_cm ? `${t.height_cm} cm` : '', t.country || ''].filter(Boolean).join(' · ');
-
   const parseLines = () => (els.input.value || '').split(/\r?\n/).map(s=>s.trim()).filter(Boolean);
+
   function toProfileUrl(urlOrId){
     if (!urlOrId) return '';
     if (isHttp(urlOrId)) return urlOrId;
@@ -53,6 +49,7 @@
     return `https://producer.selfcast.com/talent/${urlOrId}`;
   }
   const idFromProfileUrl = (u)=> (String(u).match(/\/talent\/([^/?#]+)/i)?.[1] || String(u));
+
   function fromPipe(line){
     const p = line.split('|').map(s=>s.trim());
     const profile_url = toProfileUrl(p[0] || '');
@@ -89,7 +86,7 @@
     } catch { return false; }
   }
 
-  // Projects
+  // local “projects”
   const readProjects  = ()=>{ try{ return JSON.parse(localStorage.getItem(PROJECTS_KEY)||'{}'); }catch{return{}} };
   const writeProjects = (o)=>{ try{ localStorage.setItem(PROJECTS_KEY, JSON.stringify(o||{})); }catch{} };
   function refreshProjectSelect(){
@@ -120,7 +117,6 @@
     refreshProjectSelect(); els.selProject.value=''; alert('Deleted.');
   }
 
-  // Render list
   function renderList(){
     const q = (els.filter?.value || '').toLowerCase().trim();
     els.list.innerHTML = '';
@@ -159,7 +155,6 @@
       });
   }
 
-  // Payload + preview
   function currentDeckData(){
     const arr = talents.filter(t => selected.has(t.id));
     return {
@@ -178,15 +173,15 @@
       }))
     };
   }
+
   function openPreview(){
     const deck = currentDeckData();
     if (!deck.talents?.length){ els.preview.src = '/view-talent/?demo=1'; return; }
     const data = btoa(unescape(encodeURIComponent(JSON.stringify(deck))));
-    // Keep the on-screen preview compact so you see more while building
     els.preview.src = `/view-talent/?compact=1&data=${data}`;
   }
 
-  // Load from textarea (new items at TOP)
+  // textarea loader (new items at TOP)
   const isImageUrlLine = (s)=>isImageUrl(s);
   function upsertTop(t){
     const idx = talents.findIndex(x => String(x.id) === String(t.id));
@@ -195,27 +190,22 @@
   }
   function loadFromTextarea(){
     const lines = parseLines(); if (!lines.length) return alert('Paste at least one talent link or ID');
-
     for (let i = lines.length - 1; i >= 0; i--){
       const raw = lines[i];
-
       if (isImageUrlLine(raw) && i > 0 && !lines[i-1].includes('|')){
         const profile_url = toProfileUrl(lines[i-1]);
         upsertTop({ id:idFromProfileUrl(profile_url), name:'', height_cm:'', country:'', primary_image:raw, requested_media_url:'', profile_url });
         i -= 1; continue;
       }
-
       if (raw.includes('|')) { upsertTop(fromPipe(raw)); continue; }
-
       const profile_url = toProfileUrl(raw);
       upsertTop({ id:idFromProfileUrl(profile_url), name:'', height_cm:'', country:'', primary_image:'', requested_media_url:'', profile_url });
     }
-
     els.input.value = '';
     renderList(); autosave(); openPreview();
   }
 
-  // Events
+  // events
   els.load?.addEventListener('click', loadFromTextarea);
   els.selectAll?.addEventListener('click', ()=>{ talents.forEach(t=>selected.set(t.id,t)); renderList(); autosave(); openPreview(); });
   els.clear?.addEventListener('click', ()=>{ talents=[]; selected.clear(); els.list.innerHTML=''; autosave(); openPreview(); });
@@ -273,21 +263,35 @@
     const li = els.list.querySelector(`li[data-id="${CSS.escape(id)}"]`); li?.classList.add('open');
   });
 
-  // Export PDF → open new tab with print=1 and selected density
+  // Export PDF (new tab, auto-print)
   els.pdf?.addEventListener('click', ()=>{
     const deck = currentDeckData();
     if (!deck.talents?.length) { alert('Select at least one talent.'); return; }
     const data = btoa(unescape(encodeURIComponent(JSON.stringify(deck))));
-    const density = DEFAULT_PRINT_DENSITY; // 9, 12, or 15
-    const url  = `/view-talent/?density=${density}&print=1&data=${data}`;
+    const url  = `/view-talent/?density=${DEFAULT_PRINT_DENSITY}&print=1&data=${data}`;
     window.open(url, '_blank');
   });
 
+  // Generate shared link (Bitly)
+  els.shareTop?.addEventListener('click', async ()=>{
+    const deck = currentDeckData();
+    if (!deck.talents?.length) { alert('Select at least one talent.'); return; }
+    const data = btoa(unescape(encodeURIComponent(JSON.stringify(deck))));
+    const longUrl = `${location.origin}/view-talent/?density=${DEFAULT_PRINT_DENSITY}&data=${data}`;
+    let toCopy = longUrl;
+    try {
+      const r = await fetch('/api/bitly', {
+        method:'POST', headers:{'content-type':'application/json'},
+        body: JSON.stringify({ long_url: longUrl })
+      });
+      if (r.ok){ const j = await r.json(); if (j.link) toCopy = j.link; }
+    } catch {}
+    try { await navigator.clipboard.writeText(toCopy); alert('Share link copied:\n' + toCopy); }
+    catch { alert('Share link:\n' + toCopy); }
+  });
+
   // Preview click toggle (default ON)
-  function applyPreviewClicks(){
-    const on = els.toggleClicks ? els.toggleClicks.checked : true;
-    els.preview.style.pointerEvents = on ? 'auto' : 'none';
-  }
+  function applyPreviewClicks(){ els.preview.style.pointerEvents = (els.toggleClicks?.checked ?? true) ? 'auto' : 'none'; }
   els.toggleClicks?.addEventListener('change', applyPreviewClicks);
   applyPreviewClicks();
 
@@ -297,8 +301,7 @@
   els.deleteProject?.addEventListener('click', deleteProject);
   refreshProjectSelect();
 
-  // Init
   const restored = autoload();
   if (!restored) els.preview.src = '/view-talent/?demo=1';
-  console.log('[talentdeck v4.3.0] ready');
+  console.log('[talentdeck v4.4.0] ready');
 })();
