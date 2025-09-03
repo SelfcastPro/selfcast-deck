@@ -1,15 +1,8 @@
-// talentdeck/app.js — Talent Builder v4.1.2
-// - Contact fields (owner)
-// - Load from lines or pipe format
-// - Inline edit per talent
-// - Autosave (localStorage) + last 20 pasted inputs
-// - Generate: /view-talent/?compact=1&data=... + copy Bitly (fallback to long link)
-// - Export PDF: postMessage{type:'print'} to iframe
-// - Preview clicks enabled by default (toggle)
-// - Never-empty preview: falls back to demo when no talents
+// talentdeck/app.js — Talent Builder v4.1.3
+// Right pane always shows data (or demo fallback). Buttons work.
 
 (function () {
-  const STORE_KEY  = 'sc_talentdeck_v412';
+  const STORE_KEY  = 'sc_talentdeck_v413';
   const RECENT_KEY = 'sc_talentdeck_recent_v1';
 
   const $ = (id) => document.getElementById(id);
@@ -185,7 +178,6 @@
 
   // ---------- payload ----------
   function currentDeckData() {
-    // if nothing is checked, include all (avoid empty preview)
     const arr = selected.size ? Array.from(selected.values()) : talents.slice();
     return {
       kind: 'talent-deck',
@@ -299,7 +291,6 @@
 
   els.filter?.addEventListener('input', renderList);
 
-  // Edit / Remove / Cancel
   els.list?.addEventListener('click', (e) => {
     const editBtn = e.target.closest('.edit-btn');
     const removeBtn = e.target.closest('.remove-btn');
@@ -322,7 +313,6 @@
     }
   });
 
-  // Checkbox select
   els.list?.addEventListener('change', (e) => {
     const cb = e.target;
     if (cb?.dataset?.id) {
@@ -334,7 +324,6 @@
     }
   });
 
-  // Save edits
   els.list?.addEventListener('submit', (e) => {
     const form = e.target.closest('form.edit-panel');
     if (!form) return;
@@ -396,8 +385,7 @@
   // ---------- init ----------
   const restored = loadDeck();
   if (!restored) prefillRecent();
-  // If nothing yet, show demo so right side isn’t empty
   if (!restored) els.preview.src = '/view-talent/?demo=1';
 
-  console.log('[talentdeck v4.1.2] ready');
+  console.log('[talentdeck v4.1.3] ready');
 })();
