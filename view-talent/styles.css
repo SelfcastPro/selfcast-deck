@@ -36,33 +36,26 @@ body.compact .sub{font-size:.85rem; margin-bottom:6px}
 body.compact .a{font-size:.82rem; padding:6px 8px}
 body.compact .hero{aspect-ratio:3/4}
 
-/* ===================== PRINT (3×3 per page + thin page frame) ===================== */
+/* ===================== PRINT (CLEAN, NO PAGE FRAME) ===================== */
 @page{ size:A4; margin:10mm; }
 @media print{
   .print-hide{display:none !important}
   html,body{background:#fff; color:#000}
 
-  /* Thin frame that restarts each page */
-  body::before{
-    content:""; position:fixed; inset:6mm;   /* inside page margins */
-    border:.5pt solid #000; border-radius:0; /* THIN black line */
-    pointer-events:none; z-index:9999;
-  }
-
-  /* Make header very compact so 3 rows fit */
+  /* super-slim header; NO borders */
   .bar{
-    position:static; background:#fff; border-color:#000;
-    margin:0 0 3mm 0; padding:0;            /* slimmer */
+    position:static; background:#fff; border:none;
+    margin:0 0 3mm 0; padding:0;
   }
   .bar-left h1{font-size:18px !important}
   .brandline{gap:6px}
   .wordmark,.tagline,.contactline,.contactline a{color:#000}
   .contactline{font-size:10.5px}
 
-  /* Tight grid & smaller cards so 9 fit */
+  /* grid + cards: 3×3 per page */
   .grid{gap:4.5mm; page-break-inside:avoid; break-inside:avoid}
   .card{
-    background:#fff; border:.5pt solid #cfcfd3;  /* light card border, white background */
+    background:#fff; border:.5pt solid #cfcfd3;     /* light, subtle border */
     border-radius:12px; page-break-inside:avoid; break-inside:avoid;
   }
   .hero{aspect-ratio:3/4; filter:grayscale(1)}
