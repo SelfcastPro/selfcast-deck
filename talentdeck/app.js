@@ -1,8 +1,9 @@
-// talentdeck/app.js — Talent Builder v4.2.2
+// talentdeck/app.js — Talent Builder v4.2.3
 // - Only "Export PDF" in header
 // - New items are added at TOP
 // - Autosave + local projects
 // - Preview updates live; no "Generate" step
+// - Export PDF opens /view-talent/ in a NEW TAB with ?print=1 (reliable on Safari)
 
 (function () {
   const STORE_KEY     = 'sc_talentdeck_autosave_v420';
@@ -88,8 +89,8 @@
   }
 
   // Projects
-  const readProjects  = ()=>{ try{ return JSON.parse(localStorage.getItem('sc_talentdeck_projects_v1')||'{}'); }catch{return{}} };
-  const writeProjects = (o)=>{ try{ localStorage.setItem('sc_talentdeck_projects_v1', JSON.stringify(o||{})); }catch{} };
+  const readProjects  = ()=>{ try{ return JSON.parse(localStorage.getItem(PROJECTS_KEY)||'{}'); }catch{return{}} };
+  const writeProjects = (o)=>{ try{ localStorage.setItem(PROJECTS_KEY, JSON.stringify(o||{})); }catch{} };
   function refreshProjectSelect(){
     if (!els.selProject) return;
     const names = Object.keys(readProjects()).sort((a,b)=>a.localeCompare(b));
@@ -224,7 +225,7 @@
 
   els.list?.addEventListener('click', (e)=>{
     const editBtn = e.target.closest('.edit-btn');
-    const removeBtn = e.target.closest('.remove-btn');
+       const removeBtn = e.target.closest('.remove-btn');
     const cancelBtn = e.target.closest('.cancel-edit');
 
     if (editBtn){
@@ -270,8 +271,14 @@
     const li = els.list.querySelector(`li[data-id="${CSS.escape(id)}"]`); li?.classList.add('open');
   });
 
-  // Only button left: Export PDF
-  els.pdf?.addEventListener('click', ()=>{ els.preview.contentWindow?.postMessage({ type:'print' }, '*'); });
+  // Export PDF → open new tab with print=1 so the view page prints itself
+  els.pdf?.addEventListener('click', ()=>{
+    const deck = currentDeckData();
+    if (!deck.talents?.length) { alert('Select at least one talent.'); return; }
+    const data = btoa(unescape(encodeURIComponent(JSON.stringify(deck))));
+    const url  = `/view-talent/?compact=1&print=1&data=${data}`;
+    window.open(url, '_blank');
+  });
 
   // Preview click toggle (default ON)
   function applyPreviewClicks(){
@@ -290,5 +297,5 @@
   // Init
   const restored = autoload();
   if (!restored) els.preview.src = '/view-talent/?demo=1';
-  console.log('[talentdeck v4.2.2] ready');
+  console.log('[talentdeck v4.2.3] ready');
 })();
