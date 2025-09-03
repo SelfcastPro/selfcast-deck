@@ -1,7 +1,7 @@
-// view-talent/app.js — VIEW v1.2.1
-// - ?density=9|12|15 controls how many cards per A4 on print
-// - ?print=1 auto window.print() after render
-// - ?compact=1 keeps tighter screen look (independent of print density)
+// view-talent/app.js — VIEW v1.2.2
+// - Auto print on ?print=1
+// - Chrome-safe fallback button if the auto print is ignored
+// - ?density=9|12|15 for print layout; ?compact=1 for tighter screen
 // - ?demo=1 for sample data
 (function(){
   function readData() {
@@ -90,15 +90,45 @@
   // Toolbar (view page)
   document.getElementById('btnPdf')?.addEventListener('click', () => window.print());
   document.getElementById('btnShare')?.addEventListener('click', async () => {
-    const toCopy = location.href.replace(/(&|\?)print=1\b/,'$1').replace(/\?&/,'?'); // strip print=1 if present
+    const toCopy = location.href.replace(/([?&])print=1(&|$)/,'$1').replace(/\?&/,'?');
     try { await navigator.clipboard.writeText(toCopy); alert('Link copied:\n' + toCopy); }
     catch { alert('Link:\n' + toCopy); }
   });
 
-  // Auto-print when ?print=1
+  // ---------- Chrome-safe auto print ----------
+  function showPrintNudge(){
+    // Subtle overlay that asks the user to click to print (screen only; hidden in PDF)
+    const n = document.createElement('div');
+    n.id = 'print-nudge';
+    n.style.cssText = `
+      position: fixed; inset: 0; display: grid; place-items: center; z-index: 9999;
+      background: rgba(0,0,0,.55); color: #fff; font-family: system-ui, -apple-system, Segoe UI, Inter, Roboto, Helvetica, Arial;
+    `;
+    n.innerHTML = `
+      <div style="background:#141418;border:1px solid #2a2a2f;padding:18px 20px;border-radius:14px;max-width:520px;text-align:center">
+        <h2 style="margin:0 0 6px;font-size:20px;font-weight:800">Ready to export</h2>
+        <p style="margin:0 0 14px;color:#d0d0d6">Chrome sometimes blocks automatic print dialogs.<br/>Click below to open the PDF print dialog.</p>
+        <button id="print-now" style="padding:10px 16px;background:#ff2d55;border:0;border-radius:12px;color:#fff;font-weight:800;cursor:pointer">Print PDF</button>
+      </div>
+    `;
+    document.body.appendChild(n);
+    document.getElementById('print-now').onclick = () => { window.print(); n.remove(); };
+    // Remove if user hits Cmd/Ctrl+P
+    window.addEventListener('keydown', (e)=>{
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase()==='p') n.remove();
+    }, { once:true });
+  }
+
+  function tryAutoPrint(){
+    let printed = false;
+    try { window.print(); printed = true; } catch {}
+    // If Chrome ignored it, show the nudge after ~1s
+    setTimeout(()=>{ if (!printed) showPrintNudge(); }, 900);
+  }
+
   if (params.print) {
-    const go = () => setTimeout(() => window.print(), 200);
-    if (document.readyState === 'complete') go(); else window.addEventListener('load', go);
+    if (document.readyState === 'complete') tryAutoPrint();
+    else window.addEventListener('load', tryAutoPrint);
   }
 
   // Legacy: accept message from builder
