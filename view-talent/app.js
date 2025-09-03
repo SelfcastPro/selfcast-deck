@@ -1,12 +1,10 @@
-// view-talent/app.js — VIEW v1.3.0
-// - Chrome-safe print: waits for all images (or a timeout) before window.print()
-// - Fallback "Click to print" overlay if the auto print gets ignored
-// - Bitly shortening on "Copy link" (falls back to long link if API/env missing)
-// - ?density=9|12|15 controls print grid; ?compact=1 for tighter screen; ?print=1 auto-print
-// - ?demo=1 shows sample data
-
+// view-talent/app.js — VIEW v1.4.0
+// - Uses <img> for hero (prints in Chrome)
+// - Waits for all images (or timeout) before auto print
+// - Fallback overlay if auto print is ignored
+// - "Copy link" shortens via /api/bitly (fallback to long URL)
+// - ?density=9|12|15  ·  ?compact=1  ·  ?print=1  ·  ?demo=1
 (function(){
-  // ---------- read data & flags ----------
   function readData() {
     const u = new URL(location.href);
     const params = {
@@ -31,6 +29,7 @@
       }
       return { data: { title:'Demo Project', owner:{name:'Selfcast',email:'info@selfcast.com',phone:'+45 22 81 31 13'}, talents }, params };
     }
+
     const raw = u.searchParams.get('data');
     if (!raw) return { data: null, params };
     try {
@@ -49,7 +48,6 @@
     return n;
   }
 
-  // ---------- render ----------
   const { data, params } = readData();
   const root      = document.getElementById('root');
   const deckTitle = document.getElementById('deckTitle');
@@ -67,16 +65,18 @@
     if (data.owner?.email){cEmail.textContent = data.owner.email; cEmail.href = `mailto:${data.owner.email}`;}
     if (data.owner?.phone) cPhone.textContent = data.owner.phone;
 
-    imageUrls = (data.talents || [])
-      .map(t => (t.primary_image || '').trim())
-      .filter(Boolean);
+    imageUrls = (data.talents || []).map(t => (t.primary_image||'').trim()).filter(Boolean);
 
     (data.talents || []).forEach(t => {
       const card = el('article','card');
 
-      const img = el('div','hero');
-      img.style.backgroundImage = `url('${t.primary_image || ''}')`;
-      card.appendChild(img);
+      const hero = el('div','hero');
+      const im = new Image();
+      im.loading = 'eager';
+      im.decoding = 'sync';
+      im.src = t.primary_image || '';
+      hero.appendChild(im);
+      card.appendChild(hero);
 
       const body = el('div','body');
       body.appendChild(el('h3','', t.name || 'Unnamed'));
@@ -84,12 +84,10 @@
 
       const links = el('div','links');
       if (t.profile_url){
-        const a = el('a','a','Profile');
-        a.href = t.profile_url; a.target = '_blank'; links.appendChild(a);
+        const a = el('a','a','Profile'); a.href = t.profile_url; a.target='_blank'; links.appendChild(a);
       }
       if (t.requested_media_url){
-        const a2 = el('a','a','Requested');
-        a2.href = t.requested_media_url; a2.target = '_blank'; links.appendChild(a2);
+        const a2 = el('a','a','Requested'); a2.href = t.requested_media_url; a2.target='_blank'; links.appendChild(a2);
       }
       body.appendChild(links);
       card.appendChild(body);
@@ -97,11 +95,10 @@
     });
   }
 
-  // ---------- toolbar ----------
+  // Toolbar
   document.getElementById('btnPdf')?.addEventListener('click', () => window.print());
 
   document.getElementById('btnShare')?.addEventListener('click', async () => {
-    // Share the same URL but without print=1
     const clean = new URL(location.href);
     clean.searchParams.delete('print');
     const longUrl = clean.toString();
@@ -109,8 +106,7 @@
     let toCopy = longUrl;
     try {
       const r = await fetch('/api/bitly', {
-        method:'POST',
-        headers:{'content-type':'application/json'},
+        method:'POST', headers:{'content-type':'application/json'},
         body: JSON.stringify({ long_url: longUrl })
       });
       if (r.ok) {
@@ -122,58 +118,40 @@
     catch { alert('Link:\n' + toCopy); }
   });
 
-  // ---------- Chrome-safe print ----------
-  function preloadImages(urls, timeoutMs = 5000){
+  // Chrome-safe print
+  function preloadImages(urls, timeoutMs=5000){
     if (!urls.length) return Promise.resolve();
-    const timers = [];
-    const ps = urls.map(src => new Promise((resolve) => {
+    const ps = urls.map(src => new Promise(res => {
       const im = new Image();
-      // Don't taint canvas: we just want network cache before printing
-      im.onload = () => resolve();
-      im.onerror = () => resolve(); // ignore failures; we still print
+      im.onload = im.onerror = () => res();
       im.src = src;
     }));
-    const timeout = new Promise(res => {
-      const t = setTimeout(res, timeoutMs);
-      timers.push(t);
-    });
-    return Promise.race([Promise.allSettled(ps), timeout]).then(()=>{
-      timers.forEach(clearTimeout);
-    });
+    return Promise.race([Promise.allSettled(ps), new Promise(res=>setTimeout(res, timeoutMs))]);
   }
 
   function showPrintNudge(){
     const n = document.createElement('div');
     n.id = 'print-nudge';
     n.style.cssText = `
-      position: fixed; inset: 0; display: grid; place-items: center; z-index: 9999;
-      background: rgba(0,0,0,.55); color: #fff; font-family: system-ui, -apple-system, Segoe UI, Inter, Roboto, Helvetica, Arial;
-    `;
+      position:fixed;inset:0;display:grid;place-items:center;z-index:9999;
+      background:rgba(0,0,0,.55);color:#fff;font-family:system-ui,-apple-system,Segoe UI,Inter,Roboto,Helvetica,Arial;`;
     n.innerHTML = `
       <div style="background:#141418;border:1px solid #2a2a2f;padding:18px 20px;border-radius:14px;max-width:520px;text-align:center">
         <h2 style="margin:0 0 6px;font-size:20px;font-weight:800">Ready to export</h2>
-        <p style="margin:0 0 14px;color:#d0d0d6">Chrome sometimes blocks automatic print dialogs.<br/>Click below to open the PDF print dialog.</p>
+        <p style="margin:0 0 14px;color:#d0d0d6">If the dialog didn’t open, click below to print.</p>
         <button id="print-now" style="padding:10px 16px;background:#ff2d55;border:0;border-radius:12px;color:#fff;font-weight:800;cursor:pointer">Print PDF</button>
-      </div>
-    `;
+      </div>`;
     document.body.appendChild(n);
     document.getElementById('print-now').onclick = () => { window.print(); n.remove(); };
-    // Remove if user hits Cmd/Ctrl+P
     window.addEventListener('keydown', (e)=>{
-      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase()==='p') n.remove();
+      if ((e.ctrlKey||e.metaKey) && e.key.toLowerCase()==='p') n.remove();
     }, { once:true });
   }
 
   async function autoPrintWhenReady(){
-    // Wait for images (or timeout), then try to print
-    await preloadImages(imageUrls, 5000);
-
-    // First attempt
-    let opened = false;
-    try { window.print(); opened = true; } catch {}
-
-    // If blocked/ignored, nudge after short delay
-    setTimeout(()=>{ if (!opened) showPrintNudge(); }, 900);
+    await preloadImages(imageUrls, 6000);
+    let opened=false; try{ window.print(); opened=true; }catch{}
+    setTimeout(()=>{ if(!opened) showPrintNudge(); }, 900);
   }
 
   if (params.print) {
@@ -181,6 +159,6 @@
     else window.addEventListener('load', autoPrintWhenReady);
   }
 
-  // Legacy: accept message from builder (still supported)
+  // Legacy “print” message from builder
   window.addEventListener('message', ev => { if (ev.data?.type === 'print') window.print(); });
 })();
