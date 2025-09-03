@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>Selfcast — Talent Presentation Builder</title>
   <meta name="color-scheme" content="dark light">
-  <link rel="stylesheet" href="./styles.css?v=4.4.0"/>
+  <link rel="stylesheet" href="./styles.css?v=4.3.0"/>
 </head>
 <body>
   <header class="topbar">
@@ -14,9 +14,7 @@
       <div class="tagline">CASTING MADE EASY</div>
     </div>
     <div class="actions">
-      <!-- NEW: generate sharable (Bitly) link -->
       <button id="btnCopyShare" class="btn secondary">Generate shared link</button>
-      <!-- Export PDF (opens view in new tab + auto print) -->
       <button id="btnExportPdf" class="btn">Export PDF</button>
     </div>
   </header>
@@ -28,6 +26,11 @@
 
       <label class="label" for="deckTitle">Project name</label>
       <input id="deckTitle" class="input" placeholder="e.g. Adidas"/>
+
+      <!-- NEW: Project logo upload -->
+      <label class="label" for="projectLogo">Project logo (optional)</label>
+      <input id="projectLogo" type="file" accept="image/*" class="input"/>
+      <div id="projectLogoPreview" class="logoPreview" aria-hidden="true"></div>
 
       <label class="label" for="ownerName">Contact name</label>
       <input id="ownerName" class="input" placeholder="Your name"/>
@@ -87,6 +90,6 @@
     <small>Powered by <strong>SELFCAST</strong></small>
   </footer>
 
-  <script src="./app.js?v=4.4.0" defer></script>
+  <script src="./app.js?v=4.3.0" defer></script>
 </body>
 </html>
