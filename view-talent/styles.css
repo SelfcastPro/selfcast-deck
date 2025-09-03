@@ -45,7 +45,7 @@ body.cols4 .grid{ grid-template-columns:repeat(4,1fr); }
 .hero{ position:relative; aspect-ratio:4/5; background:#0f0f12; display:block; }
 .hero img{
   position:absolute; inset:0; width:100%; height:100%;
-  object-fit:cover; object-position:top center;   /* faces anchored to the top */
+  object-fit:cover; object-position:top center;   /* vis ansigtet fra toppen */
   display:block; filter:grayscale(1);
 }
 .body{padding:10px 12px}
@@ -59,7 +59,7 @@ h3{margin:0 0 4px; font-size:17px; font-weight:800; color:#fff}
 }
 .a::before{content:"🔗"}
 
-/* Smaller compact (screen) */
+/* Compact (screen) */
 body.compact .grid{gap:12px}
 body.compact h3{font-size:15px}
 body.compact .sub{font-size:.85rem; margin-bottom:6px}
@@ -67,7 +67,7 @@ body.compact .a{font-size:.82rem; padding:6px 8px}
 body.compact .hero{aspect-ratio:3/4}
 
 /* ===========================================================
-   PRINT — A4, Chrome/Safari safe, NO outer black frame
+   PRINT — A4, Chrome/Safari safe, no outer frame
    Modes:
      default/d9  = 3×3  (9 per page)
      d12         = 3×4  (12 per page)
@@ -84,7 +84,7 @@ body.compact .hero{aspect-ratio:3/4}
   }
   .toolbar, .print-hide{ display:none !important; }
 
-  /* Header */
+  /* Header (print) */
   .bar{ position:static; background:#fff; border:none; margin:0 0 3mm 0; padding:0; }
   .bar-left h1{ font-size:16px !important }
   .brandline{ gap:6px }
@@ -103,8 +103,8 @@ body.compact .hero{aspect-ratio:3/4}
     page-break-inside:avoid; break-inside:avoid;
   }
 
-  /* ++ Taller hero by 0.5 cm (was 70mm) */
-  .hero{ background:#000 !important; height:75mm; }
+  /* HERO HEIGHTS — +5mm vs. sidste version */
+  .hero{ background:#000 !important; height:80mm; }                 /* var 75mm */
   .hero img{
     position:static !important; width:100% !important; height:100% !important;
     object-fit:cover !important; object-position:top center !important;
@@ -115,7 +115,7 @@ body.compact .hero{aspect-ratio:3/4}
   .card h3{ font-size:10.8px !important; color:#000 !important }
   .sub{
     font-size:9.6px !important; margin-bottom:3px !important; color:#333 !important;
-    display:block !important;                 /* ensure country shows in PDF */
+    display:block !important;                 /* sørg for at Country altid vises */
   }
   .a{
     background:transparent !important; border:none !important;
@@ -123,24 +123,24 @@ body.compact .hero{aspect-ratio:3/4}
   }
   .a::before{ content:"🔗"; margin-right:3px }
 
-  /* Page break every 9 talents */
+  /* Page break hver 9. */
   .card:nth-child(9n){ break-after:page; page-break-after:always; }
 
-  /* Density 12 (3×4) — also +5mm */
-  body.d12 .hero{ height:61mm; }
+  /* Density 12 (3×4) — +5mm */
+  body.d12 .hero{ height:66mm; }                                     /* var 61mm */
   body.d12 .card:nth-child(12n){ break-after:page; page-break-after:always; }
 
-  /* Density 15 (3×5) — also +5mm */
-  body.d15 .hero{ height:49mm; }
+  /* Density 15 (3×5) — +5mm */
+  body.d15 .hero{ height:54mm; }                                     /* var 49mm */
   body.d15 .body{ padding:3px 5px }
   body.d15 .card h3{ font-size:9.6px !important }
   body.d15 .sub{ font-size:9px !important }
   body.d15 .a{ font-size:8.6px !important }
   body.d15 .card:nth-child(15n){ break-after:page; page-break-after:always; }
 
-  /* 4 columns (12 per page) — also +5mm */
+  /* 4 columns (12 per page) — +5mm */
   body.cols4 .grid, body.cols4 #root{ grid-template-columns:repeat(4,1fr); gap:3.2mm; }
-  body.cols4 .hero{ height:57mm; }
+  body.cols4 .hero{ height:62mm; }                                   /* var 57mm */
   body.cols4 .body{ padding:3px 5px }
   body.cols4 .card h3{ font-size:9.4px !important }
   body.cols4 .sub{ font-size:8.8px !important }
