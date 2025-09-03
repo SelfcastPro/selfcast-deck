@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>Selfcast — Talent Presentation Builder</title>
   <meta name="color-scheme" content="dark light">
-  <link rel="stylesheet" href="./styles.css?v=4.2.0"/>
+  <link rel="stylesheet" href="./styles.css?v=4.2.2"/>
 </head>
 <body>
   <header class="topbar">
@@ -14,10 +14,8 @@
       <div class="tagline">CASTING MADE EASY</div>
     </div>
     <div class="actions">
-      <button id="btnPrev" class="btn secondary">← Prev</button>
-      <button id="btnNext" class="btn secondary">Next →</button>
+      <!-- Only keep Export PDF -->
       <button id="btnExportPdf" class="btn">Export PDF</button>
-      <button id="btnGenerate" class="btn primary">Generate</button>
     </div>
   </header>
 
@@ -59,7 +57,7 @@
         <li>Paste links or use pipe: <em>url | name | height_cm | country | imageUrl | requestedUrl</em></li>
         <li>Load talents</li>
         <li>Select talents</li>
-        <li>Generate</li>
+        <li>Export PDF</li>
       </ol>
     </section>
 
@@ -87,7 +85,6 @@
     <small>Powered by <strong>SELFCAST</strong></small>
   </footer>
 
-  <!-- cache-bust -->
-  <script src="./app.js?v=4.2.0" defer></script>
+  <script src="./app.js?v=4.2.2" defer></script>
 </body>
 </html>
