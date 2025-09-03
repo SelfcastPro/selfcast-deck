@@ -17,9 +17,6 @@ html.dark{background:var(--bg); color:var(--text); font:16px/1.55 system-ui,-app
 .tagline{font-size:.9rem; color:var(--muted)}
 .contactline{font-size:.92rem}
 .contactline a{color:#fff; text-decoration:underline dotted}
-.actions{display:flex; gap:8px}
-.btn{border:1px solid var(--line); background:#1a1a20; color:#fff; padding:10px 14px; border-radius:12px; cursor:pointer; font-weight:700}
-.btn:hover{border-color:#3a3a44}
 
 /* Grid + cards */
 .grid{padding:18px; display:grid; grid-template-columns:repeat(3,1fr); gap:18px}
@@ -32,7 +29,7 @@ h3{margin:0 0 4px; font-size:17px; font-weight:800; color:#fff}
 .a{display:inline-flex; align-items:center; gap:6px; padding:7px 10px; border-radius:10px; border:1px solid var(--line); background:#1a1a20; color:#fff; text-decoration:none; font-weight:700; font-size:.9rem}
 .a::before{content:"🔗"}
 
-/* Compact (more per page) */
+/* Compact */
 body.compact .grid{gap:12px}
 body.compact h3{font-size:15px}
 body.compact .sub{font-size:.85rem; margin-bottom:6px}
