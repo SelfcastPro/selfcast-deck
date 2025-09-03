@@ -1,14 +1,15 @@
-// talentdeck/app.js — Talent Builder v4.2.3
-// - Only "Export PDF" in header
+// talentdeck/app.js — Talent Builder v4.3.0
+// - Preview updates live; autosave + local projects
 // - New items are added at TOP
-// - Autosave + local projects
-// - Preview updates live; no "Generate" step
 // - Export PDF opens /view-talent/ in a NEW TAB with ?print=1 (reliable on Safari)
+// - NEW: print density support (9 / 12 / 15 per A4)
 
 (function () {
   const STORE_KEY     = 'sc_talentdeck_autosave_v420';
-  const RECENT_KEY    = 'sc_talentdeck_recent_v1';
   const PROJECTS_KEY  = 'sc_talentdeck_projects_v1';
+
+  // Change this to 9, 12, or 15 to control how many per page on PDF
+  const DEFAULT_PRINT_DENSITY = 12; // ← fits more talents (keep design)
 
   const $ = (id) => document.getElementById(id);
   const els = {
@@ -181,6 +182,7 @@
     const deck = currentDeckData();
     if (!deck.talents?.length){ els.preview.src = '/view-talent/?demo=1'; return; }
     const data = btoa(unescape(encodeURIComponent(JSON.stringify(deck))));
+    // Keep the on-screen preview compact so you see more while building
     els.preview.src = `/view-talent/?compact=1&data=${data}`;
   }
 
@@ -225,7 +227,7 @@
 
   els.list?.addEventListener('click', (e)=>{
     const editBtn = e.target.closest('.edit-btn');
-       const removeBtn = e.target.closest('.remove-btn');
+    const removeBtn = e.target.closest('.remove-btn');
     const cancelBtn = e.target.closest('.cancel-edit');
 
     if (editBtn){
@@ -271,12 +273,13 @@
     const li = els.list.querySelector(`li[data-id="${CSS.escape(id)}"]`); li?.classList.add('open');
   });
 
-  // Export PDF → open new tab with print=1 so the view page prints itself
+  // Export PDF → open new tab with print=1 and selected density
   els.pdf?.addEventListener('click', ()=>{
     const deck = currentDeckData();
     if (!deck.talents?.length) { alert('Select at least one talent.'); return; }
     const data = btoa(unescape(encodeURIComponent(JSON.stringify(deck))));
-    const url  = `/view-talent/?compact=1&print=1&data=${data}`;
+    const density = DEFAULT_PRINT_DENSITY; // 9, 12, or 15
+    const url  = `/view-talent/?density=${density}&print=1&data=${data}`;
     window.open(url, '_blank');
   });
 
@@ -297,5 +300,5 @@
   // Init
   const restored = autoload();
   if (!restored) els.preview.src = '/view-talent/?demo=1';
-  console.log('[talentdeck v4.2.3] ready');
+  console.log('[talentdeck v4.3.0] ready');
 })();
