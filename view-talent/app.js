@@ -1,4 +1,4 @@
-// VIEW v1.1.1 — white text, robust copy, listens to builder print
+// VIEW v1.2.0 — no share/download UI inside preview; prints on builder request
 (function(){
   function dataFromUrl(){
     const u = new URL(location.href);
@@ -54,31 +54,6 @@
     });
   }
 
-  // Buttons in view
-  document.getElementById('btnPdf')?.addEventListener('click', () => window.print());
-
-  document.getElementById('btnShare')?.addEventListener('click', async () => {
-    const longUrl = location.href;
-    let toCopy = longUrl;
-    try {
-      const r = await fetch('/api/bitly', {
-        method:'POST', headers:{'content-type':'application/json'},
-        body: JSON.stringify({ long_url: longUrl })
-      });
-      if (r.ok){ const j = await r.json(); if (j.link) toCopy = j.link; }
-    } catch {}
-    try {
-      await navigator.clipboard.writeText(toCopy);
-      alert('Link copied:\n' + toCopy);
-    } catch {
-      const ta=document.createElement('textarea'); ta.value=toCopy; document.body.appendChild(ta);
-      ta.select(); ta.setSelectionRange(0, 99999);
-      try { document.execCommand('copy'); alert('Link copied:\n' + toCopy); }
-      catch { alert('Here is the link:\n' + toCopy); }
-      document.body.removeChild(ta);
-    }
-  });
-
-  // Listen for Export PDF from builder
+  // Print triggered from builder
   window.addEventListener('message', ev => { if (ev?.data?.type === 'print') window.print(); });
 })();
