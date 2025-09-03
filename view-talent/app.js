@@ -1,17 +1,19 @@
-// view-talent/app.js — VIEW v1.1.2
-// - White text on cards (screen), clean print
-// - ?compact=1 => tighter layout, 12 per page on print
-// - ?demo=1 => sample data
-// - NEW: ?print=1 => auto window.print() after render
+// view-talent/app.js — VIEW v1.2.1
+// - ?density=9|12|15 controls how many cards per A4 on print
+// - ?print=1 auto window.print() after render
+// - ?compact=1 keeps tighter screen look (independent of print density)
+// - ?demo=1 for sample data
 (function(){
   function readData() {
     const u = new URL(location.href);
     const params = {
       demo: u.searchParams.get('demo'),
       compact: u.searchParams.get('compact') === '1',
-      print: u.searchParams.get('print') === '1'
+      print: u.searchParams.get('print') === '1',
+      density: parseInt(u.searchParams.get('density') || '9', 10)
     };
     if (params.compact) document.body.classList.add('compact');
+    if ([12,15].includes(params.density)) document.body.classList.add('d'+params.density);
 
     if (params.demo) {
       const talents = [];
@@ -85,22 +87,20 @@
     });
   }
 
-  // Toolbar buttons (on the view page)
+  // Toolbar (view page)
   document.getElementById('btnPdf')?.addEventListener('click', () => window.print());
   document.getElementById('btnShare')?.addEventListener('click', async () => {
-    const toCopy = location.href;
+    const toCopy = location.href.replace(/(&|\?)print=1\b/,'$1').replace(/\?&/,'?'); // strip print=1 if present
     try { await navigator.clipboard.writeText(toCopy); alert('Link copied:\n' + toCopy); }
     catch { alert('Link:\n' + toCopy); }
   });
 
-  // Auto-print when ?print=1 — wait a moment so images layout
+  // Auto-print when ?print=1
   if (params.print) {
     const go = () => setTimeout(() => window.print(), 200);
     if (document.readyState === 'complete') go(); else window.addEventListener('load', go);
   }
 
-  // Accept "print" message from the builder as well (legacy/fallback)
-  window.addEventListener('message', ev => {
-    if (ev.data?.type === 'print') window.print();
-  });
+  // Legacy: accept message from builder
+  window.addEventListener('message', ev => { if (ev.data?.type === 'print') window.print(); });
 })();
