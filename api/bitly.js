@@ -1,21 +1,38 @@
+// /api/bitly.js
+// Simple Bitly proxy. Requires env BITLY_TOKEN (a Generic Access Token).
 export default async function handler(req, res) {
   try {
-    if (req.method !== 'POST') return res.status(405).json({error:'Method not allowed'});
-    const { long_url } = req.body || {};
-    if (!long_url) return res.status(400).json({error:'Missing long_url'});
+    // allow both POST { long_url } and GET ?u=
+    const isPost = req.method === 'POST';
+    const long_url = isPost
+      ? (await req.json?.()?.long_url) || (await (async () => { try { return (await req.json()).long_url; } catch { return null; } })())
+      : new URL(req.url, 'http://x').searchParams.get('u');
+
+    if (!long_url) return res.status(400).json({ error: 'Missing long_url' });
 
     const token = process.env.BITLY_TOKEN;
-    if (!token) return res.status(500).json({error:'Missing BITLY_TOKEN env'});
+    if (!token) {
+      // No token configured — just return the original so UI still works.
+      return res.status(200).json({ link: long_url, note: 'BITLY_TOKEN missing' });
+    }
 
-    const resp = await fetch('https://api-ssl.bitly.com/v4/shorten', {
-      method:'POST',
-      headers:{ 'Authorization': `Bearer ${token}`, 'Content-Type':'application/json' },
+    const r = await fetch('https://api-ssl.bitly.com/v4/shorten', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      },
       body: JSON.stringify({ long_url })
     });
-    const json = await resp.json();
-    if (!resp.ok) return res.status(resp.status).json(json);
-    res.status(200).json(json);
+
+    const j = await r.json().catch(() => ({}));
+    if (!r.ok || !j.link) {
+      // Fall back gracefully
+      return res.status(200).json({ link: long_url, note: j?.message || 'shorten-failed' });
+    }
+
+    return res.status(200).json({ link: j.link });
   } catch (e) {
-    res.status(500).json({error:'Bitly proxy error', detail:String(e)});
+    return res.status(200).json({ link: (new URL(req.url, 'http://x')).searchParams.get('u') || '', note: 'exception' });
   }
 }
