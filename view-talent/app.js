@@ -1,9 +1,12 @@
-// view-talent/app.js — VIEW v1.2.2
-// - Auto print on ?print=1
-// - Chrome-safe fallback button if the auto print is ignored
-// - ?density=9|12|15 for print layout; ?compact=1 for tighter screen
-// - ?demo=1 for sample data
+// view-talent/app.js — VIEW v1.3.0
+// - Chrome-safe print: waits for all images (or a timeout) before window.print()
+// - Fallback "Click to print" overlay if the auto print gets ignored
+// - Bitly shortening on "Copy link" (falls back to long link if API/env missing)
+// - ?density=9|12|15 controls print grid; ?compact=1 for tighter screen; ?print=1 auto-print
+// - ?demo=1 shows sample data
+
 (function(){
+  // ---------- read data & flags ----------
   function readData() {
     const u = new URL(location.href);
     const params = {
@@ -46,12 +49,15 @@
     return n;
   }
 
+  // ---------- render ----------
   const { data, params } = readData();
   const root      = document.getElementById('root');
   const deckTitle = document.getElementById('deckTitle');
   const cName  = document.getElementById('cName');
   const cEmail = document.getElementById('cEmail');
   const cPhone = document.getElementById('cPhone');
+
+  let imageUrls = [];
 
   if (!data || !Array.isArray(data.talents)) {
     root.innerHTML = '<p style="padding:18px">No data provided. Try <code>?demo=1</code>.</p>';
@@ -60,6 +66,10 @@
     if (data.owner?.name)  cName.textContent  = data.owner.name;
     if (data.owner?.email){cEmail.textContent = data.owner.email; cEmail.href = `mailto:${data.owner.email}`;}
     if (data.owner?.phone) cPhone.textContent = data.owner.phone;
+
+    imageUrls = (data.talents || [])
+      .map(t => (t.primary_image || '').trim())
+      .filter(Boolean);
 
     (data.talents || []).forEach(t => {
       const card = el('article','card');
@@ -87,17 +97,52 @@
     });
   }
 
-  // Toolbar (view page)
+  // ---------- toolbar ----------
   document.getElementById('btnPdf')?.addEventListener('click', () => window.print());
+
   document.getElementById('btnShare')?.addEventListener('click', async () => {
-    const toCopy = location.href.replace(/([?&])print=1(&|$)/,'$1').replace(/\?&/,'?');
+    // Share the same URL but without print=1
+    const clean = new URL(location.href);
+    clean.searchParams.delete('print');
+    const longUrl = clean.toString();
+
+    let toCopy = longUrl;
+    try {
+      const r = await fetch('/api/bitly', {
+        method:'POST',
+        headers:{'content-type':'application/json'},
+        body: JSON.stringify({ long_url: longUrl })
+      });
+      if (r.ok) {
+        const j = await r.json();
+        if (j.link) toCopy = j.link;
+      }
+    } catch {}
     try { await navigator.clipboard.writeText(toCopy); alert('Link copied:\n' + toCopy); }
     catch { alert('Link:\n' + toCopy); }
   });
 
-  // ---------- Chrome-safe auto print ----------
+  // ---------- Chrome-safe print ----------
+  function preloadImages(urls, timeoutMs = 5000){
+    if (!urls.length) return Promise.resolve();
+    const timers = [];
+    const ps = urls.map(src => new Promise((resolve) => {
+      const im = new Image();
+      // Don't taint canvas: we just want network cache before printing
+      im.onload = () => resolve();
+      im.onerror = () => resolve(); // ignore failures; we still print
+      im.src = src;
+    }));
+    const timeout = new Promise(res => {
+      const t = setTimeout(res, timeoutMs);
+      timers.push(t);
+    });
+    return Promise.race([Promise.allSettled(ps), timeout]).then(()=>{
+      timers.forEach(clearTimeout);
+    });
+  }
+
   function showPrintNudge(){
-    // Subtle overlay that asks the user to click to print (screen only; hidden in PDF)
     const n = document.createElement('div');
     n.id = 'print-nudge';
     n.style.cssText = `
@@ -119,18 +164,23 @@
     }, { once:true });
   }
 
-  function tryAutoPrint(){
-    let printed = false;
-    try { window.print(); printed = true; } catch {}
-    // If Chrome ignored it, show the nudge after ~1s
-    setTimeout(()=>{ if (!printed) showPrintNudge(); }, 900);
+  async function autoPrintWhenReady(){
+    // Wait for images (or timeout), then try to print
+    await preloadImages(imageUrls, 5000);
+
+    // First attempt
+    let opened = false;
+    try { window.print(); opened = true; } catch {}
+
+    // If blocked/ignored, nudge after short delay
+    setTimeout(()=>{ if (!opened) showPrintNudge(); }, 900);
   }
 
   if (params.print) {
-    if (document.readyState === 'complete') tryAutoPrint();
-    else window.addEventListener('load', tryAutoPrint);
+    if (document.readyState === 'complete') autoPrintWhenReady();
+    else window.addEventListener('load', autoPrintWhenReady);
   }
 
-  // Legacy: accept message from builder
+  // Legacy: accept message from builder (still supported)
   window.addEventListener('message', ev => { if (ev.data?.type === 'print') window.print(); });
 })();
