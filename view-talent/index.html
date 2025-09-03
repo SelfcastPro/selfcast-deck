@@ -5,35 +5,37 @@
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>Talent Presentation — Selfcast</title>
   <meta name="color-scheme" content="dark light">
-  <link rel="stylesheet" href="./styles.css?v=4"/>
+  <link rel="stylesheet" href="./styles.css?v=8"/>
 </head>
 <body>
-  <header class="bar print-hide">
-    <div class="brand">
-      <strong class="wordmark">SELFCAST</strong>
-      <span class="tagline">CASTING MADE EASY</span>
+  <!-- Screen/Print header -->
+  <header class="bar">
+    <div class="bar-left">
+      <h1 id="deckTitle">Untitled</h1>
     </div>
-    <div class="actions">
-      <button id="btnPdf" class="btn">Download PDF</button>
-      <button id="btnShare" class="btn">Copy short link</button>
+    <div class="bar-right">
+      <div class="brandline">
+        <strong class="wordmark">SELFCAST</strong>
+        <span class="tagline">CASTING MADE EASY</span>
+      </div>
+      <div class="contactline">
+        <span id="cName">Selfcast</span>
+        · <a id="cEmail" href="mailto:info@selfcast.com">info@selfcast.com</a>
+        · <span id="cPhone">+45 22 81 31 13</span>
+      </div>
+      <div class="actions print-hide">
+        <button id="btnPdf" class="btn">Download PDF</button>
+        <button id="btnShare" class="btn">Copy short link</button>
+      </div>
     </div>
   </header>
 
-  <section class="header">
-    <h1 id="deckTitle">Untitled</h1>
-  </section>
+  <main id="root" class="grid"></main>
 
-  <main class="grid" id="root"></main>
-
-  <footer class="footer">
-    <div>For assistance:
-      <strong id="ownerName">Selfcast</strong> ·
-      <a id="ownerEmail" href="mailto:info@selfcast.com">info@selfcast.com</a> ·
-      <span id="ownerPhone">+45 22 81 31 13</span>
-    </div>
-    <div class="ver">VIEW v1.0.3</div>
+  <footer class="footer print-hide">
+    <small>© Selfcast • VIEW v1.1.0</small>
   </footer>
 
-  <script src="./app.js?v=6" defer></script>
+  <script src="./app.js?v=8" defer></script>
 </body>
 </html>
