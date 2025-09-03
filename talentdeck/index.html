@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>Selfcast — Talent Presentation Builder</title>
   <meta name="color-scheme" content="dark light">
-  <link rel="stylesheet" href="./styles.css?v=4.1.3"/>
+  <link rel="stylesheet" href="./styles.css?v=4.2.0"/>
 </head>
 <body>
   <header class="topbar">
@@ -37,6 +37,14 @@
 
       <label class="label" for="ownerPhone">Contact phone</label>
       <input id="ownerPhone" class="input" placeholder="+45 …"/>
+
+      <!-- Save / Open projects -->
+      <div class="row">
+        <button id="btnSaveProject" class="btn secondary">Save project</button>
+        <select id="selProject" class="input" style="max-width:220px"></select>
+        <button id="btnOpenProject" class="btn">Open</button>
+        <button id="btnDeleteProject" class="btn secondary">Delete</button>
+      </div>
 
       <label class="label" for="talentInput">Paste 1 talent URL (or talentId) per line</label>
       <textarea id="talentInput" class="textarea" placeholder="https://producer.selfcast.com/talent/…&#10;https://…/image.jpg (optional next line)"></textarea>
@@ -79,6 +87,7 @@
     <small>Powered by <strong>SELFCAST</strong></small>
   </footer>
 
-  <script src="./app.js?v=4.1.3" defer></script>
+  <!-- cache-bust -->
+  <script src="./app.js?v=4.2.0" defer></script>
 </body>
 </html>
