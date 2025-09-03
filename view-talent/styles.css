@@ -1,16 +1,28 @@
+/* =========================
+   Selfcast — VIEW (screen)
+   ========================= */
+
 :root{
-  --bg:#0b0b0d; --card:#141418; --text:#ffffff; --muted:#d5d5d8;
-  --line:#23232a; --accent:#ff2d55; --radius:16px;
+  --bg:#0b0b0d;
+  --card:#141418;
+  --text:#ffffff;
+  --muted:#d5d5d8;
+  --line:#23232a;
+  --accent:#ff2d55;
+  --radius:16px;
 }
+
 *{box-sizing:border-box}
 html,body{height:100%}
 html.dark{background:var(--bg); color:var(--text); font:16px/1.55 system-ui,-apple-system,Segoe UI,Inter,Roboto,Helvetica,Arial}
 
 /* Header (screen) */
-.bar{display:flex; justify-content:space-between; align-items:flex-start; gap:16px;
+.bar{
+  display:flex; justify-content:space-between; align-items:flex-start; gap:16px;
   padding:18px; border-bottom:1px solid var(--line); position:sticky; top:0; z-index:10;
-  background:rgba(10,10,12,.85); backdrop-filter:blur(8px);}
-.bar-left h1{margin:0; font-size:26px}
+  background:rgba(10,10,12,.85); backdrop-filter:blur(8px);
+}
+.bar-left h1{margin:0; font-size:26px; font-weight:900}
 .bar-right{display:flex; flex-direction:column; align-items:flex-end; gap:6px}
 .brandline{display:flex; gap:10px; align-items:baseline}
 .wordmark{letter-spacing:.14em; font-weight:900}
@@ -19,61 +31,114 @@ html.dark{background:var(--bg); color:var(--text); font:16px/1.55 system-ui,-app
 .contactline a{color:#fff; text-decoration:underline dotted}
 
 /* Grid + cards (screen) */
-.grid{padding:18px; display:grid; grid-template-columns:repeat(3,1fr); gap:18px}
-.card{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; display:flex; flex-direction:column; break-inside:avoid}
-.hero{position:relative; aspect-ratio:4/5; background:#0f0f12}
-.hero img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; filter:grayscale(1)}
+.grid{
+  padding:18px;
+  display:grid; grid-template-columns:repeat(3,1fr); gap:18px;
+}
+.card{
+  background:var(--card); border:1px solid var(--line);
+  border-radius:var(--radius); overflow:hidden;
+  display:flex; flex-direction:column;
+  break-inside:avoid;
+}
+.hero{
+  position:relative; aspect-ratio:4/5;
+  background:#0f0f12 center/cover no-repeat;
+  filter:grayscale(1); /* make images B/W */
+}
 .body{padding:10px 12px}
 h3{margin:0 0 4px; font-size:17px; font-weight:800; color:#fff}
 .sub{margin:0 0 8px; color:var(--muted); font-size:.92rem}
 .links{display:flex; gap:8px; flex-wrap:wrap}
-.a{display:inline-flex; align-items:center; gap:6px; padding:7px 10px; border-radius:10px; border:1px solid var(--line); background:#1a1a20; color:#fff; text-decoration:none; font-weight:700; font-size:.9rem}
+.a{
+  display:inline-flex; align-items:center; gap:6px;
+  padding:7px 10px; border-radius:10px; border:1px solid var(--line);
+  background:#1a1a20; color:#fff; text-decoration:none; font-weight:700; font-size:.9rem;
+}
 .a::before{content:"🔗"}
 
+/* Smaller compact mode (optional) */
 body.compact .grid{gap:12px}
 body.compact h3{font-size:15px}
 body.compact .sub{font-size:.85rem; margin-bottom:6px}
 body.compact .a{font-size:.82rem; padding:6px 8px}
 body.compact .hero{aspect-ratio:3/4}
 
-/* ===================== PRINT (no big outer frame) ===================== */
-@page{ size:A4; margin:10mm; }
-@media print{
-  .print-hide{display:none !important}
-  html,body{background:#fff; color:#000; -webkit-print-color-adjust:exact; print-color-adjust:exact;}
+/* =================================================================
+   PRINT — A4, Chrome/Safari safe. NO outer black frame anywhere.
+   Supports densities:
+     default/d9 = 3×3 (9 per page),
+     d12         = 3×4 (12 per page),
+     d15         = 3×5 (15 per page)
+   ================================================================= */
 
+@page { size: A4; margin: 10mm; }
+
+@media print{
+  /* Keep colors & hide UI */
+  html,body{
+    background:#fff !important; color:#000 !important;
+    -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important;
+  }
+  .toolbar, .print-hide { display:none !important; }
+
+  /* Header (top band) */
   .bar{ position:static; background:#fff; border:none; margin:0 0 3mm 0; padding:0; }
   .bar-left h1{font-size:18px !important}
   .brandline{gap:6px}
   .wordmark,.tagline,.contactline,.contactline a{color:#000}
   .contactline{font-size:10.5px}
 
-  /* Base = 3×3 (9 per page) */
-  .grid{gap:4.5mm; page-break-inside:avoid; break-inside:avoid}
-  .card{background:#fff; border:.5pt solid #cfcfd3; border-radius:12px; page-break-inside:avoid; break-inside:avoid}
-  .hero{aspect-ratio:3/4}
-  .hero img{filter:grayscale(1)}
+  /* Grid base = 3 columns (A4 portrait) */
+  .grid, #root{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:4.5mm;        /* tighter for print */
+    page-break-inside:avoid;
+    break-inside:avoid;
+    padding:0;        /* remove page padding artifacts */
+  }
+
+  /* Card look on paper */
+  .card{
+    background:#fff !important;
+    border:.5pt solid #cfcfd3 !important;
+    border-radius:12px !important;
+    box-shadow:none !important;
+    page-break-inside:avoid; break-inside:avoid;
+  }
+  .hero{
+    aspect-ratio:3/4;                /* more vertical for print */
+    background-color:#000 !important; /* solid base */
+    filter:grayscale(1) !important;
+  }
   .body{padding:5px 7px}
   .card h3{font-size:12px !important; color:#000 !important}
   .sub{font-size:10.5px !important; margin-bottom:4px !important; color:#333 !important}
-  .a{background:transparent !important; border:none !important; padding:0 !important; font-size:10px !important; color:#000 !important; text-decoration:underline !important}
+  .a{
+    background:transparent !important; border:none !important;
+    padding:0 !important; font-size:10px !important; color:#000 !important;
+    text-decoration:underline !important;
+  }
   .a::before{content:"🔗"; margin-right:4px}
+
+  /* Page breaks for 9 per page (default) */
   .card:nth-child(9n){ break-after:page; page-break-after:always; }
 
-  /* Density 12 (3×4) */
-  body.d12 .grid{gap:4mm}
-  body.d12 .hero{aspect-ratio:4/5}
-  body.d12 .card h3{font-size:11px !important}
-  body.d12 .sub{font-size:10px !important}
-  body.d12 .a{font-size:9.5px !important}
+  /* Density 12 (3×4) — add class "d12" to <body> from JS when ?density=12 */
+  body.d12 .grid, body.d12 #root{ gap:4mm; }
+  body.d12 .hero{ aspect-ratio:4/5; }
+  body.d12 .card h3{ font-size:11px !important; }
+  body.d12 .sub{ font-size:10px !important; }
+  body.d12 .a{ font-size:9.5px !important; }
   body.d12 .card:nth-child(12n){ break-after:page; page-break-after:always; }
 
-  /* Density 15 (3×5) */
-  body.d15 .grid{gap:3.5mm}
-  body.d15 .hero{aspect-ratio:1/1}
-  body.d15 .body{padding:4px 6px}
-  body.d15 .card h3{font-size:10px !important}
-  body.d15 .sub{font-size:9.5px !important}
-  body.d15 .a{font-size:9px !important}
+  /* Density 15 (3×5) — add class "d15" to <body> when ?density=15 */
+  body.d15 .grid, body.d15 #root{ gap:3.5mm; }
+  body.d15 .hero{ aspect-ratio:1/1; }
+  body.d15 .body{ padding:4px 6px; }
+  body.d15 .card h3{ font-size:10px !important; }
+  body.d15 .sub{ font-size:9.5px !important; }
+  body.d15 .a{ font-size:9px !important; }
   body.d15 .card:nth-child(15n){ break-after:page; page-break-after:always; }
 }
