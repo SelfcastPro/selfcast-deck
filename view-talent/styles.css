@@ -18,7 +18,7 @@ html.dark{background:var(--bg); color:var(--text); font:16px/1.55 system-ui,-app
 .contactline{font-size:.92rem}
 .contactline a{color:#fff; text-decoration:underline dotted}
 
-/* Grid + cards */
+/* Grid + cards (screen) */
 .grid{padding:18px; display:grid; grid-template-columns:repeat(3,1fr); gap:18px}
 .card{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; display:flex; flex-direction:column; break-inside:avoid}
 .hero{aspect-ratio:4/5; background:#0f0f12 center/cover no-repeat; filter:grayscale(1)}
@@ -29,28 +29,39 @@ h3{margin:0 0 4px; font-size:17px; font-weight:800; color:#fff}
 .a{display:inline-flex; align-items:center; gap:6px; padding:7px 10px; border-radius:10px; border:1px solid var(--line); background:#1a1a20; color:#fff; text-decoration:none; font-weight:700; font-size:.9rem}
 .a::before{content:"🔗"}
 
-/* Compact */
+/* Compact on screen (tighter) */
 body.compact .grid{gap:12px}
 body.compact h3{font-size:15px}
 body.compact .sub{font-size:.85rem; margin-bottom:6px}
 body.compact .a{font-size:.82rem; padding:6px 8px}
 body.compact .hero{aspect-ratio:3/4}
 
-/* Print */
+/* Print: 3×3 = 9 per page (default) */
 @page{ size:A4; margin:10mm; }
 @media print{
   .print-hide{display:none !important}
   html,body{background:#fff; color:#000}
-  .bar{position:static; background:#fff; border-color:#000; margin-bottom:6mm}
+
+  /* keep header slim so 3 rows fit */
+  .bar{position:static; background:#fff; border-color:#000; margin-bottom:4mm; padding:10mm 0 2mm 0}
+  .bar-left h1{font-size:22px !important}
   .contactline, .contactline a, .wordmark, .tagline{color:#000}
 
-  .grid{gap:6mm; page-break-inside:avoid; break-inside:avoid}
-  .card{border:1px solid #000; background:#111; page-break-inside:avoid; break-inside:avoid}
+  /* tighter grid + smaller text/buttons on cards */
+  .grid{gap:5mm; page-break-inside:avoid; break-inside:avoid}
+  .card{border:0.75pt solid #000; background:#111; page-break-inside:avoid; break-inside:avoid}
+  .hero{aspect-ratio:3/4}                       /* shorter image -> fits 3 rows */
+  .body{padding:6px 8px}
+  .card h3{font-size:13px !important}
+  .sub{font-size:11px !important; margin-bottom:4px !important}
+  .a{font-size:10.5px !important; padding:4px 6px !important; border:1px solid #fff}
   .card, .card *{color:#fff !important}
-  .a{border:1px solid #fff}
 
-  /* 3x4 per page */
-  .card:nth-child(12n){ break-after:page; page-break-after:always; }
-  body.compact .card:nth-child(12n){ break-after:auto; page-break-after:auto; }
-  body.compact .card:nth-child(15n){ break-after:page; page-break-after:always; }
+  /* EXACT page break: every 9 cards */
+  .card:nth-child(9n){ break-after:page; page-break-after:always; }
+
+  /* If you append ?compact=1 to the link, print 12 per page instead */
+  body.compact .hero{aspect-ratio:4/5}
+  body.compact .grid{gap:4.5mm}
+  body.compact .card:nth-child(12n){ break-after:page; page-break-after:always; }
 }
