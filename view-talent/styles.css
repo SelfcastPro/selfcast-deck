@@ -45,7 +45,8 @@ body.cols4 .grid{ grid-template-columns:repeat(4,1fr); }
 .hero{ position:relative; aspect-ratio:4/5; background:#0f0f12; display:block; }
 .hero img{
   position:absolute; inset:0; width:100%; height:100%;
-  object-fit:cover; display:block; filter:grayscale(1);
+  object-fit:cover; object-position:top center;   /* <-- anchor faces to the top */
+  display:block; filter:grayscale(1);
 }
 .body{padding:10px 12px}
 h3{margin:0 0 4px; font-size:17px; font-weight:800; color:#fff}
@@ -72,8 +73,7 @@ body.compact .hero{aspect-ratio:3/4}
      d12         = 3×4  (12 per page)
      d15         = 3×5  (15 per page)
      cols4       = 4×3  (12 per page)
-   Key fix: use FIXED millimeter heights for heroes and
-            STATIC positioned <img> in print.
+   Key fix: fixed mm heights + top-anchored images for Chrome.
    =========================================================== */
 
 @page{ size:A4; margin:8mm; }
@@ -105,10 +105,11 @@ body.compact .hero{aspect-ratio:3/4}
     page-break-inside:avoid; break-inside:avoid;
   }
 
-  /* IMPORTANT: fixed hero heights for Chrome printing */
+  /* FIX: deterministic hero size in mm + top-anchored image */
   .hero{ background:#000 !important; height:70mm; }
   .hero img{
-    position:static !important; width:100% !important; height:100% !important; object-fit:cover !important;
+    position:static !important; width:100% !important; height:100% !important;
+    object-fit:cover !important; object-position:top center !important;  /* <-- important for faces */
     filter:grayscale(1) !important;
   }
 
@@ -121,7 +122,7 @@ body.compact .hero{aspect-ratio:3/4}
   }
   .a::before{ content:"🔗"; margin-right:3px }
 
-  /* Page breaks — 9 per page */
+  /* Page break every 9 talents */
   .card:nth-child(9n){ break-after:page; page-break-after:always; }
 
   /* Density 12 (3×4) */
