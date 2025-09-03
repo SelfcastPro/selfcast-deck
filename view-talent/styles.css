@@ -35,16 +35,20 @@ html.dark{background:var(--bg); color:var(--text); font:16px/1.55 system-ui,-app
   padding:18px;
   display:grid; grid-template-columns:repeat(3,1fr); gap:18px;
 }
+body.cols4 .grid{ grid-template-columns:repeat(4,1fr); }
+
 .card{
   background:var(--card); border:1px solid var(--line);
   border-radius:var(--radius); overflow:hidden;
-  display:flex; flex-direction:column;
-  break-inside:avoid;
+  display:flex; flex-direction:column; break-inside:avoid;
 }
 .hero{
   position:relative; aspect-ratio:4/5;
-  background:#0f0f12 center/cover no-repeat;
-  filter:grayscale(1); /* make images B/W */
+  background:#0f0f12; display:block;
+}
+.hero img{
+  position:absolute; inset:0; width:100%; height:100%;
+  object-fit:cover; display:block; filter:grayscale(1);
 }
 .body{padding:10px 12px}
 h3{margin:0 0 4px; font-size:17px; font-weight:800; color:#fff}
@@ -65,80 +69,81 @@ body.compact .a{font-size:.82rem; padding:6px 8px}
 body.compact .hero{aspect-ratio:3/4}
 
 /* =================================================================
-   PRINT — A4, Chrome/Safari safe. NO outer black frame anywhere.
-   Supports densities:
-     default/d9 = 3×3 (9 per page),
-     d12         = 3×4 (12 per page),
-     d15         = 3×5 (15 per page)
+   PRINT — A4, Chrome/Safari safe. No outer black frame.
+   Modes:
+     default/d9  = 3×3  (9 per page)  — smaller than before
+     d12         = 3×4  (12 per page)
+     d15         = 3×5  (15 per page)
+     cols4       = 4×3  (12 per page) — 4 columns layout
    ================================================================= */
 
-@page { size: A4; margin: 10mm; }
+@page { size: A4; margin: 8mm; }  /* a bit tighter to fit more */
 
 @media print{
-  /* Keep colors & hide UI */
   html,body{
     background:#fff !important; color:#000 !important;
     -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important;
   }
   .toolbar, .print-hide { display:none !important; }
 
-  /* Header (top band) */
+  /* Header */
   .bar{ position:static; background:#fff; border:none; margin:0 0 3mm 0; padding:0; }
-  .bar-left h1{font-size:18px !important}
+  .bar-left h1{font-size:16px !important}
   .brandline{gap:6px}
   .wordmark,.tagline,.contactline,.contactline a{color:#000}
-  .contactline{font-size:10.5px}
+  .contactline{font-size:10px}
 
-  /* Grid base = 3 columns (A4 portrait) */
+  /* Grid base = 3 columns */
   .grid, #root{
-    display:grid;
-    grid-template-columns:repeat(3, 1fr);
-    gap:4.5mm;        /* tighter for print */
-    page-break-inside:avoid;
-    break-inside:avoid;
-    padding:0;        /* remove page padding artifacts */
+    display:grid; grid-template-columns:repeat(3, 1fr);
+    gap:3.8mm; page-break-inside:avoid; break-inside:avoid; padding:0;
   }
 
-  /* Card look on paper */
+  /* Card + content (smaller than before) */
   .card{
-    background:#fff !important;
-    border:.5pt solid #cfcfd3 !important;
-    border-radius:12px !important;
-    box-shadow:none !important;
+    background:#fff !important; border:.45pt solid #cfcfd3 !important;
+    border-radius:10px !important; box-shadow:none !important;
     page-break-inside:avoid; break-inside:avoid;
   }
-  .hero{
-    aspect-ratio:3/4;                /* more vertical for print */
-    background-color:#000 !important; /* solid base */
-    filter:grayscale(1) !important;
-  }
-  .body{padding:5px 7px}
-  .card h3{font-size:12px !important; color:#000 !important}
-  .sub{font-size:10.5px !important; margin-bottom:4px !important; color:#333 !important}
+  /* shorter hero to fit 3 rows cleanly */
+  .hero{ aspect-ratio:2/3; background-color:#000 !important; }
+  .hero img{ filter:grayscale(1) !important; }
+  .body{ padding:4px 6px }
+  .card h3{ font-size:10.8px !important; color:#000 !important }
+  .sub{ font-size:9.6px !important; margin-bottom:3px !important; color:#333 !important }
   .a{
     background:transparent !important; border:none !important;
-    padding:0 !important; font-size:10px !important; color:#000 !important;
+    padding:0 !important; font-size:9.2px !important; color:#000 !important;
     text-decoration:underline !important;
   }
-  .a::before{content:"🔗"; margin-right:4px}
+  .a::before{content:"🔗"; margin-right:3px}
 
-  /* Page breaks for 9 per page (default) */
+  /* Page breaks for 9 per page */
   .card:nth-child(9n){ break-after:page; page-break-after:always; }
 
-  /* Density 12 (3×4) — add class "d12" to <body> from JS when ?density=12 */
-  body.d12 .grid, body.d12 #root{ gap:4mm; }
-  body.d12 .hero{ aspect-ratio:4/5; }
-  body.d12 .card h3{ font-size:11px !important; }
-  body.d12 .sub{ font-size:10px !important; }
-  body.d12 .a{ font-size:9.5px !important; }
+  /* Density 12 (3×4) */
+  body.d12 .grid, body.d12 #root{ gap:3.6mm; }
+  body.d12 .hero{ aspect-ratio:3/4; }
+  body.d12 .card h3{ font-size:10.2px !important; }
+  body.d12 .sub{ font-size:9.2px !important; }
+  body.d12 .a{ font-size:8.8px !important; }
   body.d12 .card:nth-child(12n){ break-after:page; page-break-after:always; }
 
-  /* Density 15 (3×5) — add class "d15" to <body> when ?density=15 */
-  body.d15 .grid, body.d15 #root{ gap:3.5mm; }
+  /* Density 15 (3×5) */
+  body.d15 .grid, body.d15 #root{ gap:3.2mm; }
   body.d15 .hero{ aspect-ratio:1/1; }
-  body.d15 .body{ padding:4px 6px; }
-  body.d15 .card h3{ font-size:10px !important; }
-  body.d15 .sub{ font-size:9.5px !important; }
-  body.d15 .a{ font-size:9px !important; }
+  body.d15 .body{ padding:3px 5px }
+  body.d15 .card h3{ font-size:9.6px !important; }
+  body.d15 .sub{ font-size:9px !important; }
+  body.d15 .a{ font-size:8.6px !important; }
   body.d15 .card:nth-child(15n){ break-after:page; page-break-after:always; }
+
+  /* 4 columns mode (12 per page = 4×3) */
+  body.cols4 .grid, body.cols4 #root{ grid-template-columns:repeat(4,1fr); gap:3.2mm; }
+  body.cols4 .hero{ aspect-ratio:3/4; }
+  body.cols4 .body{ padding:3px 5px }
+  body.cols4 .card h3{ font-size:9.4px !important; }
+  body.cols4 .sub{ font-size:8.8px !important; }
+  body.cols4 .a{ font-size:8.4px !important; }
+  body.cols4 .card:nth-child(12n){ break-after:page; page-break-after:always; }
 }
