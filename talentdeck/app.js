@@ -1,9 +1,11 @@
-// talentdeck/app.js — Talent Builder v4.2.0
+// talentdeck/app.js — Talent Builder v4.2.1
 // - Preview always shows data (or demo fallback)
 // - Generate copies link (Bitly if configured, long link otherwise)
 // - Export PDF prints the preview iframe
 // - Enable clicks in preview default ON
 // - Project Save/Open/Delete in localStorage
+// - NEW: add pasted talents at TOP (not bottom) + keep order
+// - NEW: currentDeckData keeps the visual order from `talents` array
 
 (function () {
   const STORE_KEY     = 'sc_talentdeck_autosave_v420';
@@ -131,6 +133,7 @@
     try { localStorage.setItem(PROJECTS_KEY, JSON.stringify(obj || {})); } catch {}
   }
   function refreshProjectSelect(){
+    if (!els.selProject) return;
     const projects = readProjects();
     const names = Object.keys(projects).sort((a,b)=>a.localeCompare(b));
     els.selProject.innerHTML = '<option value="">— Select saved project —</option>' +
@@ -147,7 +150,7 @@
     alert('Project saved.');
   }
   function openProject(){
-    const name = els.selProject.value;
+    const name = els.selProject?.value;
     if (!name) { alert('Select a saved project first.'); return; }
     const projects = readProjects();
     const deck = projects[name];
@@ -164,7 +167,7 @@
     renderList(); autosave(); openPreview();
   }
   function deleteProject(){
-    const name = els.selProject.value;
+    const name = els.selProject?.value;
     if (!name) { alert('Select a saved project.'); return; }
     const ok = confirm(`Delete project "${name}"?`);
     if (!ok) return;
@@ -172,7 +175,7 @@
     delete projects[name];
     writeProjects(projects);
     refreshProjectSelect();
-    els.selProject.value = '';
+    if (els.selProject) els.selProject.value = '';
     alert('Deleted.');
   }
 
@@ -235,7 +238,8 @@
 
   // ---------- payload ----------
   function currentDeckData() {
-    const arr = selected.size ? Array.from(selected.values()) : talents.slice();
+    // Preserve visual order: take talents[] order but only the selected ones
+    const arr = talents.filter(t => selected.has(t.id));
     return {
       kind: 'talent-deck',
       title: els.title?.value || 'Untitled',
@@ -284,161 +288,49 @@
   }
 
   // ---------- load ----------
-  function loadFromTextarea() {
-    const lines = parseLines();
-    if (!lines.length) { alert('Paste at least one talent link or ID'); return; }
-
-    for (let i = 0; i < lines.length; i++) {
-      const raw = lines[i];
-
-      if (raw.includes('|')) {
-        const t = fromPipe(raw);
-        upsert(t);
-        uniqPushRecent(raw.split('|')[0].trim());
-        continue;
-      }
-
-      const profile_url = toProfileUrl(raw);
-      const t = {
-        id: idFromProfileUrl(profile_url),
-        name: '', height_cm: '', country: '',
-        primary_image: '', requested_media_url: '',
-        profile_url
-      };
-      upsert(t);
-      uniqPushRecent(raw);
-
-      const next = lines[i + 1];
-      if (next && isImageUrl(next)) { t.primary_image = next.trim(); touch(t); i += 1; }
-    }
-
-    renderList(); autosave(); openPreview();
-    els.input.value = '';
-  }
-
-  function upsert(t) {
+  // Insert/merge but NEW items go to TOP
+  function upsertTop(t) {
     const idx = talents.findIndex(x => String(x.id) === String(t.id));
-    if (idx >= 0) talents[idx] = { ...talents[idx], ...t };
-    else talents.push(t);
-    selected.set(t.id, idx >= 0 ? talents[idx] : t);
+    if (idx >= 0) {
+      talents[idx] = { ...talents[idx], ...t };
+      selected.set(t.id, talents[idx]);
+    } else {
+      talents.unshift(t); // TOP
+      selected.set(t.id, t);
+    }
   }
   function touch(t) {
     const idx = talents.findIndex(x => String(x.id) === String(t.id));
     if (idx >= 0) talents[idx] = { ...t };
-    selected.set(t.id, talents[idx] || t);
+    else talents.unshift(t);
+    selected.set(t.id, talents.find(x => x.id === t.id) || t);
   }
 
-  // ---------- events ----------
-  els.load?.addEventListener('click', loadFromTextarea);
-  els.selectAll?.addEventListener('click', () => { talents.forEach(t => selected.set(t.id, t)); renderList(); autosave(); openPreview(); });
-  els.clear?.addEventListener('click', () => { talents = []; selected.clear(); els.list.innerHTML = ''; autosave(); openPreview(); });
+  function loadFromTextarea() {
+    const lines = parseLines();
+    if (!lines.length) { alert('Paste at least one talent link or ID'); return; }
 
-  [els.title, els.ownerName, els.ownerEmail, els.ownerPhone]
-    .filter(Boolean)
-    .forEach(inp => inp.addEventListener('input', () => { autosave(); openPreview(); }));
+    // Walk from bottom to top so the first pasted line ends up at the very top.
+    for (let i = lines.length - 1; i >= 0; i--) {
+      let raw = lines[i];
 
-  els.filter?.addEventListener('input', renderList);
+      // Pair "image line" above a profile when user pasted two lines (profile then image)
+      if (isImageUrl(raw) && i > 0) {
+        const imgUrl = raw;
+        const prev = lines[i - 1];
+        if (!prev.includes('|')) {
+          const profile_url = toProfileUrl(prev);
+          const t = {
+            id: idFromProfileUrl(profile_url),
+            name: '', height_cm: '', country: '',
+            primary_image: imgUrl, requested_media_url: '',
+            profile_url
+          };
+          upsertTop(t);
+          uniqPushRecent(prev);
+          i -= 1; // consumed the profile line
+          continue;
+        }
+      }
 
-  // Edit / Remove / Cancel
-  els.list?.addEventListener('click', (e) => {
-    const editBtn = e.target.closest('.edit-btn');
-    const removeBtn = e.target.closest('.remove-btn');
-    const cancelBtn = e.target.closest('.cancel-edit');
-
-    if (editBtn) {
-      const id = editBtn.dataset.id;
-      const li = els.list.querySelector(`li[data-id="${CSS.escape(id)}"]`);
-      if (li) li.classList.toggle('open');
-    }
-    if (removeBtn) {
-      const id = removeBtn.dataset.id;
-      talents = talents.filter(t => String(t.id) !== String(id));
-      selected.delete(id);
-      renderList(); autosave(); openPreview();
-    }
-    if (cancelBtn) {
-      const li = cancelBtn.closest('li.list-item');
-      if (li) li.classList.remove('open');
-    }
-  });
-
-  els.list?.addEventListener('change', (e) => {
-    const cb = e.target;
-    if (cb?.dataset?.id) {
-      const t = talents.find(x => String(x.id) === String(cb.dataset.id));
-      if (!t) return;
-      if (cb.checked) selected.set(t.id, t);
-      else selected.delete(t.id);
-      autosave(); openPreview();
-    }
-  });
-
-  els.list?.addEventListener('submit', (e) => {
-    const form = e.target.closest('form.edit-panel');
-    if (!form) return;
-    e.preventDefault();
-
-    const id = form.dataset.id;
-    const idx = talents.findIndex(x => String(x.id) === String(id));
-    if (idx < 0) return;
-
-    const fd = new FormData(form);
-    const t = talents[idx];
-    t.name                = (fd.get('name') || '').toString().trim();
-    t.height_cm           = (fd.get('height_cm') || '').toString().trim();
-    t.country             = (fd.get('country') || '').toString().trim();
-    t.profile_url         = (fd.get('profile_url') || '').toString().trim();
-    t.requested_media_url = (fd.get('requested_media_url') || '').toString().trim();
-    t.primary_image       = (fd.get('primary_image') || '').toString().trim();
-
-    talents[idx] = t;
-    selected.set(t.id, t);
-    renderList(); autosave(); openPreview();
-
-    const li = els.list.querySelector(`li[data-id="${CSS.escape(id)}"]`);
-    if (li) li.classList.add('open');
-  });
-
-  // Generate: open + copy short link (fallback to long)
-  els.gen?.addEventListener('click', async () => {
-    const data = btoa(unescape(encodeURIComponent(JSON.stringify(currentDeckData()))));
-    const shareUrl = `${location.origin}/view-talent/?compact=1&data=${data}`;
-    els.preview.src = shareUrl;
-
-    let toCopy = shareUrl;
-    try { toCopy = await shorten(shareUrl); } catch {}
-    try { await navigator.clipboard.writeText(toCopy); alert(`Share link copied:\n${toCopy}`); }
-    catch { alert(`Share link:\n${toCopy}`); }
-  });
-
-  // Export PDF via view (iframe)
-  els.pdf?.addEventListener('click', () => {
-    els.preview.contentWindow?.postMessage({ type: 'print' }, '*');
-  });
-
-  els.prev?.addEventListener('click', () => history.back());
-  els.next?.addEventListener('click', () => (location.href = '/view-talent/'));
-
-  // Preview click toggle (default: ENABLED)
-  function applyPreviewClicks(){
-    if (!els.preview) return;
-    const on = els.toggleClicks ? els.toggleClicks.checked : true;
-    els.preview.style.pointerEvents = on ? 'auto' : 'none';
-  }
-  if (els.toggleClicks) {
-    els.toggleClicks.checked = true;
-    els.toggleClicks.addEventListener('change', applyPreviewClicks);
-  }
-  applyPreviewClicks();
-
-  // Project buttons
-  els.saveProject?.addEventListener('click', saveProject);
-  els.openProject?.addEventListener('click', openProject);
-  els.deleteProject?.addEventListener('click', deleteProject);
-
-  // ---------- init ----------
-  refreshProjectSelect();
-  const restored = autoload();
-  if (!restored) els.preview.src = '/view-talent/?demo=1';
-  console.log('[talentdeck v4.2.0] ready');
-})();
+      if (raw
