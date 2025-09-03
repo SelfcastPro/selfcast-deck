@@ -1,11 +1,15 @@
-// Talent Builder — simple, English, no-API, autosave, recent 20, inline edit
+// Talent Builder — simple, English, no-API, autosave, recent 20, inline edit + preview click toggle
 (function () {
-  const STORE_KEY  = 'sc_talentdeck_v3';
+  const STORE_KEY  = 'sc_talentdeck_v4';
   const RECENT_KEY = 'sc_talentdeck_recent_v1';
 
   const $ = (id) => document.getElementById(id);
   const els = {
     title: $('deckTitle'),
+    ownerName: $('ownerName'),
+    ownerEmail: $('ownerEmail'),
+    ownerPhone: $('ownerPhone'),
+
     input: $('talentInput'),
     load: $('btnLoad'),
     selectAll: $('btnSelectAll'),
@@ -17,24 +21,20 @@
     filter: $('filterInput'),
     list: $('talentList'),
     preview: $('preview'),
+    toggleClicks: $('togglePreviewClicks'),
   };
-
-  // Make sure the preview cannot steal clicks
-  if (els.preview) { els.preview.style.pointerEvents = 'none'; els.preview.style.zIndex = '0'; }
 
   let talents  = [];
   let selected = new Map();
 
+  // --- helpers ---
   const isHttp = s => /^https?:\/\//i.test(s);
   const isImageUrl = s => /\.(jpe?g|png|webp|gif)(\?|#|$)/i.test(s) || /picsum\.photos/i.test(s);
 
   function parseLines() {
     return (els.input.value || '')
-      .split(/\r?\n/)
-      .map(s => s.trim())
-      .filter(Boolean);
+      .split(/\r?\n/).map(s => s.trim()).filter(Boolean);
   }
-
   function toProfileUrl(urlOrId) {
     if (!urlOrId) return '';
     if (isHttp(urlOrId)) return urlOrId;
@@ -42,12 +42,10 @@
     if (m) return `https://producer.selfcast.com/talent/${m[1]}`;
     return `https://producer.selfcast.com/talent/${urlOrId}`;
   }
-
   function idFromProfileUrl(u) {
     const m = String(u).match(/\/talent\/([^/?#]+)/i);
     return m ? m[1] : String(u);
   }
-
   // Pipe: profile | name | height | country | image | requested
   function fromPipe(line) {
     const p = line.split('|').map(s => s.trim());
@@ -74,7 +72,17 @@
   }
 
   function saveDeck() {
-    try { localStorage.setItem(STORE_KEY, JSON.stringify({ title: els.title.value || '', talents })); } catch {}
+    try {
+      localStorage.setItem(STORE_KEY, JSON.stringify({
+        title: els.title.value || '',
+        owner: {
+          name: els.ownerName.value || '',
+          email: els.ownerEmail.value || '',
+          phone: els.ownerPhone.value || ''
+        },
+        talents
+      }));
+    } catch {}
   }
   function loadDeck() {
     try {
@@ -82,6 +90,9 @@
       if (!raw) return false;
       const d = JSON.parse(raw);
       els.title.value = d.title || '';
+      els.ownerName.value = d.owner?.name || '';
+      els.ownerEmail.value = d.owner?.email || '';
+      els.ownerPhone.value = d.owner?.phone || '';
       talents = Array.isArray(d.talents) ? d.talents : [];
       selected = new Map(talents.map(t => [t.id, t]));
       renderList(); openPreview();
@@ -99,6 +110,7 @@
   function subLine(t) {
     return [t.height_cm ? `${t.height_cm} cm` : '', t.country || ''].filter(Boolean).join(' · ');
   }
+  function esc(s){ return String(s||'').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
 
   function renderList() {
     const q = (els.filter.value || '').toLowerCase().trim();
@@ -153,15 +165,17 @@
       });
   }
 
-  function esc(s){ return String(s||'').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
-
   function currentDeckData() {
     const arr = Array.from(selected.values());
     return {
       kind: 'talent-deck',
       title: els.title.value || 'Untitled',
       created_at: new Date().toISOString(),
-      owner: { name: 'Selfcast', email: 'info@selfcast.com', phone: '+45 22 81 31 13' },
+      owner: {
+        name: els.ownerName.value || 'Selfcast',
+        email: els.ownerEmail.value || 'info@selfcast.com',
+        phone: els.ownerPhone.value || '+45 22 81 31 13'
+      },
       talents: arr.map(t => ({
         id: t.id,
         name: t.name,
@@ -193,17 +207,15 @@
     } catch { return url; }
   }
 
-  // --------- LOAD from textarea ----------
+  // --------- LOAD ----------
   function loadFromTextarea() {
     const lines = parseLines();
     if (!lines.length) { alert('Paste at least one talent link or ID'); return; }
 
     let last = null;
-
     for (let i = 0; i < lines.length; i++) {
       const raw = lines[i];
 
-      // Pipe format
       if (raw.includes('|')) {
         const t = fromPipe(raw);
         upsert(t);
@@ -212,22 +224,17 @@
         continue;
       }
 
-      // New profile (URL or ID)
       const profile_url = toProfileUrl(raw);
       const t = {
         id: idFromProfileUrl(profile_url),
-        name: '',
-        height_cm: '',
-        country: '',
-        primary_image: '',
-        requested_media_url: '',
+        name: '', height_cm: '', country: '',
+        primary_image: '', requested_media_url: '',
         profile_url
       };
       upsert(t);
       uniqPushRecent(raw);
       last = t;
 
-      // If next line looks like an image URL, attach it
       const next = lines[i + 1];
       if (next && isImageUrl(next)) { t.primary_image = next.trim(); touch(t); i += 1; }
     }
@@ -261,8 +268,11 @@
     saveDeck(); openPreview();
   });
 
+  [els.title, els.ownerName, els.ownerEmail, els.ownerPhone].forEach(inp =>
+    inp.addEventListener('input', () => { saveDeck(); openPreview(); })
+  );
+
   els.filter.addEventListener('input', renderList);
-  els.title.addEventListener('input', () => { saveDeck(); openPreview(); });
 
   // Edit / Remove / Cancel
   els.list.addEventListener('click', (e) => {
@@ -275,14 +285,12 @@
       const li = els.list.querySelector(`li[data-id="${CSS.escape(id)}"]`);
       if (li) li.classList.toggle('open');
     }
-
     if (removeBtn) {
       const id = removeBtn.dataset.id;
       talents = talents.filter(t => String(t.id) !== String(id));
       selected.delete(id);
       renderList(); saveDeck(); openPreview();
     }
-
     if (cancelBtn) {
       const li = cancelBtn.closest('li.list-item');
       if (li) li.classList.remove('open');
@@ -344,9 +352,14 @@
   els.prev.addEventListener('click', () => history.back());
   els.next.addEventListener('click', () => (location.href = '/view-talent/'));
 
-  // --------- Init ----------
+  // Preview click toggle
+  function applyPreviewClicks(){
+    els.preview.style.pointerEvents = els.togglePreviewClicks.checked ? 'auto' : 'none';
+  }
+  els.togglePreviewClicks.addEventListener('change', applyPreviewClicks);
+
+  // Init
   const restored = loadDeck();
   if (!restored) prefillRecent();
-
-  console.log('[talentdeck] ready');
+  applyPreviewClicks();
 })();
