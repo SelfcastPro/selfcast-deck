@@ -6,7 +6,7 @@
 html,body{height:100%}
 html.dark{background:var(--bg); color:var(--text); font:16px/1.55 system-ui,-apple-system,Segoe UI,Inter,Roboto,Helvetica,Arial}
 
-/* Header */
+/* Header (screen) */
 .bar{display:flex; justify-content:space-between; align-items:flex-start; gap:16px;
   padding:18px; border-bottom:1px solid var(--line); position:sticky; top:0; z-index:10;
   background:rgba(10,10,12,.85); backdrop-filter:blur(8px);}
@@ -36,32 +36,52 @@ body.compact .sub{font-size:.85rem; margin-bottom:6px}
 body.compact .a{font-size:.82rem; padding:6px 8px}
 body.compact .hero{aspect-ratio:3/4}
 
-/* Print: 3×3 = 9 per page (default) */
+/* ===================== PRINT (CLEAN WHITE CARDS) ===================== */
 @page{ size:A4; margin:10mm; }
 @media print{
   .print-hide{display:none !important}
   html,body{background:#fff; color:#000}
 
-  /* keep header slim so 3 rows fit */
-  .bar{position:static; background:#fff; border-color:#000; margin-bottom:4mm; padding:10mm 0 2mm 0}
+  /* slim header so 3 rows fit, and all text black */
+  .bar{
+    position:static; background:#fff; border-color:#000;
+    margin:0 0 4mm 0; padding:0 0 2mm 0;
+  }
   .bar-left h1{font-size:22px !important}
   .contactline, .contactline a, .wordmark, .tagline{color:#000}
 
-  /* tighter grid + smaller text/buttons on cards */
+  /* grid spacing for 3×3 per page */
   .grid{gap:5mm; page-break-inside:avoid; break-inside:avoid}
-  .card{border:0.75pt solid #000; background:#111; page-break-inside:avoid; break-inside:avoid}
-  .hero{aspect-ratio:3/4}                       /* shorter image -> fits 3 rows */
-  .body{padding:6px 8px}
-  .card h3{font-size:13px !important}
-  .sub{font-size:11px !important; margin-bottom:4px !important}
-  .a{font-size:10.5px !important; padding:4px 6px !important; border:1px solid #fff}
-  .card, .card *{color:#fff !important}
 
-  /* EXACT page break: every 9 cards */
+  /* WHITE cards – no dark box */
+  .card{
+    background:#fff;                 /* <-- remove dark box */
+    border:0.5pt solid #cfcfd3;      /* thin light border */
+    border-radius:12px;
+    page-break-inside:avoid; break-inside:avoid;
+  }
+  .hero{aspect-ratio:3/4; filter:grayscale(1)}  /* make image a touch shorter to fit 3 rows */
+  .body{padding:6px 8px}
+  .card h3{font-size:13px !important; color:#000 !important}
+  .sub{font-size:11px !important; margin-bottom:4px !important; color:#333 !important}
+
+  /* Links: no dark pill, just underlined text */
+  .a{
+    background:transparent !important;
+    border:none !important;
+    padding:0 !important;
+    font-size:11px !important;
+    color:#000 !important;
+    text-decoration:underline !important;
+    border-radius:0 !important;
+  }
+  .a::before{content:"🔗"; margin-right:4px}
+
+  /* Exact page breaks: 9 per page (3×3) */
   .card:nth-child(9n){ break-after:page; page-break-after:always; }
 
-  /* If you append ?compact=1 to the link, print 12 per page instead */
-  body.compact .hero{aspect-ratio:4/5}
+  /* If link has ?compact=1, print 12 per page */
   body.compact .grid{gap:4.5mm}
+  body.compact .hero{aspect-ratio:4/5}
   body.compact .card:nth-child(12n){ break-after:page; page-break-after:always; }
 }
