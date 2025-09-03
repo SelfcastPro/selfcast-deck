@@ -21,7 +21,8 @@ html.dark{background:var(--bg); color:var(--text); font:16px/1.55 system-ui,-app
 /* Grid + cards (screen) */
 .grid{padding:18px; display:grid; grid-template-columns:repeat(3,1fr); gap:18px}
 .card{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); overflow:hidden; display:flex; flex-direction:column; break-inside:avoid}
-.hero{aspect-ratio:4/5; background:#0f0f12 center/cover no-repeat; filter:grayscale(1)}
+.hero{position:relative; aspect-ratio:4/5; background:#0f0f12}
+.hero img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; filter:grayscale(1)}
 .body{padding:10px 12px}
 h3{margin:0 0 4px; font-size:17px; font-weight:800; color:#fff}
 .sub{margin:0 0 8px; color:var(--muted); font-size:.92rem}
@@ -35,11 +36,11 @@ body.compact .sub{font-size:.85rem; margin-bottom:6px}
 body.compact .a{font-size:.82rem; padding:6px 8px}
 body.compact .hero{aspect-ratio:3/4}
 
-/* ===================== PRINT (NO PAGE FRAME) ===================== */
+/* ===================== PRINT (no big outer frame) ===================== */
 @page{ size:A4; margin:10mm; }
 @media print{
   .print-hide{display:none !important}
-  html,body{background:#fff; color:#000}
+  html,body{background:#fff; color:#000; -webkit-print-color-adjust:exact; print-color-adjust:exact;}
 
   .bar{ position:static; background:#fff; border:none; margin:0 0 3mm 0; padding:0; }
   .bar-left h1{font-size:18px !important}
@@ -47,10 +48,11 @@ body.compact .hero{aspect-ratio:3/4}
   .wordmark,.tagline,.contactline,.contactline a{color:#000}
   .contactline{font-size:10.5px}
 
-  /* Base density: 9 per page (3×3) */
+  /* Base = 3×3 (9 per page) */
   .grid{gap:4.5mm; page-break-inside:avoid; break-inside:avoid}
   .card{background:#fff; border:.5pt solid #cfcfd3; border-radius:12px; page-break-inside:avoid; break-inside:avoid}
-  .hero{aspect-ratio:3/4; filter:grayscale(1)}
+  .hero{aspect-ratio:3/4}
+  .hero img{filter:grayscale(1)}
   .body{padding:5px 7px}
   .card h3{font-size:12px !important; color:#000 !important}
   .sub{font-size:10.5px !important; margin-bottom:4px !important; color:#333 !important}
@@ -66,9 +68,9 @@ body.compact .hero{aspect-ratio:3/4}
   body.d12 .a{font-size:9.5px !important}
   body.d12 .card:nth-child(12n){ break-after:page; page-break-after:always; }
 
-  /* Density 15 (3×5) — smallest */
+  /* Density 15 (3×5) */
   body.d15 .grid{gap:3.5mm}
-  body.d15 .hero{aspect-ratio:1/1} /* square thumbnails to fit 5 rows */
+  body.d15 .hero{aspect-ratio:1/1}
   body.d15 .body{padding:4px 6px}
   body.d15 .card h3{font-size:10px !important}
   body.d15 .sub{font-size:9.5px !important}
