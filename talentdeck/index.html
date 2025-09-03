@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>Selfcast — Talent Presentation Builder</title>
   <meta name="color-scheme" content="dark light">
-  <link rel="stylesheet" href="./styles.css?v=4.2.2"/>
+  <link rel="stylesheet" href="./styles.css?v=4.4.0"/>
 </head>
 <body>
   <header class="topbar">
@@ -14,7 +14,9 @@
       <div class="tagline">CASTING MADE EASY</div>
     </div>
     <div class="actions">
-      <!-- Only keep Export PDF -->
+      <!-- NEW: generate sharable (Bitly) link -->
+      <button id="btnCopyShare" class="btn secondary">Generate shared link</button>
+      <!-- Export PDF (opens view in new tab + auto print) -->
       <button id="btnExportPdf" class="btn">Export PDF</button>
     </div>
   </header>
@@ -85,6 +87,6 @@
     <small>Powered by <strong>SELFCAST</strong></small>
   </footer>
 
-  <script src="./app.js?v=4.2.2" defer></script>
+  <script src="./app.js?v=4.4.0" defer></script>
 </body>
 </html>
