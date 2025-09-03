@@ -1,10 +1,4 @@
-// view-talent/app.js — v1.2.4
-// - Robust print (wait for fonts + images)
-// - ?density=9|12|15  (default 9)
-// - ?cols=4           (screen & print -> 4 columns / 12 per page)
-// - ?compact=1
-// - ?print=1 auto-print
-// - <img> heroes (print-safe)
+// view-talent/app.js — v1.2.5  (Chrome print safe; supports ?density & ?cols)
 
 (function(){
   const qs = new URLSearchParams(location.search);
@@ -20,7 +14,7 @@
   function el(tag, cls, html){ const n=document.createElement(tag); if(cls) n.className=cls; if(html!==undefined) n.innerHTML=html; return n; }
   function a(href, text){ const x=document.createElement('a'); x.className='a'; x.href=href||'#'; x.target='_blank'; x.rel='noopener'; x.textContent=text; return x; }
 
-  // Header / roots
+  // Header
   let bar = document.querySelector('.bar');
   if (!bar){
     bar = el('header','bar', `
@@ -40,8 +34,8 @@
   if (!root){ root = el('section','grid'); root.id='root'; document.body.appendChild(root); }
 
   // Layout flags
-  const density = get('density', '9');           // "9"|"12"|"15"
-  const cols    = get('cols',  null);            // "4" -> 4 columns
+  const density = get('density', '9');                 // "9"|"12"|"15"
+  const cols    = get('cols',  null);                  // "4" -> 4 columns
   if (density === '12') document.body.classList.add('d12');
   else if (density === '15') document.body.classList.add('d15');
   if (cols === '4') document.body.classList.add('cols4');
@@ -71,7 +65,8 @@
       const card = el('article','card');
       const hero = el('div','hero');
       const img  = document.createElement('img');
-      img.alt = t.name || 'Talent'; img.loading='eager'; img.decoding='sync'; img.src = t.primary_image || '';
+      img.alt = t.name || 'Talent'; img.loading='eager'; img.decoding='sync';
+      img.src = t.primary_image || '';
       hero.appendChild(img); card.appendChild(hero);
 
       const body = el('div','body');
