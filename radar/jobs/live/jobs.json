@@ -1,5 +1,33 @@
 [
   {
+    "id": "05040211bb9458f63e761ed6bc84d88faad323c7",
+    "title": "Fjord Photoshoot - Fjord Norway",
+    "link": "https://www.fjordnorway.com/no/se-og-gjore/fjord-photoshoot",
+    "snippet": "Det er perfekt for familieportretter, par utendørs eventyr, forlovelser, forslag, før bryllup, jubileer og å ha minner å verne om fra ditt besøk til fjordene.",
+    "source_domain": "fjordnorway.com",
+    "country": "Norway",
+    "lang": "no",
+    "query": "photoshoot Norway -site:youtube.com",
+    "fetched_at": "2025-09-05T16:41:14.976Z",
+    "first_seen": "2025-09-05T16:41:14.976Z",
+    "contact_email": "",
+    "contact_phone": ""
+  },
+  {
+    "id": "c2c76fd094bb46ea40b8479fb82e8d80a9cb488c",
+    "title": "Current calls | Velux",
+    "link": "https://veluxfonden.dk/en/basic-page/current-calls",
+    "snippet": "The applicant base for the foundation's various programmes and calls is generally anchored in Denmark, Greenland and the Faroe Islands. The specific group of ...",
+    "source_domain": "veluxfonden.dk",
+    "country": "Denmark",
+    "lang": "da",
+    "query": "open call Denmark -site:youtube.com",
+    "fetched_at": "2025-09-05T16:40:56.951Z",
+    "first_seen": "2025-09-05T16:40:56.951Z",
+    "contact_email": "",
+    "contact_phone": ""
+  },
+  {
     "id": "7aba88a467498db769dd4f3b3d8da523a1dd51e8",
     "title": "CASTING CALL - DFFB",
     "link": "https://www.dffb.de/casting-call/",
@@ -8,7 +36,7 @@
     "country": "Germany",
     "lang": "de",
     "query": "casting call Germany -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:49.463Z",
+    "fetched_at": "2025-09-05T16:41:33.803Z",
     "first_seen": "2025-09-05T14:37:40.751Z",
     "contact_email": "",
     "contact_phone": ""
@@ -22,7 +50,7 @@
     "country": "Sweden",
     "lang": "sv",
     "query": "photoshoot Sweden -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:19.269Z",
+    "fetched_at": "2025-09-05T16:41:04.971Z",
     "first_seen": "2025-09-05T14:37:09.194Z",
     "contact_email": "",
     "contact_phone": ""
@@ -36,7 +64,7 @@
     "country": "Finland",
     "lang": "fi",
     "query": "model casting Finland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:42.083Z",
+    "fetched_at": "2025-09-05T16:41:26.499Z",
     "first_seen": "2025-09-05T13:18:49.840Z",
     "contact_email": "",
     "contact_phone": ""
@@ -64,7 +92,7 @@
     "country": "Denmark",
     "lang": "da",
     "query": "tv casting Denmark -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:14.258Z",
+    "fetched_at": "2025-09-05T16:41:00.378Z",
     "first_seen": "2025-09-05T11:25:57.956Z",
     "contact_email": "",
     "contact_phone": ""
@@ -115,12 +143,12 @@
     "id": "5fc54660339c8d85e06383f9195290d8a4596936",
     "title": "Princess Madeleine of Sweden (@princess_madeleine_of_sweden ...",
     "link": "https://www.instagram.com/princess_madeleine_of_sweden/",
-    "snippet": "❤️. Photo by Princess Madeleine of Sweden on May 11, 2025. I was very proud to accompany my mother when she received the Global Humanitarian Ellis Island Medal ...",
+    "snippet": "Happy Summer! Photo by Princess Madeleine of Sweden on June 19, 2025. Ett varmt tack till landshövding Ulrica Messing @lstblekinge och alla inblandade som ...",
     "source_domain": "instagram.com",
     "country": "Sweden",
     "lang": "sv",
     "query": "photoshoot Sweden -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:19.269Z",
+    "fetched_at": "2025-09-05T16:41:04.971Z",
     "first_seen": "2025-09-05T10:39:45.454Z",
     "contact_email": "",
     "contact_phone": ""
@@ -162,7 +190,7 @@
     "country": "Denmark",
     "lang": "da",
     "query": "extras casting Denmark -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:11.823Z",
+    "fetched_at": "2025-09-05T16:40:58.032Z",
     "first_seen": "2025-09-05T10:39:37.929Z",
     "contact_email": "",
     "contact_phone": ""
@@ -176,7 +204,7 @@
     "country": "Denmark",
     "lang": "da",
     "query": "extras casting Denmark -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:11.823Z",
+    "fetched_at": "2025-09-05T16:40:58.032Z",
     "first_seen": "2025-09-05T10:39:37.929Z",
     "contact_email": "",
     "contact_phone": ""
@@ -246,7 +274,7 @@
     "country": "Norway",
     "lang": "no",
     "query": "casting call Norway -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:27.942Z",
+    "fetched_at": "2025-09-05T16:41:12.694Z",
     "first_seen": "2025-09-05T05:34:08.558Z",
     "contact_email": "",
     "contact_phone": ""
@@ -260,7 +288,7 @@
     "country": "Germany",
     "lang": "de",
     "query": "tv casting Germany -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:57.957Z",
+    "fetched_at": "2025-09-05T16:41:42.179Z",
     "first_seen": "2025-09-05T04:41:02.811Z",
     "contact_email": "",
     "contact_phone": ""
@@ -330,7 +358,7 @@
     "country": "Germany",
     "lang": "de",
     "query": "photoshoot Germany -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:51.911Z",
+    "fetched_at": "2025-09-05T16:41:36.041Z",
     "first_seen": "2025-09-04T23:28:56.211Z",
     "contact_email": "",
     "contact_phone": ""
@@ -344,7 +372,7 @@
     "country": "Switzerland",
     "lang": "de",
     "query": "casting call Switzerland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:34:11.487Z",
+    "fetched_at": "2025-09-05T16:41:55.124Z",
     "first_seen": "2025-09-04T22:34:40.311Z",
     "contact_email": "",
     "contact_phone": ""
@@ -400,7 +428,7 @@
     "country": "Germany",
     "lang": "de",
     "query": "audition Germany -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:50.651Z",
+    "fetched_at": "2025-09-05T16:41:34.942Z",
     "first_seen": "2025-09-04T20:33:57.420Z",
     "contact_email": "",
     "contact_phone": ""
@@ -428,7 +456,7 @@
     "country": "Germany",
     "lang": "de",
     "query": "model casting Germany -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:53.044Z",
+    "fetched_at": "2025-09-05T16:41:37.241Z",
     "first_seen": "2025-09-04T19:23:42.042Z",
     "contact_email": "",
     "contact_phone": ""
@@ -442,7 +470,7 @@
     "country": "Sweden",
     "lang": "sv",
     "query": "extras casting Sweden -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:22.992Z",
+    "fetched_at": "2025-09-05T16:41:08.264Z",
     "first_seen": "2025-09-04T19:23:13.646Z",
     "contact_email": "",
     "contact_phone": ""
@@ -456,7 +484,7 @@
     "country": "Germany",
     "lang": "de",
     "query": "extras casting Germany -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:55.472Z",
+    "fetched_at": "2025-09-05T16:41:39.712Z",
     "first_seen": "2025-09-04T18:48:32.468Z",
     "contact_email": "",
     "contact_phone": ""
@@ -470,7 +498,7 @@
     "country": "Germany",
     "lang": "de",
     "query": "extras casting Germany -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:55.472Z",
+    "fetched_at": "2025-09-05T16:41:39.712Z",
     "first_seen": "2025-09-04T18:48:32.468Z",
     "contact_email": "",
     "contact_phone": ""
@@ -512,7 +540,7 @@
     "country": "Denmark",
     "lang": "da",
     "query": "casting call Denmark -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:05.973Z",
+    "fetched_at": "2025-09-05T16:40:52.494Z",
     "first_seen": "2025-09-04T18:47:43.026Z",
     "contact_email": "",
     "contact_phone": ""
@@ -526,7 +554,7 @@
     "country": "Switzerland",
     "lang": "de",
     "query": "casting call Switzerland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:34:11.487Z",
+    "fetched_at": "2025-09-05T16:41:55.124Z",
     "first_seen": "2025-09-04T16:47:01.627Z",
     "contact_email": "",
     "contact_phone": ""
@@ -540,7 +568,7 @@
     "country": "Germany",
     "lang": "de",
     "query": "open call Germany -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:54.280Z",
+    "fetched_at": "2025-09-05T16:41:38.487Z",
     "first_seen": "2025-09-04T14:40:13.214Z",
     "contact_email": "",
     "contact_phone": ""
@@ -554,7 +582,7 @@
     "country": "Germany",
     "lang": "de",
     "query": "film casting Germany -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:56.753Z",
+    "fetched_at": "2025-09-05T16:41:40.936Z",
     "first_seen": "2025-09-04T13:18:48.838Z",
     "contact_email": "",
     "contact_phone": ""
@@ -568,7 +596,7 @@
     "country": "Sweden",
     "lang": "sv",
     "query": "casting call Sweden -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:16.742Z",
+    "fetched_at": "2025-09-05T16:41:02.740Z",
     "first_seen": "2025-09-04T13:18:08.941Z",
     "contact_email": "",
     "contact_phone": ""
@@ -582,7 +610,7 @@
     "country": "Norway",
     "lang": "no",
     "query": "photoshoot Norway -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:30.219Z",
+    "fetched_at": "2025-09-05T16:41:14.976Z",
     "first_seen": "2025-09-04T11:27:18.923Z",
     "contact_email": "",
     "contact_phone": ""
@@ -596,7 +624,7 @@
     "country": "Denmark",
     "lang": "da",
     "query": "photoshoot Denmark -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:08.308Z",
+    "fetched_at": "2025-09-05T16:40:54.697Z",
     "first_seen": "2025-09-04T11:26:57.848Z",
     "contact_email": "",
     "contact_phone": ""
@@ -624,7 +652,7 @@
     "country": "Switzerland",
     "lang": "de",
     "query": "photoshoot Switzerland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:34:13.889Z",
+    "fetched_at": "2025-09-05T16:41:57.323Z",
     "first_seen": "2025-09-04T07:30:12.469Z",
     "contact_email": "",
     "contact_phone": ""
@@ -638,7 +666,7 @@
     "country": "Switzerland",
     "lang": "de",
     "query": "audition Switzerland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:34:12.712Z",
+    "fetched_at": "2025-09-05T16:41:56.235Z",
     "first_seen": "2025-09-04T07:30:11.344Z",
     "contact_email": "",
     "contact_phone": ""
@@ -652,7 +680,7 @@
     "country": "Switzerland",
     "lang": "de",
     "query": "casting call Switzerland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:34:11.487Z",
+    "fetched_at": "2025-09-05T16:41:55.124Z",
     "first_seen": "2025-09-04T07:30:10.147Z",
     "contact_email": "",
     "contact_phone": ""
@@ -666,7 +694,7 @@
     "country": "Germany",
     "lang": "de",
     "query": "open call Germany -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:54.280Z",
+    "fetched_at": "2025-09-05T16:41:38.487Z",
     "first_seen": "2025-09-04T05:34:10.135Z",
     "contact_email": "",
     "contact_phone": ""
@@ -694,7 +722,7 @@
     "country": "Sweden",
     "lang": "sv",
     "query": "tv casting Sweden -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:25.390Z",
+    "fetched_at": "2025-09-05T16:41:10.419Z",
     "first_seen": "2025-09-04T05:33:42.179Z",
     "contact_email": "",
     "contact_phone": ""
@@ -736,7 +764,7 @@
     "country": "Germany",
     "lang": "de",
     "query": "casting Germany -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:48.205Z",
+    "fetched_at": "2025-09-05T16:41:32.521Z",
     "first_seen": "2025-09-04T04:40:09.255Z",
     "contact_email": "",
     "contact_phone": ""
@@ -750,7 +778,7 @@
     "country": "Finland",
     "lang": "fi",
     "query": "photoshoot Finland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:40.949Z",
+    "fetched_at": "2025-09-05T16:41:25.352Z",
     "first_seen": "2025-09-04T04:40:02.348Z",
     "contact_email": "",
     "contact_phone": ""
@@ -764,7 +792,7 @@
     "country": "Finland",
     "lang": "fi",
     "query": "photoshoot Finland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:40.949Z",
+    "fetched_at": "2025-09-05T16:41:25.352Z",
     "first_seen": "2025-09-04T04:40:02.348Z",
     "contact_email": "",
     "contact_phone": ""
@@ -806,7 +834,7 @@
     "country": "Norway",
     "lang": "no",
     "query": "casting call Norway -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:27.942Z",
+    "fetched_at": "2025-09-05T16:41:12.694Z",
     "first_seen": "2025-09-04T04:39:49.386Z",
     "contact_email": "",
     "contact_phone": ""
@@ -820,7 +848,7 @@
     "country": "Austria",
     "lang": "de",
     "query": "audition Austria -site:youtube.com",
-    "fetched_at": "2025-09-05T15:34:01.576Z",
+    "fetched_at": "2025-09-05T16:41:45.616Z",
     "first_seen": "2025-09-04T03:05:44.465Z",
     "contact_email": "",
     "contact_phone": ""
@@ -862,7 +890,7 @@
     "country": "Denmark",
     "lang": "da",
     "query": "tv casting Denmark -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:14.258Z",
+    "fetched_at": "2025-09-05T16:41:00.378Z",
     "first_seen": "2025-09-03T22:33:05.314Z",
     "contact_email": "",
     "contact_phone": ""
@@ -876,7 +904,7 @@
     "country": "Denmark",
     "lang": "da",
     "query": "tv casting Denmark -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:14.258Z",
+    "fetched_at": "2025-09-05T16:41:00.378Z",
     "first_seen": "2025-09-03T22:33:05.314Z",
     "contact_email": "",
     "contact_phone": ""
@@ -890,7 +918,7 @@
     "country": "Sweden",
     "lang": "sv",
     "query": "open call Sweden -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:21.703Z",
+    "fetched_at": "2025-09-05T16:41:07.135Z",
     "first_seen": "2025-09-03T21:28:32.947Z",
     "contact_email": "",
     "contact_phone": ""
@@ -918,7 +946,7 @@
     "country": "Norway",
     "lang": "no",
     "query": "extras casting Norway -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:33.630Z",
+    "fetched_at": "2025-09-05T16:41:18.319Z",
     "first_seen": "2025-09-03T20:34:21.482Z",
     "contact_email": "",
     "contact_phone": ""
@@ -946,7 +974,7 @@
     "country": "Austria",
     "lang": "de",
     "query": "casting call Austria -site:youtube.com",
-    "fetched_at": "2025-09-05T15:34:00.349Z",
+    "fetched_at": "2025-09-05T16:41:44.465Z",
     "first_seen": "2025-09-03T18:44:50.323Z",
     "contact_email": "",
     "contact_phone": ""
@@ -1002,7 +1030,7 @@
     "country": "Austria",
     "lang": "de",
     "query": "audition Austria -site:youtube.com",
-    "fetched_at": "2025-09-05T15:34:01.576Z",
+    "fetched_at": "2025-09-05T16:41:45.616Z",
     "first_seen": "2025-09-03T17:33:27.789Z",
     "contact_email": "",
     "contact_phone": ""
@@ -1016,7 +1044,7 @@
     "country": "Norway",
     "lang": "no",
     "query": "photoshoot Norway -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:30.219Z",
+    "fetched_at": "2025-09-05T16:41:14.976Z",
     "first_seen": "2025-09-03T17:32:55.592Z",
     "contact_email": "",
     "contact_phone": ""
@@ -1044,7 +1072,7 @@
     "country": "Sweden",
     "lang": "sv",
     "query": "photoshoot Sweden -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:19.269Z",
+    "fetched_at": "2025-09-05T16:41:04.971Z",
     "first_seen": "2025-09-03T17:32:44.700Z",
     "contact_email": "",
     "contact_phone": ""
@@ -1072,7 +1100,7 @@
     "country": "Sweden",
     "lang": "sv",
     "query": "casting Sweden -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:15.481Z",
+    "fetched_at": "2025-09-05T16:41:01.622Z",
     "first_seen": "2025-09-03T15:35:18.290Z",
     "contact_email": "",
     "contact_phone": ""
@@ -1114,7 +1142,7 @@
     "country": "Switzerland",
     "lang": "de",
     "query": "audition Switzerland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:34:12.712Z",
+    "fetched_at": "2025-09-05T16:41:56.235Z",
     "first_seen": "2025-09-03T13:20:48.170Z",
     "contact_email": "",
     "contact_phone": ""
@@ -1128,7 +1156,7 @@
     "country": "Austria",
     "lang": "de",
     "query": "casting Austria -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:59.160Z",
+    "fetched_at": "2025-09-05T16:41:43.335Z",
     "first_seen": "2025-09-03T13:20:34.448Z",
     "contact_email": "hallo@castingbuerowien.at",
     "contact_phone": ""
@@ -1170,7 +1198,7 @@
     "country": "Sweden",
     "lang": "sv",
     "query": "casting call Sweden -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:16.742Z",
+    "fetched_at": "2025-09-05T16:41:02.740Z",
     "first_seen": "2025-09-03T13:19:52.340Z",
     "contact_email": "",
     "contact_phone": ""
@@ -1198,7 +1226,7 @@
     "country": "Norway",
     "lang": "no",
     "query": "open call Norway -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:32.476Z",
+    "fetched_at": "2025-09-05T16:41:17.228Z",
     "first_seen": "2025-09-03T11:26:18.392Z",
     "contact_email": "",
     "contact_phone": ""
@@ -1212,7 +1240,7 @@
     "country": "Sweden",
     "lang": "sv",
     "query": "tv casting Sweden -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:25.390Z",
+    "fetched_at": "2025-09-05T16:41:10.419Z",
     "first_seen": "2025-09-03T11:26:11.379Z",
     "contact_email": "",
     "contact_phone": ""
@@ -1226,7 +1254,7 @@
     "country": "Germany",
     "lang": "de",
     "query": "photoshoot Germany -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:51.911Z",
+    "fetched_at": "2025-09-05T16:41:36.041Z",
     "first_seen": "2025-09-03T10:39:10.090Z",
     "contact_email": "",
     "contact_phone": ""
@@ -1296,7 +1324,7 @@
     "country": "Norway",
     "lang": "no",
     "query": "model casting Norway -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:31.296Z",
+    "fetched_at": "2025-09-05T16:41:16.065Z",
     "first_seen": "2025-09-03T09:33:42.577Z",
     "contact_email": "",
     "contact_phone": ""
@@ -1310,7 +1338,7 @@
     "country": "Norway",
     "lang": "no",
     "query": "casting call Norway -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:27.942Z",
+    "fetched_at": "2025-09-05T16:41:12.694Z",
     "first_seen": "2025-09-03T09:33:39.014Z",
     "contact_email": "",
     "contact_phone": ""
@@ -1338,7 +1366,7 @@
     "country": "Denmark",
     "lang": "da",
     "query": "photoshoot Denmark -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:08.308Z",
+    "fetched_at": "2025-09-05T16:40:54.697Z",
     "first_seen": "2025-09-03T09:33:19.822Z",
     "contact_email": "",
     "contact_phone": ""
@@ -1394,7 +1422,7 @@
     "country": "Denmark",
     "lang": "da",
     "query": "film casting Denmark -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:12.995Z",
+    "fetched_at": "2025-09-05T16:40:59.139Z",
     "first_seen": "2025-09-03T08:45:03.154Z",
     "contact_email": "",
     "contact_phone": ""
@@ -1422,7 +1450,7 @@
     "country": "Norway",
     "lang": "no",
     "query": "photoshoot Norway -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:30.219Z",
+    "fetched_at": "2025-09-05T16:41:14.976Z",
     "first_seen": "2025-09-03T05:33:46.779Z",
     "contact_email": "",
     "contact_phone": ""
@@ -1464,7 +1492,7 @@
     "country": "Denmark",
     "lang": "da",
     "query": "audition Denmark -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:07.116Z",
+    "fetched_at": "2025-09-05T16:40:53.584Z",
     "first_seen": "2025-09-03T04:39:59.084Z",
     "contact_email": "",
     "contact_phone": ""
@@ -1492,7 +1520,7 @@
     "country": "Switzerland",
     "lang": "de",
     "query": "photoshoot Switzerland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:34:13.888Z",
+    "fetched_at": "2025-09-05T16:41:57.323Z",
     "first_seen": "2025-09-03T03:05:06.929Z",
     "contact_email": "",
     "contact_phone": ""
@@ -1520,7 +1548,7 @@
     "country": "Austria",
     "lang": "de",
     "query": "open call Austria -site:youtube.com",
-    "fetched_at": "2025-09-05T15:34:05.207Z",
+    "fetched_at": "2025-09-05T16:41:49.234Z",
     "first_seen": "2025-09-03T03:04:58.389Z",
     "contact_email": "",
     "contact_phone": ""
@@ -1534,7 +1562,7 @@
     "country": "Austria",
     "lang": "de",
     "query": "model casting Austria -site:youtube.com",
-    "fetched_at": "2025-09-05T15:34:03.982Z",
+    "fetched_at": "2025-09-05T16:41:48.007Z",
     "first_seen": "2025-09-03T03:04:57.082Z",
     "contact_email": "",
     "contact_phone": ""
@@ -1548,7 +1576,7 @@
     "country": "Austria",
     "lang": "de",
     "query": "casting Austria -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:59.160Z",
+    "fetched_at": "2025-09-05T16:41:43.335Z",
     "first_seen": "2025-09-03T03:04:52.288Z",
     "contact_email": "castingsportaustria@liwest.at",
     "contact_phone": ""
@@ -1562,7 +1590,7 @@
     "country": "Germany",
     "lang": "de",
     "query": "photoshoot Germany -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:51.911Z",
+    "fetched_at": "2025-09-05T16:41:36.041Z",
     "first_seen": "2025-09-03T03:04:44.778Z",
     "contact_email": "",
     "contact_phone": ""
@@ -1576,7 +1604,7 @@
     "country": "Germany",
     "lang": "de",
     "query": "photoshoot Germany -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:51.911Z",
+    "fetched_at": "2025-09-05T16:41:36.041Z",
     "first_seen": "2025-09-03T03:04:44.778Z",
     "contact_email": "",
     "contact_phone": ""
@@ -1590,7 +1618,7 @@
     "country": "Finland",
     "lang": "fi",
     "query": "tv casting Finland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:47.125Z",
+    "fetched_at": "2025-09-05T16:41:31.420Z",
     "first_seen": "2025-09-03T03:04:39.841Z",
     "contact_email": "",
     "contact_phone": ""
@@ -1604,7 +1632,7 @@
     "country": "Finland",
     "lang": "fi",
     "query": "tv casting Finland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:47.125Z",
+    "fetched_at": "2025-09-05T16:41:31.420Z",
     "first_seen": "2025-09-03T03:04:39.841Z",
     "contact_email": "",
     "contact_phone": ""
@@ -1632,7 +1660,7 @@
     "country": "Norway",
     "lang": "no",
     "query": "casting Norway -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:26.742Z",
+    "fetched_at": "2025-09-05T16:41:11.513Z",
     "first_seen": "2025-09-03T03:04:18.763Z",
     "contact_email": "",
     "contact_phone": ""
@@ -1688,7 +1716,7 @@
     "country": "Sweden",
     "lang": "sv",
     "query": "model casting Sweden -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:20.458Z",
+    "fetched_at": "2025-09-05T16:41:06.039Z",
     "first_seen": "2025-09-02T20:30:42.835Z",
     "contact_email": "",
     "contact_phone": ""
@@ -1702,7 +1730,7 @@
     "country": "Sweden",
     "lang": "sv",
     "query": "extras casting Sweden -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:22.992Z",
+    "fetched_at": "2025-09-05T16:41:08.264Z",
     "first_seen": "2025-09-02T19:23:34.874Z",
     "contact_email": "",
     "contact_phone": ""
@@ -1772,7 +1800,7 @@
     "country": "Norway",
     "lang": "no",
     "query": "model casting Norway -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:31.296Z",
+    "fetched_at": "2025-09-05T16:41:16.065Z",
     "first_seen": "2025-09-02T15:39:39.337Z",
     "contact_email": "",
     "contact_phone": ""
@@ -1800,7 +1828,7 @@
     "country": "Germany",
     "lang": "de",
     "query": "photoshoot Germany -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:51.911Z",
+    "fetched_at": "2025-09-05T16:41:36.041Z",
     "first_seen": "2025-09-02T13:39:06.785Z",
     "contact_email": "",
     "contact_phone": ""
@@ -1814,7 +1842,7 @@
     "country": "Finland",
     "lang": "fi",
     "query": "open call Finland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:43.350Z",
+    "fetched_at": "2025-09-05T16:41:28.008Z",
     "first_seen": "2025-09-02T13:38:58.448Z",
     "contact_email": "",
     "contact_phone": ""
@@ -1954,7 +1982,7 @@
     "country": "Sweden",
     "lang": "sv",
     "query": "tv casting Sweden -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:25.390Z",
+    "fetched_at": "2025-09-05T16:41:10.419Z",
     "first_seen": "2025-09-02T10:41:56.618Z",
     "contact_email": "",
     "contact_phone": ""
@@ -1982,7 +2010,7 @@
     "country": "Denmark",
     "lang": "da",
     "query": "open call Denmark -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:10.630Z",
+    "fetched_at": "2025-09-05T16:40:56.951Z",
     "first_seen": "2025-09-02T10:41:41.988Z",
     "contact_email": "",
     "contact_phone": ""
@@ -2010,7 +2038,7 @@
     "country": "Switzerland",
     "lang": "de",
     "query": "audition Switzerland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:34:12.712Z",
+    "fetched_at": "2025-09-05T16:41:56.235Z",
     "first_seen": "2025-09-02T06:55:10.644Z",
     "contact_email": "oper@hkb.bfh",
     "contact_phone": ""
@@ -2047,12 +2075,12 @@
     "id": "8d330dade7a631c60a41f9a72a2deae97b59e1b7",
     "title": "Muvac",
     "link": "https://www.muvac.com/",
-    "snippet": "Testimonials. Show all. Gewandhausorchester. Germany. Muvac customises the audition process to the requirements of the 21st century. For applicants, musicians ...",
+    "snippet": "Our company is located in Berlin (Germany), all user data is hosted within ... What started as a new way to organize orchestra auditions in September ...",
     "source_domain": "muvac.com",
     "country": "Germany",
     "lang": "de",
     "query": "audition Germany -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:50.651Z",
+    "fetched_at": "2025-09-05T16:41:34.943Z",
     "first_seen": "2025-09-02T06:54:49.831Z",
     "contact_email": "",
     "contact_phone": ""
@@ -2066,7 +2094,7 @@
     "country": "Norway",
     "lang": "no",
     "query": "open call Norway -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:32.476Z",
+    "fetched_at": "2025-09-05T16:41:17.228Z",
     "first_seen": "2025-09-02T06:54:32.485Z",
     "contact_email": "",
     "contact_phone": ""
@@ -2094,7 +2122,7 @@
     "country": "Denmark",
     "lang": "da",
     "query": "open call Denmark -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:10.630Z",
+    "fetched_at": "2025-09-05T16:40:56.951Z",
     "first_seen": "2025-09-02T06:54:11.695Z",
     "contact_email": "",
     "contact_phone": ""
@@ -2103,12 +2131,12 @@
     "id": "4d76459677f8ced45a60644c51cf37b695033208",
     "title": "Anna Dyu (@ann.dyu) | TikTok",
     "link": "https://www.tiktok.com/@ann.dyu",
-    "snippet": "... Germany @Vogue #modelcasting #modelwerden #vogueopencasting2025 #foryou #german ... Model Casting Breiter Absatz · Modeling Commercial · Model Casting Michigan.",
+    "snippet": "... modelcasting #german #foryou · original sound - Anna Dyu · Modeling Videos · Male Model Casting Video · Model Video Casting · Models with Tape · Music Video ...",
     "source_domain": "tiktok.com",
     "country": "Germany",
     "lang": "de",
     "query": "model casting Germany -site:youtube.com",
-    "fetched_at": "2025-09-04T11:27:41.107Z",
+    "fetched_at": "2025-09-05T16:41:37.241Z",
     "first_seen": "2025-09-02T05:40:23.647Z",
     "contact_email": "",
     "contact_phone": ""
@@ -2164,7 +2192,7 @@
     "country": "Switzerland",
     "lang": "de",
     "query": "audition Switzerland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:34:12.712Z",
+    "fetched_at": "2025-09-05T16:41:56.235Z",
     "first_seen": "2025-09-02T04:44:02.951Z",
     "contact_email": "",
     "contact_phone": ""
@@ -2178,7 +2206,7 @@
     "country": "Norway",
     "lang": "no",
     "query": "extras casting Norway -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:33.631Z",
+    "fetched_at": "2025-09-05T16:41:18.319Z",
     "first_seen": "2025-09-02T04:43:25.460Z",
     "contact_email": "",
     "contact_phone": ""
@@ -2220,7 +2248,7 @@
     "country": "Switzerland",
     "lang": "de",
     "query": "model casting Switzerland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:34:15.113Z",
+    "fetched_at": "2025-09-05T16:41:58.454Z",
     "first_seen": "2025-09-02T03:19:30.562Z",
     "contact_email": "",
     "contact_phone": ""
@@ -2234,7 +2262,7 @@
     "country": "Switzerland",
     "lang": "de",
     "query": "casting Switzerland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:34:10.196Z",
+    "fetched_at": "2025-09-05T16:41:54.033Z",
     "first_seen": "2025-09-02T03:19:25.719Z",
     "contact_email": "",
     "contact_phone": ""
@@ -2262,7 +2290,7 @@
     "country": "Finland",
     "lang": "fi",
     "query": "film casting Finland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:45.682Z",
+    "fetched_at": "2025-09-05T16:41:30.195Z",
     "first_seen": "2025-09-02T03:19:01.240Z",
     "contact_email": "",
     "contact_phone": ""
@@ -2276,7 +2304,7 @@
     "country": "Finland",
     "lang": "fi",
     "query": "photoshoot Finland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:40.949Z",
+    "fetched_at": "2025-09-05T16:41:25.352Z",
     "first_seen": "2025-09-02T03:18:56.366Z",
     "contact_email": "",
     "contact_phone": ""
@@ -2360,7 +2388,7 @@
     "country": "Norway",
     "lang": "no",
     "query": "photoshoot Norway -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:30.219Z",
+    "fetched_at": "2025-09-05T16:41:14.976Z",
     "first_seen": "2025-09-02T03:18:45.398Z",
     "contact_email": "",
     "contact_phone": ""
@@ -2402,7 +2430,7 @@
     "country": "Denmark",
     "lang": "da",
     "query": "model casting Denmark -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:09.503Z",
+    "fetched_at": "2025-09-05T16:40:55.837Z",
     "first_seen": "2025-09-02T03:18:24.319Z",
     "contact_email": "",
     "contact_phone": ""
@@ -2472,7 +2500,7 @@
     "country": "Finland",
     "lang": "fi",
     "query": "casting call Finland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:38.631Z",
+    "fetched_at": "2025-09-05T16:41:22.995Z",
     "first_seen": "2025-09-01T22:35:17.957Z",
     "contact_email": "",
     "contact_phone": ""
@@ -3088,7 +3116,7 @@
     "country": "Switzerland",
     "lang": "de",
     "query": "model casting Switzerland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:34:15.113Z",
+    "fetched_at": "2025-09-05T16:41:58.454Z",
     "first_seen": "2025-09-01T21:31:43.660Z",
     "contact_email": "",
     "contact_phone": ""
@@ -3102,7 +3130,7 @@
     "country": "Switzerland",
     "lang": "de",
     "query": "model casting Switzerland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:34:15.113Z",
+    "fetched_at": "2025-09-05T16:41:58.454Z",
     "first_seen": "2025-09-01T21:31:43.660Z",
     "contact_email": "",
     "contact_phone": ""
@@ -3116,7 +3144,7 @@
     "country": "Switzerland",
     "lang": "de",
     "query": "model casting Switzerland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:34:15.113Z",
+    "fetched_at": "2025-09-05T16:41:58.454Z",
     "first_seen": "2025-09-01T21:31:43.660Z",
     "contact_email": "",
     "contact_phone": ""
@@ -3130,7 +3158,7 @@
     "country": "Switzerland",
     "lang": "de",
     "query": "audition Switzerland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:34:12.712Z",
+    "fetched_at": "2025-09-05T16:41:56.235Z",
     "first_seen": "2025-09-01T21:31:43.126Z",
     "contact_email": "",
     "contact_phone": ""
@@ -3144,7 +3172,7 @@
     "country": "Switzerland",
     "lang": "de",
     "query": "audition Switzerland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:34:12.712Z",
+    "fetched_at": "2025-09-05T16:41:56.235Z",
     "first_seen": "2025-09-01T21:31:43.126Z",
     "contact_email": "",
     "contact_phone": ""
@@ -3158,7 +3186,7 @@
     "country": "Switzerland",
     "lang": "de",
     "query": "casting call Switzerland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:34:11.487Z",
+    "fetched_at": "2025-09-05T16:41:55.124Z",
     "first_seen": "2025-09-01T21:31:42.808Z",
     "contact_email": "",
     "contact_phone": ""
@@ -3172,7 +3200,7 @@
     "country": "Switzerland",
     "lang": "de",
     "query": "casting call Switzerland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:34:11.487Z",
+    "fetched_at": "2025-09-05T16:41:55.124Z",
     "first_seen": "2025-09-01T21:31:42.808Z",
     "contact_email": "info@zfw.swiss",
     "contact_phone": ""
@@ -3186,7 +3214,7 @@
     "country": "Switzerland",
     "lang": "de",
     "query": "casting call Switzerland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:34:11.487Z",
+    "fetched_at": "2025-09-05T16:41:55.124Z",
     "first_seen": "2025-09-01T21:31:42.808Z",
     "contact_email": "",
     "contact_phone": ""
@@ -3200,7 +3228,7 @@
     "country": "Switzerland",
     "lang": "de",
     "query": "casting Switzerland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:34:10.196Z",
+    "fetched_at": "2025-09-05T16:41:54.033Z",
     "first_seen": "2025-09-01T21:31:42.394Z",
     "contact_email": "",
     "contact_phone": ""
@@ -3214,7 +3242,7 @@
     "country": "Switzerland",
     "lang": "de",
     "query": "casting Switzerland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:34:10.196Z",
+    "fetched_at": "2025-09-05T16:41:54.033Z",
     "first_seen": "2025-09-01T21:31:42.394Z",
     "contact_email": "",
     "contact_phone": ""
@@ -3228,7 +3256,7 @@
     "country": "Austria",
     "lang": "de",
     "query": "extras casting Austria -site:youtube.com",
-    "fetched_at": "2025-09-05T15:34:06.525Z",
+    "fetched_at": "2025-09-05T16:41:50.585Z",
     "first_seen": "2025-09-01T21:31:41.507Z",
     "contact_email": "",
     "contact_phone": ""
@@ -3242,7 +3270,7 @@
     "country": "Austria",
     "lang": "de",
     "query": "casting call Austria -site:youtube.com",
-    "fetched_at": "2025-09-05T15:34:00.349Z",
+    "fetched_at": "2025-09-05T16:41:44.465Z",
     "first_seen": "2025-09-01T21:31:39.944Z",
     "contact_email": "inteco.austria@inteco.at",
     "contact_phone": ""
@@ -3270,7 +3298,7 @@
     "country": "Austria",
     "lang": "de",
     "query": "casting Austria -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:59.160Z",
+    "fetched_at": "2025-09-05T16:41:43.335Z",
     "first_seen": "2025-09-01T21:31:39.654Z",
     "contact_email": "",
     "contact_phone": ""
@@ -3298,7 +3326,7 @@
     "country": "Germany",
     "lang": "de",
     "query": "model casting Germany -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:53.044Z",
+    "fetched_at": "2025-09-05T16:41:37.241Z",
     "first_seen": "2025-09-01T21:31:38.160Z",
     "contact_email": "",
     "contact_phone": ""
@@ -3312,7 +3340,7 @@
     "country": "Germany",
     "lang": "de",
     "query": "photoshoot Germany -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:51.911Z",
+    "fetched_at": "2025-09-05T16:41:36.041Z",
     "first_seen": "2025-09-01T21:31:37.901Z",
     "contact_email": "",
     "contact_phone": ""
@@ -3363,12 +3391,12 @@
     "id": "2f5c65b9b87ba79ebaed18b082b9b482b93cbfa6",
     "title": "Danganronpa V3 All Debate Scrum - German Dub | Casting Call Club",
     "link": "https://www.castingcall.club/projects/danganronpa-v3-all-debate-scrum-german-dub",
-    "snippet": "Aug 16, 2021 ... Project Overview. I am looking for German-speaking voice talents to serve as voice actors for fanslation of all the Scrum Debates in Danganronpa ...",
+    "snippet": "Aug 16, 2021 ... I am looking for German-speaking voice talents to serve as voice actors for fanslation of all the Scrum Debates in Danganronpa V3 - spoilers, of course!",
     "source_domain": "castingcall.club",
     "country": "Germany",
     "lang": "de",
     "query": "casting call Germany -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:49.463Z",
+    "fetched_at": "2025-09-05T16:41:33.803Z",
     "first_seen": "2025-09-01T21:31:37.307Z",
     "contact_email": "",
     "contact_phone": ""
@@ -3382,7 +3410,7 @@
     "country": "Germany",
     "lang": "de",
     "query": "casting call Germany -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:49.463Z",
+    "fetched_at": "2025-09-05T16:41:33.803Z",
     "first_seen": "2025-09-01T21:31:37.307Z",
     "contact_email": "",
     "contact_phone": ""
@@ -3396,7 +3424,7 @@
     "country": "Germany",
     "lang": "de",
     "query": "film casting Germany -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:56.753Z",
+    "fetched_at": "2025-09-05T16:41:40.936Z",
     "first_seen": "2025-09-01T21:31:37.307Z",
     "contact_email": "",
     "contact_phone": ""
@@ -3494,7 +3522,7 @@
     "country": "Finland",
     "lang": "fi",
     "query": "tv casting Finland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:47.125Z",
+    "fetched_at": "2025-09-05T16:41:31.420Z",
     "first_seen": "2025-09-01T21:31:34.384Z",
     "contact_email": "",
     "contact_phone": ""
@@ -3508,7 +3536,7 @@
     "country": "Finland",
     "lang": "fi",
     "query": "model casting Finland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:42.082Z",
+    "fetched_at": "2025-09-05T16:41:26.499Z",
     "first_seen": "2025-09-01T21:31:33.330Z",
     "contact_email": "",
     "contact_phone": ""
@@ -3536,7 +3564,7 @@
     "country": "Finland",
     "lang": "fi",
     "query": "audition Finland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:39.791Z",
+    "fetched_at": "2025-09-05T16:41:24.249Z",
     "first_seen": "2025-09-01T21:31:32.767Z",
     "contact_email": "",
     "contact_phone": ""
@@ -3564,7 +3592,7 @@
     "country": "Finland",
     "lang": "fi",
     "query": "casting Finland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:37.360Z",
+    "fetched_at": "2025-09-05T16:41:21.773Z",
     "first_seen": "2025-09-01T21:31:32.220Z",
     "contact_email": "",
     "contact_phone": ""
@@ -3606,7 +3634,7 @@
     "country": "Norway",
     "lang": "no",
     "query": "audition Norway -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:29.093Z",
+    "fetched_at": "2025-09-05T16:41:13.798Z",
     "first_seen": "2025-09-01T21:31:30.272Z",
     "contact_email": "",
     "contact_phone": ""
@@ -3620,7 +3648,7 @@
     "country": "Norway",
     "lang": "no",
     "query": "casting call Norway -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:27.942Z",
+    "fetched_at": "2025-09-05T16:41:12.694Z",
     "first_seen": "2025-09-01T21:31:30.047Z",
     "contact_email": "",
     "contact_phone": ""
@@ -3662,7 +3690,7 @@
     "country": "Denmark",
     "lang": "da",
     "query": "extras casting Denmark -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:11.823Z",
+    "fetched_at": "2025-09-05T16:40:58.032Z",
     "first_seen": "2025-09-01T21:31:26.206Z",
     "contact_email": "",
     "contact_phone": ""
@@ -3676,7 +3704,7 @@
     "country": "Denmark",
     "lang": "da",
     "query": "model casting Denmark -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:09.503Z",
+    "fetched_at": "2025-09-05T16:40:55.837Z",
     "first_seen": "2025-09-01T21:31:25.675Z",
     "contact_email": "",
     "contact_phone": ""
@@ -3690,7 +3718,7 @@
     "country": "Denmark",
     "lang": "da",
     "query": "model casting Denmark -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:09.503Z",
+    "fetched_at": "2025-09-05T16:40:55.837Z",
     "first_seen": "2025-09-01T21:31:25.675Z",
     "contact_email": "",
     "contact_phone": ""
@@ -3704,7 +3732,7 @@
     "country": "Denmark",
     "lang": "da",
     "query": "casting call Denmark -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:05.973Z",
+    "fetched_at": "2025-09-05T16:40:52.494Z",
     "first_seen": "2025-09-01T21:31:24.911Z",
     "contact_email": "",
     "contact_phone": ""
@@ -4474,7 +4502,7 @@
     "country": "Switzerland",
     "lang": "de",
     "query": "open call Switzerland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:34:16.349Z",
+    "fetched_at": "2025-09-05T16:41:59.537Z",
     "first_seen": "2025-09-01T21:23:27.703Z",
     "contact_email": "",
     "contact_phone": ""
@@ -4516,7 +4544,7 @@
     "country": "Austria",
     "lang": "de",
     "query": "open call Austria -site:youtube.com",
-    "fetched_at": "2025-09-05T15:34:05.207Z",
+    "fetched_at": "2025-09-05T16:41:49.234Z",
     "first_seen": "2025-09-01T21:23:24.876Z",
     "contact_email": "",
     "contact_phone": ""
@@ -4670,7 +4698,7 @@
     "country": "Denmark",
     "lang": "da",
     "query": "audition Denmark -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:07.116Z",
+    "fetched_at": "2025-09-05T16:40:53.584Z",
     "first_seen": "2025-09-01T21:23:08.461Z",
     "contact_email": "",
     "contact_phone": ""
@@ -9192,7 +9220,7 @@
     "country": "Switzerland",
     "lang": "de",
     "query": "open call Switzerland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:34:16.349Z",
+    "fetched_at": "2025-09-05T16:41:59.537Z",
     "first_seen": "2025-09-01T21:17:15.565Z",
     "contact_email": "",
     "contact_phone": ""
@@ -9206,7 +9234,7 @@
     "country": "Switzerland",
     "lang": "de",
     "query": "open call Switzerland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:34:16.349Z",
+    "fetched_at": "2025-09-05T16:41:59.537Z",
     "first_seen": "2025-09-01T21:17:15.565Z",
     "contact_email": "",
     "contact_phone": ""
@@ -9220,7 +9248,7 @@
     "country": "Switzerland",
     "lang": "de",
     "query": "open call Switzerland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:34:16.349Z",
+    "fetched_at": "2025-09-05T16:41:59.537Z",
     "first_seen": "2025-09-01T21:17:15.565Z",
     "contact_email": "",
     "contact_phone": ""
@@ -9234,7 +9262,7 @@
     "country": "Switzerland",
     "lang": "de",
     "query": "open call Switzerland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:34:16.349Z",
+    "fetched_at": "2025-09-05T16:41:59.537Z",
     "first_seen": "2025-09-01T21:17:15.565Z",
     "contact_email": "",
     "contact_phone": ""
@@ -9248,7 +9276,7 @@
     "country": "Switzerland",
     "lang": "de",
     "query": "open call Switzerland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:34:16.349Z",
+    "fetched_at": "2025-09-05T16:41:59.537Z",
     "first_seen": "2025-09-01T21:17:15.565Z",
     "contact_email": "",
     "contact_phone": ""
@@ -9262,7 +9290,7 @@
     "country": "Switzerland",
     "lang": "de",
     "query": "open call Switzerland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:34:16.349Z",
+    "fetched_at": "2025-09-05T16:41:59.537Z",
     "first_seen": "2025-09-01T21:17:15.565Z",
     "contact_email": "",
     "contact_phone": ""
@@ -9276,7 +9304,7 @@
     "country": "Switzerland",
     "lang": "de",
     "query": "open call Switzerland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:34:16.349Z",
+    "fetched_at": "2025-09-05T16:41:59.537Z",
     "first_seen": "2025-09-01T21:17:15.565Z",
     "contact_email": "",
     "contact_phone": ""
@@ -9290,7 +9318,7 @@
     "country": "Switzerland",
     "lang": "de",
     "query": "open call Switzerland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:34:16.349Z",
+    "fetched_at": "2025-09-05T16:41:59.537Z",
     "first_seen": "2025-09-01T21:17:15.565Z",
     "contact_email": "",
     "contact_phone": ""
@@ -9318,7 +9346,7 @@
     "country": "Switzerland",
     "lang": "de",
     "query": "model casting Switzerland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:34:15.113Z",
+    "fetched_at": "2025-09-05T16:41:58.454Z",
     "first_seen": "2025-09-01T21:17:15.267Z",
     "contact_email": "",
     "contact_phone": ""
@@ -9332,7 +9360,7 @@
     "country": "Switzerland",
     "lang": "de",
     "query": "model casting Switzerland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:34:15.113Z",
+    "fetched_at": "2025-09-05T16:41:58.454Z",
     "first_seen": "2025-09-01T21:17:15.267Z",
     "contact_email": "",
     "contact_phone": ""
@@ -9346,7 +9374,7 @@
     "country": "Switzerland",
     "lang": "de",
     "query": "model casting Switzerland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:34:15.113Z",
+    "fetched_at": "2025-09-05T16:41:58.454Z",
     "first_seen": "2025-09-01T21:17:15.267Z",
     "contact_email": "",
     "contact_phone": ""
@@ -9374,7 +9402,7 @@
     "country": "Switzerland",
     "lang": "de",
     "query": "photoshoot Switzerland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:34:13.888Z",
+    "fetched_at": "2025-09-05T16:41:57.323Z",
     "first_seen": "2025-09-01T21:17:14.976Z",
     "contact_email": "",
     "contact_phone": ""
@@ -9388,7 +9416,7 @@
     "country": "Switzerland",
     "lang": "de",
     "query": "photoshoot Switzerland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:34:13.888Z",
+    "fetched_at": "2025-09-05T16:41:57.323Z",
     "first_seen": "2025-09-01T21:17:14.976Z",
     "contact_email": "",
     "contact_phone": ""
@@ -9402,7 +9430,7 @@
     "country": "Switzerland",
     "lang": "de",
     "query": "photoshoot Switzerland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:34:13.888Z",
+    "fetched_at": "2025-09-05T16:41:57.323Z",
     "first_seen": "2025-09-01T21:17:14.976Z",
     "contact_email": "",
     "contact_phone": ""
@@ -9416,7 +9444,7 @@
     "country": "Switzerland",
     "lang": "de",
     "query": "photoshoot Switzerland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:34:13.889Z",
+    "fetched_at": "2025-09-05T16:41:57.323Z",
     "first_seen": "2025-09-01T21:17:14.976Z",
     "contact_email": "",
     "contact_phone": ""
@@ -9430,7 +9458,7 @@
     "country": "Switzerland",
     "lang": "de",
     "query": "photoshoot Switzerland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:34:13.889Z",
+    "fetched_at": "2025-09-05T16:41:57.323Z",
     "first_seen": "2025-09-01T21:17:14.976Z",
     "contact_email": "",
     "contact_phone": ""
@@ -9472,7 +9500,7 @@
     "country": "Switzerland",
     "lang": "de",
     "query": "audition Switzerland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:34:12.712Z",
+    "fetched_at": "2025-09-05T16:41:56.235Z",
     "first_seen": "2025-09-01T21:17:14.719Z",
     "contact_email": "",
     "contact_phone": ""
@@ -9514,7 +9542,7 @@
     "country": "Switzerland",
     "lang": "de",
     "query": "casting call Switzerland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:34:11.487Z",
+    "fetched_at": "2025-09-05T16:41:55.124Z",
     "first_seen": "2025-09-01T21:17:14.463Z",
     "contact_email": "",
     "contact_phone": ""
@@ -9528,7 +9556,7 @@
     "country": "Switzerland",
     "lang": "de",
     "query": "casting call Switzerland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:34:11.487Z",
+    "fetched_at": "2025-09-05T16:41:55.124Z",
     "first_seen": "2025-09-01T21:17:14.463Z",
     "contact_email": "",
     "contact_phone": ""
@@ -9542,7 +9570,7 @@
     "country": "Switzerland",
     "lang": "de",
     "query": "audition Switzerland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:34:12.712Z",
+    "fetched_at": "2025-09-05T16:41:56.235Z",
     "first_seen": "2025-09-01T21:17:14.463Z",
     "contact_email": "",
     "contact_phone": ""
@@ -9598,7 +9626,7 @@
     "country": "Switzerland",
     "lang": "de",
     "query": "casting Switzerland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:34:10.196Z",
+    "fetched_at": "2025-09-05T16:41:54.033Z",
     "first_seen": "2025-09-01T21:17:14.142Z",
     "contact_email": "",
     "contact_phone": ""
@@ -9612,7 +9640,7 @@
     "country": "Switzerland",
     "lang": "de",
     "query": "casting Switzerland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:34:10.196Z",
+    "fetched_at": "2025-09-05T16:41:54.033Z",
     "first_seen": "2025-09-01T21:17:14.142Z",
     "contact_email": "",
     "contact_phone": ""
@@ -9626,7 +9654,7 @@
     "country": "Switzerland",
     "lang": "de",
     "query": "casting Switzerland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:34:10.196Z",
+    "fetched_at": "2025-09-05T16:41:54.033Z",
     "first_seen": "2025-09-01T21:17:14.142Z",
     "contact_email": "",
     "contact_phone": ""
@@ -9640,7 +9668,7 @@
     "country": "Switzerland",
     "lang": "de",
     "query": "casting Switzerland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:34:10.196Z",
+    "fetched_at": "2025-09-05T16:41:54.033Z",
     "first_seen": "2025-09-01T21:17:14.142Z",
     "contact_email": "",
     "contact_phone": ""
@@ -9696,7 +9724,7 @@
     "country": "Austria",
     "lang": "de",
     "query": "tv casting Austria -site:youtube.com",
-    "fetched_at": "2025-09-05T15:34:08.953Z",
+    "fetched_at": "2025-09-05T16:41:52.894Z",
     "first_seen": "2025-09-01T21:17:13.896Z",
     "contact_email": "",
     "contact_phone": ""
@@ -9710,7 +9738,7 @@
     "country": "Austria",
     "lang": "de",
     "query": "tv casting Austria -site:youtube.com",
-    "fetched_at": "2025-09-05T15:34:08.953Z",
+    "fetched_at": "2025-09-05T16:41:52.894Z",
     "first_seen": "2025-09-01T21:17:13.896Z",
     "contact_email": "",
     "contact_phone": ""
@@ -9724,7 +9752,7 @@
     "country": "Austria",
     "lang": "de",
     "query": "tv casting Austria -site:youtube.com",
-    "fetched_at": "2025-09-05T15:34:08.953Z",
+    "fetched_at": "2025-09-05T16:41:52.894Z",
     "first_seen": "2025-09-01T21:17:13.896Z",
     "contact_email": "",
     "contact_phone": ""
@@ -9738,7 +9766,7 @@
     "country": "Austria",
     "lang": "de",
     "query": "tv casting Austria -site:youtube.com",
-    "fetched_at": "2025-09-05T15:34:08.953Z",
+    "fetched_at": "2025-09-05T16:41:52.894Z",
     "first_seen": "2025-09-01T21:17:13.896Z",
     "contact_email": "",
     "contact_phone": ""
@@ -9752,7 +9780,7 @@
     "country": "Austria",
     "lang": "de",
     "query": "tv casting Austria -site:youtube.com",
-    "fetched_at": "2025-09-05T15:34:08.953Z",
+    "fetched_at": "2025-09-05T16:41:52.894Z",
     "first_seen": "2025-09-01T21:17:13.896Z",
     "contact_email": "",
     "contact_phone": ""
@@ -9766,7 +9794,7 @@
     "country": "Austria",
     "lang": "de",
     "query": "tv casting Austria -site:youtube.com",
-    "fetched_at": "2025-09-05T15:34:08.953Z",
+    "fetched_at": "2025-09-05T16:41:52.894Z",
     "first_seen": "2025-09-01T21:17:13.896Z",
     "contact_email": "",
     "contact_phone": ""
@@ -9780,7 +9808,7 @@
     "country": "Austria",
     "lang": "de",
     "query": "film casting Austria -site:youtube.com",
-    "fetched_at": "2025-09-05T15:34:07.720Z",
+    "fetched_at": "2025-09-05T16:41:51.764Z",
     "first_seen": "2025-09-01T21:17:13.547Z",
     "contact_email": "",
     "contact_phone": ""
@@ -9794,7 +9822,7 @@
     "country": "Austria",
     "lang": "de",
     "query": "film casting Austria -site:youtube.com",
-    "fetched_at": "2025-09-05T15:34:07.720Z",
+    "fetched_at": "2025-09-05T16:41:51.764Z",
     "first_seen": "2025-09-01T21:17:13.547Z",
     "contact_email": "",
     "contact_phone": ""
@@ -9822,7 +9850,7 @@
     "country": "Austria",
     "lang": "de",
     "query": "extras casting Austria -site:youtube.com",
-    "fetched_at": "2025-09-05T15:34:06.525Z",
+    "fetched_at": "2025-09-05T16:41:50.585Z",
     "first_seen": "2025-09-01T21:17:13.292Z",
     "contact_email": "",
     "contact_phone": ""
@@ -9836,7 +9864,7 @@
     "country": "Austria",
     "lang": "de",
     "query": "extras casting Austria -site:youtube.com",
-    "fetched_at": "2025-09-05T15:34:06.525Z",
+    "fetched_at": "2025-09-05T16:41:50.585Z",
     "first_seen": "2025-09-01T21:17:13.292Z",
     "contact_email": "",
     "contact_phone": ""
@@ -9850,7 +9878,7 @@
     "country": "Austria",
     "lang": "de",
     "query": "extras casting Austria -site:youtube.com",
-    "fetched_at": "2025-09-05T15:34:06.526Z",
+    "fetched_at": "2025-09-05T16:41:50.585Z",
     "first_seen": "2025-09-01T21:17:13.292Z",
     "contact_email": "",
     "contact_phone": ""
@@ -9864,7 +9892,7 @@
     "country": "Austria",
     "lang": "de",
     "query": "extras casting Austria -site:youtube.com",
-    "fetched_at": "2025-09-05T15:34:06.526Z",
+    "fetched_at": "2025-09-05T16:41:50.585Z",
     "first_seen": "2025-09-01T21:17:13.292Z",
     "contact_email": "",
     "contact_phone": ""
@@ -9878,7 +9906,7 @@
     "country": "Austria",
     "lang": "de",
     "query": "extras casting Austria -site:youtube.com",
-    "fetched_at": "2025-09-05T15:34:06.526Z",
+    "fetched_at": "2025-09-05T16:41:50.585Z",
     "first_seen": "2025-09-01T21:17:13.292Z",
     "contact_email": "",
     "contact_phone": ""
@@ -9906,7 +9934,7 @@
     "country": "Austria",
     "lang": "de",
     "query": "open call Austria -site:youtube.com",
-    "fetched_at": "2025-09-05T15:34:05.207Z",
+    "fetched_at": "2025-09-05T16:41:49.234Z",
     "first_seen": "2025-09-01T21:17:12.959Z",
     "contact_email": "",
     "contact_phone": ""
@@ -9920,7 +9948,7 @@
     "country": "Austria",
     "lang": "de",
     "query": "open call Austria -site:youtube.com",
-    "fetched_at": "2025-09-05T15:34:05.207Z",
+    "fetched_at": "2025-09-05T16:41:49.234Z",
     "first_seen": "2025-09-01T21:17:12.959Z",
     "contact_email": "",
     "contact_phone": ""
@@ -9934,7 +9962,7 @@
     "country": "Austria",
     "lang": "de",
     "query": "open call Austria -site:youtube.com",
-    "fetched_at": "2025-09-05T15:34:05.207Z",
+    "fetched_at": "2025-09-05T16:41:49.234Z",
     "first_seen": "2025-09-01T21:17:12.959Z",
     "contact_email": "",
     "contact_phone": ""
@@ -9948,7 +9976,7 @@
     "country": "Austria",
     "lang": "de",
     "query": "open call Austria -site:youtube.com",
-    "fetched_at": "2025-09-05T15:34:05.207Z",
+    "fetched_at": "2025-09-05T16:41:49.234Z",
     "first_seen": "2025-09-01T21:17:12.959Z",
     "contact_email": "",
     "contact_phone": ""
@@ -9962,7 +9990,7 @@
     "country": "Austria",
     "lang": "de",
     "query": "open call Austria -site:youtube.com",
-    "fetched_at": "2025-09-05T15:34:05.207Z",
+    "fetched_at": "2025-09-05T16:41:49.235Z",
     "first_seen": "2025-09-01T21:17:12.959Z",
     "contact_email": "",
     "contact_phone": ""
@@ -10004,7 +10032,7 @@
     "country": "Austria",
     "lang": "de",
     "query": "model casting Austria -site:youtube.com",
-    "fetched_at": "2025-09-05T15:34:03.982Z",
+    "fetched_at": "2025-09-05T16:41:48.007Z",
     "first_seen": "2025-09-01T21:17:12.654Z",
     "contact_email": "",
     "contact_phone": ""
@@ -10018,7 +10046,7 @@
     "country": "Austria",
     "lang": "de",
     "query": "model casting Austria -site:youtube.com",
-    "fetched_at": "2025-09-05T15:34:03.982Z",
+    "fetched_at": "2025-09-05T16:41:48.007Z",
     "first_seen": "2025-09-01T21:17:12.654Z",
     "contact_email": "",
     "contact_phone": ""
@@ -10032,7 +10060,7 @@
     "country": "Austria",
     "lang": "de",
     "query": "model casting Austria -site:youtube.com",
-    "fetched_at": "2025-09-05T15:34:03.982Z",
+    "fetched_at": "2025-09-05T16:41:48.007Z",
     "first_seen": "2025-09-01T21:17:12.654Z",
     "contact_email": "",
     "contact_phone": ""
@@ -10046,7 +10074,7 @@
     "country": "Austria",
     "lang": "de",
     "query": "model casting Austria -site:youtube.com",
-    "fetched_at": "2025-09-05T15:34:03.982Z",
+    "fetched_at": "2025-09-05T16:41:48.007Z",
     "first_seen": "2025-09-01T21:17:12.654Z",
     "contact_email": "",
     "contact_phone": ""
@@ -10060,7 +10088,7 @@
     "country": "Austria",
     "lang": "de",
     "query": "model casting Austria -site:youtube.com",
-    "fetched_at": "2025-09-05T15:34:03.982Z",
+    "fetched_at": "2025-09-05T16:41:48.007Z",
     "first_seen": "2025-09-01T21:17:12.654Z",
     "contact_email": "",
     "contact_phone": ""
@@ -10074,7 +10102,7 @@
     "country": "Austria",
     "lang": "de",
     "query": "model casting Austria -site:youtube.com",
-    "fetched_at": "2025-09-05T15:34:03.982Z",
+    "fetched_at": "2025-09-05T16:41:48.007Z",
     "first_seen": "2025-09-01T21:17:12.654Z",
     "contact_email": "",
     "contact_phone": ""
@@ -10088,7 +10116,7 @@
     "country": "Austria",
     "lang": "de",
     "query": "model casting Austria -site:youtube.com",
-    "fetched_at": "2025-09-05T15:34:03.982Z",
+    "fetched_at": "2025-09-05T16:41:48.007Z",
     "first_seen": "2025-09-01T21:17:12.654Z",
     "contact_email": "",
     "contact_phone": ""
@@ -10116,7 +10144,7 @@
     "country": "Austria",
     "lang": "de",
     "query": "photoshoot Austria -site:youtube.com",
-    "fetched_at": "2025-09-05T15:34:02.738Z",
+    "fetched_at": "2025-09-05T16:41:46.792Z",
     "first_seen": "2025-09-01T21:17:12.330Z",
     "contact_email": "",
     "contact_phone": ""
@@ -10130,7 +10158,7 @@
     "country": "Austria",
     "lang": "de",
     "query": "photoshoot Austria -site:youtube.com",
-    "fetched_at": "2025-09-05T15:34:02.738Z",
+    "fetched_at": "2025-09-05T16:41:46.792Z",
     "first_seen": "2025-09-01T21:17:12.330Z",
     "contact_email": "",
     "contact_phone": ""
@@ -10144,7 +10172,7 @@
     "country": "Austria",
     "lang": "de",
     "query": "photoshoot Austria -site:youtube.com",
-    "fetched_at": "2025-09-05T15:34:02.738Z",
+    "fetched_at": "2025-09-05T16:41:46.792Z",
     "first_seen": "2025-09-01T21:17:12.330Z",
     "contact_email": "",
     "contact_phone": ""
@@ -10158,7 +10186,7 @@
     "country": "Austria",
     "lang": "de",
     "query": "photoshoot Austria -site:youtube.com",
-    "fetched_at": "2025-09-05T15:34:02.738Z",
+    "fetched_at": "2025-09-05T16:41:46.792Z",
     "first_seen": "2025-09-01T21:17:12.330Z",
     "contact_email": "",
     "contact_phone": ""
@@ -10172,7 +10200,7 @@
     "country": "Austria",
     "lang": "de",
     "query": "photoshoot Austria -site:youtube.com",
-    "fetched_at": "2025-09-05T15:34:02.738Z",
+    "fetched_at": "2025-09-05T16:41:46.792Z",
     "first_seen": "2025-09-01T21:17:12.330Z",
     "contact_email": "",
     "contact_phone": ""
@@ -10186,7 +10214,7 @@
     "country": "Austria",
     "lang": "de",
     "query": "photoshoot Austria -site:youtube.com",
-    "fetched_at": "2025-09-05T15:34:02.738Z",
+    "fetched_at": "2025-09-05T16:41:46.792Z",
     "first_seen": "2025-09-01T21:17:12.330Z",
     "contact_email": "",
     "contact_phone": ""
@@ -10200,7 +10228,7 @@
     "country": "Austria",
     "lang": "de",
     "query": "photoshoot Austria -site:youtube.com",
-    "fetched_at": "2025-09-05T15:34:02.738Z",
+    "fetched_at": "2025-09-05T16:41:46.792Z",
     "first_seen": "2025-09-01T21:17:12.330Z",
     "contact_email": "",
     "contact_phone": ""
@@ -10214,7 +10242,7 @@
     "country": "Austria",
     "lang": "de",
     "query": "photoshoot Austria -site:youtube.com",
-    "fetched_at": "2025-09-05T15:34:02.738Z",
+    "fetched_at": "2025-09-05T16:41:46.792Z",
     "first_seen": "2025-09-01T21:17:12.330Z",
     "contact_email": "",
     "contact_phone": ""
@@ -10228,7 +10256,7 @@
     "country": "Austria",
     "lang": "de",
     "query": "photoshoot Austria -site:youtube.com",
-    "fetched_at": "2025-09-05T15:34:02.738Z",
+    "fetched_at": "2025-09-05T16:41:46.792Z",
     "first_seen": "2025-09-01T21:17:12.330Z",
     "contact_email": "",
     "contact_phone": ""
@@ -10242,7 +10270,7 @@
     "country": "Austria",
     "lang": "de",
     "query": "audition Austria -site:youtube.com",
-    "fetched_at": "2025-09-05T15:34:01.576Z",
+    "fetched_at": "2025-09-05T16:41:45.616Z",
     "first_seen": "2025-09-01T21:17:12.030Z",
     "contact_email": "",
     "contact_phone": ""
@@ -10256,7 +10284,7 @@
     "country": "Austria",
     "lang": "de",
     "query": "audition Austria -site:youtube.com",
-    "fetched_at": "2025-09-05T15:34:01.576Z",
+    "fetched_at": "2025-09-05T16:41:45.616Z",
     "first_seen": "2025-09-01T21:17:12.030Z",
     "contact_email": "",
     "contact_phone": ""
@@ -10270,7 +10298,7 @@
     "country": "Austria",
     "lang": "de",
     "query": "audition Austria -site:youtube.com",
-    "fetched_at": "2025-09-05T15:34:01.576Z",
+    "fetched_at": "2025-09-05T16:41:45.616Z",
     "first_seen": "2025-09-01T21:17:12.030Z",
     "contact_email": "",
     "contact_phone": ""
@@ -10312,7 +10340,7 @@
     "country": "Austria",
     "lang": "de",
     "query": "casting call Austria -site:youtube.com",
-    "fetched_at": "2025-09-05T15:34:00.349Z",
+    "fetched_at": "2025-09-05T16:41:44.465Z",
     "first_seen": "2025-09-01T21:17:11.794Z",
     "contact_email": "",
     "contact_phone": ""
@@ -10326,7 +10354,7 @@
     "country": "Austria",
     "lang": "de",
     "query": "casting call Austria -site:youtube.com",
-    "fetched_at": "2025-09-05T15:34:00.349Z",
+    "fetched_at": "2025-09-05T16:41:44.465Z",
     "first_seen": "2025-09-01T21:17:11.794Z",
     "contact_email": "",
     "contact_phone": ""
@@ -10340,7 +10368,7 @@
     "country": "Austria",
     "lang": "de",
     "query": "casting call Austria -site:youtube.com",
-    "fetched_at": "2025-09-05T15:34:00.349Z",
+    "fetched_at": "2025-09-05T16:41:44.465Z",
     "first_seen": "2025-09-01T21:17:11.794Z",
     "contact_email": "",
     "contact_phone": ""
@@ -10354,7 +10382,7 @@
     "country": "Austria",
     "lang": "de",
     "query": "casting call Austria -site:youtube.com",
-    "fetched_at": "2025-09-05T15:34:00.349Z",
+    "fetched_at": "2025-09-05T16:41:44.465Z",
     "first_seen": "2025-09-01T21:17:11.794Z",
     "contact_email": "",
     "contact_phone": ""
@@ -10396,7 +10424,7 @@
     "country": "Austria",
     "lang": "de",
     "query": "casting Austria -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:59.160Z",
+    "fetched_at": "2025-09-05T16:41:43.335Z",
     "first_seen": "2025-09-01T21:17:11.456Z",
     "contact_email": "",
     "contact_phone": ""
@@ -10410,7 +10438,7 @@
     "country": "Austria",
     "lang": "de",
     "query": "casting Austria -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:59.160Z",
+    "fetched_at": "2025-09-05T16:41:43.335Z",
     "first_seen": "2025-09-01T21:17:11.456Z",
     "contact_email": "",
     "contact_phone": ""
@@ -10424,7 +10452,7 @@
     "country": "Austria",
     "lang": "de",
     "query": "casting Austria -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:59.160Z",
+    "fetched_at": "2025-09-05T16:41:43.335Z",
     "first_seen": "2025-09-01T21:17:11.456Z",
     "contact_email": "",
     "contact_phone": ""
@@ -10438,7 +10466,7 @@
     "country": "Austria",
     "lang": "de",
     "query": "casting Austria -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:59.160Z",
+    "fetched_at": "2025-09-05T16:41:43.335Z",
     "first_seen": "2025-09-01T21:17:11.456Z",
     "contact_email": "",
     "contact_phone": ""
@@ -10452,7 +10480,7 @@
     "country": "Austria",
     "lang": "de",
     "query": "casting call Austria -site:youtube.com",
-    "fetched_at": "2025-09-05T15:34:00.349Z",
+    "fetched_at": "2025-09-05T16:41:44.465Z",
     "first_seen": "2025-09-01T21:17:11.456Z",
     "contact_email": "",
     "contact_phone": ""
@@ -10494,7 +10522,7 @@
     "country": "Germany",
     "lang": "de",
     "query": "casting Germany -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:48.206Z",
+    "fetched_at": "2025-09-05T16:41:32.521Z",
     "first_seen": "2025-09-01T21:17:11.194Z",
     "contact_email": "",
     "contact_phone": ""
@@ -10508,7 +10536,7 @@
     "country": "Germany",
     "lang": "de",
     "query": "tv casting Germany -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:57.957Z",
+    "fetched_at": "2025-09-05T16:41:42.179Z",
     "first_seen": "2025-09-01T21:17:11.194Z",
     "contact_email": "",
     "contact_phone": ""
@@ -10522,7 +10550,7 @@
     "country": "Germany",
     "lang": "de",
     "query": "tv casting Germany -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:57.957Z",
+    "fetched_at": "2025-09-05T16:41:42.179Z",
     "first_seen": "2025-09-01T21:17:11.194Z",
     "contact_email": "",
     "contact_phone": ""
@@ -10536,7 +10564,7 @@
     "country": "Germany",
     "lang": "de",
     "query": "tv casting Germany -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:57.957Z",
+    "fetched_at": "2025-09-05T16:41:42.179Z",
     "first_seen": "2025-09-01T21:17:11.194Z",
     "contact_email": "",
     "contact_phone": ""
@@ -10550,7 +10578,7 @@
     "country": "Germany",
     "lang": "de",
     "query": "tv casting Germany -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:57.957Z",
+    "fetched_at": "2025-09-05T16:41:42.179Z",
     "first_seen": "2025-09-01T21:17:11.194Z",
     "contact_email": "",
     "contact_phone": ""
@@ -10578,7 +10606,7 @@
     "country": "Germany",
     "lang": "de",
     "query": "film casting Germany -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:56.753Z",
+    "fetched_at": "2025-09-05T16:41:40.936Z",
     "first_seen": "2025-09-01T21:17:10.887Z",
     "contact_email": "",
     "contact_phone": ""
@@ -10592,7 +10620,7 @@
     "country": "Germany",
     "lang": "de",
     "query": "film casting Germany -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:56.753Z",
+    "fetched_at": "2025-09-05T16:41:40.936Z",
     "first_seen": "2025-09-01T21:17:10.887Z",
     "contact_email": "",
     "contact_phone": ""
@@ -10606,7 +10634,7 @@
     "country": "Germany",
     "lang": "de",
     "query": "film casting Germany -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:56.753Z",
+    "fetched_at": "2025-09-05T16:41:40.936Z",
     "first_seen": "2025-09-01T21:17:10.887Z",
     "contact_email": "",
     "contact_phone": ""
@@ -10634,7 +10662,7 @@
     "country": "Germany",
     "lang": "de",
     "query": "extras casting Germany -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:55.472Z",
+    "fetched_at": "2025-09-05T16:41:39.712Z",
     "first_seen": "2025-09-01T21:17:10.597Z",
     "contact_email": "",
     "contact_phone": ""
@@ -10648,7 +10676,7 @@
     "country": "Germany",
     "lang": "de",
     "query": "extras casting Germany -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:55.472Z",
+    "fetched_at": "2025-09-05T16:41:39.712Z",
     "first_seen": "2025-09-01T21:17:10.597Z",
     "contact_email": "",
     "contact_phone": ""
@@ -10662,7 +10690,7 @@
     "country": "Germany",
     "lang": "de",
     "query": "extras casting Germany -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:55.472Z",
+    "fetched_at": "2025-09-05T16:41:39.712Z",
     "first_seen": "2025-09-01T21:17:10.597Z",
     "contact_email": "",
     "contact_phone": ""
@@ -10676,7 +10704,7 @@
     "country": "Germany",
     "lang": "de",
     "query": "extras casting Germany -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:55.472Z",
+    "fetched_at": "2025-09-05T16:41:39.712Z",
     "first_seen": "2025-09-01T21:17:10.597Z",
     "contact_email": "",
     "contact_phone": ""
@@ -10718,7 +10746,7 @@
     "country": "Germany",
     "lang": "de",
     "query": "open call Germany -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:54.280Z",
+    "fetched_at": "2025-09-05T16:41:38.487Z",
     "first_seen": "2025-09-01T21:17:10.290Z",
     "contact_email": "",
     "contact_phone": ""
@@ -10732,7 +10760,7 @@
     "country": "Germany",
     "lang": "de",
     "query": "open call Germany -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:54.280Z",
+    "fetched_at": "2025-09-05T16:41:38.487Z",
     "first_seen": "2025-09-01T21:17:10.290Z",
     "contact_email": "",
     "contact_phone": ""
@@ -10746,7 +10774,7 @@
     "country": "Germany",
     "lang": "de",
     "query": "open call Germany -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:54.280Z",
+    "fetched_at": "2025-09-05T16:41:38.487Z",
     "first_seen": "2025-09-01T21:17:10.290Z",
     "contact_email": "",
     "contact_phone": ""
@@ -10760,7 +10788,7 @@
     "country": "Germany",
     "lang": "de",
     "query": "open call Germany -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:54.280Z",
+    "fetched_at": "2025-09-05T16:41:38.487Z",
     "first_seen": "2025-09-01T21:17:10.290Z",
     "contact_email": "",
     "contact_phone": ""
@@ -10774,7 +10802,7 @@
     "country": "Germany",
     "lang": "de",
     "query": "open call Germany -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:54.280Z",
+    "fetched_at": "2025-09-05T16:41:38.487Z",
     "first_seen": "2025-09-01T21:17:10.290Z",
     "contact_email": "",
     "contact_phone": ""
@@ -10788,7 +10816,7 @@
     "country": "Germany",
     "lang": "de",
     "query": "open call Germany -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:54.280Z",
+    "fetched_at": "2025-09-05T16:41:38.487Z",
     "first_seen": "2025-09-01T21:17:10.290Z",
     "contact_email": "",
     "contact_phone": ""
@@ -10802,7 +10830,7 @@
     "country": "Germany",
     "lang": "de",
     "query": "open call Germany -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:54.280Z",
+    "fetched_at": "2025-09-05T16:41:38.487Z",
     "first_seen": "2025-09-01T21:17:10.290Z",
     "contact_email": "",
     "contact_phone": ""
@@ -10816,7 +10844,7 @@
     "country": "Germany",
     "lang": "de",
     "query": "open call Germany -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:54.280Z",
+    "fetched_at": "2025-09-05T16:41:38.487Z",
     "first_seen": "2025-09-01T21:17:10.290Z",
     "contact_email": "",
     "contact_phone": ""
@@ -10872,7 +10900,7 @@
     "country": "Germany",
     "lang": "de",
     "query": "model casting Germany -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:53.044Z",
+    "fetched_at": "2025-09-05T16:41:37.241Z",
     "first_seen": "2025-09-01T21:17:09.966Z",
     "contact_email": "",
     "contact_phone": ""
@@ -10886,7 +10914,7 @@
     "country": "Germany",
     "lang": "de",
     "query": "model casting Germany -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:53.044Z",
+    "fetched_at": "2025-09-05T16:41:37.241Z",
     "first_seen": "2025-09-01T21:17:09.966Z",
     "contact_email": "",
     "contact_phone": ""
@@ -10900,7 +10928,7 @@
     "country": "Germany",
     "lang": "de",
     "query": "photoshoot Germany -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:51.911Z",
+    "fetched_at": "2025-09-05T16:41:36.041Z",
     "first_seen": "2025-09-01T21:17:09.702Z",
     "contact_email": "",
     "contact_phone": ""
@@ -10914,7 +10942,7 @@
     "country": "Germany",
     "lang": "de",
     "query": "photoshoot Germany -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:51.911Z",
+    "fetched_at": "2025-09-05T16:41:36.041Z",
     "first_seen": "2025-09-01T21:17:09.702Z",
     "contact_email": "",
     "contact_phone": ""
@@ -10928,7 +10956,7 @@
     "country": "Germany",
     "lang": "de",
     "query": "photoshoot Germany -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:51.911Z",
+    "fetched_at": "2025-09-05T16:41:36.041Z",
     "first_seen": "2025-09-01T21:17:09.702Z",
     "contact_email": "",
     "contact_phone": ""
@@ -11012,7 +11040,7 @@
     "country": "Germany",
     "lang": "de",
     "query": "audition Germany -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:50.651Z",
+    "fetched_at": "2025-09-05T16:41:34.943Z",
     "first_seen": "2025-09-01T21:17:09.342Z",
     "contact_email": "",
     "contact_phone": ""
@@ -11040,7 +11068,7 @@
     "country": "Germany",
     "lang": "de",
     "query": "casting call Germany -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:49.463Z",
+    "fetched_at": "2025-09-05T16:41:33.803Z",
     "first_seen": "2025-09-01T21:17:09.055Z",
     "contact_email": "",
     "contact_phone": ""
@@ -11054,7 +11082,7 @@
     "country": "Germany",
     "lang": "de",
     "query": "casting call Germany -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:49.463Z",
+    "fetched_at": "2025-09-05T16:41:33.803Z",
     "first_seen": "2025-09-01T21:17:09.055Z",
     "contact_email": "",
     "contact_phone": ""
@@ -11124,7 +11152,7 @@
     "country": "Germany",
     "lang": "de",
     "query": "casting Germany -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:48.205Z",
+    "fetched_at": "2025-09-05T16:41:32.521Z",
     "first_seen": "2025-09-01T21:17:08.704Z",
     "contact_email": "",
     "contact_phone": ""
@@ -11138,7 +11166,7 @@
     "country": "Germany",
     "lang": "de",
     "query": "casting Germany -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:48.205Z",
+    "fetched_at": "2025-09-05T16:41:32.521Z",
     "first_seen": "2025-09-01T21:17:08.704Z",
     "contact_email": "",
     "contact_phone": ""
@@ -11152,7 +11180,7 @@
     "country": "Germany",
     "lang": "de",
     "query": "casting Germany -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:48.205Z",
+    "fetched_at": "2025-09-05T16:41:32.521Z",
     "first_seen": "2025-09-01T21:17:08.704Z",
     "contact_email": "",
     "contact_phone": ""
@@ -11166,7 +11194,7 @@
     "country": "Germany",
     "lang": "de",
     "query": "casting Germany -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:48.205Z",
+    "fetched_at": "2025-09-05T16:41:32.521Z",
     "first_seen": "2025-09-01T21:17:08.704Z",
     "contact_email": "info@kalmanhafner.com",
     "contact_phone": ""
@@ -11180,7 +11208,7 @@
     "country": "Germany",
     "lang": "de",
     "query": "casting call Germany -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:49.463Z",
+    "fetched_at": "2025-09-05T16:41:33.803Z",
     "first_seen": "2025-09-01T21:17:08.704Z",
     "contact_email": "",
     "contact_phone": ""
@@ -12230,7 +12258,7 @@
     "country": "Finland",
     "lang": "fi",
     "query": "tv casting Finland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:47.125Z",
+    "fetched_at": "2025-09-05T16:41:31.420Z",
     "first_seen": "2025-09-01T21:17:06.011Z",
     "contact_email": "",
     "contact_phone": ""
@@ -12244,7 +12272,7 @@
     "country": "Finland",
     "lang": "fi",
     "query": "tv casting Finland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:47.125Z",
+    "fetched_at": "2025-09-05T16:41:31.420Z",
     "first_seen": "2025-09-01T21:17:06.011Z",
     "contact_email": "",
     "contact_phone": ""
@@ -12258,7 +12286,7 @@
     "country": "Finland",
     "lang": "fi",
     "query": "tv casting Finland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:47.125Z",
+    "fetched_at": "2025-09-05T16:41:31.420Z",
     "first_seen": "2025-09-01T21:17:06.011Z",
     "contact_email": "",
     "contact_phone": ""
@@ -12314,7 +12342,21 @@
     "country": "Finland",
     "lang": "fi",
     "query": "film casting Finland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:45.682Z",
+    "fetched_at": "2025-09-05T16:41:30.195Z",
+    "first_seen": "2025-09-01T21:17:05.771Z",
+    "contact_email": "",
+    "contact_phone": ""
+  },
+  {
+    "id": "bd1f47c9a9cb080464d95e0e932c958bd20339a0",
+    "title": "Netflix Unveils the Premiere Date and First Look of Dome ...",
+    "link": "https://about.netflix.com/news/netflix-unveils-the-premiere-date-and-first-look-of-dome-karukoskis-little",
+    "snippet": "Feb 21, 2025 ... Today, Netflix revealed the launch date and first look images for the upcoming Finnish film Little Siberia based on the novel with the same name ...",
+    "source_domain": "about.netflix.com",
+    "country": "Finland",
+    "lang": "fi",
+    "query": "film casting Finland -site:youtube.com",
+    "fetched_at": "2025-09-05T16:41:30.195Z",
     "first_seen": "2025-09-01T21:17:05.771Z",
     "contact_email": "",
     "contact_phone": ""
@@ -12329,20 +12371,6 @@
     "lang": "fi",
     "query": "film casting Finland -site:youtube.com",
     "fetched_at": "2025-09-05T15:33:45.682Z",
-    "first_seen": "2025-09-01T21:17:05.771Z",
-    "contact_email": "",
-    "contact_phone": ""
-  },
-  {
-    "id": "bd1f47c9a9cb080464d95e0e932c958bd20339a0",
-    "title": "Netflix Unveils the Premiere Date and First Look of Dome ...",
-    "link": "https://about.netflix.com/news/netflix-unveils-the-premiere-date-and-first-look-of-dome-karukoskis-little",
-    "snippet": "Feb 21, 2025 ... Today, Netflix revealed the launch date and first look images for the upcoming Finnish film Little Siberia based on the novel with the same name ...",
-    "source_domain": "about.netflix.com",
-    "country": "Finland",
-    "lang": "fi",
-    "query": "film casting Finland -site:youtube.com",
-    "fetched_at": "2025-09-05T14:37:37.199Z",
     "first_seen": "2025-09-01T21:17:05.771Z",
     "contact_email": "",
     "contact_phone": ""
@@ -12398,7 +12426,7 @@
     "country": "Finland",
     "lang": "fi",
     "query": "extras casting Finland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:44.535Z",
+    "fetched_at": "2025-09-05T16:41:29.085Z",
     "first_seen": "2025-09-01T21:17:05.531Z",
     "contact_email": "",
     "contact_phone": ""
@@ -12412,7 +12440,7 @@
     "country": "Finland",
     "lang": "fi",
     "query": "extras casting Finland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:44.535Z",
+    "fetched_at": "2025-09-05T16:41:29.085Z",
     "first_seen": "2025-09-01T21:17:05.531Z",
     "contact_email": "",
     "contact_phone": ""
@@ -12426,7 +12454,7 @@
     "country": "Finland",
     "lang": "fi",
     "query": "extras casting Finland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:44.535Z",
+    "fetched_at": "2025-09-05T16:41:29.085Z",
     "first_seen": "2025-09-01T21:17:05.531Z",
     "contact_email": "",
     "contact_phone": ""
@@ -12440,7 +12468,7 @@
     "country": "Finland",
     "lang": "fi",
     "query": "extras casting Finland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:44.535Z",
+    "fetched_at": "2025-09-05T16:41:29.085Z",
     "first_seen": "2025-09-01T21:17:05.531Z",
     "contact_email": "",
     "contact_phone": ""
@@ -12454,7 +12482,7 @@
     "country": "Finland",
     "lang": "fi",
     "query": "extras casting Finland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:44.535Z",
+    "fetched_at": "2025-09-05T16:41:29.085Z",
     "first_seen": "2025-09-01T21:17:05.531Z",
     "contact_email": "",
     "contact_phone": ""
@@ -12468,7 +12496,7 @@
     "country": "Finland",
     "lang": "fi",
     "query": "extras casting Finland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:44.535Z",
+    "fetched_at": "2025-09-05T16:41:29.085Z",
     "first_seen": "2025-09-01T21:17:05.531Z",
     "contact_email": "",
     "contact_phone": ""
@@ -12496,7 +12524,7 @@
     "country": "Finland",
     "lang": "fi",
     "query": "casting call Finland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:38.631Z",
+    "fetched_at": "2025-09-05T16:41:22.995Z",
     "first_seen": "2025-09-01T21:17:05.285Z",
     "contact_email": "",
     "contact_phone": ""
@@ -12510,7 +12538,7 @@
     "country": "Finland",
     "lang": "fi",
     "query": "casting call Finland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:38.631Z",
+    "fetched_at": "2025-09-05T16:41:22.995Z",
     "first_seen": "2025-09-01T21:17:05.285Z",
     "contact_email": "",
     "contact_phone": ""
@@ -12524,7 +12552,7 @@
     "country": "Finland",
     "lang": "fi",
     "query": "casting call Finland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:38.631Z",
+    "fetched_at": "2025-09-05T16:41:22.995Z",
     "first_seen": "2025-09-01T21:17:05.285Z",
     "contact_email": "",
     "contact_phone": ""
@@ -12538,7 +12566,7 @@
     "country": "Finland",
     "lang": "fi",
     "query": "open call Finland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:43.350Z",
+    "fetched_at": "2025-09-05T16:41:28.008Z",
     "first_seen": "2025-09-01T21:17:05.285Z",
     "contact_email": "",
     "contact_phone": ""
@@ -12552,7 +12580,7 @@
     "country": "Finland",
     "lang": "fi",
     "query": "open call Finland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:43.350Z",
+    "fetched_at": "2025-09-05T16:41:28.008Z",
     "first_seen": "2025-09-01T21:17:05.285Z",
     "contact_email": "",
     "contact_phone": ""
@@ -12566,7 +12594,7 @@
     "country": "Finland",
     "lang": "fi",
     "query": "open call Finland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:43.350Z",
+    "fetched_at": "2025-09-05T16:41:28.008Z",
     "first_seen": "2025-09-01T21:17:05.285Z",
     "contact_email": "",
     "contact_phone": ""
@@ -12580,7 +12608,7 @@
     "country": "Finland",
     "lang": "fi",
     "query": "open call Finland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:43.350Z",
+    "fetched_at": "2025-09-05T16:41:28.008Z",
     "first_seen": "2025-09-01T21:17:05.285Z",
     "contact_email": "",
     "contact_phone": ""
@@ -12594,7 +12622,7 @@
     "country": "Finland",
     "lang": "fi",
     "query": "open call Finland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:43.350Z",
+    "fetched_at": "2025-09-05T16:41:28.008Z",
     "first_seen": "2025-09-01T21:17:05.285Z",
     "contact_email": "",
     "contact_phone": ""
@@ -12622,7 +12650,7 @@
     "country": "Finland",
     "lang": "fi",
     "query": "model casting Finland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:42.082Z",
+    "fetched_at": "2025-09-05T16:41:26.499Z",
     "first_seen": "2025-09-01T21:17:04.948Z",
     "contact_email": "",
     "contact_phone": ""
@@ -12636,7 +12664,7 @@
     "country": "Finland",
     "lang": "fi",
     "query": "model casting Finland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:42.082Z",
+    "fetched_at": "2025-09-05T16:41:26.499Z",
     "first_seen": "2025-09-01T21:17:04.948Z",
     "contact_email": "",
     "contact_phone": ""
@@ -12650,7 +12678,7 @@
     "country": "Finland",
     "lang": "fi",
     "query": "model casting Finland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:42.082Z",
+    "fetched_at": "2025-09-05T16:41:26.499Z",
     "first_seen": "2025-09-01T21:17:04.948Z",
     "contact_email": "",
     "contact_phone": ""
@@ -12664,7 +12692,7 @@
     "country": "Finland",
     "lang": "fi",
     "query": "model casting Finland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:42.082Z",
+    "fetched_at": "2025-09-05T16:41:26.499Z",
     "first_seen": "2025-09-01T21:17:04.948Z",
     "contact_email": "",
     "contact_phone": ""
@@ -12678,7 +12706,7 @@
     "country": "Finland",
     "lang": "fi",
     "query": "model casting Finland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:42.083Z",
+    "fetched_at": "2025-09-05T16:41:26.499Z",
     "first_seen": "2025-09-01T21:17:04.948Z",
     "contact_email": "",
     "contact_phone": ""
@@ -12692,7 +12720,7 @@
     "country": "Finland",
     "lang": "fi",
     "query": "model casting Finland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:42.083Z",
+    "fetched_at": "2025-09-05T16:41:26.500Z",
     "first_seen": "2025-09-01T21:17:04.948Z",
     "contact_email": "",
     "contact_phone": ""
@@ -12734,7 +12762,7 @@
     "country": "Finland",
     "lang": "fi",
     "query": "photoshoot Finland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:40.949Z",
+    "fetched_at": "2025-09-05T16:41:25.352Z",
     "first_seen": "2025-09-01T21:17:04.638Z",
     "contact_email": "",
     "contact_phone": ""
@@ -12748,7 +12776,7 @@
     "country": "Finland",
     "lang": "fi",
     "query": "photoshoot Finland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:40.949Z",
+    "fetched_at": "2025-09-05T16:41:25.352Z",
     "first_seen": "2025-09-01T21:17:04.638Z",
     "contact_email": "",
     "contact_phone": ""
@@ -12762,7 +12790,7 @@
     "country": "Finland",
     "lang": "fi",
     "query": "photoshoot Finland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:40.949Z",
+    "fetched_at": "2025-09-05T16:41:25.352Z",
     "first_seen": "2025-09-01T21:17:04.638Z",
     "contact_email": "",
     "contact_phone": ""
@@ -12776,7 +12804,7 @@
     "country": "Finland",
     "lang": "fi",
     "query": "photoshoot Finland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:40.949Z",
+    "fetched_at": "2025-09-05T16:41:25.352Z",
     "first_seen": "2025-09-01T21:17:04.638Z",
     "contact_email": "",
     "contact_phone": ""
@@ -12790,21 +12818,7 @@
     "country": "Finland",
     "lang": "fi",
     "query": "photoshoot Finland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:40.949Z",
-    "first_seen": "2025-09-01T21:17:04.638Z",
-    "contact_email": "",
-    "contact_phone": ""
-  },
-  {
-    "id": "c5c4fbfb8b7d6558e5f0df687f5f66fae440e6cc",
-    "title": "Wedding Photographer Susanna Nordvall based in Helsinki, Finland",
-    "link": "https://www.susannanordvall.com/",
-    "snippet": "Susanna Nordvall is an award-winning wedding photographer based in Helsinki, specializing in intimate and emotional wedding photography and couple shoots, ...",
-    "source_domain": "susannanordvall.com",
-    "country": "Finland",
-    "lang": "fi",
-    "query": "photoshoot Finland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:40.949Z",
+    "fetched_at": "2025-09-05T16:41:25.352Z",
     "first_seen": "2025-09-01T21:17:04.638Z",
     "contact_email": "",
     "contact_phone": ""
@@ -12818,7 +12832,21 @@
     "country": "Finland",
     "lang": "fi",
     "query": "photoshoot Finland -site:youtube.com",
-    "fetched_at": "2025-09-05T13:18:48.680Z",
+    "fetched_at": "2025-09-05T16:41:25.352Z",
+    "first_seen": "2025-09-01T21:17:04.638Z",
+    "contact_email": "",
+    "contact_phone": ""
+  },
+  {
+    "id": "c5c4fbfb8b7d6558e5f0df687f5f66fae440e6cc",
+    "title": "Wedding Photographer Susanna Nordvall based in Helsinki, Finland",
+    "link": "https://www.susannanordvall.com/",
+    "snippet": "Susanna Nordvall is an award-winning wedding photographer based in Helsinki, specializing in intimate and emotional wedding photography and couple shoots, ...",
+    "source_domain": "susannanordvall.com",
+    "country": "Finland",
+    "lang": "fi",
+    "query": "photoshoot Finland -site:youtube.com",
+    "fetched_at": "2025-09-05T16:41:25.352Z",
     "first_seen": "2025-09-01T21:17:04.638Z",
     "contact_email": "",
     "contact_phone": ""
@@ -12874,7 +12902,7 @@
     "country": "Finland",
     "lang": "fi",
     "query": "audition Finland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:39.791Z",
+    "fetched_at": "2025-09-05T16:41:24.249Z",
     "first_seen": "2025-09-01T21:17:04.329Z",
     "contact_email": "",
     "contact_phone": ""
@@ -12888,7 +12916,7 @@
     "country": "Finland",
     "lang": "fi",
     "query": "audition Finland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:39.791Z",
+    "fetched_at": "2025-09-05T16:41:24.249Z",
     "first_seen": "2025-09-01T21:17:04.329Z",
     "contact_email": "",
     "contact_phone": ""
@@ -12902,7 +12930,7 @@
     "country": "Finland",
     "lang": "fi",
     "query": "audition Finland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:39.791Z",
+    "fetched_at": "2025-09-05T16:41:24.249Z",
     "first_seen": "2025-09-01T21:17:04.329Z",
     "contact_email": "",
     "contact_phone": ""
@@ -12916,7 +12944,7 @@
     "country": "Finland",
     "lang": "fi",
     "query": "audition Finland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:39.791Z",
+    "fetched_at": "2025-09-05T16:41:24.249Z",
     "first_seen": "2025-09-01T21:17:04.329Z",
     "contact_email": "",
     "contact_phone": ""
@@ -12930,7 +12958,7 @@
     "country": "Finland",
     "lang": "fi",
     "query": "audition Finland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:39.791Z",
+    "fetched_at": "2025-09-05T16:41:24.249Z",
     "first_seen": "2025-09-01T21:17:04.329Z",
     "contact_email": "",
     "contact_phone": ""
@@ -12944,7 +12972,7 @@
     "country": "Finland",
     "lang": "fi",
     "query": "audition Finland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:39.791Z",
+    "fetched_at": "2025-09-05T16:41:24.249Z",
     "first_seen": "2025-09-01T21:17:04.329Z",
     "contact_email": "",
     "contact_phone": ""
@@ -12972,7 +13000,7 @@
     "country": "Finland",
     "lang": "fi",
     "query": "casting call Finland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:38.631Z",
+    "fetched_at": "2025-09-05T16:41:22.995Z",
     "first_seen": "2025-09-01T21:17:04.049Z",
     "contact_email": "",
     "contact_phone": ""
@@ -12986,7 +13014,7 @@
     "country": "Finland",
     "lang": "fi",
     "query": "casting call Finland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:38.631Z",
+    "fetched_at": "2025-09-05T16:41:22.995Z",
     "first_seen": "2025-09-01T21:17:04.049Z",
     "contact_email": "",
     "contact_phone": ""
@@ -13000,7 +13028,7 @@
     "country": "Finland",
     "lang": "fi",
     "query": "casting call Finland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:38.631Z",
+    "fetched_at": "2025-09-05T16:41:22.995Z",
     "first_seen": "2025-09-01T21:17:04.049Z",
     "contact_email": "",
     "contact_phone": ""
@@ -13014,7 +13042,7 @@
     "country": "Finland",
     "lang": "fi",
     "query": "model casting Finland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:42.082Z",
+    "fetched_at": "2025-09-05T16:41:26.499Z",
     "first_seen": "2025-09-01T21:17:04.049Z",
     "contact_email": "booking@fashionmodel.fi",
     "contact_phone": ""
@@ -13070,7 +13098,7 @@
     "country": "Finland",
     "lang": "fi",
     "query": "casting Finland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:37.360Z",
+    "fetched_at": "2025-09-05T16:41:21.773Z",
     "first_seen": "2025-09-01T21:17:03.805Z",
     "contact_email": "",
     "contact_phone": ""
@@ -13084,7 +13112,7 @@
     "country": "Finland",
     "lang": "fi",
     "query": "casting Finland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:37.360Z",
+    "fetched_at": "2025-09-05T16:41:21.773Z",
     "first_seen": "2025-09-01T21:17:03.805Z",
     "contact_email": "",
     "contact_phone": ""
@@ -13098,7 +13126,7 @@
     "country": "Finland",
     "lang": "fi",
     "query": "casting Finland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:37.360Z",
+    "fetched_at": "2025-09-05T16:41:21.773Z",
     "first_seen": "2025-09-01T21:17:03.805Z",
     "contact_email": "",
     "contact_phone": ""
@@ -13112,7 +13140,7 @@
     "country": "Finland",
     "lang": "fi",
     "query": "casting Finland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:37.360Z",
+    "fetched_at": "2025-09-05T16:41:21.773Z",
     "first_seen": "2025-09-01T21:17:03.805Z",
     "contact_email": "",
     "contact_phone": ""
@@ -13126,7 +13154,7 @@
     "country": "Finland",
     "lang": "fi",
     "query": "casting Finland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:37.360Z",
+    "fetched_at": "2025-09-05T16:41:21.773Z",
     "first_seen": "2025-09-01T21:17:03.805Z",
     "contact_email": "",
     "contact_phone": ""
@@ -13140,7 +13168,7 @@
     "country": "Finland",
     "lang": "fi",
     "query": "casting Finland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:37.360Z",
+    "fetched_at": "2025-09-05T16:41:21.773Z",
     "first_seen": "2025-09-01T21:17:03.805Z",
     "contact_email": "",
     "contact_phone": ""
@@ -13154,7 +13182,7 @@
     "country": "Finland",
     "lang": "fi",
     "query": "casting Finland -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:37.360Z",
+    "fetched_at": "2025-09-05T16:41:21.773Z",
     "first_seen": "2025-09-01T21:17:03.805Z",
     "contact_email": "",
     "contact_phone": ""
@@ -13182,7 +13210,7 @@
     "country": "Norway",
     "lang": "no",
     "query": "tv casting Norway -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:36.160Z",
+    "fetched_at": "2025-09-05T16:41:20.669Z",
     "first_seen": "2025-09-01T21:17:03.467Z",
     "contact_email": "",
     "contact_phone": ""
@@ -13196,7 +13224,7 @@
     "country": "Norway",
     "lang": "no",
     "query": "tv casting Norway -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:36.160Z",
+    "fetched_at": "2025-09-05T16:41:20.669Z",
     "first_seen": "2025-09-01T21:17:03.467Z",
     "contact_email": "",
     "contact_phone": ""
@@ -13210,7 +13238,7 @@
     "country": "Norway",
     "lang": "no",
     "query": "tv casting Norway -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:36.160Z",
+    "fetched_at": "2025-09-05T16:41:20.669Z",
     "first_seen": "2025-09-01T21:17:03.467Z",
     "contact_email": "",
     "contact_phone": ""
@@ -13224,7 +13252,7 @@
     "country": "Norway",
     "lang": "no",
     "query": "tv casting Norway -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:36.160Z",
+    "fetched_at": "2025-09-05T16:41:20.669Z",
     "first_seen": "2025-09-01T21:17:03.467Z",
     "contact_email": "",
     "contact_phone": ""
@@ -13238,7 +13266,7 @@
     "country": "Norway",
     "lang": "no",
     "query": "tv casting Norway -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:36.160Z",
+    "fetched_at": "2025-09-05T16:41:20.669Z",
     "first_seen": "2025-09-01T21:17:03.467Z",
     "contact_email": "",
     "contact_phone": ""
@@ -13252,7 +13280,7 @@
     "country": "Norway",
     "lang": "no",
     "query": "tv casting Norway -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:36.160Z",
+    "fetched_at": "2025-09-05T16:41:20.669Z",
     "first_seen": "2025-09-01T21:17:03.467Z",
     "contact_email": "",
     "contact_phone": ""
@@ -13266,7 +13294,7 @@
     "country": "Norway",
     "lang": "no",
     "query": "tv casting Norway -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:36.160Z",
+    "fetched_at": "2025-09-05T16:41:20.669Z",
     "first_seen": "2025-09-01T21:17:03.467Z",
     "contact_email": "",
     "contact_phone": ""
@@ -13280,7 +13308,7 @@
     "country": "Norway",
     "lang": "no",
     "query": "tv casting Norway -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:36.160Z",
+    "fetched_at": "2025-09-05T16:41:20.669Z",
     "first_seen": "2025-09-01T21:17:03.467Z",
     "contact_email": "",
     "contact_phone": ""
@@ -13294,21 +13322,7 @@
     "country": "Norway",
     "lang": "no",
     "query": "audition Norway -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:29.093Z",
-    "first_seen": "2025-09-01T21:17:03.230Z",
-    "contact_email": "",
-    "contact_phone": ""
-  },
-  {
-    "id": "8c65d704182bdbfb4bef06179c1823cd28581df5",
-    "title": "Christine Stronegger – Director/Screenwriter/Casting | LinkedIn",
-    "link": "https://no.linkedin.com/in/christine-stronegger",
-    "snippet": "Director/Screenwriter/Casting · Erfaring: Bacon · Utdanning: Long ... Filmworkshop - with the Norwegian Film School and the National Theater School. - ...",
-    "source_domain": "no.linkedin.com",
-    "country": "Norway",
-    "lang": "no",
-    "query": "film casting Norway -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:34.921Z",
+    "fetched_at": "2025-09-05T16:41:13.798Z",
     "first_seen": "2025-09-01T21:17:03.230Z",
     "contact_email": "",
     "contact_phone": ""
@@ -13322,7 +13336,21 @@
     "country": "Norway",
     "lang": "no",
     "query": "film casting Norway -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:34.921Z",
+    "fetched_at": "2025-09-05T16:41:19.595Z",
+    "first_seen": "2025-09-01T21:17:03.230Z",
+    "contact_email": "",
+    "contact_phone": ""
+  },
+  {
+    "id": "8c65d704182bdbfb4bef06179c1823cd28581df5",
+    "title": "Christine Stronegger – Director/Screenwriter/Casting | LinkedIn",
+    "link": "https://no.linkedin.com/in/christine-stronegger",
+    "snippet": "Director/Screenwriter/Casting · Erfaring: Bacon · Utdanning: Long ... Filmworkshop - with the Norwegian Film School and the National Theater School. - ...",
+    "source_domain": "no.linkedin.com",
+    "country": "Norway",
+    "lang": "no",
+    "query": "film casting Norway -site:youtube.com",
+    "fetched_at": "2025-09-05T16:41:19.595Z",
     "first_seen": "2025-09-01T21:17:03.230Z",
     "contact_email": "",
     "contact_phone": ""
@@ -13336,7 +13364,7 @@
     "country": "Norway",
     "lang": "no",
     "query": "film casting Norway -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:34.922Z",
+    "fetched_at": "2025-09-05T16:41:19.595Z",
     "first_seen": "2025-09-01T21:17:03.230Z",
     "contact_email": "",
     "contact_phone": ""
@@ -13364,7 +13392,7 @@
     "country": "Norway",
     "lang": "no",
     "query": "extras casting Norway -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:33.630Z",
+    "fetched_at": "2025-09-05T16:41:18.319Z",
     "first_seen": "2025-09-01T21:17:02.829Z",
     "contact_email": "",
     "contact_phone": ""
@@ -13378,7 +13406,7 @@
     "country": "Norway",
     "lang": "no",
     "query": "extras casting Norway -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:33.630Z",
+    "fetched_at": "2025-09-05T16:41:18.319Z",
     "first_seen": "2025-09-01T21:17:02.829Z",
     "contact_email": "",
     "contact_phone": ""
@@ -13392,7 +13420,7 @@
     "country": "Norway",
     "lang": "no",
     "query": "extras casting Norway -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:33.630Z",
+    "fetched_at": "2025-09-05T16:41:18.319Z",
     "first_seen": "2025-09-01T21:17:02.829Z",
     "contact_email": "",
     "contact_phone": ""
@@ -13406,7 +13434,7 @@
     "country": "Norway",
     "lang": "no",
     "query": "extras casting Norway -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:33.631Z",
+    "fetched_at": "2025-09-05T16:41:18.319Z",
     "first_seen": "2025-09-01T21:17:02.829Z",
     "contact_email": "",
     "contact_phone": ""
@@ -13420,7 +13448,7 @@
     "country": "Norway",
     "lang": "no",
     "query": "extras casting Norway -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:33.631Z",
+    "fetched_at": "2025-09-05T16:41:18.319Z",
     "first_seen": "2025-09-01T21:17:02.829Z",
     "contact_email": "",
     "contact_phone": ""
@@ -13462,7 +13490,7 @@
     "country": "Norway",
     "lang": "no",
     "query": "open call Norway -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:32.476Z",
+    "fetched_at": "2025-09-05T16:41:17.228Z",
     "first_seen": "2025-09-01T21:17:02.570Z",
     "contact_email": "",
     "contact_phone": ""
@@ -13476,7 +13504,7 @@
     "country": "Norway",
     "lang": "no",
     "query": "open call Norway -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:32.476Z",
+    "fetched_at": "2025-09-05T16:41:17.228Z",
     "first_seen": "2025-09-01T21:17:02.570Z",
     "contact_email": "",
     "contact_phone": ""
@@ -13490,7 +13518,7 @@
     "country": "Norway",
     "lang": "no",
     "query": "open call Norway -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:32.476Z",
+    "fetched_at": "2025-09-05T16:41:17.228Z",
     "first_seen": "2025-09-01T21:17:02.570Z",
     "contact_email": "",
     "contact_phone": ""
@@ -13504,7 +13532,7 @@
     "country": "Norway",
     "lang": "no",
     "query": "open call Norway -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:32.476Z",
+    "fetched_at": "2025-09-05T16:41:17.228Z",
     "first_seen": "2025-09-01T21:17:02.570Z",
     "contact_email": "",
     "contact_phone": ""
@@ -13518,7 +13546,7 @@
     "country": "Norway",
     "lang": "no",
     "query": "open call Norway -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:32.476Z",
+    "fetched_at": "2025-09-05T16:41:17.228Z",
     "first_seen": "2025-09-01T21:17:02.570Z",
     "contact_email": "",
     "contact_phone": ""
@@ -13532,7 +13560,7 @@
     "country": "Norway",
     "lang": "no",
     "query": "open call Norway -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:32.476Z",
+    "fetched_at": "2025-09-05T16:41:17.228Z",
     "first_seen": "2025-09-01T21:17:02.570Z",
     "contact_email": "",
     "contact_phone": ""
@@ -13546,7 +13574,7 @@
     "country": "Norway",
     "lang": "no",
     "query": "open call Norway -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:32.476Z",
+    "fetched_at": "2025-09-05T16:41:17.228Z",
     "first_seen": "2025-09-01T21:17:02.570Z",
     "contact_email": "",
     "contact_phone": ""
@@ -13560,7 +13588,7 @@
     "country": "Norway",
     "lang": "no",
     "query": "open call Norway -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:32.476Z",
+    "fetched_at": "2025-09-05T16:41:17.228Z",
     "first_seen": "2025-09-01T21:17:02.570Z",
     "contact_email": "",
     "contact_phone": ""
@@ -13602,7 +13630,7 @@
     "country": "Norway",
     "lang": "no",
     "query": "model casting Norway -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:31.296Z",
+    "fetched_at": "2025-09-05T16:41:16.065Z",
     "first_seen": "2025-09-01T21:17:02.195Z",
     "contact_email": "",
     "contact_phone": ""
@@ -13616,7 +13644,7 @@
     "country": "Norway",
     "lang": "no",
     "query": "model casting Norway -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:31.296Z",
+    "fetched_at": "2025-09-05T16:41:16.065Z",
     "first_seen": "2025-09-01T21:17:02.195Z",
     "contact_email": "",
     "contact_phone": ""
@@ -13630,7 +13658,7 @@
     "country": "Norway",
     "lang": "no",
     "query": "model casting Norway -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:31.296Z",
+    "fetched_at": "2025-09-05T16:41:16.065Z",
     "first_seen": "2025-09-01T21:17:02.195Z",
     "contact_email": "",
     "contact_phone": ""
@@ -13644,7 +13672,7 @@
     "country": "Norway",
     "lang": "no",
     "query": "model casting Norway -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:31.296Z",
+    "fetched_at": "2025-09-05T16:41:16.065Z",
     "first_seen": "2025-09-01T21:17:02.195Z",
     "contact_email": "",
     "contact_phone": ""
@@ -13658,7 +13686,7 @@
     "country": "Norway",
     "lang": "no",
     "query": "model casting Norway -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:31.296Z",
+    "fetched_at": "2025-09-05T16:41:16.065Z",
     "first_seen": "2025-09-01T21:17:02.195Z",
     "contact_email": "",
     "contact_phone": ""
@@ -13692,20 +13720,6 @@
     "contact_phone": ""
   },
   {
-    "id": "41716bc7fbab491aec3464504b2a688531ac989a",
-    "title": "Wedding photographer Norway (@eirikhalvorsen) • Instagram ...",
-    "link": "https://www.instagram.com/eirikhalvorsen/",
-    "snippet": "4.2K+ followers · 660 following · 3528 posts · @eirikhalvorsen: “Documenting real, meaningful moments, and artistic portraits worldwide Booking, blog, ...",
-    "source_domain": "instagram.com",
-    "country": "Norway",
-    "lang": "no",
-    "query": "photoshoot Norway -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:30.219Z",
-    "first_seen": "2025-09-01T21:17:01.943Z",
-    "contact_email": "",
-    "contact_phone": ""
-  },
-  {
     "id": "bb352d88e3e42f7e29250c30d0ea1d903a133113",
     "title": "Photo and film bank | Images and videos from Norway",
     "link": "https://www.visitnorway.com/media-centre/media-bank/",
@@ -13714,7 +13728,7 @@
     "country": "Norway",
     "lang": "no",
     "query": "photoshoot Norway -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:30.219Z",
+    "fetched_at": "2025-09-05T16:41:14.976Z",
     "first_seen": "2025-09-01T21:17:01.943Z",
     "contact_email": "",
     "contact_phone": ""
@@ -13728,7 +13742,7 @@
     "country": "Norway",
     "lang": "no",
     "query": "photoshoot Norway -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:30.219Z",
+    "fetched_at": "2025-09-05T16:41:14.976Z",
     "first_seen": "2025-09-01T21:17:01.943Z",
     "contact_email": "",
     "contact_phone": ""
@@ -13742,7 +13756,7 @@
     "country": "Norway",
     "lang": "no",
     "query": "photoshoot Norway -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:30.219Z",
+    "fetched_at": "2025-09-05T16:41:14.976Z",
     "first_seen": "2025-09-01T21:17:01.943Z",
     "contact_email": "",
     "contact_phone": ""
@@ -13756,7 +13770,7 @@
     "country": "Norway",
     "lang": "no",
     "query": "photoshoot Norway -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:30.219Z",
+    "fetched_at": "2025-09-05T16:41:14.976Z",
     "first_seen": "2025-09-01T21:17:01.943Z",
     "contact_email": "",
     "contact_phone": ""
@@ -13767,6 +13781,20 @@
     "link": "https://www.royalcourt.no/nyhet.html?tid=119269&sek=27262",
     "snippet": "Dec 19, 2013 ... Their Majesties King Harald and Queen Sonja, Their Royal Highnesses Crown Prince Haakon, Crown Princess Mette-Marit and Princess Ingrid ...",
     "source_domain": "royalcourt.no",
+    "country": "Norway",
+    "lang": "no",
+    "query": "photoshoot Norway -site:youtube.com",
+    "fetched_at": "2025-09-05T16:41:14.976Z",
+    "first_seen": "2025-09-01T21:17:01.943Z",
+    "contact_email": "",
+    "contact_phone": ""
+  },
+  {
+    "id": "41716bc7fbab491aec3464504b2a688531ac989a",
+    "title": "Wedding photographer Norway (@eirikhalvorsen) • Instagram ...",
+    "link": "https://www.instagram.com/eirikhalvorsen/",
+    "snippet": "4.2K+ followers · 660 following · 3528 posts · @eirikhalvorsen: “Documenting real, meaningful moments, and artistic portraits worldwide Booking, blog, ...",
+    "source_domain": "instagram.com",
     "country": "Norway",
     "lang": "no",
     "query": "photoshoot Norway -site:youtube.com",
@@ -13835,12 +13863,12 @@
     "id": "ef95f3f79351183c92873e0b88c5c3ec2f2c2af2",
     "title": "Jørgen Dahl Moe",
     "link": "https://m.facebook.com/jrgenmoe/mentions/",
-    "snippet": "... auditions |. YOUTUBE.COM. Jørgen Dahl Moe | Dancing In the Dark (Bruce Springsteen) | Blind auditions | The Voice Norway. Låt: \"Dancing In the Dark\"Artist ...",
+    "snippet": "Jorgen Dahl Moe vs Tara Nicolaisen on The Voice Norway ... Jørgen Dahl Moe This week over 1M (one million people) saw your audition on the voice in my wee page.",
     "source_domain": "m.facebook.com",
     "country": "Norway",
     "lang": "no",
     "query": "audition Norway -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:29.092Z",
+    "fetched_at": "2025-09-05T16:41:13.798Z",
     "first_seen": "2025-09-01T21:17:01.671Z",
     "contact_email": "",
     "contact_phone": ""
@@ -13854,7 +13882,7 @@
     "country": "Norway",
     "lang": "no",
     "query": "casting Norway -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:26.742Z",
+    "fetched_at": "2025-09-05T16:41:11.513Z",
     "first_seen": "2025-09-01T21:17:01.424Z",
     "contact_email": "",
     "contact_phone": ""
@@ -13868,7 +13896,7 @@
     "country": "Norway",
     "lang": "no",
     "query": "casting call Norway -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:27.942Z",
+    "fetched_at": "2025-09-05T16:41:12.694Z",
     "first_seen": "2025-09-01T21:17:01.424Z",
     "contact_email": "",
     "contact_phone": ""
@@ -13910,7 +13938,7 @@
     "country": "Norway",
     "lang": "no",
     "query": "casting Norway -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:26.742Z",
+    "fetched_at": "2025-09-05T16:41:11.513Z",
     "first_seen": "2025-09-01T21:17:01.098Z",
     "contact_email": "",
     "contact_phone": ""
@@ -13924,7 +13952,7 @@
     "country": "Norway",
     "lang": "no",
     "query": "casting Norway -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:26.742Z",
+    "fetched_at": "2025-09-05T16:41:11.513Z",
     "first_seen": "2025-09-01T21:17:01.098Z",
     "contact_email": "",
     "contact_phone": ""
@@ -13938,7 +13966,7 @@
     "country": "Norway",
     "lang": "no",
     "query": "casting Norway -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:26.742Z",
+    "fetched_at": "2025-09-05T16:41:11.513Z",
     "first_seen": "2025-09-01T21:17:01.098Z",
     "contact_email": "",
     "contact_phone": ""
@@ -13952,7 +13980,7 @@
     "country": "Norway",
     "lang": "no",
     "query": "casting Norway -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:26.742Z",
+    "fetched_at": "2025-09-05T16:41:11.513Z",
     "first_seen": "2025-09-01T21:17:01.098Z",
     "contact_email": "",
     "contact_phone": ""
@@ -13966,7 +13994,7 @@
     "country": "Norway",
     "lang": "no",
     "query": "casting Norway -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:26.742Z",
+    "fetched_at": "2025-09-05T16:41:11.513Z",
     "first_seen": "2025-09-01T21:17:01.098Z",
     "contact_email": "",
     "contact_phone": ""
@@ -13980,7 +14008,7 @@
     "country": "Norway",
     "lang": "no",
     "query": "casting Norway -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:26.742Z",
+    "fetched_at": "2025-09-05T16:41:11.513Z",
     "first_seen": "2025-09-01T21:17:01.098Z",
     "contact_email": "",
     "contact_phone": ""
@@ -14036,7 +14064,7 @@
     "country": "Sweden",
     "lang": "sv",
     "query": "tv casting Sweden -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:25.390Z",
+    "fetched_at": "2025-09-05T16:41:10.419Z",
     "first_seen": "2025-09-01T21:17:00.764Z",
     "contact_email": "",
     "contact_phone": ""
@@ -14050,7 +14078,7 @@
     "country": "Sweden",
     "lang": "sv",
     "query": "tv casting Sweden -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:25.390Z",
+    "fetched_at": "2025-09-05T16:41:10.419Z",
     "first_seen": "2025-09-01T21:17:00.764Z",
     "contact_email": "",
     "contact_phone": ""
@@ -14092,7 +14120,7 @@
     "country": "Sweden",
     "lang": "sv",
     "query": "casting Sweden -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:15.481Z",
+    "fetched_at": "2025-09-05T16:41:01.622Z",
     "first_seen": "2025-09-01T21:17:00.486Z",
     "contact_email": "",
     "contact_phone": ""
@@ -14106,7 +14134,7 @@
     "country": "Sweden",
     "lang": "sv",
     "query": "film casting Sweden -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:24.203Z",
+    "fetched_at": "2025-09-05T16:41:09.340Z",
     "first_seen": "2025-09-01T21:17:00.486Z",
     "contact_email": "",
     "contact_phone": ""
@@ -14120,7 +14148,7 @@
     "country": "Sweden",
     "lang": "sv",
     "query": "film casting Sweden -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:24.203Z",
+    "fetched_at": "2025-09-05T16:41:09.340Z",
     "first_seen": "2025-09-01T21:17:00.486Z",
     "contact_email": "",
     "contact_phone": ""
@@ -14134,7 +14162,7 @@
     "country": "Sweden",
     "lang": "sv",
     "query": "film casting Sweden -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:24.203Z",
+    "fetched_at": "2025-09-05T16:41:09.340Z",
     "first_seen": "2025-09-01T21:17:00.486Z",
     "contact_email": "",
     "contact_phone": ""
@@ -14148,7 +14176,7 @@
     "country": "Sweden",
     "lang": "sv",
     "query": "film casting Sweden -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:24.203Z",
+    "fetched_at": "2025-09-05T16:41:09.340Z",
     "first_seen": "2025-09-01T21:17:00.486Z",
     "contact_email": "",
     "contact_phone": ""
@@ -14190,7 +14218,7 @@
     "country": "Sweden",
     "lang": "sv",
     "query": "extras casting Sweden -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:22.992Z",
+    "fetched_at": "2025-09-05T16:41:08.264Z",
     "first_seen": "2025-09-01T21:17:00.154Z",
     "contact_email": "",
     "contact_phone": ""
@@ -14204,7 +14232,7 @@
     "country": "Sweden",
     "lang": "sv",
     "query": "extras casting Sweden -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:22.992Z",
+    "fetched_at": "2025-09-05T16:41:08.264Z",
     "first_seen": "2025-09-01T21:17:00.154Z",
     "contact_email": "",
     "contact_phone": ""
@@ -14218,7 +14246,7 @@
     "country": "Sweden",
     "lang": "sv",
     "query": "extras casting Sweden -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:22.992Z",
+    "fetched_at": "2025-09-05T16:41:08.264Z",
     "first_seen": "2025-09-01T21:17:00.154Z",
     "contact_email": "",
     "contact_phone": ""
@@ -14232,7 +14260,7 @@
     "country": "Sweden",
     "lang": "sv",
     "query": "extras casting Sweden -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:22.992Z",
+    "fetched_at": "2025-09-05T16:41:08.264Z",
     "first_seen": "2025-09-01T21:17:00.154Z",
     "contact_email": "",
     "contact_phone": ""
@@ -14246,7 +14274,7 @@
     "country": "Sweden",
     "lang": "sv",
     "query": "extras casting Sweden -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:22.992Z",
+    "fetched_at": "2025-09-05T16:41:08.264Z",
     "first_seen": "2025-09-01T21:17:00.154Z",
     "contact_email": "",
     "contact_phone": ""
@@ -14260,7 +14288,7 @@
     "country": "Sweden",
     "lang": "sv",
     "query": "extras casting Sweden -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:22.992Z",
+    "fetched_at": "2025-09-05T16:41:08.264Z",
     "first_seen": "2025-09-01T21:17:00.154Z",
     "contact_email": "",
     "contact_phone": ""
@@ -14302,7 +14330,7 @@
     "country": "Sweden",
     "lang": "sv",
     "query": "open call Sweden -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:21.703Z",
+    "fetched_at": "2025-09-05T16:41:07.135Z",
     "first_seen": "2025-09-01T21:16:59.885Z",
     "contact_email": "",
     "contact_phone": ""
@@ -14316,7 +14344,7 @@
     "country": "Sweden",
     "lang": "sv",
     "query": "open call Sweden -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:21.703Z",
+    "fetched_at": "2025-09-05T16:41:07.135Z",
     "first_seen": "2025-09-01T21:16:59.885Z",
     "contact_email": "",
     "contact_phone": ""
@@ -14330,7 +14358,7 @@
     "country": "Sweden",
     "lang": "sv",
     "query": "open call Sweden -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:21.703Z",
+    "fetched_at": "2025-09-05T16:41:07.135Z",
     "first_seen": "2025-09-01T21:16:59.885Z",
     "contact_email": "",
     "contact_phone": ""
@@ -14344,7 +14372,7 @@
     "country": "Sweden",
     "lang": "sv",
     "query": "open call Sweden -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:21.703Z",
+    "fetched_at": "2025-09-05T16:41:07.135Z",
     "first_seen": "2025-09-01T21:16:59.885Z",
     "contact_email": "",
     "contact_phone": ""
@@ -14358,7 +14386,7 @@
     "country": "Sweden",
     "lang": "sv",
     "query": "open call Sweden -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:21.703Z",
+    "fetched_at": "2025-09-05T16:41:07.135Z",
     "first_seen": "2025-09-01T21:16:59.885Z",
     "contact_email": "",
     "contact_phone": ""
@@ -14372,7 +14400,7 @@
     "country": "Sweden",
     "lang": "sv",
     "query": "open call Sweden -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:21.703Z",
+    "fetched_at": "2025-09-05T16:41:07.135Z",
     "first_seen": "2025-09-01T21:16:59.885Z",
     "contact_email": "",
     "contact_phone": ""
@@ -14386,7 +14414,7 @@
     "country": "Sweden",
     "lang": "sv",
     "query": "open call Sweden -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:21.703Z",
+    "fetched_at": "2025-09-05T16:41:07.135Z",
     "first_seen": "2025-09-01T21:16:59.885Z",
     "contact_email": "",
     "contact_phone": ""
@@ -14414,7 +14442,7 @@
     "country": "Sweden",
     "lang": "sv",
     "query": "casting call Sweden -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:16.742Z",
+    "fetched_at": "2025-09-05T16:41:02.740Z",
     "first_seen": "2025-09-01T21:16:59.596Z",
     "contact_email": "",
     "contact_phone": ""
@@ -14428,7 +14456,7 @@
     "country": "Sweden",
     "lang": "sv",
     "query": "model casting Sweden -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:20.458Z",
+    "fetched_at": "2025-09-05T16:41:06.039Z",
     "first_seen": "2025-09-01T21:16:59.596Z",
     "contact_email": "",
     "contact_phone": ""
@@ -14442,7 +14470,7 @@
     "country": "Sweden",
     "lang": "sv",
     "query": "model casting Sweden -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:20.458Z",
+    "fetched_at": "2025-09-05T16:41:06.039Z",
     "first_seen": "2025-09-01T21:16:59.596Z",
     "contact_email": "",
     "contact_phone": ""
@@ -14456,7 +14484,7 @@
     "country": "Sweden",
     "lang": "sv",
     "query": "model casting Sweden -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:20.458Z",
+    "fetched_at": "2025-09-05T16:41:06.039Z",
     "first_seen": "2025-09-01T21:16:59.596Z",
     "contact_email": "",
     "contact_phone": ""
@@ -14470,7 +14498,7 @@
     "country": "Sweden",
     "lang": "sv",
     "query": "model casting Sweden -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:20.458Z",
+    "fetched_at": "2025-09-05T16:41:06.039Z",
     "first_seen": "2025-09-01T21:16:59.596Z",
     "contact_email": "",
     "contact_phone": ""
@@ -14484,7 +14512,7 @@
     "country": "Sweden",
     "lang": "sv",
     "query": "model casting Sweden -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:20.458Z",
+    "fetched_at": "2025-09-05T16:41:06.039Z",
     "first_seen": "2025-09-01T21:16:59.596Z",
     "contact_email": "",
     "contact_phone": ""
@@ -14498,7 +14526,7 @@
     "country": "Sweden",
     "lang": "sv",
     "query": "model casting Sweden -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:20.458Z",
+    "fetched_at": "2025-09-05T16:41:06.039Z",
     "first_seen": "2025-09-01T21:16:59.596Z",
     "contact_email": "",
     "contact_phone": ""
@@ -14526,7 +14554,7 @@
     "country": "Sweden",
     "lang": "sv",
     "query": "photoshoot Sweden -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:19.269Z",
+    "fetched_at": "2025-09-05T16:41:04.971Z",
     "first_seen": "2025-09-01T21:16:59.330Z",
     "contact_email": "",
     "contact_phone": ""
@@ -14540,7 +14568,7 @@
     "country": "Sweden",
     "lang": "sv",
     "query": "photoshoot Sweden -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:19.269Z",
+    "fetched_at": "2025-09-05T16:41:04.971Z",
     "first_seen": "2025-09-01T21:16:59.330Z",
     "contact_email": "",
     "contact_phone": ""
@@ -14554,7 +14582,7 @@
     "country": "Sweden",
     "lang": "sv",
     "query": "photoshoot Sweden -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:19.269Z",
+    "fetched_at": "2025-09-05T16:41:04.971Z",
     "first_seen": "2025-09-01T21:16:59.330Z",
     "contact_email": "",
     "contact_phone": ""
@@ -14568,7 +14596,7 @@
     "country": "Sweden",
     "lang": "sv",
     "query": "photoshoot Sweden -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:19.269Z",
+    "fetched_at": "2025-09-05T16:41:04.971Z",
     "first_seen": "2025-09-01T21:16:59.330Z",
     "contact_email": "",
     "contact_phone": ""
@@ -14582,7 +14610,7 @@
     "country": "Sweden",
     "lang": "sv",
     "query": "photoshoot Sweden -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:19.269Z",
+    "fetched_at": "2025-09-05T16:41:04.971Z",
     "first_seen": "2025-09-01T21:16:59.330Z",
     "contact_email": "",
     "contact_phone": ""
@@ -14596,7 +14624,7 @@
     "country": "Sweden",
     "lang": "sv",
     "query": "photoshoot Sweden -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:19.269Z",
+    "fetched_at": "2025-09-05T16:41:04.971Z",
     "first_seen": "2025-09-01T21:16:59.330Z",
     "contact_email": "",
     "contact_phone": ""
@@ -14610,7 +14638,7 @@
     "country": "Sweden",
     "lang": "sv",
     "query": "photoshoot Sweden -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:19.269Z",
+    "fetched_at": "2025-09-05T16:41:04.971Z",
     "first_seen": "2025-09-01T21:16:59.330Z",
     "contact_email": "",
     "contact_phone": ""
@@ -14666,7 +14694,7 @@
     "country": "Sweden",
     "lang": "sv",
     "query": "audition Sweden -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:17.957Z",
+    "fetched_at": "2025-09-05T16:41:03.838Z",
     "first_seen": "2025-09-01T21:16:58.942Z",
     "contact_email": "",
     "contact_phone": ""
@@ -14680,7 +14708,7 @@
     "country": "Sweden",
     "lang": "sv",
     "query": "casting call Sweden -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:16.742Z",
+    "fetched_at": "2025-09-05T16:41:02.740Z",
     "first_seen": "2025-09-01T21:16:58.655Z",
     "contact_email": "",
     "contact_phone": ""
@@ -14694,7 +14722,7 @@
     "country": "Sweden",
     "lang": "sv",
     "query": "casting call Sweden -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:16.742Z",
+    "fetched_at": "2025-09-05T16:41:02.740Z",
     "first_seen": "2025-09-01T21:16:58.655Z",
     "contact_email": "",
     "contact_phone": ""
@@ -14708,7 +14736,7 @@
     "country": "Sweden",
     "lang": "sv",
     "query": "casting call Sweden -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:16.742Z",
+    "fetched_at": "2025-09-05T16:41:02.740Z",
     "first_seen": "2025-09-01T21:16:58.655Z",
     "contact_email": "",
     "contact_phone": ""
@@ -14722,7 +14750,7 @@
     "country": "Sweden",
     "lang": "sv",
     "query": "casting call Sweden -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:16.742Z",
+    "fetched_at": "2025-09-05T16:41:02.740Z",
     "first_seen": "2025-09-01T21:16:58.655Z",
     "contact_email": "",
     "contact_phone": ""
@@ -14736,7 +14764,7 @@
     "country": "Sweden",
     "lang": "sv",
     "query": "film casting Sweden -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:24.203Z",
+    "fetched_at": "2025-09-05T16:41:09.340Z",
     "first_seen": "2025-09-01T21:16:58.655Z",
     "contact_email": "",
     "contact_phone": ""
@@ -14778,7 +14806,7 @@
     "country": "Sweden",
     "lang": "sv",
     "query": "casting Sweden -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:15.481Z",
+    "fetched_at": "2025-09-05T16:41:01.622Z",
     "first_seen": "2025-09-01T21:16:58.350Z",
     "contact_email": "",
     "contact_phone": ""
@@ -14792,7 +14820,7 @@
     "country": "Sweden",
     "lang": "sv",
     "query": "casting Sweden -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:15.481Z",
+    "fetched_at": "2025-09-05T16:41:01.622Z",
     "first_seen": "2025-09-01T21:16:58.350Z",
     "contact_email": "",
     "contact_phone": ""
@@ -14806,7 +14834,7 @@
     "country": "Sweden",
     "lang": "sv",
     "query": "casting Sweden -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:15.481Z",
+    "fetched_at": "2025-09-05T16:41:01.622Z",
     "first_seen": "2025-09-01T21:16:58.350Z",
     "contact_email": "",
     "contact_phone": ""
@@ -14820,7 +14848,7 @@
     "country": "Sweden",
     "lang": "sv",
     "query": "model casting Sweden -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:20.458Z",
+    "fetched_at": "2025-09-05T16:41:06.039Z",
     "first_seen": "2025-09-01T21:16:58.350Z",
     "contact_email": "",
     "contact_phone": ""
@@ -14848,7 +14876,7 @@
     "country": "Denmark",
     "lang": "da",
     "query": "tv casting Denmark -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:14.258Z",
+    "fetched_at": "2025-09-05T16:41:00.378Z",
     "first_seen": "2025-09-01T21:16:57.818Z",
     "contact_email": "",
     "contact_phone": ""
@@ -14862,7 +14890,7 @@
     "country": "Denmark",
     "lang": "da",
     "query": "tv casting Denmark -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:14.258Z",
+    "fetched_at": "2025-09-05T16:41:00.378Z",
     "first_seen": "2025-09-01T21:16:57.818Z",
     "contact_email": "",
     "contact_phone": ""
@@ -14876,7 +14904,7 @@
     "country": "Denmark",
     "lang": "da",
     "query": "tv casting Denmark -site:youtube.com",
-    "fetched_at": "2025-09-05T14:37:04.383Z",
+    "fetched_at": "2025-09-05T16:41:00.378Z",
     "first_seen": "2025-09-01T21:16:57.818Z",
     "contact_email": "",
     "contact_phone": ""
@@ -14932,7 +14960,7 @@
     "country": "Denmark",
     "lang": "da",
     "query": "casting Denmark -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:04.742Z",
+    "fetched_at": "2025-09-05T16:40:51.398Z",
     "first_seen": "2025-09-01T21:16:57.471Z",
     "contact_email": "",
     "contact_phone": ""
@@ -14946,7 +14974,7 @@
     "country": "Denmark",
     "lang": "da",
     "query": "film casting Denmark -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:12.995Z",
+    "fetched_at": "2025-09-05T16:40:59.139Z",
     "first_seen": "2025-09-01T21:16:57.471Z",
     "contact_email": "",
     "contact_phone": ""
@@ -14960,7 +14988,7 @@
     "country": "Denmark",
     "lang": "da",
     "query": "film casting Denmark -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:12.995Z",
+    "fetched_at": "2025-09-05T16:40:59.139Z",
     "first_seen": "2025-09-01T21:16:57.471Z",
     "contact_email": "",
     "contact_phone": ""
@@ -14974,7 +15002,7 @@
     "country": "Denmark",
     "lang": "da",
     "query": "film casting Denmark -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:12.995Z",
+    "fetched_at": "2025-09-05T16:40:59.139Z",
     "first_seen": "2025-09-01T21:16:57.471Z",
     "contact_email": "",
     "contact_phone": ""
@@ -15002,7 +15030,7 @@
     "country": "Denmark",
     "lang": "da",
     "query": "extras casting Denmark -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:11.823Z",
+    "fetched_at": "2025-09-05T16:40:58.032Z",
     "first_seen": "2025-09-01T21:16:57.163Z",
     "contact_email": "",
     "contact_phone": ""
@@ -15016,7 +15044,7 @@
     "country": "Denmark",
     "lang": "da",
     "query": "extras casting Denmark -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:11.823Z",
+    "fetched_at": "2025-09-05T16:40:58.032Z",
     "first_seen": "2025-09-01T21:16:57.163Z",
     "contact_email": "",
     "contact_phone": ""
@@ -15030,7 +15058,7 @@
     "country": "Denmark",
     "lang": "da",
     "query": "extras casting Denmark -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:11.823Z",
+    "fetched_at": "2025-09-05T16:40:58.032Z",
     "first_seen": "2025-09-01T21:16:57.163Z",
     "contact_email": "",
     "contact_phone": ""
@@ -15044,7 +15072,7 @@
     "country": "Denmark",
     "lang": "da",
     "query": "extras casting Denmark -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:11.823Z",
+    "fetched_at": "2025-09-05T16:40:58.032Z",
     "first_seen": "2025-09-01T21:16:57.163Z",
     "contact_email": "",
     "contact_phone": ""
@@ -15058,7 +15086,7 @@
     "country": "Denmark",
     "lang": "da",
     "query": "tv casting Denmark -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:14.258Z",
+    "fetched_at": "2025-09-05T16:41:00.378Z",
     "first_seen": "2025-09-01T21:16:57.163Z",
     "contact_email": "",
     "contact_phone": ""
@@ -15100,7 +15128,7 @@
     "country": "Denmark",
     "lang": "da",
     "query": "open call Denmark -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:10.630Z",
+    "fetched_at": "2025-09-05T16:40:56.951Z",
     "first_seen": "2025-09-01T21:16:56.909Z",
     "contact_email": "",
     "contact_phone": ""
@@ -15114,7 +15142,7 @@
     "country": "Denmark",
     "lang": "da",
     "query": "open call Denmark -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:10.630Z",
+    "fetched_at": "2025-09-05T16:40:56.951Z",
     "first_seen": "2025-09-01T21:16:56.909Z",
     "contact_email": "",
     "contact_phone": ""
@@ -15128,7 +15156,7 @@
     "country": "Denmark",
     "lang": "da",
     "query": "open call Denmark -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:10.630Z",
+    "fetched_at": "2025-09-05T16:40:56.951Z",
     "first_seen": "2025-09-01T21:16:56.909Z",
     "contact_email": "",
     "contact_phone": ""
@@ -15142,7 +15170,7 @@
     "country": "Denmark",
     "lang": "da",
     "query": "open call Denmark -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:10.630Z",
+    "fetched_at": "2025-09-05T16:40:56.951Z",
     "first_seen": "2025-09-01T21:16:56.909Z",
     "contact_email": "",
     "contact_phone": ""
@@ -15156,7 +15184,7 @@
     "country": "Denmark",
     "lang": "da",
     "query": "open call Denmark -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:10.630Z",
+    "fetched_at": "2025-09-05T16:40:56.951Z",
     "first_seen": "2025-09-01T21:16:56.909Z",
     "contact_email": "",
     "contact_phone": ""
@@ -15170,7 +15198,7 @@
     "country": "Denmark",
     "lang": "da",
     "query": "open call Denmark -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:10.630Z",
+    "fetched_at": "2025-09-05T16:40:56.951Z",
     "first_seen": "2025-09-01T21:16:56.909Z",
     "contact_email": "",
     "contact_phone": ""
@@ -15184,7 +15212,7 @@
     "country": "Denmark",
     "lang": "da",
     "query": "open call Denmark -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:10.630Z",
+    "fetched_at": "2025-09-05T16:40:56.951Z",
     "first_seen": "2025-09-01T21:16:56.909Z",
     "contact_email": "",
     "contact_phone": ""
@@ -15226,7 +15254,7 @@
     "country": "Denmark",
     "lang": "da",
     "query": "model casting Denmark -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:09.503Z",
+    "fetched_at": "2025-09-05T16:40:55.836Z",
     "first_seen": "2025-09-01T21:16:56.586Z",
     "contact_email": "",
     "contact_phone": ""
@@ -15240,7 +15268,7 @@
     "country": "Denmark",
     "lang": "da",
     "query": "model casting Denmark -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:09.503Z",
+    "fetched_at": "2025-09-05T16:40:55.836Z",
     "first_seen": "2025-09-01T21:16:56.586Z",
     "contact_email": "",
     "contact_phone": ""
@@ -15254,7 +15282,7 @@
     "country": "Denmark",
     "lang": "da",
     "query": "model casting Denmark -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:09.503Z",
+    "fetched_at": "2025-09-05T16:40:55.837Z",
     "first_seen": "2025-09-01T21:16:56.586Z",
     "contact_email": "",
     "contact_phone": ""
@@ -15268,7 +15296,7 @@
     "country": "Denmark",
     "lang": "da",
     "query": "model casting Denmark -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:09.503Z",
+    "fetched_at": "2025-09-05T16:40:55.837Z",
     "first_seen": "2025-09-01T21:16:56.586Z",
     "contact_email": "",
     "contact_phone": ""
@@ -15282,7 +15310,7 @@
     "country": "Denmark",
     "lang": "da",
     "query": "model casting Denmark -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:09.503Z",
+    "fetched_at": "2025-09-05T16:40:55.837Z",
     "first_seen": "2025-09-01T21:16:56.586Z",
     "contact_email": "",
     "contact_phone": ""
@@ -15296,7 +15324,7 @@
     "country": "Denmark",
     "lang": "da",
     "query": "model casting Denmark -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:09.503Z",
+    "fetched_at": "2025-09-05T16:40:55.837Z",
     "first_seen": "2025-09-01T21:16:56.586Z",
     "contact_email": "",
     "contact_phone": ""
@@ -15352,7 +15380,7 @@
     "country": "Denmark",
     "lang": "da",
     "query": "photoshoot Denmark -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:08.308Z",
+    "fetched_at": "2025-09-05T16:40:54.697Z",
     "first_seen": "2025-09-01T21:16:56.300Z",
     "contact_email": "",
     "contact_phone": ""
@@ -15366,7 +15394,7 @@
     "country": "Denmark",
     "lang": "da",
     "query": "photoshoot Denmark -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:08.308Z",
+    "fetched_at": "2025-09-05T16:40:54.697Z",
     "first_seen": "2025-09-01T21:16:56.300Z",
     "contact_email": "",
     "contact_phone": ""
@@ -15380,7 +15408,7 @@
     "country": "Denmark",
     "lang": "da",
     "query": "photoshoot Denmark -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:08.308Z",
+    "fetched_at": "2025-09-05T16:40:54.697Z",
     "first_seen": "2025-09-01T21:16:56.300Z",
     "contact_email": "",
     "contact_phone": ""
@@ -15394,7 +15422,7 @@
     "country": "Denmark",
     "lang": "da",
     "query": "photoshoot Denmark -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:08.308Z",
+    "fetched_at": "2025-09-05T16:40:54.697Z",
     "first_seen": "2025-09-01T21:16:56.300Z",
     "contact_email": "",
     "contact_phone": ""
@@ -15422,7 +15450,7 @@
     "country": "Denmark",
     "lang": "da",
     "query": "photoshoot Denmark -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:08.308Z",
+    "fetched_at": "2025-09-05T16:40:54.697Z",
     "first_seen": "2025-09-01T21:16:56.299Z",
     "contact_email": "",
     "contact_phone": ""
@@ -15436,7 +15464,7 @@
     "country": "Denmark",
     "lang": "da",
     "query": "photoshoot Denmark -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:08.308Z",
+    "fetched_at": "2025-09-05T16:40:54.697Z",
     "first_seen": "2025-09-01T21:16:56.299Z",
     "contact_email": "",
     "contact_phone": ""
@@ -15450,7 +15478,7 @@
     "country": "Denmark",
     "lang": "da",
     "query": "photoshoot Denmark -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:08.308Z",
+    "fetched_at": "2025-09-05T16:40:54.697Z",
     "first_seen": "2025-09-01T21:16:56.299Z",
     "contact_email": "",
     "contact_phone": ""
@@ -15464,7 +15492,7 @@
     "country": "Denmark",
     "lang": "da",
     "query": "photoshoot Denmark -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:08.308Z",
+    "fetched_at": "2025-09-05T16:40:54.697Z",
     "first_seen": "2025-09-01T21:16:56.299Z",
     "contact_email": "",
     "contact_phone": ""
@@ -15492,7 +15520,7 @@
     "country": "Denmark",
     "lang": "da",
     "query": "casting Denmark -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:04.742Z",
+    "fetched_at": "2025-09-05T16:40:51.398Z",
     "first_seen": "2025-09-01T21:16:55.955Z",
     "contact_email": "",
     "contact_phone": ""
@@ -15506,7 +15534,7 @@
     "country": "Denmark",
     "lang": "da",
     "query": "casting call Denmark -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:05.973Z",
+    "fetched_at": "2025-09-05T16:40:52.494Z",
     "first_seen": "2025-09-01T21:16:55.640Z",
     "contact_email": "",
     "contact_phone": ""
@@ -15520,7 +15548,7 @@
     "country": "Denmark",
     "lang": "da",
     "query": "casting call Denmark -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:05.973Z",
+    "fetched_at": "2025-09-05T16:40:52.494Z",
     "first_seen": "2025-09-01T21:16:55.640Z",
     "contact_email": "info@cphcasting.dk",
     "contact_phone": ""
@@ -15534,7 +15562,7 @@
     "country": "Denmark",
     "lang": "da",
     "query": "casting call Denmark -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:05.973Z",
+    "fetched_at": "2025-09-05T16:40:52.494Z",
     "first_seen": "2025-09-01T21:16:55.640Z",
     "contact_email": "",
     "contact_phone": ""
@@ -15548,7 +15576,7 @@
     "country": "Denmark",
     "lang": "da",
     "query": "casting call Denmark -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:05.973Z",
+    "fetched_at": "2025-09-05T16:40:52.494Z",
     "first_seen": "2025-09-01T21:16:55.640Z",
     "contact_email": "",
     "contact_phone": ""
@@ -15562,7 +15590,7 @@
     "country": "Denmark",
     "lang": "da",
     "query": "casting call Denmark -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:05.974Z",
+    "fetched_at": "2025-09-05T16:40:52.495Z",
     "first_seen": "2025-09-01T21:16:55.640Z",
     "contact_email": "",
     "contact_phone": ""
@@ -15604,7 +15632,7 @@
     "country": "Denmark",
     "lang": "da",
     "query": "casting Denmark -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:04.742Z",
+    "fetched_at": "2025-09-05T16:40:51.397Z",
     "first_seen": "2025-09-01T21:16:55.329Z",
     "contact_email": "",
     "contact_phone": ""
@@ -15618,7 +15646,7 @@
     "country": "Denmark",
     "lang": "da",
     "query": "casting Denmark -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:04.742Z",
+    "fetched_at": "2025-09-05T16:40:51.398Z",
     "first_seen": "2025-09-01T21:16:55.329Z",
     "contact_email": "",
     "contact_phone": ""
@@ -15632,7 +15660,7 @@
     "country": "Denmark",
     "lang": "da",
     "query": "casting Denmark -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:04.742Z",
+    "fetched_at": "2025-09-05T16:40:51.398Z",
     "first_seen": "2025-09-01T21:16:55.329Z",
     "contact_email": "",
     "contact_phone": ""
@@ -16360,7 +16388,7 @@
     "country": "Germany",
     "lang": "de",
     "query": "casting Germany -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:48.205Z",
+    "fetched_at": "2025-09-05T16:41:32.521Z",
     "first_seen": "2025-09-01T20:56:13.548Z",
     "contact_email": "",
     "contact_phone": ""
@@ -16374,7 +16402,7 @@
     "country": "Germany",
     "lang": "de",
     "query": "audition Germany -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:50.651Z",
+    "fetched_at": "2025-09-05T16:41:34.942Z",
     "first_seen": "2025-09-01T20:56:13.548Z",
     "contact_email": "",
     "contact_phone": ""
@@ -16388,7 +16416,7 @@
     "country": "Germany",
     "lang": "de",
     "query": "audition Germany -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:50.651Z",
+    "fetched_at": "2025-09-05T16:41:34.943Z",
     "first_seen": "2025-09-01T20:56:13.548Z",
     "contact_email": "",
     "contact_phone": ""
@@ -16402,7 +16430,7 @@
     "country": "Germany",
     "lang": "de",
     "query": "audition Germany -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:50.651Z",
+    "fetched_at": "2025-09-05T16:41:34.943Z",
     "first_seen": "2025-09-01T20:56:13.548Z",
     "contact_email": "",
     "contact_phone": ""
@@ -16416,7 +16444,7 @@
     "country": "Germany",
     "lang": "de",
     "query": "audition Germany -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:50.651Z",
+    "fetched_at": "2025-09-05T16:41:34.943Z",
     "first_seen": "2025-09-01T20:56:13.548Z",
     "contact_email": "",
     "contact_phone": ""
@@ -16654,7 +16682,7 @@
     "country": "Norway",
     "lang": "no",
     "query": "audition Norway -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:29.092Z",
+    "fetched_at": "2025-09-05T16:41:13.798Z",
     "first_seen": "2025-09-01T20:56:12.433Z",
     "contact_email": "",
     "contact_phone": ""
@@ -16668,7 +16696,7 @@
     "country": "Norway",
     "lang": "no",
     "query": "audition Norway -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:29.093Z",
+    "fetched_at": "2025-09-05T16:41:13.798Z",
     "first_seen": "2025-09-01T20:56:12.433Z",
     "contact_email": "",
     "contact_phone": ""
@@ -16682,7 +16710,7 @@
     "country": "Norway",
     "lang": "no",
     "query": "audition Norway -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:29.093Z",
+    "fetched_at": "2025-09-05T16:41:13.798Z",
     "first_seen": "2025-09-01T20:56:12.433Z",
     "contact_email": "",
     "contact_phone": ""
@@ -16836,7 +16864,7 @@
     "country": "Norway",
     "lang": "no",
     "query": "casting Norway -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:26.742Z",
+    "fetched_at": "2025-09-05T16:41:11.513Z",
     "first_seen": "2025-09-01T20:56:11.584Z",
     "contact_email": "",
     "contact_phone": ""
@@ -16948,7 +16976,7 @@
     "country": "Sweden",
     "lang": "sv",
     "query": "casting Sweden -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:15.481Z",
+    "fetched_at": "2025-09-05T16:41:01.622Z",
     "first_seen": "2025-09-01T20:56:11.313Z",
     "contact_email": "",
     "contact_phone": ""
@@ -16962,7 +16990,7 @@
     "country": "Sweden",
     "lang": "sv",
     "query": "casting Sweden -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:15.481Z",
+    "fetched_at": "2025-09-05T16:41:01.622Z",
     "first_seen": "2025-09-01T20:56:11.313Z",
     "contact_email": "",
     "contact_phone": ""
@@ -16976,7 +17004,7 @@
     "country": "Sweden",
     "lang": "sv",
     "query": "audition Sweden -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:17.957Z",
+    "fetched_at": "2025-09-05T16:41:03.838Z",
     "first_seen": "2025-09-01T20:56:11.313Z",
     "contact_email": "",
     "contact_phone": ""
@@ -16990,7 +17018,7 @@
     "country": "Sweden",
     "lang": "sv",
     "query": "audition Sweden -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:17.957Z",
+    "fetched_at": "2025-09-05T16:41:03.838Z",
     "first_seen": "2025-09-01T20:56:11.313Z",
     "contact_email": "",
     "contact_phone": ""
@@ -17004,7 +17032,7 @@
     "country": "Sweden",
     "lang": "sv",
     "query": "audition Sweden -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:17.957Z",
+    "fetched_at": "2025-09-05T16:41:03.838Z",
     "first_seen": "2025-09-01T20:56:11.313Z",
     "contact_email": "",
     "contact_phone": ""
@@ -17060,7 +17088,7 @@
     "country": "Sweden",
     "lang": "sv",
     "query": "casting Sweden -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:15.481Z",
+    "fetched_at": "2025-09-05T16:41:01.622Z",
     "first_seen": "2025-09-01T20:56:10.850Z",
     "contact_email": "",
     "contact_phone": ""
@@ -17144,7 +17172,7 @@
     "country": "Sweden",
     "lang": "sv",
     "query": "audition Sweden -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:17.957Z",
+    "fetched_at": "2025-09-05T16:41:03.838Z",
     "first_seen": "2025-09-01T20:56:10.409Z",
     "contact_email": "",
     "contact_phone": ""
@@ -17284,7 +17312,7 @@
     "country": "Denmark",
     "lang": "da",
     "query": "casting Denmark -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:04.742Z",
+    "fetched_at": "2025-09-05T16:40:51.398Z",
     "first_seen": "2025-09-01T20:56:09.875Z",
     "contact_email": "",
     "contact_phone": ""
@@ -17298,7 +17326,7 @@
     "country": "Denmark",
     "lang": "da",
     "query": "casting call Denmark -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:05.973Z",
+    "fetched_at": "2025-09-05T16:40:52.494Z",
     "first_seen": "2025-09-01T20:56:09.875Z",
     "contact_email": "",
     "contact_phone": ""
@@ -17312,7 +17340,7 @@
     "country": "Denmark",
     "lang": "da",
     "query": "audition Denmark -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:07.116Z",
+    "fetched_at": "2025-09-05T16:40:53.583Z",
     "first_seen": "2025-09-01T20:56:09.875Z",
     "contact_email": "",
     "contact_phone": ""
@@ -17326,7 +17354,7 @@
     "country": "Denmark",
     "lang": "da",
     "query": "audition Denmark -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:07.116Z",
+    "fetched_at": "2025-09-05T16:40:53.584Z",
     "first_seen": "2025-09-01T20:56:09.875Z",
     "contact_email": "",
     "contact_phone": ""
@@ -17340,7 +17368,7 @@
     "country": "Denmark",
     "lang": "da",
     "query": "audition Denmark -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:07.116Z",
+    "fetched_at": "2025-09-05T16:40:53.584Z",
     "first_seen": "2025-09-01T20:56:09.875Z",
     "contact_email": "",
     "contact_phone": ""
@@ -17354,7 +17382,7 @@
     "country": "Denmark",
     "lang": "da",
     "query": "audition Denmark -site:youtube.com",
-    "fetched_at": "2025-09-05T15:33:07.116Z",
+    "fetched_at": "2025-09-05T16:40:53.584Z",
     "first_seen": "2025-09-01T20:56:09.875Z",
     "contact_email": "",
     "contact_phone": ""
