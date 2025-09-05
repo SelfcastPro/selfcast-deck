@@ -1,94 +1,127 @@
-// VIEW v1.2.6 — Chrome-safe printing + density support (9/12/15 per page)
-(function(){
-  // ---------- helpers ----------
-  function readData(){
-    const u = new URL(location.href);
-    const d = u.searchParams.get('density');
-    if (d === '12') document.body.classList.add('d12');
-    else if (d === '15') document.body.classList.add('d15');
+// VIEW v1.3.0 — stable Chrome/Safari print with white pages, repeated header per page,
+// fixed-per-page counts (default 9), top-cropped grayscale images, and country displayed.
 
-    if (u.searchParams.get('demo') === '1'){
-      const talents=[]; for(let i=1;i<=12;i++) talents.push({
+(function(){
+  /* ---------- helpers ---------- */
+  const qs = (sel, el=document)=>el.querySelector(sel);
+  const qsa = (sel, el=document)=>Array.from(el.querySelectorAll(sel));
+  const el = (t, cls, html)=>{ const n=document.createElement(t); if(cls) n.className=cls; if(html!=null) n.innerHTML=html; return n; };
+
+  function dataFromUrl(){
+    const u = new URL(location.href);
+    // optional compact on screen
+    if (u.searchParams.get('compact') === '1') document.body.classList.add('compact');
+    // optional densities (9 default)
+    const density = parseInt(u.searchParams.get('density')||'9',10);
+    document.body.classList.toggle('d12', density===12);
+    document.body.classList.toggle('d15', density===15);
+    // demo?
+    if (u.searchParams.get('demo')){
+      const talents=[]; for(let i=1;i<=18;i++) talents.push({
         name:`Talent ${i}`, country:['Denmark','Sweden','Norway','Finland'][i%4],
-        primary_image:`https://picsum.photos/seed/t${i}/600/750`,
+        primary_image:`https://picsum.photos/seed/t${i}/900/1200`,
         profile_url:'#', requested_media_url:'#'
       });
-      return { title:'Demo Project', owner:{name:'Selfcast',email:'info@selfcast.com',phone:'+45 22 81 31 13'}, talents };
+      return { title:'Demo Project', owner:{name:'Selfcast',email:'info@selfcast.com',phone:'+45 22 81 31 13'}, talents, density };
     }
-    const raw = u.searchParams.get('data');
-    if (!raw) return null;
-    try { return JSON.parse(decodeURIComponent(escape(atob(raw)))); }
-    catch(e){ console.error('data parse error', e); return null; }
+    const raw = u.searchParams.get('data'); if (!raw) return null;
+    let parsed=null; try{ parsed = JSON.parse(decodeURIComponent(escape(atob(raw)))); }catch(e){ console.error('data parse error', e); }
+    if (!parsed) return null;
+    parsed.density = density;
+    return parsed;
   }
-  const el = (t,c,h)=>{ const n=document.createElement(t); if(c) n.className=c; if(h!==undefined) n.innerHTML=h; return n; };
 
-  // ---------- render ----------
-  const data = readData();
-  const root = document.getElementById('root');
-  const deckTitle = document.getElementById('deckTitle');
-  const cName = document.getElementById('cName');
-  const cEmail= document.getElementById('cEmail');
-  const cPhone= document.getElementById('cPhone');
+  /* ---------- render cards (shared) ---------- */
+  function cardNode(t){
+    const card = el('article','card');
+    const hero = el('div','hero');
+    const img  = el('img'); img.loading = 'eager'; img.decoding='sync';
+    img.src = t.primary_image || '';
+    hero.appendChild(img); card.appendChild(hero);
 
-  if (!data){
-    root.innerHTML = '<p style="padding:18px">No data provided. Try <code>?demo=1</code>.</p>';
-  } else {
-    deckTitle.textContent = data.title || 'Untitled';
-    if (data.owner?.name)  cName.textContent  = data.owner.name;
-    if (data.owner?.email){cEmail.textContent = data.owner.email; cEmail.href=`mailto:${data.owner.email}`;}
-    if (data.owner?.phone) cPhone.textContent = data.owner.phone;
+    const body = el('div','body');
+    body.appendChild(el('h3','', t.name || 'Unnamed'));
+    if (t.country) body.appendChild(el('p','sub', t.country));
+    const links = el('div','links');
+    if (t.profile_url){ const a=el('a','a','Profile'); a.href=t.profile_url; a.target='_blank'; links.appendChild(a); }
+    if (t.requested_media_url){ const b=el('a','a','Requested'); b.href=t.requested_media_url; b.target='_blank'; links.appendChild(b); }
+    body.appendChild(links); card.appendChild(body);
+    return card;
+  }
 
-    (data.talents||[]).forEach(t=>{
-      const card = el('article','card');
+  /* ---------- screen render ---------- */
+  function renderScreen(data){
+    const root = qs('#root'); root.innerHTML = '';
+    qs('#deckTitle').textContent = data.title || 'Untitled';
+    if (data.owner?.name)  qs('#cName').textContent  = data.owner.name;
+    if (data.owner?.email){ const a=qs('#cEmail'); a.textContent=data.owner.email; a.href=`mailto:${data.owner.email}`; }
+    if (data.owner?.phone) qs('#cPhone').textContent = data.owner.phone;
 
-      const hero = el('div','hero');
-      const img  = new Image();
-      img.decoding = 'sync';
-      img.loading  = 'eager';
-      img.src = t.primary_image || '';
-      hero.appendChild(img);
-      card.appendChild(hero);
+    (data.talents||[]).forEach(t=> root.appendChild(cardNode(t)));
+  }
 
-      const body = el('div','body');
-      body.appendChild(el('h3','', t.name || 'Unnamed'));
-      if (t.country) body.appendChild(el('p','sub', t.country));   // <- Country visible
-      const links = el('div','links');
-      if (t.profile_url){ const a=el('a','a','Profile'); a.href=t.profile_url; a.target="_blank"; links.appendChild(a); }
-      if (t.requested_media_url){ const a2=el('a','a','Requested'); a2.href=t.requested_media_url; a2.target="_blank"; links.appendChild(a2); }
-      body.appendChild(links);
+  /* ---------- print render: chunk into pages with header each page ---------- */
+  function chunk(arr, size){
+    const out=[]; for(let i=0;i<arr.length;i+=size) out.push(arr.slice(i, i+size)); return out;
+  }
 
-      card.appendChild(body);
-      root.appendChild(card);
+  function renderPrint(data){
+    const perPage = (data.density===12||data.density===15) ? data.density : 9;
+    const pages = chunk(data.talents||[], perPage);
+    const pr = qs('#printRoot'); pr.innerHTML='';
+
+    pages.forEach((items, idx)=>{
+      const page = el('section','print-page');
+
+      const header = el('div','print-header');
+      const left = el('div','ph-left', `<h1>${data.title || 'Untitled'}</h1>`);
+      const right = el('div','ph-right',
+        `<div class="ph-brand"><div class="ph-word">SELFCAST</div><div class="ph-tag">CASTING MADE EASY</div></div>
+         <div class="ph-contact">
+           ${data.owner?.name ? `<span>${data.owner.name}</span>`:''}
+           ${data.owner?.email ? ` · <a href="mailto:${data.owner.email}">${data.owner.email}</a>`:''}
+           ${data.owner?.phone ? ` · <span>${data.owner.phone}</span>`:''}
+         </div>`);
+      header.append(left, right);
+      page.appendChild(header);
+
+      const grid = el('div','print-grid');
+      items.forEach(t=> grid.appendChild(cardNode(t)));
+      page.appendChild(grid);
+
+      pr.appendChild(page);
     });
   }
 
-  // ---------- print flow (Chrome-safe) ----------
-  async function doPrintFlow(){
-    try{
-      // 1) wait fonts
-      await (document.fonts?.ready || Promise.resolve());
-
-      // 2) wait images
-      const imgs = Array.from(document.images);
-      await Promise.all(imgs.map(im => im.complete ? Promise.resolve()
-        : new Promise((res,rej)=>{ im.addEventListener('load',res,{once:true}); im.addEventListener('error',res,{once:true}); })));
-
-      // 3) give layout one more frame
-      await new Promise(r => requestAnimationFrame(()=>requestAnimationFrame(r)));
-
-      window.print();
-    }catch(e){
-      console.error('print error', e);
-      window.print(); // last resort
-    }
+  /* ---------- image+font ready before print ---------- */
+  function waitForReady(){
+    const imgs = qsa('img');
+    const ps = imgs.map(img => img.complete ? Promise.resolve() :
+      new Promise(res => { img.addEventListener('load', ()=>res(), {once:true}); img.addEventListener('error', ()=>res(), {once:true}); })
+    );
+    ps.push(document.fonts ? document.fonts.ready.catch(()=>{}) : Promise.resolve());
+    return Promise.all(ps);
   }
 
-  document.getElementById('btnPdf')?.addEventListener('click', (e)=>{ e.preventDefault(); doPrintFlow(); });
-  // Allow builder iframe to trigger print
+  async function doPrintFlow(){
+    await waitForReady();
+    // small delay so Chrome paginates reliably
+    requestAnimationFrame(()=> setTimeout(()=>window.print(), 60));
+  }
+
+  /* ---------- buttons & postMessage ---------- */
+  qs('#btnPdf')?.addEventListener('click', (e)=>{ e.preventDefault(); doPrintFlow(); });
   window.addEventListener('message', ev => { if (ev.data?.type === 'print') doPrintFlow(); });
 
-  // Optional auto-print if URL has &print=1
-  if (new URL(location.href).searchParams.get('print') === '1'){
-    setTimeout(doPrintFlow, 150);
+  /* ---------- boot ---------- */
+  const data = dataFromUrl();
+  const root = qs('#root');
+
+  if (!data || !Array.isArray(data.talents) || !data.talents.length){
+    // screen fallback
+    root.innerHTML = '<p style="padding:18px">No data provided. Try <code>?demo=1</code>.</p>';
+  } else {
+    renderScreen(data);
+    renderPrint(data);
   }
 })();
