@@ -1,14 +1,12 @@
 :root{
   --bg:#0b0b0d; --card:#141418; --text:#ffffff; --muted:#d5d5d8;
-  --line:#23232a; --radius:16px;
+  --line:#23232a; --accent:#ff2d55; --radius:16px;
 }
-
 *{box-sizing:border-box}
 html,body{height:100%}
-html.dark{background:var(--bg); color:var(--text);
-  font:16px/1.55 system-ui,-apple-system,Segoe UI,Inter,Roboto,Helvetica,Arial}
+html.dark{background:var(--bg); color:var(--text); font:16px/1.55 system-ui,-apple-system,Segoe UI,Inter,Roboto,Helvetica,Arial}
 
-/* Header (screen) */
+/* ---------- Screen header ---------- */
 .bar{display:flex; justify-content:space-between; align-items:flex-start; gap:16px;
   padding:18px; border-bottom:1px solid var(--line); position:sticky; top:0; z-index:10;
   background:rgba(10,10,12,.85); backdrop-filter:blur(8px);}
@@ -20,69 +18,73 @@ html.dark{background:var(--bg); color:var(--text);
 .contactline{font-size:.92rem}
 .contactline a{color:#fff; text-decoration:underline dotted}
 
-/* Grid + cards (screen) */
+/* ---------- Screen grid + cards ---------- */
 .grid{padding:18px; display:grid; grid-template-columns:repeat(3,1fr); gap:18px}
 .card{background:var(--card); border:1px solid var(--line); border-radius:var(--radius);
   overflow:hidden; display:flex; flex-direction:column; break-inside:avoid}
 .hero{position:relative; aspect-ratio:4/5; background:#0f0f12}
-.hero img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
-  object-position:top; /* show top of face */ filter:grayscale(1); display:block}
+.hero img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center top; display:block; filter:grayscale(1)}
 .body{padding:10px 12px}
 h3{margin:0 0 4px; font-size:17px; font-weight:800; color:#fff}
 .sub{margin:0 0 8px; color:var(--muted); font-size:.92rem}
 .links{display:flex; gap:8px; flex-wrap:wrap}
-.a{display:inline-flex; align-items:center; gap:6px; padding:7px 10px; border-radius:10px;
-  border:1px solid var(--line); background:#1a1a20; color:#fff; text-decoration:none;
-  font-weight:700; font-size:.9rem}
+.a{display:inline-flex; align-items:center; gap:6px; padding:7px 10px; border-radius:10px; border:1px solid var(--line); background:#1a1a20; color:#fff; text-decoration:none; font-weight:700; font-size:.9rem}
 .a::before{content:"🔗"}
 
-/* Compact knobs used by builder (kept) */
+/* Compact (screen) */
 body.compact .grid{gap:12px}
 body.compact h3{font-size:15px}
 body.compact .sub{font-size:.85rem; margin-bottom:6px}
 body.compact .a{font-size:.82rem; padding:6px 8px}
 body.compact .hero{aspect-ratio:3/4}
 
-/* ===================== PRINT (Chrome/Safari safe) ===================== */
+/* ---------- PRINT layout ---------- */
 @page{ size:A4; margin:10mm; }
 @media print{
-  .print-hide{display:none !important}
-  html,body{background:#fff; color:#000; -webkit-print-color-adjust:exact; print-color-adjust:exact;}
+  html,body{ background:#fff !important; color:#000 !important;
+    -webkit-print-color-adjust:exact; print-color-adjust:exact; }
 
-  .bar{ position:static; background:#fff; border:none; margin:0 0 3mm 0; padding:0; }
-  .bar-left h1{font-size:18px !important; color:#000}
-  .wordmark,.tagline,.contactline,.contactline a{color:#000}
-  .contactline{font-size:10.5px}
+  /* Hide screen UI; show print pages instead */
+  .print-hide{ display:none !important; }
+  #root{ display:none !important; }
+  #printRoot{ display:block !important; }
 
-  /* Base = 3×3 (9 per page) */
-  .grid{gap:4.5mm; page-break-inside:avoid; break-inside:avoid}
-  .card{background:#fff; border:.5pt solid #cfcfd3; border-radius:12px;
-        page-break-inside:avoid; break-inside:avoid}
-  /* 0.5 cm taller portrait than earlier */
-  .hero{aspect-ratio:auto; height:63mm;} /* ~0.5cm taller vs 58mm */
-  .hero img{filter:grayscale(1)}
-  .body{padding:5px 7px}
-  .card h3{font-size:12px !important; color:#000 !important}
-  .sub{font-size:10.5px !important; margin-bottom:4px !important; color:#333 !important}
-  .a{background:transparent !important; border:none !important; padding:0 !important;
-     font-size:10px !important; color:#000 !important; text-decoration:underline !important}
-  .a::before{content:"🔗"; margin-right:4px}
-  .card:nth-child(9n){ break-after:page; page-break-after:always; }
+  /* Repeating header on EVERY page */
+  .print-page{ break-after:page; page-break-after:always; }
+  .print-page:last-child{ break-after:auto; page-break-after:auto; }
 
-  /* Density 12 (3×4) */
-  body.d12 .grid{gap:4mm}
-  body.d12 .hero{height:56mm}
-  body.d12 .card h3{font-size:11px !important}
-  body.d12 .sub{font-size:10px !important}
-  body.d12 .a{font-size:9.5px !important}
-  body.d12 .card:nth-child(12n){ break-after:page; page-break-after:always; }
+  .print-header{
+    display:flex; justify-content:space-between; align-items:flex-end;
+    margin:0 0 4mm 0; border-bottom:1pt solid #000; padding-bottom:2mm;
+  }
+  .ph-left h1{margin:0; font-size:14px; font-weight:800; color:#000}
+  .ph-right{display:flex; flex-direction:column; align-items:flex-end; gap:2mm}
+  .ph-brand{display:flex; gap:6px; align-items:baseline}
+  .ph-word{letter-spacing:.14em; font-weight:900}
+  .ph-tag{font-size:10px}
+  .ph-contact{font-size:10px}
+  .ph-contact a{color:#000; text-decoration:underline}
 
-  /* Density 15 (3×5) */
-  body.d15 .grid{gap:3.5mm}
-  body.d15 .hero{height:45mm}
-  body.d15 .body{padding:4px 6px}
-  body.d15 .card h3{font-size:10px !important}
-  body.d15 .sub{font-size:9.5px !important}
-  body.d15 .a{font-size:9px !important}
-  body.d15 .card:nth-child(15n){ break-after:page; page-break-after:always; }
+  /* Print grid = fixed 3 cols; stable heights so 9 per page */
+  .print-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:4.5mm; }
+  .card{ background:#fff; border:.5pt solid #cfcfd3; border-radius:12px; }
+  .hero{ aspect-ratio:3/4; }
+  .hero img{ object-position:center top; filter:grayscale(1); }
+  .body{ padding:5px 7px; }
+  .card h3{ font-size:12px !important; color:#000 !important; }
+  .sub{ font-size:10.5px !important; margin-bottom:4px !important; color:#333 !important; }
+  .a{ background:transparent !important; border:none !important; padding:0 !important;
+      font-size:10px !important; color:#000 !important; text-decoration:underline !important }
+  .a::before{ content:"🔗"; margin-right:4px }
+
+  /* densities (optional via ?density=12 or 15) */
+  body.d12 .print-grid{ gap:4mm }
+  body.d12 .hero{ aspect-ratio:4/5 }
+  body.d12 .card h3{ font-size:11px !important }
+  body.d12 .sub{ font-size:10px !important }
+  body.d15 .print-grid{ gap:3.5mm }
+  body.d15 .hero{ aspect-ratio:1/1 }
+  body.d15 .body{ padding:4px 6px }
+  body.d15 .card h3{ font-size:10px !important }
+  body.d15 .sub{ font-size:9.5px !important }
 }
