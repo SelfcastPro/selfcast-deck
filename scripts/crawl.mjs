@@ -30,7 +30,15 @@ async function run() {
         const text = r.text || r.postText || "";
         if (!text) { skipped++; continue; }
 
-        const link = r.postUrl || r.url || r.facebookUrl || s.url;
+        // Byg post link hvis muligt
+        let link = r.postUrl || r.url || r.facebookUrl || s.url;
+        if (!r.postUrl && r.facebookUrl && r.id) {
+          // Ekstraher gruppe ID fra facebookUrl
+          const groupMatch = r.facebookUrl.match(/groups\/(\d+)/);
+          if (groupMatch) {
+            link = `https://www.facebook.com/groups/${groupMatch[1]}/posts/${r.id}`;
+          }
+        }
 
         items.push({
           url: link,
