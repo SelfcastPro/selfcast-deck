@@ -83,4 +83,71 @@ async function scrapeSource(s) {
       title,
       summary: null,
       country: s.country || null,
-      source: s.source || hos
+      source: s.source || hostnameOf(s.url),
+      tags: KEYWORDS.filter(k => title.toLowerCase().includes(k)).join(","),
+      fetched_at: new Date().toISOString()
+    });
+  }
+
+  // H2 overskrifter (ofte jobtitler)
+  for (const h of h2s) {
+    const title = (h.text || "").trim();
+    if (!title) continue;
+    if (!looksLikeCasting(title)) continue;
+
+    items.push({
+      url: s.url,
+      title,
+      summary: null,
+      country: s.country || null,
+      source: s.source || hostnameOf(s.url),
+      tags: KEYWORDS.filter(k => title.toLowerCase().includes(k)).join(","),
+      fetched_at: new Date().toISOString()
+    });
+  }
+
+  return items;
+}
+
+// ==== HOVEDKØRSEL ====
+async function run() {
+  const allItems = [];
+  let success = 0, skipped = 0, fail = 0;
+
+  for (const s of SOURCES) {
+    try {
+      if (!allowed(s.url)) { skipped++; continue; }
+
+      const items = await scrapeSource(s);
+      if (items.length === 0) {
+        skipped++;
+      } else {
+        success += items.length;
+        allItems.push(...items);
+      }
+
+      await delay(1000); // venlig rate-limit
+    } catch (e) {
+      console.error("crawl fail:", s.url, e.message);
+      fail++;
+    }
+  }
+
+  const out = {
+    updatedAt: new Date().toISOString(),
+    counts: { success, skipped, fail, total: SOURCES.length },
+    items: allItems
+  };
+
+  // Skriv filen ind i repoet (køres i Actions runner)
+  const fs = await import("node:fs/promises");
+  await fs.mkdir("radar/jobs/live", { recursive: true });
+  await fs.writeFile(OUTPUT_PATH, JSON.stringify(out, null, 2), "utf8");
+
+  console.log("Wrote", OUTPUT_PATH, "=>", out.counts, "items:", allItems.length);
+}
+
+run().catch(err => {
+  console.error(err);
+  process.exit(1);
+});
