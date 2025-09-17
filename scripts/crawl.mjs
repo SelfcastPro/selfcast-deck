@@ -34,12 +34,12 @@ async function run() {
         if (!text) { skipped++; continue; }
 
         items.push({
-          url: r.postUrl || r.url || s.url,  // brug postUrl først
+          url: r.postUrl || r.url || s.url,   // <--- vigtig ændring
           title: text.slice(0, 80) + (text.length > 80 ? "…" : ""),
           summary: text,
           country: s.country,
           source: s.source,
-          posted_at: r.createdAt || new Date().toISOString(),
+          posted_at: r.date || r.createdAt || null,  // <--- gem post-dato hvis Apify leverer den
           fetched_at: new Date().toISOString()
         });
 
