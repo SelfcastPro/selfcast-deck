@@ -1,34 +1,32 @@
 // scripts/crawl.mjs
-// Selfcast – Casting Radar crawler.
-// Henter opslag fra Facebook-grupper via Apify JSON-feed
-// og skriver resultat til radar/jobs/live/jobs.json
-
-import { parse } from "node-html-parser";
+// Selfcast – Casting Radar crawler (dependency-free).
+// Henter opslag fra Facebook-grupper via dit Apify dataset
+// og skriver resultat til: radar/jobs/live/jobs.json
 
 ////////////////////
 // KONFIGURATION  //
 ////////////////////
 
-// Dit Apify dataset-link med FB-gruppeopslag
+// DIT Apify dataset-link med FB-gruppeopslag
 const SOURCES = [
-  { 
-    url: "https://api.apify.com/v2/datasets/l3YKdBneIPN0q9YsI/items?format=json&view=overview&clean=true", 
-    country: "EU", 
-    source: "Facebook Groups", 
-    parser: "apify-fb" 
+  {
+    url: "https://api.apify.com/v2/datasets/l3YKdBneIPN0q9YsI/items?format=json&view=overview&clean=true",
+    country: "EU",
+    source: "Facebook Groups",
+    parser: "apify-fb"
   }
 ];
 
-// Output-fil (repo-sti)
+// Output-fil (sti i repo)
 const OUTPUT_PATH = "radar/jobs/live/jobs.json";
 
-// Keywords til tagging (ikke hårdt filter – kun tagging)
+// Keywords til TAGGING (ikke et hårdt filter)
 const KEYWORDS = [
-  "casting", "casting call", "audition", "open call",
-  "extras", "models", "actors", "self tape", "selftape",
-  "apply", "submit", "submissions", "email", "dm",
-  "castingopslag", "auditionering", "statist", "statister", "medvirkende",
-  "rolle", "roller", "optagelser", "honorar", "betaling", "løn"
+  "casting","casting call","audition","open call",
+  "extras","models","actors","self tape","selftape",
+  "apply","submit","submissions","email","dm",
+  "castingopslag","auditionering","statist","statister","medvirkende",
+  "rolle","roller","optagelser","honorar","betaling","løn"
 ];
 
 ////////////////////
@@ -49,18 +47,17 @@ async function fetchJSON(url) {
 }
 
 ////////////////////
-// PARSERE
+// PARSER – Apify FB
 ////////////////////
-
-// Apify Facebook dataset parser
 async function scrapeApifyFb(source) {
   const data = await fetchJSON(source.url);
   const posts = Array.isArray(data) ? data : (data.items || data.data || []);
   const items = [];
 
   for (const p of posts) {
-    const text =
-      (p.text || p.content || p.caption || p.message || p.title || "").toString().trim();
+    const text = String(
+      p.text || p.content || p.caption || p.message || p.title || ""
+    ).trim();
 
     const link =
       p.permalinkUrl || p.permalink || p.url || p.link || p.postUrl || null;
@@ -74,9 +71,9 @@ async function scrapeApifyFb(source) {
       .trim();
 
     const rest = text.slice(title.length).trim();
-    const summary = rest.length ? rest.slice(0, 300) : null;
+    const summary = rest ? rest.slice(0, 300) : null;
 
-    // Tidsstempel
+    // Tidsstempel (brug Apify-felt hvis muligt)
     const rawDate =
       p.date || p.publishedTime || p.publishedAt || p.createdAt || p.timestamp || null;
     let fetchedAt = new Date().toISOString();
@@ -112,18 +109,20 @@ async function run() {
       let batch = [];
       if (s.parser === "apify-fb") {
         batch = await scrapeApifyFb(s);
+      } else {
+        batch = []; // (flere parser-typer kan tilføjes her senere)
       }
-      // Tilføj flere parser-typer her hvis du senere vil udvide
 
-      const keyset = new Set();
+      // simpel dedupe på (url + title)
+      const seen = new Set();
       for (const it of batch) {
         const key = (it.url || "") + "::" + (it.title || "");
-        if (keyset.has(key)) continue;
-        keyset.add(key);
+        if (seen.has(key)) continue;
+        seen.add(key);
         all.push(it);
       }
       success += batch.length;
-      await delay(500);
+      await delay(300);
     } catch (e) {
       console.error("crawl fail:", s.url, e.message);
       fail++;
