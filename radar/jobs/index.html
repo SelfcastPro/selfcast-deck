@@ -36,7 +36,8 @@
   <script>
     async function loadJobs() {
       try {
-        const res = await fetch("live/jobs.json");
+        // ✅ sørg for at path altid henter jobs.json og IKKE .mjs
+        const res = await fetch("./jobs.json");
         if (!res.ok) throw new Error("HTTP " + res.status);
         const data = await res.json();
 
@@ -80,7 +81,7 @@
           tdDate.className = "meta";
           tdDate.textContent = job.posted_at
             ? new Date(job.posted_at).toLocaleDateString()
-            : "";
+            : (job.fetched_at ? new Date(job.fetched_at).toLocaleDateString() : "");
           tr.appendChild(tdDate);
 
           tbody.appendChild(tr);
