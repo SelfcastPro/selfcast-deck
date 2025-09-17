@@ -1,6 +1,8 @@
 // scripts/crawl.mjs
-// Crawler til CASTING RADAR. Filtrerer hårdt på domæner + nøgleord
+// Crawler til CASTING RADAR. Scraper lister af links fra kilder
 // og skriver resultater til radar/jobs/live/jobs.json
+
+import { parse } from "node-html-parser";
 
 // ==== KONFIG ====
 const ALLOWED_DOMAINS = [
@@ -17,7 +19,7 @@ const KEYWORDS = [
   "apply now","submissions","casting notice"
 ];
 
-// Kilder vi scanner (starter med 4 stærke sites – kan udvides senere)
+// Kilder vi scanner (starter her – kan udvides)
 const SOURCES = [
   { url: "https://www.backstage.com/casting/open-casting-calls/london-uk/", country: "UK", source: "Backstage" },
   { url: "https://www.backstage.com/magazine/region/europe/", country: "EU", source: "Backstage" },
@@ -49,68 +51,36 @@ function looksLikeCasting(text = "") {
   return KEYWORDS.some(k => hay.includes(k));
 }
 
-// Simpel titel/description-udtræk
-function quickMeta(html) {
-  const title = (html.match(/<title[^>]*>([^<]+)<\/title>/i)?.[1] || "").trim();
-  const desc = (html.match(/<meta[^>]+name=["']description["'][^>]+content=["']([^"']+)/i)?.[1] || "").trim();
-  return { title, summary: desc || title };
-}
-
 async function fetchText(url) {
   const res = await fetch(url, { redirect: "follow" });
   if (!res.ok) throw new Error(`HTTP ${res.status} for ${url}`);
   return await res.text();
 }
 
-// ==== HOVEDKØRSEL ====
-async function run() {
+// ==== SCRAPE FUNKTION ====
+async function scrapeSource(s) {
+  const html = await fetchText(s.url);
+  const root = parse(html);
+
+  // find links og overskrifter
+  const links = root.querySelectorAll("a");
+  const h2s = root.querySelectorAll("h2");
+
   const items = [];
-  let success = 0, skipped = 0, fail = 0;
 
-  for (const s of SOURCES) {
-    try {
-      if (!allowed(s.url)) { skipped++; continue; }
+  // Links
+  for (const a of links) {
+    const title = (a.text || "").trim();
+    const href = a.getAttribute("href");
+    if (!title || !href) continue;
 
-      const html = await fetchText(s.url);
-      const meta = quickMeta(html);
-      const blob = `${meta.title} ${meta.summary}`;
+    if (!looksLikeCasting(title)) continue; // kræv keyword
 
-      // Hårdt filter: kræv keyword-match
-      if (!looksLikeCasting(blob)) { skipped++; continue; }
+    const absUrl = href.startsWith("http") ? href : new URL(href, s.url).toString();
 
-      items.push({
-        url: s.url,
-        title: meta.title || s.url,
-        summary: meta.summary || null,
-        country: s.country || null,
-        source: s.source || hostnameOf(s.url),
-        tags: KEYWORDS.filter(k => blob.toLowerCase().includes(k)).join(","),
-        fetched_at: new Date().toISOString()
-      });
-
-      success++;
-      await delay(500); // venlig rate-limit
-    } catch (e) {
-      console.error("crawl fail:", s.url, e.message);
-      fail++;
-    }
-  }
-
-  const out = {
-    updatedAt: new Date().toISOString(),
-    counts: { success, skipped, fail, total: SOURCES.length },
-    items
-  };
-
-  // Skriv filen ind i repoet (køres i Actions runner)
-  const fs = await import("node:fs/promises");
-  await fs.mkdir("radar/jobs/live", { recursive: true });
-  await fs.writeFile(OUTPUT_PATH, JSON.stringify(out, null, 2), "utf8");
-
-  console.log("Wrote", OUTPUT_PATH, "=>", out.counts);
-}
-
-run().catch(err => {
-  console.error(err);
-  process.exit(1);
-});
+    items.push({
+      url: absUrl,
+      title,
+      summary: null,
+      country: s.country || null,
+      source: s.source || hos
