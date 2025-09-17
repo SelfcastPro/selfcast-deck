@@ -1,6 +1,6 @@
 // scripts/crawl.mjs
-// Crawler til CASTING RADAR (GitHub Actions). Filtrerer hårdt på domæner + nøgleord
-// og skriver resultater til radar/data/jobs.json
+// Crawler til CASTING RADAR. Filtrerer hårdt på domæner + nøgleord
+// og skriver resultater til radar/jobs/live/jobs.json
 
 // ==== KONFIG ====
 const ALLOWED_DOMAINS = [
@@ -17,7 +17,7 @@ const KEYWORDS = [
   "apply now","submissions","casting notice"
 ];
 
-// Kilder vi scanner (start small – vi udvider senere)
+// Kilder vi scanner (starter med 4 stærke sites – kan udvides senere)
 const SOURCES = [
   { url: "https://www.backstage.com/casting/open-casting-calls/london-uk/", country: "UK", source: "Backstage" },
   { url: "https://www.backstage.com/magazine/region/europe/", country: "EU", source: "Backstage" },
@@ -28,7 +28,7 @@ const SOURCES = [
 ];
 
 // Hvor output skal ligge i repoet:
-const OUTPUT_PATH = "radar/data/jobs.json";
+const OUTPUT_PATH = "radar/jobs/live/jobs.json";
 
 // ==== HJÆLPERE ====
 const delay = (ms) => new Promise(r => setTimeout(r, ms));
@@ -49,7 +49,7 @@ function looksLikeCasting(text = "") {
   return KEYWORDS.some(k => hay.includes(k));
 }
 
-// Meget simpel titel/description-udtræk (nok til første filtrering)
+// Simpel titel/description-udtræk
 function quickMeta(html) {
   const title = (html.match(/<title[^>]*>([^<]+)<\/title>/i)?.[1] || "").trim();
   const desc = (html.match(/<meta[^>]+name=["']description["'][^>]+content=["']([^"']+)/i)?.[1] || "").trim();
@@ -104,7 +104,7 @@ async function run() {
 
   // Skriv filen ind i repoet (køres i Actions runner)
   const fs = await import("node:fs/promises");
-  await fs.mkdir("radar/data", { recursive: true });
+  await fs.mkdir("radar/jobs/live", { recursive: true });
   await fs.writeFile(OUTPUT_PATH, JSON.stringify(out, null, 2), "utf8");
 
   console.log("Wrote", OUTPUT_PATH, "=>", out.counts);
