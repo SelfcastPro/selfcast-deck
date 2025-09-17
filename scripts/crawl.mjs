@@ -2,7 +2,6 @@
 // Crawler til CASTING RADAR — henter data fra Apify JSON feed (Facebook grupper)
 // og skriver resultater til radar/jobs/live/jobs.json
 
-// ==== KONFIG ====
 const SOURCES = [
   {
     url: "https://api.apify.com/v2/datasets/l3YKdBneIPN0q9YsI/items?format=json&view=overview&clean=true",
@@ -13,14 +12,12 @@ const SOURCES = [
 
 const OUTPUT_PATH = "radar/jobs/live/jobs.json";
 
-// ==== HJÆLPERE ====
 async function fetchJson(url) {
   const res = await fetch(url);
   if (!res.ok) throw new Error(`HTTP ${res.status} for ${url}`);
   return await res.json();
 }
 
-// ==== HOVEDKØRSEL ====
 async function run() {
   const items = [];
   let success = 0, skipped = 0, fail = 0;
@@ -33,13 +30,15 @@ async function run() {
         const text = r.text || r.postText || "";
         if (!text) { skipped++; continue; }
 
+        const link = r.postUrl || r.url || r.facebookUrl || s.url;
+
         items.push({
-          url: r.postUrl || r.url || s.url,   // <--- vigtig ændring
+          url: link,
           title: text.slice(0, 80) + (text.length > 80 ? "…" : ""),
           summary: text,
           country: s.country,
           source: s.source,
-          posted_at: r.date || r.createdAt || null,  // <--- gem post-dato hvis Apify leverer den
+          posted_at: r.date || r.createdAt || null,
           fetched_at: new Date().toISOString()
         });
 
