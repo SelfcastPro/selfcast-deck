@@ -59,7 +59,7 @@
 </div>
 
 <script>
-const PATH = "live/jobs.json"; // ✅ korrekt sti
+const PATH = "live/jobs.json"; // korrekt sti
 
 const $q = document.getElementById('q');
 const $source = document.getElementById('source');
@@ -76,8 +76,40 @@ let seen = loadSeen();
 
 const agoDays = (iso) => !iso ? Infinity : (Date.now() - new Date(iso).getTime())/86400000;
 const uniq = (arr) => [...new Set(arr.filter(Boolean))].sort((a,b)=>a.localeCompare(b));
-const esc = (s)=> (s||'').replace(/[&<>"']/g, m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[m]));
+const esc = (s)=> (s||'').replace(/[&<>"']/g, m=>({"&":"&amp;","<":"&lt;","&gt;":">","\"":"&quot;","'":"&#39;"}[m]));
 const fmtDate = (d)=> d ? new Date(d).toLocaleDateString("da-DK") : "";
+
+// === Lav mailto-links med standardtekst ===
+function makeMailtoLinks(text) {
+  if (!text) return "";
+  const emailRegex = /([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/g;
+
+  return text.replace(emailRegex, (email) => {
+    const subject = "Regarding your casting call on Facebook";
+    const body = `Hi [Name],
+
+We came across your casting post on Facebook and would love to help.
+Please share more details about the role(s) and production so we can present the right candidates for you.
+
+The more info we can give the talents, the better the match:
+- Client name
+- Role description (gender, age, look, special requirements, photos/videos)
+- Rights (e.g. 1 year worldwide, all platforms)
+- Salary (total fee incl. buyout)
+- Travel expenses (covered? up to 500 EUR?)
+- Date(s) (specific day or period)
+- Location (country, city/region)
+
+Next time you need talents, you can also book directly through the Selfcast platform.
+We currently represent over 60,000 talents in 160+ countries, with a strong base across Europe.
+
+Best regards,
+The Selfcast Team
+CASTING MADE EASY`;
+
+    return `<a href="mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}">${email}</a>`;
+  });
+}
 
 let DATA=[];
 fetch(PATH,{cache:'no-store'})
@@ -128,7 +160,7 @@ function row(r){
     <td><a href="${esc(r.url)}" target="_blank" rel="noopener"><strong>${esc(r.title||'(no title)')}</strong></a></td>
     <td>${esc(r.country||'')}</td>
     <td>${esc(r.source||'')}</td>
-    <td class="snippet">${esc(r.summary||'')}</td>
+    <td class="snippet">${makeMailtoLinks(r.summary||'')}</td>
     <td>${esc(fmtDate(date))}</td>
   </tr>`;
 }
