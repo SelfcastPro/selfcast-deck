@@ -12,12 +12,14 @@ const SOURCES = [
 
 const OUTPUT_PATH = "radar/jobs/live/jobs.json";
 
+// ==== HJÆLPERE ====
 async function fetchJson(url) {
   const res = await fetch(url);
   if (!res.ok) throw new Error(`HTTP ${res.status} for ${url}`);
   return await res.json();
 }
 
+// ==== HOVEDKØRSEL ====
 async function run() {
   const items = [];
   let success = 0, skipped = 0, fail = 0;
@@ -30,15 +32,11 @@ async function run() {
         const text = r.text || r.postText || "";
         if (!text) { skipped++; continue; }
 
-        // Byg post link hvis muligt
-        let link = r.postUrl || r.url || r.facebookUrl || s.url;
-        if (!r.postUrl && r.facebookUrl && r.id) {
-          // Ekstraher gruppe ID fra facebookUrl
-          const groupMatch = r.facebookUrl.match(/groups\/(\d+)/);
-          if (groupMatch) {
-            link = `https://www.facebook.com/groups/${groupMatch[1]}/posts/${r.id}`;
-          }
-        }
+        const link = r.postUrl || r.url || r.facebookUrl || s.url;
+
+        // posted_at skal altid have en værdi
+        const fetchedAt = new Date().toISOString();
+        const postedAt = r.date || r.createdAt || fetchedAt;
 
         items.push({
           url: link,
@@ -46,8 +44,8 @@ async function run() {
           summary: text,
           country: s.country,
           source: s.source,
-          posted_at: r.date || r.createdAt || null,
-          fetched_at: new Date().toISOString()
+          posted_at: postedAt,
+          fetched_at: fetchedAt
         });
 
         success++;
