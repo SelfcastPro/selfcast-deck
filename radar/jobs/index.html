@@ -31,9 +31,8 @@
     </thead>
     <tbody></tbody>
   </table>
-  <div id="fallback" class="fallback" style="display:none;">
-    No casting jobs found (yet) — waiting for next update…
-  </div>
+  <div id="fallback" class="fallback" style="display:none;"></div>
+
   <script>
     async function loadJobs() {
       try {
@@ -46,14 +45,19 @@
         const status = document.getElementById("status");
         const fallback = document.getElementById("fallback");
 
+        const lastUpdate = data.updatedAt
+          ? new Date(data.updatedAt).toLocaleString()
+          : "unknown";
+
         if (!data.items || data.items.length === 0) {
           status.style.display = "none";
           table.style.display = "none";
           fallback.style.display = "block";
+          fallback.textContent = `No casting jobs found — last update: ${lastUpdate}`;
           return;
         }
 
-        status.textContent = `Loaded ${data.items.length} posts · Updated: ${data.updatedAt}`;
+        status.textContent = `Loaded ${data.items.length} posts · Updated: ${lastUpdate}`;
         tbody.innerHTML = "";
 
         for (const job of data.items) {
@@ -85,6 +89,12 @@
         table.style.display = "table";
         fallback.style.display = "none";
       } catch (err) {
-        document.getElementById("status").textContent = "Error loading jobs: " + err.message;
+        document.getElementById("status").textContent =
+          "Error loading jobs: " + err.message;
       }
     }
+
+    loadJobs();
+  </script>
+</body>
+</html>
