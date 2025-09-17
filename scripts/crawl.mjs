@@ -20,6 +20,11 @@ async function fetchJson(url) {
   return await res.json();
 }
 
+function cleanText(txt) {
+  if (!txt) return "";
+  return txt.replace(/\s+/g, " ").trim();
+}
+
 // ==== HOVEDKØRSEL ====
 async function run() {
   const items = [];
@@ -30,16 +35,34 @@ async function run() {
       const rows = await fetchJson(s.url);
 
       for (const r of rows) {
-        const text = r.text || r.postText || "";
+        const text = cleanText(r.text || r.postText || r.message || "");
         if (!text) { skipped++; continue; }
 
+        // Brug permalink eller postUrl hvis tilgængelig
+        const link = r.permalinkUrl || r.postUrl || r.url || s.url;
+
+        // Titel = første 80 tegn
+        const title = text.slice(0, 80) + (text.length > 80 ? "…" : "");
+        // Snippet = op til 500 tegn
+        const snippet = text.slice(0, 500);
+
+        // Brug postens egen dato hvis den findes
+        const rawDate = r.date || r.publishedTime || r.publishedAt || r.createdAt || null;
+        let fetchedAt = new Date().toISOString();
+        if (rawDate) {
+          const d = new Date(rawDate);
+          if (!isNaN(d.getTime())) {
+            fetchedAt = d.toISOString();
+          }
+        }
+
         items.push({
-          url: r.url || r.postUrl || s.url,
-          title: text.slice(0, 80) + (text.length > 80 ? "…" : ""),
-          summary: text,
+          url: link,
+          title,
+          summary: snippet,
           country: s.country,
           source: s.source,
-          fetched_at: new Date().toISOString()
+          fetched_at: fetchedAt
         });
 
         success++;
@@ -53,14 +76,14 @@ async function run() {
   const out = {
     updatedAt: new Date().toISOString(),
     counts: { success, skipped, fail, total: SOURCES.length },
-    items
+    items: items.sort((a, b) => (b.fetched_at || "").localeCompare(a.fetched_at || ""))
   };
 
   const fs = await import("node:fs/promises");
   await fs.mkdir("radar/jobs/live", { recursive: true });
   await fs.writeFile(OUTPUT_PATH, JSON.stringify(out, null, 2), "utf8");
 
-  console.log("Wrote", OUTPUT_PATH, "=>", out.counts);
+  console.log("Wrote", OUTPUT_PATH, "=>", out.counts, "items:", items.length);
 }
 
 run().catch(err => {
