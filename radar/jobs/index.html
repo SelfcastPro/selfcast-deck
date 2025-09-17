@@ -14,8 +14,13 @@
   .btn{background:#1f1f1f;border:1px solid #2a2a2a;color:#fff;padding:8px 14px;border-radius:10px;text-decoration:none;font-weight:700}
   .controls{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0 18px}
   input,select{padding:6px 8px;border:1px solid #222;background:#141414;color:#f5f5f5;border-radius:8px}
-  table{width:100%;border-collapse:collapse;background:#141414;border-radius:10px;overflow:hidden;font-size:14px}
+  table{width:100%;border-collapse:collapse;background:#141414;border-radius:10px;overflow:hidden;font-size:14px;table-layout:fixed}
   th,td{padding:8px;border-bottom:1px solid #222;vertical-align:top;text-align:left}
+  th:nth-child(1),td:nth-child(1){width:40px}
+  th:nth-child(2),td:nth-child(2){width:220px}
+  th:nth-child(3),td:nth-child(3){width:520px} /* Snippet får max bredde */
+  th:nth-child(4),td:nth-child(4){width:150px}
+  th:nth-child(5),td:nth-child(5){width:120px}
   tr:hover{background:#161616}
   .small{font-size:12px;color:#b3b3b3}
   .snippet{max-height:7.5em;overflow:hidden;white-space:pre-wrap}
@@ -82,8 +87,7 @@ fetch(CFG.dataUrl,{cache:'no-store'}).then(r=>r.json()).then(rows=>{
   render();
 });
 
-[q,$source,$age].forEach(el=>el.addEventListener('input',render));
-[$source,$age].forEach(el=>el.addEventListener('change',render));
+[$q,$source,$age].forEach(el=>el.addEventListener('input',render));
 
 function matches(r){
   const q = $q.value.trim().toLowerCase();
@@ -101,10 +105,11 @@ function fmtDate(d){
 }
 function row(r){
   const checked = seen[r.url] ? "checked" : "";
+  const link = r.url && r.url.startsWith("http") ? r.url : (r.postUrl || "#");
   return `
   <tr>
-    <td><input type="checkbox" data-url="${r.url}" ${checked}></td>
-    <td><a href="${r.url}" target="_blank" rel="noopener"><strong>${r.title||'(no title)'}</strong></a></td>
+    <td><input type="checkbox" data-url="${link}" ${checked}></td>
+    <td><a href="${link}" target="_blank" rel="noopener"><strong>${r.title||'(no title)'}</strong></a></td>
     <td class="snippet">${r.summary||''}</td>
     <td>${r.source||''}</td>
     <td>${fmtDate(r.posted_at||r.fetched_at)}</td>
