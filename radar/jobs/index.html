@@ -8,34 +8,25 @@
 <style>
   body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;margin:20px;background:#0b0b0b;color:#f5f5f5}
   a{color:#4da3ff;text-decoration:none}
-  .wrap{max-width:1200px;margin:0 auto}
-  .top{display:flex;justify-content:space-between;align-items:center;gap:12px}
-  h1{margin:0;font-size:26px;font-weight:900}
-  .btn{background:#1f1f1f;border:1px solid #2a2a2a;color:#fff;padding:8px 14px;border-radius:10px;text-decoration:none;font-weight:700}
+  .wrap{max-width:1100px;margin:0 auto}
+  h1{margin:0 0 10px;font-size:26px;font-weight:900}
   .controls{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0 18px}
-  input,select{padding:6px 8px;border:1px solid #222;background:#141414;color:#f5f5f5;border-radius:8px}
-  table{width:100%;border-collapse:collapse;background:#141414;border-radius:10px;overflow:hidden;font-size:14px;table-layout:fixed}
-  th,td{padding:8px;border-bottom:1px solid #222;vertical-align:top;text-align:left}
-  th:nth-child(1),td:nth-child(1){width:40px}
-  th:nth-child(2),td:nth-child(2){width:220px}
-  th:nth-child(3),td:nth-child(3){width:520px} /* Snippet får max bredde */
-  th:nth-child(4),td:nth-child(4){width:150px}
-  th:nth-child(5),td:nth-child(5){width:120px}
+  input,select{padding:6px 10px;border:1px solid #222;background:#141414;color:#f5f5f5;border-radius:8px}
+  table{width:100%;border-collapse:collapse;background:#141414;border-radius:12px;overflow:hidden;table-layout:fixed}
+  th,td{padding:8px;border-bottom:1px solid #222;vertical-align:top;text-align:left;font-size:14px}
   tr:hover{background:#161616}
+  td.snippet{white-space:pre-wrap;max-height:7.2em;overflow:hidden;text-overflow:ellipsis}
   .small{font-size:12px;color:#b3b3b3}
-  .snippet{max-height:7.5em;overflow:hidden;white-space:pre-wrap}
+  .checkbox-col{width:28px;text-align:center}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <div class="top">
-    <h1>Selfcast – Casting Jobs Radar</h1>
-    <a class="btn" href="/radar/">← Back</a>
-  </div>
+  <h1>Selfcast – Casting Jobs Radar</h1>
   <div class="small" id="meta">Loading…</div>
 
   <div class="controls">
-    <input id="q" type="search" placeholder="Search…" />
+    <input id="q" type="search" placeholder="Search title, snippet, role, city…" />
     <select id="source"><option value="">All sources</option></select>
     <select id="age"><option value="">Any time</option>
       <option value="1">Last 24h</option><option value="3">Last 3 days</option>
@@ -46,7 +37,13 @@
 
   <table id="tbl" style="display:none">
     <thead>
-      <tr><th>✔</th><th>Title</th><th>Snippet</th><th>Source</th><th>Posted</th></tr>
+      <tr>
+        <th class="checkbox-col">✓</th>
+        <th style="width:28%">Title</th>
+        <th style="width:45%">Snippet</th>
+        <th style="width:14%">Source</th>
+        <th style="width:13%">Posted</th>
+      </tr>
     </thead>
     <tbody></tbody>
   </table>
@@ -62,32 +59,30 @@ const $tbl = document.getElementById('tbl');
 const $tbody = document.querySelector('#tbl tbody');
 const $meta = document.getElementById('meta');
 
-// localStorage helpers
-function getSeen() {
-  return JSON.parse(localStorage.getItem("seenJobs")||"{}");
-}
-function setSeen(map) {
-  localStorage.setItem("seenJobs", JSON.stringify(map));
-}
-
 const agoDays = (iso) => {
   if(!iso) return Infinity;
   const d = (Date.now() - new Date(iso).getTime())/86400000;
   return d;
 };
 const uniq = (arr) => [...new Set(arr.filter(Boolean))].sort((a,b)=>a.localeCompare(b));
+const esc = (s)=> (s||'').replace(/[&<>"']/g, m=>({"&":"&amp;","<":"&lt;","&gt;":">","\"":"&quot;","'":"&#39;"}[m]));
 
-let DATA=[], seen=getSeen();
+// Læs/gem markerede opslag i localStorage
+function loadSeen(){ try{return JSON.parse(localStorage.getItem("seenJobs")||"{}");}catch{return{}} }
+function saveSeen(x){ localStorage.setItem("seenJobs",JSON.stringify(x)); }
+let seen = loadSeen();
 
+let DATA=[];
 fetch(CFG.dataUrl,{cache:'no-store'}).then(r=>r.json()).then(rows=>{
-  DATA = rows.items.sort((a,b)=> (b.posted_at||b.fetched_at||'').localeCompare(a.posted_at||a.fetched_at||''));
-  $meta.textContent = `Loaded ${DATA.length.toLocaleString()} posts • Updated: ${rows.updatedAt}`;
+  DATA = (rows.items || rows).sort((a,b)=> (b.posted_at||b.fetched_at||'').localeCompare(a.posted_at||a.fetched_at||''));
+  $meta.textContent = `Loaded ${DATA.length.toLocaleString()} posts • Updated: ${rows.updatedAt||''}`;
   uniq(DATA.map(r=>r.source)).forEach(s=>{ const o=document.createElement('option'); o.value=s;o.textContent=s;$source.appendChild(o); });
   $tbl.style.display='table';
   render();
 });
 
-[$q,$source,$age].forEach(el=>el.addEventListener('input',render));
+[q,$source,$age].forEach(el=>el.addEventListener('input',render));
+[$source,$age].forEach(el=>el.addEventListener('change',render));
 
 function matches(r){
   const q = $q.value.trim().toLowerCase();
@@ -98,30 +93,33 @@ function matches(r){
   const hay = [r.title,r.summary,r.source].join(' ').toLowerCase();
   return hay.includes(q);
 }
-function fmtDate(d){
+function fmtDate(r){
+  const d = r.posted_at || r.fetched_at;
   if(!d) return '';
-  const dt=new Date(d);
-  return dt.toLocaleDateString('da-DK');
+  const dd = new Date(d);
+  return dd.toLocaleDateString("da-DK",{day:"2-digit",month:"2-digit",year:"numeric"});
 }
 function row(r){
-  const checked = seen[r.url] ? "checked" : "";
-  const link = r.url && r.url.startsWith("http") ? r.url : (r.postUrl || "#");
+  const id = r.url;
+  const checked = seen[id] ? "checked" : "";
   return `
   <tr>
-    <td><input type="checkbox" data-url="${link}" ${checked}></td>
-    <td><a href="${link}" target="_blank" rel="noopener"><strong>${r.title||'(no title)'}</strong></a></td>
-    <td class="snippet">${r.summary||''}</td>
-    <td>${r.source||''}</td>
-    <td>${fmtDate(r.posted_at||r.fetched_at)}</td>
+    <td class="checkbox-col"><input type="checkbox" data-id="${esc(id)}" ${checked}></td>
+    <td><a href="${esc(r.url)}" target="_blank" rel="noopener"><strong>${esc(r.title||'(no title)')}</strong></a></td>
+    <td class="snippet">${esc(r.summary||'')}</td>
+    <td>${esc(r.source||'')}</td>
+    <td>${esc(fmtDate(r))}</td>
   </tr>`;
 }
 function render(){
-  const rows = DATA.filter(matches).slice(0,2000);
+  const rows = DATA.filter(matches).slice(0,1000);
   $tbody.innerHTML = rows.map(row).join('');
-  document.querySelectorAll('input[type=checkbox]').forEach(cb=>{
-    cb.addEventListener('change',()=>{
-      seen[cb.dataset.url]=cb.checked;
-      setSeen(seen);
+  // Hook checkboxes
+  $tbody.querySelectorAll("input[type=checkbox]").forEach(cb=>{
+    cb.addEventListener("change",()=>{
+      if(cb.checked) seen[cb.dataset.id]=true;
+      else delete seen[cb.dataset.id];
+      saveSeen(seen);
     });
   });
 }
