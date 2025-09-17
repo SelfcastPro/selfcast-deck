@@ -6,22 +6,19 @@
 <title>Selfcast – Casting Jobs Radar</title>
 <meta name="robots" content="noindex,nofollow" />
 <style>
-  body { font-family: system-ui,-apple-system,Segoe UI,Roboto,Arial; margin:20px; background:#0b0b0b; color:#f5f5f5 }
-  a { color:#66b3ff }
-  .wrap { max-width:1400px; margin:0 auto }
-  .top { display:flex; justify-content:space-between; align-items:center; gap:12px }
-  h1 { margin:0; font-size:26px; font-weight:900 }
-  .btn { background:#1f1f1f; border:1px solid #2a2a2a; color:#fff; padding:8px 12px; border-radius:8px; text-decoration:none; font-weight:700 }
-  .controls { display:flex; gap:10px; flex-wrap:wrap; margin:14px 0 18px }
-  input,select { padding:6px; border:1px solid #222; background:#141414; color:#f5f5f5; border-radius:8px }
-  table { width:100%; border-collapse:collapse; background:#141414; border-radius:10px; overflow:hidden; table-layout:fixed }
-  th,td { padding:8px; border-bottom:1px solid #222; vertical-align:top; text-align:left; }
-  th { font-size:14px; }
-  td { font-size:13px; }
-  tr:hover { background:#161616 }
-  .small { font-size:12px; color:#b3b3b3 }
-  .snippet { white-space:pre-line; overflow:hidden; text-overflow:ellipsis; display:-webkit-box; -webkit-line-clamp:6; -webkit-box-orient:vertical; }
-  .nowrap { white-space:nowrap }
+  body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;margin:20px;background:#0b0b0b;color:#f5f5f5}
+  a{color:#4da3ff;text-decoration:none}
+  .wrap{max-width:1200px;margin:0 auto}
+  .top{display:flex;justify-content:space-between;align-items:center;gap:12px}
+  h1{margin:0;font-size:26px;font-weight:900}
+  .btn{background:#1f1f1f;border:1px solid #2a2a2a;color:#fff;padding:8px 14px;border-radius:10px;text-decoration:none;font-weight:700}
+  .controls{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0 18px}
+  input,select{padding:6px 8px;border:1px solid #222;background:#141414;color:#f5f5f5;border-radius:8px}
+  table{width:100%;border-collapse:collapse;background:#141414;border-radius:10px;overflow:hidden;font-size:14px}
+  th,td{padding:8px;border-bottom:1px solid #222;vertical-align:top;text-align:left}
+  tr:hover{background:#161616}
+  .small{font-size:12px;color:#b3b3b3}
+  .snippet{max-height:7.5em;overflow:hidden;white-space:pre-wrap}
 </style>
 </head>
 <body>
@@ -35,24 +32,16 @@
   <div class="controls">
     <input id="q" type="search" placeholder="Search…" />
     <select id="source"><option value="">All sources</option></select>
-    <select id="age">
-      <option value="">Any time</option>
-      <option value="1">Last 24h</option>
-      <option value="3">Last 3 days</option>
-      <option value="7">Last 7 days</option>
-      <option value="14">Last 14 days</option>
+    <select id="age"><option value="">Any time</option>
+      <option value="1">Last 24h</option><option value="3">Last 3 days</option>
+      <option value="7">Last 7 days</option><option value="14">Last 14 days</option>
       <option value="30">Last 30 days</option>
     </select>
   </div>
 
   <table id="tbl" style="display:none">
     <thead>
-      <tr>
-        <th style="width:25%">Title</th>
-        <th style="width:45%">Snippet</th>
-        <th style="width:15%">Source</th>
-        <th style="width:15%">Posted</th>
-      </tr>
+      <tr><th>✔</th><th>Title</th><th>Snippet</th><th>Source</th><th>Posted</th></tr>
     </thead>
     <tbody></tbody>
   </table>
@@ -68,53 +57,68 @@ const $tbl = document.getElementById('tbl');
 const $tbody = document.querySelector('#tbl tbody');
 const $meta = document.getElementById('meta');
 
+// localStorage helpers
+function getSeen() {
+  return JSON.parse(localStorage.getItem("seenJobs")||"{}");
+}
+function setSeen(map) {
+  localStorage.setItem("seenJobs", JSON.stringify(map));
+}
+
 const agoDays = (iso) => {
   if(!iso) return Infinity;
   const d = (Date.now() - new Date(iso).getTime())/86400000;
   return d;
 };
 const uniq = (arr) => [...new Set(arr.filter(Boolean))].sort((a,b)=>a.localeCompare(b));
-const esc = (s)=> (s||'').replace(/[&<>"']/g, m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[m]));
 
-let DATA=[];
-fetch(CFG.dataUrl,{cache:'no-store'}).then(r=>r.json()).then(json=>{
-  const rows = json.items || [];
-  DATA = rows.sort((a,b)=> (b.fetched_at||'').localeCompare(a.fetched_at||''));
-  $meta.textContent = `Loaded ${DATA.length} posts • Updated: ${json.updatedAt}`;
+let DATA=[], seen=getSeen();
+
+fetch(CFG.dataUrl,{cache:'no-store'}).then(r=>r.json()).then(rows=>{
+  DATA = rows.items.sort((a,b)=> (b.posted_at||b.fetched_at||'').localeCompare(a.posted_at||a.fetched_at||''));
+  $meta.textContent = `Loaded ${DATA.length.toLocaleString()} posts • Updated: ${rows.updatedAt}`;
   uniq(DATA.map(r=>r.source)).forEach(s=>{ const o=document.createElement('option'); o.value=s;o.textContent=s;$source.appendChild(o); });
   $tbl.style.display='table';
   render();
 });
 
-[$q,$source,$age].forEach(el=>el.addEventListener('input',render));
+[q,$source,$age].forEach(el=>el.addEventListener('input',render));
 [$source,$age].forEach(el=>el.addEventListener('change',render));
 
 function matches(r){
   const q = $q.value.trim().toLowerCase();
   const so=$source.value, days=$age.value?parseInt($age.value,10):null;
   if (so && r.source !== so) return false;
-  if (days!=null && agoDays(r.fetched_at) > days) return false;
+  if (days!=null && agoDays(r.posted_at||r.fetched_at) > days) return false;
   if (!q) return true;
   const hay = [r.title,r.summary,r.source].join(' ').toLowerCase();
   return hay.includes(q);
 }
-function fmtDate(iso){
-  if(!iso) return '';
-  const d = new Date(iso);
-  return d.toLocaleDateString('da-DK',{day:'2-digit',month:'2-digit',year:'numeric'});
+function fmtDate(d){
+  if(!d) return '';
+  const dt=new Date(d);
+  return dt.toLocaleDateString('da-DK');
 }
 function row(r){
+  const checked = seen[r.url] ? "checked" : "";
   return `
   <tr>
-    <td><a href="${esc(r.url)}" target="_blank"><strong>${esc(r.title||'(no title)')}</strong></a></td>
-    <td class="snippet">${esc(r.summary||'')}</td>
-    <td>${esc(r.source||'')}</td>
-    <td class="nowrap">${esc(fmtDate(r.fetched_at))}</td>
+    <td><input type="checkbox" data-url="${r.url}" ${checked}></td>
+    <td><a href="${r.url}" target="_blank" rel="noopener"><strong>${r.title||'(no title)'}</strong></a></td>
+    <td class="snippet">${r.summary||''}</td>
+    <td>${r.source||''}</td>
+    <td>${fmtDate(r.posted_at||r.fetched_at)}</td>
   </tr>`;
 }
 function render(){
-  const rows = DATA.filter(matches).slice(0,500);
+  const rows = DATA.filter(matches).slice(0,2000);
   $tbody.innerHTML = rows.map(row).join('');
+  document.querySelectorAll('input[type=checkbox]').forEach(cb=>{
+    cb.addEventListener('change',()=>{
+      seen[cb.dataset.url]=cb.checked;
+      setSeen(seen);
+    });
+  });
 }
 </script>
 </body>
