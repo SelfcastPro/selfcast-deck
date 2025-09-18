@@ -1,6 +1,7 @@
 // scripts/crawl.mjs
 // Crawler til CASTING RADAR — henter data fra Apify JSON feed (Facebook grupper)
 // og skriver resultater til radar/jobs/live/jobs.json
+// Vi filtrerer både via Apify (time frame) og her i koden (max 7 dage gamle opslag)
 
 const SOURCES = [
   {
@@ -11,12 +12,21 @@ const SOURCES = [
 ];
 
 const OUTPUT_PATH = "radar/jobs/live/jobs.json";
-const MAX_AGE_DAYS = 30; // behold max 30 dage gamle opslag
 
+// ==== HJÆLPERE ====
 async function fetchJson(url) {
   const res = await fetch(url);
   if (!res.ok) throw new Error(`HTTP ${res.status} for ${url}`);
   return await res.json();
+}
+
+// Beregn hvor mange dage siden
+function daysAgo(dateStr) {
+  if (!dateStr) return Infinity;
+  const d = new Date(dateStr);
+  if (isNaN(d.getTime())) return Infinity;
+  const diff = (Date.now() - d.getTime()) / 86400000; // ms → dage
+  return diff;
 }
 
 async function run() {
@@ -31,12 +41,14 @@ async function run() {
         const text = r.text || r.postText || "";
         if (!text) { skipped++; continue; }
 
+        // Find link
         const link = r.postUrl || r.url || r.facebookUrl || s.url;
-        const posted = r.date || r.createdAt || null;
-        const postedDate = posted ? new Date(posted) : null;
 
-        // Skip hvis ældre end 30 dage
-        if (postedDate && (Date.now() - postedDate.getTime())/86400000 > MAX_AGE_DAYS) {
+        // Find dato (fra Apify feltet "createdAt" eller "date")
+        const created = r.createdAt || r.date || null;
+
+        // Skip opslag ældre end 7 dage
+        if (created && daysAgo(created) > 7) {
           skipped++;
           continue;
         }
@@ -47,7 +59,7 @@ async function run() {
           summary: text,
           country: s.country,
           source: s.source,
-          posted_at: postedDate ? postedDate.toISOString() : null,
+          posted_at: created,
           fetched_at: new Date().toISOString()
         });
 
