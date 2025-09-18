@@ -40,7 +40,7 @@ async function run() {
         const date = r.date || r.timestamp || r.createdAt || r.lastActivityTime || null;
         if (!date) { skipped++; continue; }
 
-        // spring over hvis opslaget er ældre end 30 dage
+        // gem kun opslag de sidste 30 dage
         if (agoDays(date) > MAX_DAYS_KEEP) { skipped++; continue; }
 
         // brug det rigtige opslag-link
@@ -52,7 +52,7 @@ async function run() {
           summary: text,
           country: s.country,
           source: s.source,
-          posted_at: date, // <-- nu korrekt dato fra Apify feed
+          posted_at: date, // korrekt dato fra Apify feed
           fetched_at: new Date().toISOString()
         });
 
