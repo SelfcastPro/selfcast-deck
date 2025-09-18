@@ -76,6 +76,37 @@ function loadSeen(){ try{return JSON.parse(localStorage.getItem("seenJobs")||"{}
 function saveSeen(x){ localStorage.setItem("seenJobs",JSON.stringify(x)); }
 let seen = loadSeen();
 
+// lav mailto links i teksten
+function makeMailtoLinks(text) {
+  if (!text) return "";
+  const emailRegex = /([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/g;
+  return text.replace(emailRegex, (email) => {
+    const subject = "Regarding your casting call on Facebook";
+    const body = `Hi,
+
+We came across your casting post on Facebook and would love to help.
+Please share more details about the role(s) and production so we can present the right candidates for you.
+
+The more info we can give the talents, the better the match:
+- Client name
+- Role description (gender, age, look, special requirements, photos/videos)
+- Rights (e.g. 1 year worldwide, all platforms)
+- Salary (total fee incl. buyout)
+- Travel expenses (covered? up to 500 EUR?)
+- Date(s) (specific day or period)
+- Location (country, city/region)
+
+Next time you need talents, you can also book directly through the Selfcast platform.
+We currently represent over 60,000 talents in 160+ countries, with a strong base across Europe.
+
+Best regards,
+The Selfcast Team
+CASTING MADE EASY`;
+
+    return `<a href="mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}">${email}</a>`;
+  });
+}
+
 let DATA=[];
 fetch(PATH,{cache:'no-store'})
   .then(r=>r.json())
@@ -126,7 +157,7 @@ function row(r){
     <td><strong>${esc(r.title||'(no title)')}</strong></td>
     <td>${esc(r.country||'')}</td>
     <td>${esc(r.source||'')}</td>
-    <td class="snippet">${esc(r.summary||'')}</td>
+    <td class="snippet">${makeMailtoLinks(r.summary||'')}</td>
     <td>${esc(fmtDate(date))}</td>
   </tr>`;
 }
@@ -147,12 +178,12 @@ function render(){
       saveSeen(seen);
     });
     tr.addEventListener('click',e=>{
-      if(e.target.tagName==="INPUT") return; // don’t trigger on checkbox
+      if(e.target.tagName==="INPUT" || e.target.tagName==="A") return;
       const r=DATA.find(x=>makeKey(x)===id);
       if (!r) return;
       document.getElementById("pv-title").textContent = r.title||"(no title)";
       document.getElementById("pv-meta").textContent = `${r.country||''} · ${r.source||''} · ${fmtDate(r.posted_at||r.fetched_at)}`;
-      document.getElementById("pv-text").textContent = r.summary||'';
+      document.getElementById("pv-text").innerHTML = makeMailtoLinks(r.summary||'');
       document.getElementById("pv-link").href = r.url||"#";
       document.getElementById("preview").classList.remove("hidden");
     });
