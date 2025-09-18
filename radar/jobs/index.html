@@ -59,16 +59,7 @@
 </div>
 
 <script>
-const PATH = "live/jobs.json"; // korrekt sti
-
-const $q = document.getElementById('q');
-const $source = document.getElementById('source');
-const $age = document.getElementById('age');
-const $onlyUnread = document.getElementById('onlyUnread');
-const $tbl = document.getElementById('tbl');
-const $tbody = document.querySelector('#tbl tbody');
-const $meta = document.getElementById('meta');
-const $fallback = document.getElementById('fallback');
+const PATH = "live/jobs.json";
 
 function loadSeen(){ try{return JSON.parse(localStorage.getItem("seenJobs")||"{}");}catch{return{}} }
 function saveSeen(x){ localStorage.setItem("seenJobs",JSON.stringify(x)); }
@@ -122,41 +113,51 @@ fetch(PATH,{cache:'no-store'})
     const updatedAt = json.updatedAt ? new Date(json.updatedAt).toLocaleString("da-DK") : "ukendt";
 
     if (!items.length) {
-      $meta.style.display = "none";
-      $tbl.style.display = "none";
-      $fallback.style.display = "block";
-      $fallback.textContent = `No casting jobs found — last update: ${updatedAt}`;
+      document.getElementById("meta").style.display = "none";
+      document.getElementById("tbl").style.display = "none";
+      document.getElementById("fallback").style.display = "block";
+      document.getElementById("fallback").textContent = `No casting jobs found — last update: ${updatedAt}`;
       return;
     }
 
     DATA = items.sort((a,b)=> (b.posted_at||b.fetched_at||'').localeCompare(a.posted_at||a.fetched_at||''));
-    $meta.textContent = `Loaded ${DATA.length.toLocaleString()} posts · Updated: ${updatedAt}`;
-    uniq(DATA.map(r=>r.source)).forEach(s=>{ const o=document.createElement('option'); o.value=s;o.textContent=s;$source.appendChild(o); });
-    $tbl.style.display='table';
+    document.getElementById("meta").textContent = `Loaded ${DATA.length.toLocaleString()} posts · Updated: ${updatedAt}`;
+    uniq(DATA.map(r=>r.source)).forEach(s=>{ const o=document.createElement('option'); o.value=s;o.textContent=s;document.getElementById("source").appendChild(o); });
+    document.getElementById("tbl").style.display='table';
     render();
   })
   .catch(err=>{
-    $meta.textContent = "Error loading jobs: " + err.message;
+    document.getElementById("meta").textContent = "Error loading jobs: " + err.message;
   });
 
+[q=$q=document.getElementById('q'),
+ $source=document.getElementById('source'),
+ $age=document.getElementById('age'),
+ $onlyUnread=document.getElementById('onlyUnread')];
+
 [$q,$source,$age,$onlyUnread].forEach(el=>el.addEventListener('input',render));
+
+function makeKey(r){
+  return (r.url||"") + "_" + (r.posted_at||r.fetched_at||"");
+}
 
 function matches(r){
   const q = $q.value.trim().toLowerCase();
   const so=$source.value, days=$age.value?parseInt($age.value,10):null;
   if (so && r.source !== so) return false;
   if (days!=null && agoDays(r.posted_at||r.fetched_at) > days) return false;
-  if ($onlyUnread.checked && seen[r.url]) return false;
+  if ($onlyUnread.checked && seen[makeKey(r)]) return false;
   if (!q) return true;
   const hay = [r.title,r.summary,r.country,r.source].join(' ').toLowerCase();
   return hay.includes(q);
 }
 function row(r){
-  const checked = seen[r.url] ? "checked" : "";
+  const key = makeKey(r);
+  const checked = seen[key] ? "checked" : "";
   const date = r.posted_at || r.fetched_at;
   return `
   <tr>
-    <td><input type="checkbox" data-id="${esc(r.url)}" ${checked}></td>
+    <td><input type="checkbox" data-id="${esc(key)}" ${checked}></td>
     <td><a href="${esc(r.url)}" target="_blank" rel="noopener"><strong>${esc(r.title||'(no title)')}</strong></a></td>
     <td>${esc(r.country||'')}</td>
     <td>${esc(r.source||'')}</td>
@@ -166,6 +167,7 @@ function row(r){
 }
 function render(){
   const rows = DATA.filter(matches).slice(0,1000);
+  $tbody=document.querySelector('#tbl tbody');
   $tbody.innerHTML = rows.map(row).join('');
   $tbody.querySelectorAll('input[type=checkbox]').forEach(cb=>{
     cb.addEventListener('change',()=>{
