@@ -11,7 +11,8 @@ const SOURCES = [
 ];
 
 const OUTPUT_PATH = "radar/jobs/live/jobs.json";
-const MAX_DAYS_KEEP = 30; // gem kun opslag fra de sidste 30 dage
+const MAX_DAYS_NEW = 7;   // kun hent opslag nyere end 7 dage
+const MAX_DAYS_KEEP = 30; // behold opslag i JSON i op til 30 dage
 
 function agoDays(iso) {
   if (!iso) return Infinity;
@@ -36,11 +37,14 @@ async function run() {
         const text = r.text || r.postText || "";
         if (!text) { skipped++; continue; }
 
-        // korrekt opslagstidspunkt med fallback
-        const date = r.time || r.date || r.timestamp || r.createdAt || r.lastActivityTime || new Date().toISOString();
+        // find dato med fallback
+        const date = r.time || r.date || r.timestamp || r.createdAt || r.lastActivityTime || null;
+        if (!date) { skipped++; continue; }
 
-        // spring opslag over hvis ældre end 30 dage
-        if (agoDays(date) > MAX_DAYS_KEEP) { skipped++; continue; }
+        const daysAgo = agoDays(date);
+
+        // kun tilføj hvis opslag er nyere end 7 dage
+        if (daysAgo > MAX_DAYS_NEW) { skipped++; continue; }
 
         // vælg link
         const link = r.postUrl || r.url || r.facebookUrl || s.url;
@@ -63,10 +67,13 @@ async function run() {
     }
   }
 
+  // filtrer gamle entries væk (ældre end 30 dage)
+  const finalItems = items.filter(r => agoDays(r.posted_at) <= MAX_DAYS_KEEP);
+
   const out = {
     updatedAt: new Date().toISOString(),
     counts: { success, skipped, fail, total: SOURCES.length },
-    items
+    items: finalItems
   };
 
   const fs = await import("node:fs/promises");
