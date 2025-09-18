@@ -14,24 +14,15 @@
     table{width:100%;border-collapse:collapse;background:#141414;border-radius:12px;overflow:hidden;table-layout:fixed}
     th,td{padding:8px;border-bottom:1px solid #222;vertical-align:top;text-align:left;font-size:14px}
     tr:hover{background:#161616}
-    th:nth-child(1),td:nth-child(1){width:26%}    /* Title */
-    th:nth-child(2),td:nth-child(2){width:10%}    /* Country */
-    th:nth-child(3),td:nth-child(3){width:14%}    /* Source */
-    th:nth-child(4),td:nth-child(4){width:38%}    /* Snippet */
-    th:nth-child(5),td:nth-child(5){width:12%}    /* Posted */
-    .snippet{white-space:pre-wrap;max-height:8.8em;overflow:hidden}
+    th:nth-child(1),td:nth-child(1){width:32px;text-align:center}
+    th:nth-child(2),td:nth-child(2){width:26%}
+    th:nth-child(3),td:nth-child(3){width:10%}
+    th:nth-child(4),td:nth-child(4){width:14%}
+    th:nth-child(5),td:nth-child(5){width:38%}
+    th:nth-child(6),td:nth-child(6){width:12%}
+    .snippet{white-space:pre-wrap;max-height:7.2em;overflow:hidden}
     .small{font-size:12px;color:#b3b3b3}
     .fallback{padding:2rem;text-align:center;color:#aaa}
-    .fresh{box-shadow: inset 0 0 0 9999px rgba(35,145,70,.08)}
-    /* Debug drawer (smalt og responsivt) */
-    #debugPanel {
-      position: fixed; top: 0; right: -440px; width: min(420px, 90vw); height: 100%;
-      background: #111; color: #f5f5f5; border-left: 2px solid #333; overflow: auto;
-      transition: right .25s ease; padding: 12px; z-index: 1000;
-    }
-    #debugPanel.open{ right: 0; }
-    #debugPanel pre{ font-size:12px; white-space:pre-wrap; word-break:break-word; }
-    #closeDebug{ padding:6px 10px; background:#333; border:none; border-radius:8px; color:#fff; cursor:pointer }
   </style>
 </head>
 <body>
@@ -56,6 +47,7 @@
   <table id="tbl" style="display:none">
     <thead>
       <tr>
+        <th>✓</th>
         <th>Title</th>
         <th>Country</th>
         <th>Source</th>
@@ -69,173 +61,68 @@
   <div id="fallback" class="fallback" style="display:none"></div>
 </div>
 
-<!-- Debug drawer -->
-<div id="debugPanel">
-  <button id="closeDebug">Close</button>
-  <h3>Debug view</h3>
-  <pre id="debugContent">No item selected.</pre>
-</div>
-
 <script>
 const PATH = "live/jobs.json";
-// Brug samme dataset som crawleren – så siden kan vise opslag selv hvis jobs.json er tom.
-const APIFY_FALLBACK_URL =
-  "https://api.apify.com/v2/datasets/l3YKdBneIPN0q9YsI/items?format=json&clean=true";
 
+const agoDays = (iso) => !iso ? Infinity : (Date.now() - new Date(iso).getTime())/86400000;
 const esc = (s)=> (s||'').replace(/[&<>"']/g, m=>({"&":"&amp;","<":"&lt;","&gt;":">","\"":"&quot;","'":"&#39;"}[m]));
 const fmtDate = (d)=> d ? new Date(d).toLocaleDateString("da-DK") : "";
-const agoDays = (iso) => !iso ? Infinity : (Date.now() - new Date(iso).getTime())/86400000;
-const uniq = (arr) => [...new Set(arr.filter(Boolean))].sort((a,b)=>a.localeCompare(b));
 
-// “set” til læst/ulæst
-function loadSeen(){ try{return JSON.parse(localStorage.getItem("seenJobs")||"{}");}catch{return{}} }
-function saveSeen(x){ localStorage.setItem("seenJobs",JSON.stringify(x)); }
-let SEEN = loadSeen();
+let DATA=[];
+fetch(PATH,{cache:'no-store'})
+  .then(r=>r.json())
+  .then(json=>{
+    DATA = (json.items || []).sort((a,b)=> new Date(b.posted_at||b.fetched_at) - new Date(a.posted_at||a.fetched_at));
+    const updatedAt = json.updatedAt ? new Date(json.updatedAt).toLocaleString("da-DK") : "ukendt";
 
-let DATA=[]; let UPDATED="";
-
-// Loader fra jobs.json; hvis tom → fallback til Apify
-bootstrap();
-async function bootstrap(){
-  try{
-    const r = await fetch(PATH,{cache:'no-store'});
-    if(!r.ok) throw new Error("HTTP "+r.status);
-    const j = await r.json();
-    const items = Array.isArray(j) ? j : (j.items||[]);
-    UPDATED = j.updatedAt || "";
-    if(items.length){
-      DATA = items;
-      afterLoad();
+    if (!DATA.length) {
+      document.getElementById("meta").style.display = "none";
+      document.getElementById("tbl").style.display = "none";
+      document.getElementById("fallback").style.display = "block";
+      document.getElementById("fallback").textContent = `No casting jobs found — last update: ${updatedAt}`;
       return;
     }
-    // Fallback – hent direkte fra Apify
-    await loadFromApify();
-  }catch(e){
-    // også fallback ved fejl
-    await loadFromApify();
-  }
-}
 
-async function loadFromApify(){
-  try{
-    const r = await fetch(APIFY_FALLBACK_URL,{cache:'no-store'});
-    if(!r.ok) throw new Error("HTTP "+r.status);
-    const rows = await r.json();
-    const toISO = (v)=>{
-      if(!v) return null;
-      if(typeof v==="number") { const d=new Date(v); return isNaN(d)?null:d.toISOString(); }
-      if(/^\d+$/.test(String(v))) { const d=new Date(Number(v)); return isNaN(d)?null:d.toISOString(); }
-      const d=new Date(String(v)); return isNaN(d)?null:d.toISOString();
-    };
-    const pickLink = (r)=>{
-      let link = r.permalink || r.postUrl || r.url || r.shareUrl || r.facebookUrl || null;
-      if(link && !String(link).startsWith("http")) link = "https://www.facebook.com"+link;
-      return link;
-    };
-    DATA = rows.map(r=>{
-      const text = r.text || r.postText || "";
-      return {
-        url: pickLink(r) || "#",
-        title: text.slice(0, 80) + (text.length>80?"…":""),
-        summary: text,
-        country: "EU",
-        source: "FacebookGroups",
-        posted_at: toISO(r.timestamp) || toISO(r.date) || toISO(r.createdAt) || toISO(r.lastActivityTime),
-        fetched_at: new Date().toISOString(),
-        _raw: r
-      };
-    });
-    UPDATED = new Date().toISOString();
-    afterLoad(true);
-  }catch(err){
-    document.getElementById("meta").textContent = "Error loading jobs: "+err.message;
-  }
-}
-
-function afterLoad(fromApify=false){
-  DATA.sort((a,b)=> (b.posted_at||b.fetched_at||"").localeCompare(a.posted_at||a.fetched_at||""));
-  document.getElementById("meta").textContent =
-    `Loaded ${DATA.length.toLocaleString()} posts · Updated: ${UPDATED ? new Date(UPDATED).toLocaleString("da-DK") : "ukendt"}${fromApify?" · live from Apify":""}`;
-
-  // byg filtreringsværdier
-  const $source = document.getElementById("source");
-  uniq(DATA.map(r=>r.source)).forEach(s=>{ const o=document.createElement('option'); o.value=s;o.textContent=s;$source.appendChild(o); });
-
-  document.getElementById("tbl").style.display='table';
-  render();
-}
-
-// UI
-const $q = document.getElementById('q');
-const $source = document.getElementById('source');
-const $age = document.getElementById('age');
-const $onlyUnread = document.getElementById('onlyUnread');
-[$q,$source,$age,$onlyUnread].forEach(el=>el.addEventListener('input', render));
-
-function keyOf(r){ return (r.url||"") + "_" + (r.posted_at||r.fetched_at||""); }
+    document.getElementById("meta").textContent = `Loaded ${DATA.length.toLocaleString()} posts · Updated: ${updatedAt}`;
+    render();
+  })
+  .catch(err=>{
+    document.getElementById("meta").textContent = "Error loading jobs: " + err.message;
+  });
 
 function matches(r){
-  const q = ($q.value||"").trim().toLowerCase();
-  const so = $source.value;
-  const days = $age.value ? parseInt($age.value,10) : null;
-  if (so && r.source !== so) return false;
-  if (days!=null && agoDays(r.posted_at||r.fetched_at) > days) return false;
-  if ($onlyUnread.checked && SEEN[keyOf(r)]) return false;
-  if (!q) return true;
-  return [r.title,r.summary,r.country,r.source].join(" ").toLowerCase().includes(q);
+  const days=parseInt(document.getElementById("age").value||"0",10);
+  if (days && agoDays(r.posted_at||r.fetched_at) > days) return false;
+  const q=document.getElementById("q").value.toLowerCase();
+  if (q && !(r.title+" "+r.summary).toLowerCase().includes(q)) return false;
+  const so=document.getElementById("source").value;
+  if (so && r.source!==so) return false;
+  return true;
 }
 
-function render(){
-  const rows = DATA.filter(matches).slice(0,1000);
-  const $tbody=document.querySelector('#tbl tbody');
-  $tbody.innerHTML = rows.map((r,i)=>row(r,i)).join('');
-  // bind
-  document.querySelectorAll('.dbg').forEach(a=>{
-    a.addEventListener('click', (e)=>{
-      e.preventDefault();
-      const idx = Number(a.dataset.i);
-      openDebug(DATA[idx]._raw || DATA[idx]);
-    });
-  });
-  document.querySelectorAll('.mark-read').forEach(cb=>{
-    cb.addEventListener('change',()=>{
-      const idx = Number(cb.dataset.i);
-      const k = keyOf(DATA[idx]);
-      if(cb.checked) SEEN[k]=true; else delete SEEN[k];
-      saveSeen(SEEN);
-    });
-  });
-}
-
-function row(r,i){
-  const d = r.posted_at || r.fetched_at;
-  const fresh = agoDays(d) <= 7 ? " fresh" : "";
-  const checked = SEEN[keyOf(r)] ? "checked" : "";
+function row(r){
   return `
-  <tr class="${fresh}">
-    <td>
-      <a href="#" class="dbg" data-i="${i}"><strong>${esc(r.title||'(no title)')}</strong></a>
-      <div class="small"><a href="${esc(r.url)}" target="_blank" rel="noopener">View Post</a> ·
-        <label><input type="checkbox" class="mark-read" data-i="${i}" ${checked}/> read</label>
-      </div>
-    </td>
+  <tr>
+    <td></td>
+    <td><a href="${esc(r.url)}" target="_blank" rel="noopener"><strong>${esc(r.title||'(no title)')}</strong></a></td>
     <td>${esc(r.country||'')}</td>
     <td>${esc(r.source||'')}</td>
     <td class="snippet">${esc(r.summary||'')}</td>
-    <td>${esc(fmtDate(d))}</td>
+    <td>${esc(fmtDate(r.posted_at||r.fetched_at))}</td>
   </tr>`;
 }
 
-// Debug drawer
-function openDebug(obj){
-  const panel = document.getElementById("debugPanel");
-  const pre = document.getElementById("debugContent");
-  pre.textContent = JSON.stringify(obj, null, 2);
-  panel.classList.add("open");
+function render(){
+  const rows = DATA.filter(matches).slice(0,500);
+  const $tbody=document.querySelector('#tbl tbody');
+  $tbody.innerHTML = rows.map(row).join('');
+  document.getElementById("tbl").style.display=rows.length?"table":"none";
 }
-document.getElementById("closeDebug").addEventListener("click", ()=>{
-  document.getElementById("debugPanel").classList.remove("open");
-});
+
+document.getElementById("q").addEventListener("input",render);
+document.getElementById("source").addEventListener("input",render);
+document.getElementById("age").addEventListener("input",render);
+document.getElementById("onlyUnread").addEventListener("input",render);
 </script>
 </body>
 </html>
