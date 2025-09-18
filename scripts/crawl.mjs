@@ -36,14 +36,14 @@ async function run() {
         const text = r.text || r.postText || "";
         if (!text) { skipped++; continue; }
 
-        // find korrekt opslagstidspunkt
-        const date = r.date || r.timestamp || r.createdAt || r.lastActivityTime || null;
+        // brug korrekt opslagstidspunkt fra Apify feed
+        const date = r.time || r.date || r.timestamp || r.createdAt || r.lastActivityTime || null;
         if (!date) { skipped++; continue; }
 
-        // gem kun opslag de sidste 30 dage
+        // spring over opslag ældre end 30 dage
         if (agoDays(date) > MAX_DAYS_KEEP) { skipped++; continue; }
 
-        // brug det rigtige opslag-link
+        // vælg det bedste link
         const link = r.postUrl || r.url || r.facebookUrl || s.url;
 
         items.push({
@@ -52,7 +52,7 @@ async function run() {
           summary: text,
           country: s.country,
           source: s.source,
-          posted_at: date, // korrekt dato fra Apify feed
+          posted_at: date, // nu korrekt "time" fra feed
           fetched_at: new Date().toISOString()
         });
 
