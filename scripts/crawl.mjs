@@ -11,9 +11,7 @@ const SOURCES = [
 ];
 
 const OUTPUT_PATH = "radar/jobs/live/jobs.json";
-
-// ==== HJÆLPERE ====
-const MAX_DAYS_KEEP = 30; // gem maks 30 dage tilbage
+const MAX_DAYS_KEEP = 30; // gem kun opslag fra de sidste 30 dage
 
 function agoDays(iso) {
   if (!iso) return Infinity;
@@ -26,7 +24,6 @@ async function fetchJson(url) {
   return await res.json();
 }
 
-// ==== HOVEDKØRSEL ====
 async function run() {
   const items = [];
   let success = 0, skipped = 0, fail = 0;
@@ -39,13 +36,14 @@ async function run() {
         const text = r.text || r.postText || "";
         if (!text) { skipped++; continue; }
 
-        // find dato fra feed
-        const date = r.date || r.createdAt || r.timestamp || null;
+        // find korrekt opslagstidspunkt
+        const date = r.timestamp || r.date || r.createdAt || null;
+        if (!date) { skipped++; continue; }
 
-        // spring over hvis ældre end MAX_DAYS_KEEP
-        if (!date || agoDays(date) > MAX_DAYS_KEEP) { skipped++; continue; }
+        // spring over hvis opslaget er ældre end 30 dage
+        if (agoDays(date) > MAX_DAYS_KEEP) { skipped++; continue; }
 
-        // find bedste link
+        // brug det rigtige opslag-link
         const link = r.postUrl || r.url || r.facebookUrl || s.url;
 
         items.push({
@@ -54,7 +52,7 @@ async function run() {
           summary: text,
           country: s.country,
           source: s.source,
-          posted_at: date,
+          posted_at: date,                // <-- nu korrekt dato
           fetched_at: new Date().toISOString()
         });
 
