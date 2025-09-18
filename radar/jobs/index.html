@@ -33,9 +33,12 @@
   <div class="controls">
     <input id="q" type="search" placeholder="Search title, snippet, role, city…" />
     <select id="source"><option value="">All sources</option></select>
-    <select id="age"><option value="">Any time</option>
-      <option value="1">Last 24h</option><option value="3">Last 3 days</option>
-      <option value="7">Last 7 days</option><option value="14">Last 14 days</option>
+    <select id="age">
+      <option value="">Any time</option>
+      <option value="1">Last 24h</option>
+      <option value="3">Last 3 days</option>
+      <option value="7" selected>Last 7 days</option>
+      <option value="14">Last 14 days</option>
       <option value="30">Last 30 days</option>
     </select>
     <label class="small"><input type="checkbox" id="onlyUnread"> Only unread</label>
@@ -60,7 +63,6 @@
 
 <script>
 const PATH = "live/jobs.json";
-const DEFAULT_MAX_DAYS = 7;
 
 function loadSeen(){ try{return JSON.parse(localStorage.getItem("seenJobs")||"{}");}catch{return{}} }
 function saveSeen(x){ localStorage.setItem("seenJobs",JSON.stringify(x)); }
@@ -71,41 +73,23 @@ const uniq = (arr) => [...new Set(arr.filter(Boolean))].sort((a,b)=>a.localeComp
 const esc = (s)=> (s||'').replace(/[&<>"']/g, m=>({"&":"&amp;","<":"&lt;","&gt;":">","\"":"&quot;","'":"&#39;"}[m]));
 const fmtDate = (d)=> d ? new Date(d).toLocaleDateString("da-DK") : "";
 
-// === Mailto med standardtekst ===
+// Lav mailto-links
 function makeMailtoLinks(text) {
   if (!text) return "";
   const emailRegex = /([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/g;
-
   return text.replace(emailRegex, (email) => {
     const subject = "Regarding your casting call on Facebook";
-    const body = `Hi [Name],
-
-We came across your casting post on Facebook and would love to help.
-Please share more details about the role(s) and production so we can present the right candidates for you.
-
-The more info we can give the talents, the better the match:
-- Client name
-- Role description (gender, age, look, special requirements, photos/videos)
-- Rights (e.g. 1 year worldwide, all platforms)
-- Salary (total fee incl. buyout)
-- Travel expenses (covered? up to 500 EUR?)
-- Date(s) (specific day or period)
-- Location (country, city/region)
-
-Next time you need talents, you can also book directly through the Selfcast platform.
-We currently represent over 60,000 talents in 160+ countries, with a strong base across Europe.
-
-Best regards,
-The Selfcast Team
-CASTING MADE EASY`;
-
+    const body = `Hi [Name],\n\nWe came across your casting post on Facebook and would love to help.\nPlease share more details about the role(s) and production so we can present the right candidates for you.\n\nThe more info we can give the talents, the better the match:\n- Client name\n- Role description\n- Rights\n- Salary\n- Travel expenses\n- Date(s)\n- Location\n\nNext time you need talents, you can also book directly through Selfcast.\nWe represent over 60,000 talents in 160+ countries, with a strong base in Europe.\n\nBest regards,\nThe Selfcast Team\nCASTING MADE EASY`;
     return `<a href="mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}">${email}</a>`;
   });
 }
 
 let DATA=[];
 fetch(PATH,{cache:'no-store'})
-  .then(r=>r.ok?r.json():Promise.reject("HTTP "+r.status))
+  .then(r=>{
+    if(!r.ok) throw new Error("HTTP "+r.status);
+    return r.json();
+  })
   .then(json=>{
     const items = Array.isArray(json) ? json : (json.items || []);
     const updatedAt = json.updatedAt ? new Date(json.updatedAt).toLocaleString("da-DK") : "ukendt";
@@ -124,12 +108,14 @@ fetch(PATH,{cache:'no-store'})
     document.getElementById("tbl").style.display='table';
     render();
   })
-  .catch(err=> document.getElementById("meta").textContent = "Error loading jobs: " + err);
+  .catch(err=>{
+    document.getElementById("meta").textContent = "Error loading jobs: " + err.message;
+  });
 
-const $q=document.getElementById('q'),
-      $source=document.getElementById('source'),
-      $age=document.getElementById('age'),
-      $onlyUnread=document.getElementById('onlyUnread');
+[q=$q=document.getElementById('q'),
+ $source=document.getElementById('source'),
+ $age=document.getElementById('age'),
+ $onlyUnread=document.getElementById('onlyUnread')];
 
 [$q,$source,$age,$onlyUnread].forEach(el=>el.addEventListener('input',render));
 
@@ -137,16 +123,15 @@ function makeKey(r){ return (r.url||"") + "_" + (r.posted_at||r.fetched_at||"");
 
 function matches(r){
   const q = $q.value.trim().toLowerCase();
-  const so=$source.value;
-  const days=$age.value?parseInt($age.value,10):DEFAULT_MAX_DAYS;
-
-  if (agoDays(r.posted_at||r.fetched_at) > days) return false;
+  const so=$source.value, days=$age.value?parseInt($age.value,10):null;
   if (so && r.source !== so) return false;
+  if (days!=null && agoDays(r.posted_at||r.fetched_at) > days) return false;
   if ($onlyUnread.checked && seen[makeKey(r)]) return false;
   if (!q) return true;
   const hay = [r.title,r.summary,r.country,r.source].join(' ').toLowerCase();
   return hay.includes(q);
 }
+
 function row(r){
   const key = makeKey(r);
   const checked = seen[key] ? "checked" : "";
@@ -161,9 +146,10 @@ function row(r){
     <td>${esc(fmtDate(date))}</td>
   </tr>`;
 }
+
 function render(){
   const rows = DATA.filter(matches).slice(0,1000);
-  const $tbody=document.querySelector('#tbl tbody');
+  $tbody=document.querySelector('#tbl tbody');
   $tbody.innerHTML = rows.map(row).join('');
   $tbody.querySelectorAll('input[type=checkbox]').forEach(cb=>{
     cb.addEventListener('change',()=>{
