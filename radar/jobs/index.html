@@ -5,15 +5,15 @@
   <title>Selfcast – Casting Jobs Radar</title>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <style>
-    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;margin:20px;background:#0b0b0b;color:#f5f5f5}
-    a{color:#4da3ff;text-decoration:none}
-    .wrap{max-width:1100px;margin:0 auto}
-    h1{margin:0 0 10px;font-size:26px;font-weight:900}
-    .controls{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0 18px}
-    input,select{padding:6px 10px;border:1px solid #222;background:#141414;color:#f5f5f5;border-radius:8px}
-    table{width:100%;border-collapse:collapse;background:#141414;border-radius:12px;overflow:hidden;table-layout:fixed}
-    th,td{padding:8px;border-bottom:1px solid #222;vertical-align:top;text-align:left;font-size:14px}
-    tr:hover{background:#161616}
+    body {font-family: system-ui,-apple-system,Segoe UI,Roboto,Arial;margin:0;background:#0b0b0b;color:#f5f5f5;display:flex;min-height:100vh}
+    a {color:#4da3ff;text-decoration:none}
+    h1 {margin:0 0 10px;font-size:26px;font-weight:900}
+    .wrap {flex:1;max-width:900px;padding:20px}
+    .controls {display:flex;gap:10px;flex-wrap:wrap;margin:14px 0 18px}
+    input,select {padding:6px 10px;border:1px solid #222;background:#141414;color:#f5f5f5;border-radius:8px}
+    table {width:100%;border-collapse:collapse;background:#141414;border-radius:12px;overflow:hidden;table-layout:fixed}
+    th,td {padding:8px;border-bottom:1px solid #222;vertical-align:top;text-align:left;font-size:14px}
+    tr:hover {background:#161616;cursor:pointer}
     th:nth-child(1),td:nth-child(1){width:32px;text-align:center}
     th:nth-child(2),td:nth-child(2){width:26%}
     th:nth-child(3),td:nth-child(3){width:10%}
@@ -23,6 +23,8 @@
     .snippet{white-space:pre-wrap;max-height:7.2em;overflow:hidden}
     .small{font-size:12px;color:#b3b3b3}
     .fallback{padding:2rem;text-align:center;color:#aaa}
+    .preview {width:35%;max-width:480px;border-left:1px solid #222;background:#111;padding:20px;overflow-y:auto}
+    .hidden {display:none}
   </style>
 </head>
 <body>
@@ -33,13 +35,9 @@
   <div class="controls">
     <input id="q" type="search" placeholder="Search title, snippet, role, city…" />
     <select id="source"><option value="">All sources</option></select>
-    <select id="age">
-      <option value="">Any time</option>
-      <option value="1">Last 24h</option>
-      <option value="3">Last 3 days</option>
-      <option value="7" selected>Last 7 days</option>
-      <option value="14">Last 14 days</option>
-      <option value="30">Last 30 days</option>
+    <select id="sort">
+      <option value="newest" selected>Newest first</option>
+      <option value="oldest">Oldest first</option>
     </select>
     <label class="small"><input type="checkbox" id="onlyUnread"> Only unread</label>
   </div>
@@ -61,20 +59,29 @@
   <div id="fallback" class="fallback" style="display:none"></div>
 </div>
 
+<div id="preview" class="preview hidden">
+  <h2 id="pv-title"></h2>
+  <div id="pv-meta" class="small"></div>
+  <pre id="pv-text" style="white-space:pre-wrap"></pre>
+  <p><a id="pv-link" href="#" target="_blank">View original post</a></p>
+</div>
+
 <script>
 const PATH = "live/jobs.json";
 
-const agoDays = (iso) => !iso ? Infinity : (Date.now() - new Date(iso).getTime())/86400000;
+// helpers
 const esc = (s)=> (s||'').replace(/[&<>"']/g, m=>({"&":"&amp;","<":"&lt;","&gt;":">","\"":"&quot;","'":"&#39;"}[m]));
 const fmtDate = (d)=> d ? new Date(d).toLocaleDateString("da-DK") : "";
+function loadSeen(){ try{return JSON.parse(localStorage.getItem("seenJobs")||"{}");}catch{return{}} }
+function saveSeen(x){ localStorage.setItem("seenJobs",JSON.stringify(x)); }
+let seen = loadSeen();
 
 let DATA=[];
 fetch(PATH,{cache:'no-store'})
   .then(r=>r.json())
   .then(json=>{
-    DATA = (json.items || []).sort((a,b)=> new Date(b.posted_at||b.fetched_at) - new Date(a.posted_at||a.fetched_at));
+    DATA = json.items || [];
     const updatedAt = json.updatedAt ? new Date(json.updatedAt).toLocaleString("da-DK") : "ukendt";
-
     if (!DATA.length) {
       document.getElementById("meta").style.display = "none";
       document.getElementById("tbl").style.display = "none";
@@ -82,47 +89,75 @@ fetch(PATH,{cache:'no-store'})
       document.getElementById("fallback").textContent = `No casting jobs found — last update: ${updatedAt}`;
       return;
     }
-
     document.getElementById("meta").textContent = `Loaded ${DATA.length.toLocaleString()} posts · Updated: ${updatedAt}`;
+    const uniq = arr => [...new Set(arr.filter(Boolean))].sort((a,b)=>a.localeCompare(b));
+    uniq(DATA.map(r=>r.source)).forEach(s=>{ const o=document.createElement('option'); o.value=s;o.textContent=s;document.getElementById("source").appendChild(o); });
+    document.getElementById("tbl").style.display='table';
     render();
   })
   .catch(err=>{
     document.getElementById("meta").textContent = "Error loading jobs: " + err.message;
   });
 
+// UI state
+const $q=document.getElementById('q'),
+      $source=document.getElementById('source'),
+      $sort=document.getElementById('sort'),
+      $onlyUnread=document.getElementById('onlyUnread');
+[$q,$source,$sort,$onlyUnread].forEach(el=>el.addEventListener('input',render));
+
+function makeKey(r){ return (r.url||"") + "_" + (r.posted_at||r.fetched_at||""); }
+
 function matches(r){
-  const days=parseInt(document.getElementById("age").value||"0",10);
-  if (days && agoDays(r.posted_at||r.fetched_at) > days) return false;
-  const q=document.getElementById("q").value.toLowerCase();
-  if (q && !(r.title+" "+r.summary).toLowerCase().includes(q)) return false;
-  const so=document.getElementById("source").value;
-  if (so && r.source!==so) return false;
-  return true;
+  if ($source.value && r.source !== $source.value) return false;
+  if ($onlyUnread.checked && seen[makeKey(r)]) return false;
+  const q=$q.value.trim().toLowerCase();
+  if (!q) return true;
+  return [r.title,r.summary,r.country,r.source].join(' ').toLowerCase().includes(q);
 }
 
 function row(r){
+  const key = makeKey(r);
+  const checked = seen[key] ? "checked" : "";
+  const date = r.posted_at || r.fetched_at;
   return `
-  <tr>
-    <td></td>
-    <td><a href="${esc(r.url)}" target="_blank" rel="noopener"><strong>${esc(r.title||'(no title)')}</strong></a></td>
+  <tr data-id="${esc(key)}">
+    <td><input type="checkbox" ${checked}></td>
+    <td><strong>${esc(r.title||'(no title)')}</strong></td>
     <td>${esc(r.country||'')}</td>
     <td>${esc(r.source||'')}</td>
     <td class="snippet">${esc(r.summary||'')}</td>
-    <td>${esc(fmtDate(r.posted_at||r.fetched_at))}</td>
+    <td>${esc(fmtDate(date))}</td>
   </tr>`;
 }
 
 function render(){
-  const rows = DATA.filter(matches).slice(0,500);
+  let rows = DATA.filter(matches);
+  if ($sort.value==="newest") rows.sort((a,b)=> (b.posted_at||b.fetched_at||"").localeCompare(a.posted_at||a.fetched_at||""));
+  else rows.sort((a,b)=> (a.posted_at||a.fetched_at||"").localeCompare(b.posted_at||b.fetched_at||""));
+
   const $tbody=document.querySelector('#tbl tbody');
   $tbody.innerHTML = rows.map(row).join('');
-  document.getElementById("tbl").style.display=rows.length?"table":"none";
-}
 
-document.getElementById("q").addEventListener("input",render);
-document.getElementById("source").addEventListener("input",render);
-document.getElementById("age").addEventListener("input",render);
-document.getElementById("onlyUnread").addEventListener("input",render);
+  $tbody.querySelectorAll('tr').forEach(tr=>{
+    const id=tr.dataset.id;
+    const cb=tr.querySelector('input[type=checkbox]');
+    cb.addEventListener('change',()=>{
+      if(cb.checked) seen[id]=true; else delete seen[id];
+      saveSeen(seen);
+    });
+    tr.addEventListener('click',e=>{
+      if(e.target.tagName==="INPUT") return; // don’t trigger on checkbox
+      const r=DATA.find(x=>makeKey(x)===id);
+      if (!r) return;
+      document.getElementById("pv-title").textContent = r.title||"(no title)";
+      document.getElementById("pv-meta").textContent = `${r.country||''} · ${r.source||''} · ${fmtDate(r.posted_at||r.fetched_at)}`;
+      document.getElementById("pv-text").textContent = r.summary||'';
+      document.getElementById("pv-link").href = r.url||"#";
+      document.getElementById("preview").classList.remove("hidden");
+    });
+  });
+}
 </script>
 </body>
 </html>
