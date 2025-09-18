@@ -36,14 +36,15 @@ async function run() {
         const text = r.text || r.postText || "";
         if (!text) { skipped++; continue; }
 
-        // find korrekt opslagstidspunkt
-        const date = r.timestamp || r.date || r.createdAt || r.lastActivityTime || null;
-        if (!date) { skipped++; continue; }
+        // find dato - fallback til fetched_at
+        let date = r.timestamp || r.date || r.createdAt || r.lastActivityTime || null;
+        if (!date) {
+          date = new Date().toISOString(); // fallback = nu
+        }
 
         // behold kun opslag nyere end MAX_DAYS_KEEP
         if (agoDays(date) > MAX_DAYS_KEEP) { skipped++; continue; }
 
-        // brug det rigtige opslag-link
         const link = r.postUrl || r.url || r.facebookUrl || s.url;
 
         items.push({
@@ -52,7 +53,7 @@ async function run() {
           summary: text,
           country: s.country,
           source: s.source,
-          posted_at: date, // korrekt Apify-dato
+          posted_at: date,
           fetched_at: new Date().toISOString()
         });
 
