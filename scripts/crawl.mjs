@@ -1,10 +1,10 @@
 // scripts/crawl.mjs
-// Crawler til CASTING RADAR — henter data fra Apify JSON feed (Facebook grupper)
-// og skriver resultater til radar/jobs/live/jobs.json
+// Simpelt crawler-script til CASTING RADAR
+// Henter fra Apify JSON feed (Facebook grupper) og skriver til jobs.json
 
 const SOURCES = [
   {
-    url: "https://api.apify.com/v2/datasets/l3YKdBneIPN0q9YsI/items?format=json&view=overview&clean=true",
+    url: "https://api.apify.com/v2/datasets/YOUR_NEW_DATASET_ID/items?format=json&clean=true",
     country: "EU",
     source: "FacebookGroups"
   }
@@ -20,41 +20,32 @@ async function fetchJson(url) {
 
 async function run() {
   const items = [];
-  let success = 0, skipped = 0, fail = 0;
 
   for (const s of SOURCES) {
     try {
       const rows = await fetchJson(s.url);
 
       for (const r of rows) {
-        const text = r.text || r.postText || "";
-        if (!text) { skipped++; continue; }
-
-        // korrekt dato og link
-        const date = r.timestamp || r.date || r.createdAt || null;
-        const link = r.postUrl || r.url || r.facebookUrl || s.url;
+        const text = r.text || "";
+        if (!text) continue;
 
         items.push({
-          url: link,
+          url: r.postUrl || r.url || r.facebookUrl || s.url,
           title: text.slice(0, 80) + (text.length > 80 ? "…" : ""),
           summary: text,
           country: s.country,
           source: s.source,
-          posted_at: date,
+          posted_at: r.timestamp || r.date || r.createdAt || null,
           fetched_at: new Date().toISOString()
         });
-
-        success++;
       }
     } catch (e) {
       console.error("crawl fail:", s.url, e.message);
-      fail++;
     }
   }
 
   const out = {
     updatedAt: new Date().toISOString(),
-    counts: { success, skipped, fail, total: SOURCES.length },
     items
   };
 
@@ -62,7 +53,7 @@ async function run() {
   await fs.mkdir("radar/jobs/live", { recursive: true });
   await fs.writeFile(OUTPUT_PATH, JSON.stringify(out, null, 2), "utf8");
 
-  console.log("Wrote", OUTPUT_PATH, "=>", out.counts);
+  console.log("Wrote", OUTPUT_PATH, "with", items.length, "jobs");
 }
 
 run().catch(err => {
