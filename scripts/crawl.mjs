@@ -1,48 +1,25 @@
 // scripts/crawl.mjs
-// Henter opslag fra Apify dataset (Facebook grupper) og skriver til radar/jobs/live/jobs.json
+// Crawler til CASTING RADAR — henter data fra Apify JSON feed (Facebook grupper)
+// og skriver resultater til radar/jobs/live/jobs.json
 
-// >>> SKIFT KUN URL'EN HER, hvis din dataset-ID ændrer sig <<<
-const APIFY_DATASET_URL =
-  "https://api.apify.com/v2/datasets/l3YKdBneIPN0q9YsI/items?format=json&clean=true";
+const SOURCES = [
+  {
+    url: "https://api.apify.com/v2/datasets/l3YKdBneIPN0q9YsI/items?format=json&view=overview&clean=true",
+    country: "EU",
+    source: "FacebookGroups"
+  }
+];
 
-// Output i repo
 const OUTPUT_PATH = "radar/jobs/live/jobs.json";
+const MAX_DAYS_KEEP = 30; // behold kun opslag fra de sidste 30 dage
 
-// Hjælpere
-const toISO = (v) => {
-  if (!v) return null;
-  // tal -> epoch
-  if (typeof v === "number") {
-    const d = new Date(v);
-    return isNaN(d) ? null : d.toISOString();
-  }
-  if (/^\d+$/.test(String(v))) {
-    const d = new Date(Number(v));
-    return isNaN(d) ? null : d.toISOString();
-  }
-  const d = new Date(String(v));
-  return isNaN(d) ? null : d.toISOString();
-};
-
-const pickLink = (r) => {
-  // Apify felter der kan eksistere
-  let link =
-    r.permalink ||
-    r.postUrl ||
-    r.url ||
-    r.shareUrl ||
-    r.facebookUrl ||
-    null;
-
-  // permalink kan være uden https
-  if (link && typeof link === "string" && !link.startsWith("http")) {
-    link = "https://www.facebook.com" + link;
-  }
-  return link;
-};
+function agoDays(iso) {
+  if (!iso) return Infinity;
+  return (Date.now() - new Date(iso).getTime()) / 86400000;
+}
 
 async function fetchJson(url) {
-  const res = await fetch(url, { redirect: "follow" });
+  const res = await fetch(url);
   if (!res.ok) throw new Error(`HTTP ${res.status} for ${url}`);
   return await res.json();
 }
@@ -51,52 +28,52 @@ async function run() {
   const items = [];
   let success = 0, skipped = 0, fail = 0;
 
-  try {
-    const rows = await fetchJson(APIFY_DATASET_URL);
+  for (const s of SOURCES) {
+    try {
+      const rows = await fetchJson(s.url);
 
-    for (const r of rows) {
-      try {
+      for (const r of rows) {
         const text = r.text || r.postText || "";
         if (!text) { skipped++; continue; }
 
-        const link = pickLink(r);
-        if (!link) { skipped++; continue; }
+        // find korrekt opslagstidspunkt
+        const date = r.timestamp || r.date || r.createdAt || r.lastActivityTime || null;
+        if (!date) { skipped++; continue; }
 
-        const posted =
-          toISO(r.timestamp) ||
-          toISO(r.date) ||
-          toISO(r.createdAt) ||
-          toISO(r.lastActivityTime);
+        // behold kun opslag nyere end MAX_DAYS_KEEP
+        if (agoDays(date) > MAX_DAYS_KEEP) { skipped++; continue; }
 
-        // vi gemmer altid—dato kan være null; UI håndterer filtrering
+        // brug det rigtige opslag-link
+        const link = r.postUrl || r.url || r.facebookUrl || s.url;
+
         items.push({
           url: link,
           title: text.slice(0, 80) + (text.length > 80 ? "…" : ""),
           summary: text,
-          country: "EU",
-          source: "FacebookGroups",
-          posted_at: posted,                     // korrekt hvis tilgængelig
+          country: s.country,
+          source: s.source,
+          posted_at: date, // korrekt Apify-dato
           fetched_at: new Date().toISOString()
         });
+
         success++;
-      } catch {
-        skipped++;
       }
+    } catch (e) {
+      console.error("crawl fail:", s.url, e.message);
+      fail++;
     }
-  } catch (e) {
-    console.error("crawl fail:", APIFY_DATASET_URL, e.message);
-    fail++;
   }
 
   const out = {
     updatedAt: new Date().toISOString(),
-    counts: { success, skipped, fail, total: items.length },
+    counts: { success, skipped, fail, total: SOURCES.length },
     items
   };
 
   const fs = await import("node:fs/promises");
   await fs.mkdir("radar/jobs/live", { recursive: true });
   await fs.writeFile(OUTPUT_PATH, JSON.stringify(out, null, 2), "utf8");
+
   console.log("Wrote", OUTPUT_PATH, "=>", out.counts);
 }
 
