@@ -37,7 +37,7 @@ async function run() {
         if (!text) { skipped++; continue; }
 
         // find korrekt opslagstidspunkt
-        const date = r.timestamp || r.date || r.createdAt || null;
+        const date = r.date || r.timestamp || r.createdAt || r.lastActivityTime || null;
         if (!date) { skipped++; continue; }
 
         // spring over hvis opslaget er ældre end 30 dage
@@ -52,7 +52,7 @@ async function run() {
           summary: text,
           country: s.country,
           source: s.source,
-          posted_at: date,                // <-- nu korrekt dato
+          posted_at: date, // <-- nu korrekt dato fra Apify feed
           fetched_at: new Date().toISOString()
         });
 
