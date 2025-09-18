@@ -15,11 +15,11 @@
     th,td{padding:8px;border-bottom:1px solid #222;vertical-align:top;text-align:left;font-size:14px}
     tr:hover{background:#161616}
     th:nth-child(1),td:nth-child(1){width:32px;text-align:center}
-    th:nth-child(2),td:nth-child(2){width:26%}       /* Title */
-    th:nth-child(3),td:nth-child(3){width:10%}       /* Country */
-    th:nth-child(4),td:nth-child(4){width:14%}       /* Source */
-    th:nth-child(5),td:nth-child(5){width:38%}       /* Snippet */
-    th:nth-child(6),td:nth-child(6){width:12%}       /* Posted */
+    th:nth-child(2),td:nth-child(2){width:26%}
+    th:nth-child(3),td:nth-child(3){width:10%}
+    th:nth-child(4),td:nth-child(4){width:14%}
+    th:nth-child(5),td:nth-child(5){width:38%}
+    th:nth-child(6),td:nth-child(6){width:12%}
     .snippet{white-space:pre-wrap;max-height:7.2em;overflow:hidden}
     .small{font-size:12px;color:#b3b3b3}
     .fallback{padding:2rem;text-align:center;color:#aaa}
@@ -60,6 +60,7 @@
 
 <script>
 const PATH = "live/jobs.json";
+const DEFAULT_MAX_DAYS = 7;
 
 function loadSeen(){ try{return JSON.parse(localStorage.getItem("seenJobs")||"{}");}catch{return{}} }
 function saveSeen(x){ localStorage.setItem("seenJobs",JSON.stringify(x)); }
@@ -70,7 +71,7 @@ const uniq = (arr) => [...new Set(arr.filter(Boolean))].sort((a,b)=>a.localeComp
 const esc = (s)=> (s||'').replace(/[&<>"']/g, m=>({"&":"&amp;","<":"&lt;","&gt;":">","\"":"&quot;","'":"&#39;"}[m]));
 const fmtDate = (d)=> d ? new Date(d).toLocaleDateString("da-DK") : "";
 
-// === Lav mailto-links med standardtekst ===
+// === Mailto med standardtekst ===
 function makeMailtoLinks(text) {
   if (!text) return "";
   const emailRegex = /([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/g;
@@ -104,10 +105,7 @@ CASTING MADE EASY`;
 
 let DATA=[];
 fetch(PATH,{cache:'no-store'})
-  .then(r=>{
-    if(!r.ok) throw new Error("HTTP "+r.status);
-    return r.json();
-  })
+  .then(r=>r.ok?r.json():Promise.reject("HTTP "+r.status))
   .then(json=>{
     const items = Array.isArray(json) ? json : (json.items || []);
     const updatedAt = json.updatedAt ? new Date(json.updatedAt).toLocaleString("da-DK") : "ukendt";
@@ -126,26 +124,24 @@ fetch(PATH,{cache:'no-store'})
     document.getElementById("tbl").style.display='table';
     render();
   })
-  .catch(err=>{
-    document.getElementById("meta").textContent = "Error loading jobs: " + err.message;
-  });
+  .catch(err=> document.getElementById("meta").textContent = "Error loading jobs: " + err);
 
-[q=$q=document.getElementById('q'),
- $source=document.getElementById('source'),
- $age=document.getElementById('age'),
- $onlyUnread=document.getElementById('onlyUnread')];
+const $q=document.getElementById('q'),
+      $source=document.getElementById('source'),
+      $age=document.getElementById('age'),
+      $onlyUnread=document.getElementById('onlyUnread');
 
 [$q,$source,$age,$onlyUnread].forEach(el=>el.addEventListener('input',render));
 
-function makeKey(r){
-  return (r.url||"") + "_" + (r.posted_at||r.fetched_at||"");
-}
+function makeKey(r){ return (r.url||"") + "_" + (r.posted_at||r.fetched_at||""); }
 
 function matches(r){
   const q = $q.value.trim().toLowerCase();
-  const so=$source.value, days=$age.value?parseInt($age.value,10):null;
+  const so=$source.value;
+  const days=$age.value?parseInt($age.value,10):DEFAULT_MAX_DAYS;
+
+  if (agoDays(r.posted_at||r.fetched_at) > days) return false;
   if (so && r.source !== so) return false;
-  if (days!=null && agoDays(r.posted_at||r.fetched_at) > days) return false;
   if ($onlyUnread.checked && seen[makeKey(r)]) return false;
   if (!q) return true;
   const hay = [r.title,r.summary,r.country,r.source].join(' ').toLowerCase();
@@ -167,7 +163,7 @@ function row(r){
 }
 function render(){
   const rows = DATA.filter(matches).slice(0,1000);
-  $tbody=document.querySelector('#tbl tbody');
+  const $tbody=document.querySelector('#tbl tbody');
   $tbody.innerHTML = rows.map(row).join('');
   $tbody.querySelectorAll('input[type=checkbox]').forEach(cb=>{
     cb.addEventListener('change',()=>{
