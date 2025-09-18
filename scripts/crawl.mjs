@@ -1,11 +1,10 @@
 // scripts/crawl.mjs
 // Crawler til CASTING RADAR — henter data fra Apify JSON feed (Facebook grupper)
 // og skriver resultater til radar/jobs/live/jobs.json
-// Vi filtrerer både via Apify (time frame) og her i koden (max 7 dage gamle opslag)
 
 const SOURCES = [
   {
-    url: "https://api.apify.com/v2/datasets/4TNDo1gHgksRJZFbq/items?format=json&view=overview&clean=true",
+    url: "https://api.apify.com/v2/datasets/l3YKdBneIPN0q9YsI/items?format=json&view=overview&clean=true",
     country: "EU",
     source: "FacebookGroups"
   }
@@ -14,21 +13,20 @@ const SOURCES = [
 const OUTPUT_PATH = "radar/jobs/live/jobs.json";
 
 // ==== HJÆLPERE ====
+const MAX_DAYS_KEEP = 30; // gem maks 30 dage tilbage
+
+function agoDays(iso) {
+  if (!iso) return Infinity;
+  return (Date.now() - new Date(iso).getTime()) / 86400000;
+}
+
 async function fetchJson(url) {
   const res = await fetch(url);
   if (!res.ok) throw new Error(`HTTP ${res.status} for ${url}`);
   return await res.json();
 }
 
-// Beregn hvor mange dage siden
-function daysAgo(dateStr) {
-  if (!dateStr) return Infinity;
-  const d = new Date(dateStr);
-  if (isNaN(d.getTime())) return Infinity;
-  const diff = (Date.now() - d.getTime()) / 86400000; // ms → dage
-  return diff;
-}
-
+// ==== HOVEDKØRSEL ====
 async function run() {
   const items = [];
   let success = 0, skipped = 0, fail = 0;
@@ -41,17 +39,14 @@ async function run() {
         const text = r.text || r.postText || "";
         if (!text) { skipped++; continue; }
 
-        // Find link
+        // find dato fra feed
+        const date = r.date || r.createdAt || r.timestamp || null;
+
+        // spring over hvis ældre end MAX_DAYS_KEEP
+        if (!date || agoDays(date) > MAX_DAYS_KEEP) { skipped++; continue; }
+
+        // find bedste link
         const link = r.postUrl || r.url || r.facebookUrl || s.url;
-
-        // Find dato (fra Apify feltet "createdAt" eller "date")
-        const created = r.createdAt || r.date || null;
-
-        // Skip opslag ældre end 7 dage
-        if (created && daysAgo(created) > 7) {
-          skipped++;
-          continue;
-        }
 
         items.push({
           url: link,
@@ -59,7 +54,7 @@ async function run() {
           summary: text,
           country: s.country,
           source: s.source,
-          posted_at: created,
+          posted_at: date,
           fetched_at: new Date().toISOString()
         });
 
