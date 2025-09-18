@@ -11,8 +11,8 @@ const SOURCES = [
 ];
 
 const OUTPUT_PATH = "radar/jobs/live/jobs.json";
-const MAX_DAYS_NEW = 7;   // kun hent opslag nyere end 7 dage
-const MAX_DAYS_KEEP = 30; // behold opslag i JSON i op til 30 dage
+const MAX_DAYS_KEEP = 30; // behold maks 30 dage i alt
+const MAX_DAYS_NEW = 7;   // kun opslag nyere end 7 dage
 
 function agoDays(iso) {
   if (!iso) return Infinity;
@@ -37,16 +37,16 @@ async function run() {
         const text = r.text || r.postText || "";
         if (!text) { skipped++; continue; }
 
-        // find dato med fallback
-        const date = r.time || r.date || r.timestamp || r.createdAt || r.lastActivityTime || null;
+        // prøv ALLE mulige felter fra Apify
+        const date = r.lastActivityTime || r.createdAt || r.timestamp || r.date || null;
         if (!date) { skipped++; continue; }
 
-        const daysAgo = agoDays(date);
+        // spring over opslag ældre end 30 dage
+        if (agoDays(date) > MAX_DAYS_KEEP) { skipped++; continue; }
 
-        // kun tilføj hvis opslag er nyere end 7 dage
-        if (daysAgo > MAX_DAYS_NEW) { skipped++; continue; }
+        // spring over opslag hvis de ikke er nyere end 7 dage
+        if (agoDays(date) > MAX_DAYS_NEW) { skipped++; continue; }
 
-        // vælg link
         const link = r.postUrl || r.url || r.facebookUrl || s.url;
 
         items.push({
@@ -67,23 +67,14 @@ async function run() {
     }
   }
 
-  // filtrer gamle entries væk (ældre end 30 dage)
-  const finalItems = items.filter(r => agoDays(r.posted_at) <= MAX_DAYS_KEEP);
-
   const out = {
     updatedAt: new Date().toISOString(),
     counts: { success, skipped, fail, total: SOURCES.length },
-    items: finalItems
+    items
   };
 
   const fs = await import("node:fs/promises");
   await fs.mkdir("radar/jobs/live", { recursive: true });
   await fs.writeFile(OUTPUT_PATH, JSON.stringify(out, null, 2), "utf8");
 
-  console.log("Wrote", OUTPUT_PATH, "=>", out.counts);
-}
-
-run().catch(err => {
-  console.error(err);
-  process.exit(1);
-});
+  console.log("Wrote",
