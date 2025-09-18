@@ -23,6 +23,34 @@
     .snippet{white-space:pre-wrap;max-height:7.2em;overflow:hidden}
     .small{font-size:12px;color:#b3b3b3}
     .fallback{padding:2rem;text-align:center;color:#aaa}
+
+    /* debug panel */
+    #debugPanel {
+      position: fixed;
+      top: 0;
+      right: -50%;
+      width: 50%;
+      height: 100%;
+      background: #111;
+      color: #f5f5f5;
+      border-left: 2px solid #333;
+      overflow: auto;
+      transition: right 0.3s ease;
+      padding: 1rem;
+      z-index: 1000;
+    }
+    #debugPanel.open { right: 0; }
+    #debugPanel pre { font-size: 12px; white-space: pre-wrap; word-break: break-word; }
+    #closeDebug {
+      display: inline-block;
+      margin-bottom: 1rem;
+      padding: 4px 8px;
+      background: #333;
+      border: none;
+      color: #fff;
+      cursor: pointer;
+      border-radius: 6px;
+    }
   </style>
 </head>
 <body>
@@ -61,6 +89,13 @@
   <div id="fallback" class="fallback" style="display:none"></div>
 </div>
 
+<!-- Debug panel -->
+<div id="debugPanel">
+  <button id="closeDebug">Close</button>
+  <h3>Debug view</h3>
+  <pre id="debugContent">Loading…</pre>
+</div>
+
 <script>
 const PATH = "live/jobs.json";
 
@@ -91,20 +126,36 @@ fetch(PATH,{cache:'no-store'})
   });
 
 function matches(r){
-  const days=7; // altid start med 7 dage
+  const days=7; // default
   if (agoDays(r.posted_at||r.fetched_at) > days) return false;
   return true;
 }
 
+function showDebug(r) {
+  const panel = document.getElementById("debugPanel");
+  const pre = document.getElementById("debugContent");
+  pre.textContent = JSON.stringify(r, null, 2);
+  panel.classList.add("open");
+}
+document.getElementById("closeDebug").addEventListener("click", () => {
+  document.getElementById("debugPanel").classList.remove("open");
+});
+
 function row(r){
+  const date = r.posted_at || r.fetched_at;
   return `
   <tr>
     <td></td>
-    <td><a href="${esc(r.url)}" target="_blank" rel="noopener"><strong>${esc(r.title||'(no title)')}</strong></a></td>
+    <td>
+      <a href="#" onclick='showDebug(${JSON.stringify(r).replace(/'/g,"&#39;")});return false;'>
+        <strong>${esc(r.title||'(no title)')}</strong>
+      </a>
+      <div class="small"><a href="${esc(r.url)}" target="_blank">View Post</a></div>
+    </td>
     <td>${esc(r.country||'')}</td>
     <td>${esc(r.source||'')}</td>
     <td class="snippet">${esc(r.summary||'')}</td>
-    <td>${esc(fmtDate(r.posted_at||r.fetched_at))}</td>
+    <td>${esc(fmtDate(date))}</td>
   </tr>`;
 }
 
