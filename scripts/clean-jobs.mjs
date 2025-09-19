@@ -1,63 +1,28 @@
 // scripts/clean-jobs.mjs
-// Renser jobs.json: behold kun opslag de sidste 30 dage
-// og marker opslag som "fresh" hvis de er ≤ 7 dage gamle.
+import fs from "node:fs/promises";
 
-const INPUT_PATH = "radar/jobs/live/jobs.json";
 const OUTPUT_PATH = "radar/jobs/live/jobs.json";
+const MAX_DAYS_KEEP = 30;
+const agoDays = (iso) => (!iso ? Infinity : (Date.now() - new Date(iso).getTime()) / 86400000);
 
-const MAX_DAYS_KEEP = 30;  // behold max 30 dage
-const FRESH_DAYS = 7;      // marker opslag som "nye" hvis ≤ 7 dage
+(async () => {
+  const buf = await fs.readFile(OUTPUT_PATH, "utf8");
+  const json = JSON.parse(buf);
+  const map = new Map();
 
-function agoDays(iso) {
-  if (!iso) return Infinity;
-  return (Date.now() - new Date(iso).getTime()) / 86400000;
-}
-
-async function run() {
-  const fs = await import("node:fs/promises");
-
-  // læs eksisterende jobs.json
-  let raw;
-  try {
-    raw = await fs.readFile(INPUT_PATH, "utf8");
-  } catch (err) {
-    console.error("Kunne ikke læse jobs.json:", err.message);
-    process.exit(1);
+  for (const it of json.items || []) {
+    if (!it.id) continue;
+    if (!map.has(it.id)) map.set(it.id, it);
   }
 
-  let json;
-  try {
-    json = JSON.parse(raw);
-  } catch (err) {
-    console.error("jobs.json er ikke gyldig JSON:", err.message);
-    process.exit(1);
-  }
+  const items = Array.from(map.values())
+    .filter((x) => agoDays(x.postDate || x.importedAt) <= MAX_DAYS_KEEP)
+    .sort((a, b) => new Date(b.postDate || b.importedAt) - new Date(a.postDate || a.importedAt));
 
-  const items = (json.items || []).filter(r => {
-    const date = r.posted_at || r.fetched_at;
-    return agoDays(date) <= MAX_DAYS_KEEP;
-  });
-
-  // marker fresh
-  items.forEach(r => {
-    const date = r.posted_at || r.fetched_at;
-    r.isFresh = agoDays(date) <= FRESH_DAYS;
-  });
-
-  const out = {
-    updatedAt: new Date().toISOString(),
-    counts: {
-      before: json.items ? json.items.length : 0,
-      after: items.length
-    },
-    items
-  };
-
+  const out = { ...json, updatedAt: new Date().toISOString(), items };
   await fs.writeFile(OUTPUT_PATH, JSON.stringify(out, null, 2), "utf8");
-  console.log(`Cleaned jobs.json: ${out.counts.before} → ${out.counts.after}`);
-}
-
-run().catch(err => {
-  console.error("clean-jobs fail:", err);
+  console.log("Cleaned. Items:", items.length);
+})().catch((e) => {
+  console.error(e);
   process.exit(1);
 });
