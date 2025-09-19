@@ -1,7 +1,6 @@
 // scripts/crawl.mjs
-// Henter opslag fra Apify Facebook Groups Scraper og gemmer dem i radar/jobs.json
 
-// Helper til fetch
+// Helper til at hente JSON med native fetch (Node 18+ har fetch indbygget)
 const fetchJson = async (url, options = {}) => {
   const res = await fetch(url, options);
   if (!res.ok) throw new Error(`HTTP ${res.status} for ${url}`);
@@ -21,6 +20,7 @@ const ACTOR_ID = "apify~facebook-groups-scraper";
 // URL til at køre aktøren
 const START_RUN_URL = `https://api.apify.com/v2/acts/${ACTOR_ID}/runs?token=${APIFY_TOKEN}`;
 
+// Node fs import
 import fs from "node:fs";
 
 // Start et nyt run
@@ -30,7 +30,7 @@ async function startRun() {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      maxItems: 50, // juster antal opslag her
+      maxItems: 50 // du kan justere antal opslag her
     }),
   });
   return res.data;
@@ -55,10 +55,9 @@ async function waitForRun(runId) {
 // Hent dataset fra run
 async function fetchDataset(datasetId) {
   console.log("📥 Henter dataset…");
-  const res = await fetchJson(
+  return fetchJson(
     `https://api.apify.com/v2/datasets/${datasetId}/items?token=${APIFY_TOKEN}&clean=true`
   );
-  return res;
 }
 
 // Gem jobs.json
