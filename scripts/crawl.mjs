@@ -1,54 +1,61 @@
 // scripts/crawl.mjs
-
 import fs from "fs";
-import path from "path";
 
-// Helper til at hente JSON
-const fetchJson = async (url, options = {}) => {
-  const res = await fetch(url, options);
-  if (!res.ok) throw new Error(`HTTP ${res.status} for ${url}`);
-  return res.json();
-};
-
-// Miljøvariabler
+// Hent APIFY token fra GitHub Actions secrets
 const APIFY_TOKEN = process.env.APIFY_TOKEN;
 if (!APIFY_TOKEN) {
-  console.error("❌ APIFY_TOKEN er ikke sat");
+  console.error("❌ APIFY_TOKEN mangler. Sæt den i GitHub Secrets.");
   process.exit(1);
 }
 
 // Actor ID for Facebook Groups Scraper
 const ACTOR_ID = "apify~facebook-groups-scraper";
-const RUNS_URL = `https://api.apify.com/v2/acts/${ACTOR_ID}/runs?token=${APIFY_TOKEN}&limit=1&desc=true`;
 
-// Output paths
-const OUT_DIR = path.join("radar", "jobs");
-const OUT_FILE = path.join(OUT_DIR, "jobs.json");
-
-// Sørg for at mappen findes
-if (!fs.existsSync(OUT_DIR)) {
-  fs.mkdirSync(OUT_DIR, { recursive: true });
-  console.log(`📂 Oprettede mappe: ${OUT_DIR}`);
+// Hjælper: fetch + error check
+async function fetchJson(url, opts = {}) {
+  const res = await fetch(url, opts);
+  if (!res.ok) throw new Error(`${res.status} ${res.statusText} for ${url}`);
+  return res.json();
 }
 
-async function getLatestRun() {
-  console.log("→ Henter seneste run fra Apify…");
-  const res = await fetchJson(RUNS_URL);
-  const run = res.data?.items?.[0];
-  if (!run) throw new Error("Ingen runs fundet for aktøren");
-  return run;
+// Start et nyt run
+async function startRun() {
+  console.log("🚀 Starter nyt Apify run…");
+  const url = `https://api.apify.com/v2/acts/${ACTOR_ID}/runs?token=${APIFY_TOKEN}`;
+  const run = await fetchJson(url, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ maxItems: 50 }),
+  });
+  return run.data;
 }
 
+// Vent på at run er færdigt
+async function waitForRun(runId) {
+  while (true) {
+    const url = `https://api.apify.com/v2/actor-runs/${runId}?token=${APIFY_TOKEN}`;
+    const run = await fetchJson(url);
+    console.log("⏳ Status:", run.data.status);
+    if (["SUCCEEDED", "FAILED", "ABORTED", "TIMED-OUT"].includes(run.data.status)) {
+      return run.data;
+    }
+    await new Promise((r) => setTimeout(r, 5000));
+  }
+}
+
+// Hent dataset
 async function fetchDataset(datasetId) {
-  console.log("→ Henter dataset items…");
   const url = `https://api.apify.com/v2/datasets/${datasetId}/items?token=${APIFY_TOKEN}&clean=true`;
-  return fetchJson(url);
+  return await fetchJson(url);
 }
 
+// Gem til jobs.json
 async function saveJobs(items) {
-  const data = {
+  const outPath = "radar/jobs.json";
+  const out = {
     updatedAt: new Date().toISOString(),
-    items: items.map(x => ({
+    items: items.map((x) => ({
+      id: x.id || x.url,
       title: x.title || "(no title)",
       summary: x.text || "",
       country: "EU",
@@ -60,31 +67,23 @@ async function saveJobs(items) {
       fetched_at: new Date().toISOString(),
     })),
   };
-  fs.writeFileSync(OUT_FILE, JSON.stringify(data, null, 2));
-  console.log(`✅ Gemte ${items.length} opslag i ${OUT_FILE}`);
+  fs.mkdirSync("radar", { recursive: true });
+  fs.writeFileSync(outPath, JSON.stringify(out, null, 2));
+  console.log(`✅ Gemte ${out.items.length} opslag i ${outPath}`);
 }
 
-function loadLastJobs() {
-  try {
-    const buf = fs.readFileSync(OUT_FILE, "utf8");
-    const json = JSON.parse(buf);
-    console.log(`⚠️ Bruger fallback – beholdt ${json.items.length} gamle opslag`);
-    return json.items || [];
-  } catch {
-    console.log("⚠️ Ingen tidligere jobs.json fundet");
-    return [];
-  }
-}
-
+// Main
 (async () => {
   try {
-    const run = await getLatestRun();
-    const items = await fetchDataset(run.defaultDatasetId);
+    const run = await startRun();
+    const result = await waitForRun(run.id);
+
+    if (result.status !== "SUCCEEDED") throw new Error("Run fejlede: " + result.status);
+
+    const items = await fetchDataset(result.defaultDatasetId);
     await saveJobs(items);
   } catch (err) {
     console.error("❌ Fejl under crawl:", err.message);
-    console.log("→ Bruger fallback i stedet");
-    const items = loadLastJobs();
-    await saveJobs(items); // Gem igen, så updatedAt bliver frisk
+    process.exit(1);
   }
 })();
