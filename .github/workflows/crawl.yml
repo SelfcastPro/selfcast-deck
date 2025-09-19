@@ -3,7 +3,7 @@ name: Crawl casting jobs
 on:
   schedule:
     - cron: "0 */6 * * *"   # kører hver 6. time
-  workflow_dispatch:         # mulighed for at køre manuelt
+  workflow_dispatch:         # mulighed for manuelt run
 
 jobs:
   crawl:
@@ -16,7 +16,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 18   # 18+ har indbygget fetch
+          node-version: 18   # Node 18+ har indbygget fetch
 
       - name: Run crawler
         run: node scripts/crawl.mjs
