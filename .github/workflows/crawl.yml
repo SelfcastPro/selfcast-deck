@@ -30,7 +30,7 @@ jobs:
           git add radar/jobs.json
           git commit -m "data(jobs): update jobs.json" || echo "No changes to commit"
 
-          # Hent ændringer fra remote før push (uden at fejle hvis intet nyt)
+          # Hent ændringer fra remote (uden at fejle hvis intet nyt)
           git pull --rebase https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git main || true
 
           # Push ændringer tilbage til main
