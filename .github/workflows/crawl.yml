@@ -3,25 +3,20 @@ name: Crawl casting jobs
 on:
   schedule:
     - cron: "0 */6 * * *"   # hver 6. time
-  workflow_dispatch:        # mulighed for manuelt run
+  workflow_dispatch:         # manuel trigger
 
 jobs:
   crawl:
     runs-on: ubuntu-latest
 
-    permissions:
-      contents: write   # 👈 giver botten ret til at pushe filer
-
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 18   # Node 18+ har indbygget fetch
 
       - name: Run crawler
         run: node scripts/crawl.mjs
@@ -31,7 +26,18 @@ jobs:
       - name: Commit & push results
         run: |
           git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add radar/jobs.json
-          git commit -m "data(jobs): update jobs.json" || echo "No changes to commit"
-          git push origin HEAD:${{ github.ref_name }}
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          # Check om jobs.json har ændringer
+          if git diff --quiet radar/jobs.json; then
+            echo "No changes to commit."
+          else
+            if grep -q '"items": \[\]' radar/jobs.json; then
+              git add radar/jobs.json
+              git commit -m "data(jobs): fallback (no items from Apify)"
+            else
+              git add radar/jobs.json
+              git commit -m "data(jobs): update jobs.json with new Apify data"
+            fi
+            git push
+          fi
