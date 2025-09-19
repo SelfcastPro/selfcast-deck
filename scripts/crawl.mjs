@@ -1,53 +1,70 @@
 // scripts/crawl.mjs
+
 import fs from "node:fs/promises";
 
+// Helper til JSON fetch
+const fetchJson = async (url, options = {}) => {
+  const res = await fetch(url, options);
+  if (!res.ok) throw new Error(`HTTP ${res.status} for ${url}`);
+  return res.json();
+};
+
+// Miljøvariabel
 const APIFY_TOKEN = process.env.APIFY_TOKEN;
 if (!APIFY_TOKEN) {
-  console.error("❌ APIFY_TOKEN er ikke sat. Tjek dine GitHub Actions secrets.");
+  console.error("❌ APIFY_TOKEN er ikke sat.");
   process.exit(1);
 }
 
+// Actor ID
 const ACTOR_ID = "apify~facebook-groups-scraper";
 
-// Hent seneste runs
-const RUNS_URL = `https://api.apify.com/v2/acts/${ACTOR_ID}/runs?status=SUCCEEDED&desc=true&limit=1&token=${APIFY_TOKEN}`;
+// API endpoints
+const START_RUN_URL = `https://api.apify.com/v2/acts/${ACTOR_ID}/runs?token=${APIFY_TOKEN}`;
+const ACTOR_RUNS_URL = `https://api.apify.com/v2/actor-runs?token=${APIFY_TOKEN}&limit=1&desc=true`;
 
-async function fetchJson(url) {
-  const res = await fetch(url);
-  if (!res.ok) throw new Error(`HTTP ${res.status} for ${url}`);
-  return res.json();
+// Start et nyt run
+async function startRun() {
+  console.log("🚀 Starter nyt Apify run…");
+  const res = await fetchJson(START_RUN_URL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      maxItems: 50, // kan justeres
+    }),
+  });
+  return res.data;
 }
 
+// Vent på run status
+async function waitForRun(runId) {
+  console.log(`⏳ Venter på run: ${runId}`);
+  while (true) {
+    const res = await fetchJson(
+      `https://api.apify.com/v2/actor-runs/${runId}?token=${APIFY_TOKEN}`
+    );
+    const { status } = res.data;
+    console.log(`   Status: ${status}`);
+    if (["SUCCEEDED", "FAILED", "TIMED-OUT", "ABORTED"].includes(status)) {
+      return res.data;
+    }
+    await new Promise((r) => setTimeout(r, 5000));
+  }
+}
+
+// Hent dataset fra run
 async function fetchDataset(datasetId) {
-  const url = `https://api.apify.com/v2/datasets/${datasetId}/items?token=${APIFY_TOKEN}&clean=true`;
-  return fetchJson(url);
+  console.log("📥 Henter dataset…");
+  const res = await fetchJson(
+    `https://api.apify.com/v2/datasets/${datasetId}/items?token=${APIFY_TOKEN}&clean=true`
+  );
+  return res;
 }
 
-async function run() {
-  console.log("→ Henter seneste run fra Apify…");
-  const runs = await fetchJson(RUNS_URL);
-
-  // === Debug ===
-  console.log("  🔎 API response:", JSON.stringify(runs, null, 2).slice(0, 500));
-
-  const run = runs?.data?.items?.[0];
-  if (!run) {
-    throw new Error("Ingen SUCCEEDED runs fundet – tjek om du har kørt en task/actor manuelt i Apify.");
-  }
-
-  const { id: runId, defaultDatasetId } = run;
-  console.log(`  ✅ runId: ${runId}, dataset: ${defaultDatasetId}`);
-
-  console.log("→ Henter dataset items…");
-  const items = await fetchDataset(defaultDatasetId);
-
-  console.log(`  📊 Antal items hentet fra Apify: ${items.length}`);
-  if (items.length > 0) {
-    console.log("  🔎 Første item preview:", JSON.stringify(items[0], null, 2).slice(0, 500));
-  }
-
+// Gem jobs.json
+async function saveJobs(items) {
   const outPath = "radar/jobs.json";
-  const out = {
+  const data = {
     updatedAt: new Date().toISOString(),
     items: items.map((x) => ({
       title: x.title || "(no title)",
@@ -61,14 +78,26 @@ async function run() {
       fetched_at: new Date().toISOString(),
     })),
   };
-
-  await fs.mkdir("radar", { recursive: true });
-  await fs.writeFile(outPath, JSON.stringify(out, null, 2), "utf8");
-
-  console.log(`✓ Done. Wrote ${out.items.length} items to ${outPath}`);
+  await fs.writeFile(outPath, JSON.stringify(data, null, 2));
+  console.log(`✅ Gemte ${items.length} opslag i ${outPath}`);
 }
 
-run().catch((err) => {
-  console.error("❌ Fejl under crawl:", err.message);
-  process.exit(1);
-});
+// Main
+(async () => {
+  try {
+    const run = await startRun();
+    const runResult = await waitForRun(run.id);
+
+    if (runResult.status !== "SUCCEEDED") {
+      throw new Error(`Run fejlede: ${runResult.status}`);
+    }
+
+    const datasetId = runResult.defaultDatasetId;
+    const items = await fetchDataset(datasetId);
+
+    await saveJobs(items);
+  } catch (err) {
+    console.error("❌ Fejl under crawl:", err.message);
+    process.exit(1);
+  }
+})();
