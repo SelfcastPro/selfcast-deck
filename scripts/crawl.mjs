@@ -1,66 +1,34 @@
-// scripts/crawl.mjs
-// Henter data fra Apify Facebook Groups Scraper og gemmer i jobs.json
+import fs from "fs/promises";
+import fetch from "node-fetch";
 
-const OUTPUT_PATH = "radar/jobs/live/jobs.json";
-const MAX_DAYS_KEEP = 30; // gem opslag i op til 30 dage
+const ACTOR_ID = "2chN8UQcH1CfxLRNE";     // Dit faste Actor ID
+const TOKEN = process.env.APIFY_TOKEN;    // Dit API token fra GitHub secrets
+const PATH = "data/jobs.json";
 
-function agoDays(iso) {
-  if (!iso) return Infinity;
-  return (Date.now() - new Date(iso).getTime()) / 86400000;
-}
-
-async function fetchJson(url) {
+async function fetchJobs() {
+  const url = `https://api.apify.com/v2/actors/${ACTOR_ID}/runs/last/dataset/items?token=${TOKEN}`;
   const res = await fetch(url);
-  if (!res.ok) throw new Error(`HTTP ${res.status} for ${url}`);
-  return await res.json();
-}
+  if (!res.ok) throw new Error(`Failed to fetch jobs: ${res.statusText}`);
+  const items = await res.json();
 
-async function run() {
-  const url = `https://api.apify.com/v2/acts/apify~facebook-groups-scraper/runs/last/dataset/items?token=${process.env.APIFY_TOKEN}`;
-  const rows = await fetchJson(url);
-
-  const items = [];
-  let success = 0, skipped = 0;
-
-  for (const r of rows) {
-    const text = r.text || r.postText || "";
-    if (!text) { skipped++; continue; }
-
-    // Dato – prøv at finde creation_time eller publish_time
-    const date = r.creation_time || r.post_context?.publish_time || r.date || r.timestamp || null;
-    if (!date) { skipped++; continue; }
-
-    if (agoDays(date) > MAX_DAYS_KEEP) { skipped++; continue; }
-
-    const link = r.postUrl || r.url || r.facebookUrl || r.id || "";
-
-    items.push({
-      url: link,
-      title: text.slice(0, 80) + (text.length > 80 ? "…" : ""),
-      summary: text,
+  const data = {
+    updatedAt: new Date().toISOString(),
+    items: items.map(it => ({
+      url: it.url || "",
+      title: it.title || "",
+      summary: it.text || "",
       country: "EU",
       source: "FacebookGroups",
-      posted_at: new Date(date * 1000).toISOString(), // unix → ISO
+      posted_at: it.creation_time ? new Date(it.creation_time * 1000).toISOString() : null,
       fetched_at: new Date().toISOString()
-    });
-
-    success++;
-  }
-
-  const out = {
-    updatedAt: new Date().toISOString(),
-    counts: { success, skipped, total: rows.length },
-    items
+    }))
   };
 
-  const fs = await import("node:fs/promises");
-  await fs.mkdir("radar/jobs/live", { recursive: true });
-  await fs.writeFile(OUTPUT_PATH, JSON.stringify(out, null, 2), "utf8");
-
-  console.log("Wrote", OUTPUT_PATH, "=>", out.counts);
+  await fs.writeFile(PATH, JSON.stringify(data, null, 2));
+  console.log(`Saved ${data.items.length} jobs to ${PATH}`);
 }
 
-run().catch(err => {
-  console.error("CRAWL FAILED:", err);
+fetchJobs().catch(err => {
+  console.error("Error:", err);
   process.exit(1);
 });
