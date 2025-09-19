@@ -2,12 +2,13 @@ name: Crawl casting jobs
 
 on:
   schedule:
-    - cron: "0 */6 * * *"
-  workflow_dispatch:
+    - cron: "0 */6 * * *"   # hver 6. time
+  workflow_dispatch:         # mulighed for at køre manuelt
 
 jobs:
   crawl:
     runs-on: ubuntu-latest
+
     permissions:
       contents: write
 
@@ -15,7 +16,7 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Setup Node
+      - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 18
@@ -30,6 +31,6 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git pull --rebase
-          git add radar/jobs.json
-          git commit -m "data(jobs): update jobs.json" || echo "No changes"
+          git add radar/jobs/live/jobs.json
+          git commit -m "data(jobs): update jobs.json" || echo "No changes to commit"
           git push
