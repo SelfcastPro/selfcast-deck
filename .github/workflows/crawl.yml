@@ -3,7 +3,7 @@ name: Crawl casting jobs
 on:
   schedule:
     - cron: "0 */2 * * *"   # kører hver 2. time
-  workflow_dispatch:
+  workflow_dispatch:         # mulighed for at køre manuelt
 
 jobs:
   crawl:
@@ -13,7 +13,7 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0   # vigtigt, så vi kan rebase
+          fetch-depth: 0   # vigtigt, så vi kan rebase og undgå push-fejl
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -31,5 +31,5 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add radar/jobs.json
           git commit -m "data(jobs): update jobs.json" || echo "No changes to commit"
-          git pull --rebase origin main   # <- dette henter evt. ændringer
+          git pull --rebase origin main || true   # undgår fejl hvis der intet at hente
           git push origin main
