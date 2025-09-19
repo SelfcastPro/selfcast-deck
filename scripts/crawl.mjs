@@ -1,55 +1,60 @@
-import fs from "fs/promises";
 import fetch from "node-fetch";
+import fs from "fs";
 
-const ACTOR_ID = "apify~facebook-groups-scraper";   // this stays constant
-const TOKEN = process.env.APIFY_TOKEN;              // we pull from GitHub secrets
+const APIFY_TOKEN = process.env.APIFY_TOKEN;
+const ACTOR_ID = "apify~facebook-groups-scraper";   // Facebook Groups Scraper actor
+const DATASET_KEY = "default"; // dataset alias "default"
 
 async function run() {
-  if (!TOKEN) {
-    throw new Error("APIFY_TOKEN is not set!");
-  }
+  console.log("▶ Starting Apify crawl...");
 
-  // Start actor run
-  const start = await fetch(`https://api.apify.com/v2/acts/${ACTOR_ID}/runs?token=${TOKEN}`, {
+  // Start a new run of the Actor
+  const startUrl = `https://api.apify.com/v2/acts/${ACTOR_ID}/runs?token=${APIFY_TOKEN}`;
+  const runRes = await fetch(startUrl, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      // optional: add your input if needed, e.g. group URLs
+      // Input kan tilpasses her hvis du vil sætte grupper direkte fra koden
     }),
   });
-  const started = await start.json();
-  if (!started.data) throw new Error("Failed to start actor: " + JSON.stringify(started));
-  const runId = started.data.id;
-  console.log("Started run", runId);
 
-  // Poll until finished
-  let status = "RUNNING", run;
+  const runData = await runRes.json();
+  if (!runRes.ok) {
+    throw new Error(`Failed to start actor: ${JSON.stringify(runData)}`);
+  }
+
+  const runId = runData.data.id;
+  console.log(`▶ Run started: ${runId}`);
+
+  // Poll indtil run er færdigt
+  let status = "RUNNING";
   while (status === "RUNNING" || status === "READY") {
-    await new Promise(r => setTimeout(r, 10000));
-    const res = await fetch(`https://api.apify.com/v2/actor-runs/${runId}?token=${TOKEN}`);
-    run = await res.json();
-    status = run.data.status;
-    console.log("Status:", status);
+    await new Promise(r => setTimeout(r, 5000));
+    const res = await fetch(
+      `https://api.apify.com/v2/actor-runs/${runId}?token=${APIFY_TOKEN}`
+    );
+    const json = await res.json();
+    status = json.data.status;
+    console.log(`▶ Status: ${status}`);
   }
 
   if (status !== "SUCCEEDED") {
-    throw new Error("Run failed with status " + status);
+    throw new Error(`Actor run failed: ${status}`);
   }
 
-  // Fetch dataset items
-  const datasetId = run.data.defaultDatasetId;
-  const out = await fetch(`https://api.apify.com/v2/datasets/${datasetId}/items?clean=true&format=json&token=${TOKEN}`);
-  const items = await out.json();
+  // Hent dataset items
+  const datasetUrl = `https://api.apify.com/v2/datasets/${runId}/${DATASET_KEY}/items?token=${APIFY_TOKEN}&format=json`;
+  const dataRes = await fetch(datasetUrl);
+  const items = await dataRes.json();
 
-  await fs.writeFile("data/jobs.json", JSON.stringify({
-    updatedAt: new Date().toISOString(),
-    items
-  }, null, 2));
+  console.log(`▶ Got ${items.length} items`);
 
-  console.log(`Saved ${items.length} jobs to data/jobs.json`);
+  // Gem lokalt til live/jobs.json
+  fs.writeFileSync("public/live/jobs.json", JSON.stringify({ items, updatedAt: new Date().toISOString() }, null, 2));
+  console.log("✅ Data saved to public/live/jobs.json");
 }
 
 run().catch(err => {
-  console.error(err);
+  console.error("❌ Error:", err.message);
   process.exit(1);
 });
