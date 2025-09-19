@@ -1,42 +1,36 @@
 // scripts/crawl.mjs
+import fs from "fs";
 
-// Helper til at hente JSON med native fetch (Node 18+ har fetch indbygget)
+// helper til at hente JSON
 const fetchJson = async (url, options = {}) => {
   const res = await fetch(url, options);
   if (!res.ok) throw new Error(`HTTP ${res.status} for ${url}`);
   return res.json();
 };
 
-// Miljøvariabler
+// miljøvariabler
 const APIFY_TOKEN = process.env.APIFY_TOKEN;
 if (!APIFY_TOKEN) {
-  console.error("❌ APIFY_TOKEN er ikke sat. Tjek dine GitHub Actions secrets.");
+  console.error("❌ APIFY_TOKEN er ikke sat. Tjek GitHub Secrets.");
   process.exit(1);
 }
 
-// Actor ID for Facebook Groups Scraper
+// Apify Facebook Groups Scraper actor
 const ACTOR_ID = "apify~facebook-groups-scraper";
-
-// URL til at køre aktøren
 const START_RUN_URL = `https://api.apify.com/v2/acts/${ACTOR_ID}/runs?token=${APIFY_TOKEN}`;
 
-// Node fs import
-import fs from "node:fs";
-
-// Start et nyt run
+// start et run
 async function startRun() {
   console.log("🚀 Starter Apify run…");
   const res = await fetchJson(START_RUN_URL, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      maxItems: 50 // du kan justere antal opslag her
-    }),
+    body: JSON.stringify({ maxItems: 50 }),
   });
   return res.data;
 }
 
-// Vent på run status
+// vent på at run bliver færdigt
 async function waitForRun(runId) {
   console.log(`⏳ Venter på run: ${runId}`);
   while (true) {
@@ -44,7 +38,7 @@ async function waitForRun(runId) {
       `https://api.apify.com/v2/actor-runs/${runId}?token=${APIFY_TOKEN}`
     );
     const { status } = res.data;
-    console.log(`   Status: ${status}`);
+    console.log("   Status:", status);
     if (["SUCCEEDED", "FAILED", "TIMED-OUT", "ABORTED"].includes(status)) {
       return res.data;
     }
@@ -52,15 +46,15 @@ async function waitForRun(runId) {
   }
 }
 
-// Hent dataset fra run
+// hent dataset
 async function fetchDataset(datasetId) {
   console.log("📥 Henter dataset…");
-  return fetchJson(
+  return await fetchJson(
     `https://api.apify.com/v2/datasets/${datasetId}/items?token=${APIFY_TOKEN}&clean=true`
   );
 }
 
-// Gem jobs.json
+// gem jobs.json
 async function saveJobs(items) {
   const outPath = "radar/jobs.json";
   const data = {
@@ -81,7 +75,7 @@ async function saveJobs(items) {
   console.log(`✅ Gemte ${items.length} opslag i ${outPath}`);
 }
 
-// Main
+// main
 (async () => {
   try {
     const run = await startRun();
