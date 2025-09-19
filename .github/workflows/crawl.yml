@@ -2,11 +2,8 @@ name: Crawl casting jobs
 
 on:
   schedule:
-    - cron: "0 */6 * * *"   # hver 6. time
-  workflow_dispatch:         # manuel kørsel
-
-permissions:
-  contents: write            # ⚠️ giver GITHUB_TOKEN lov til at pushe commits
+    - cron: "0 */2 * * *"   # kører hver 2. time
+  workflow_dispatch:
 
 jobs:
   crawl:
@@ -15,11 +12,13 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # vigtigt, så vi kan rebase
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 18   # Node 18+ har global fetch
+          node-version: 18
 
       - name: Run crawler
         run: node scripts/crawl.mjs
@@ -30,20 +29,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-
-          # Kun commit, hvis der ER ændringer
-          if git diff --quiet radar/jobs/live/jobs.json; then
-            echo "No changes to commit."
-            exit 0
-          fi
-
-          # Commit-besked: fallback eller nye data?
-          if grep -q '"items": \[\]' radar/jobs/live/jobs.json; then
-            git add radar/jobs/live/jobs.json
-            git commit -m "data(jobs): fallback (no items from Apify)"
-          else
-            git add radar/jobs/live/jobs.json
-            git commit -m "data(jobs): update jobs.json with new Apify data"
-          fi
-
-          git push
+          git add radar/jobs.json
+          git commit -m "data(jobs): update jobs.json" || echo "No changes to commit"
+          git pull --rebase origin main   # <- dette henter evt. ændringer
+          git push origin main
