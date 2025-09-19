@@ -12,13 +12,11 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0   # vigtigt, så vi kan rebase og undgå push-fejl
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 18   # Node 18+ har indbygget fetch
 
       - name: Run crawler
         run: node scripts/crawl.mjs
@@ -31,5 +29,9 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add radar/jobs.json
           git commit -m "data(jobs): update jobs.json" || echo "No changes to commit"
-          git pull --rebase origin main || true   # undgår fejl hvis der intet at hente
-          git push origin main
+
+          # Hent ændringer fra remote før push (uden at fejle hvis intet nyt)
+          git pull --rebase https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git main || true
+
+          # Push ændringer tilbage til main
+          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git HEAD:main
