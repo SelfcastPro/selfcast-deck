@@ -1,173 +1,209 @@
 // scripts/crawl.mjs
-// CASTING RADAR – Hent fra Apify, udled korrekt postDate, merge & gem
+import fs from "fs/promises";
+import path from "path";
+import fetch from "node-fetch";
+import crypto from "crypto";
 
-import fs from "node:fs/promises";
+const DATA_PATH = path.resolve("data/jobs.json"); // eksisterende
+const DEFAULT_NEW = path.resolve("data/new_jobs.json"); // ny fil der downloades fra Apify eller genereres
 
-const SOURCES = [
-  {
-    // Brug dit dataset-items endpoint (overskueligt og stabilt)
-    // Tip: læg evt. flere datasets her, vi samler dem.
-    url: "https://api.apify.com/v2/datasets/l3YKdBneIPN0q9YsI/items?format=json&clean=true",
-    country: "EU",
-    source: "FacebookGroups",
-  },
-];
-
-const OUTPUT_PATH = "radar/jobs/live/jobs.json";
-const MAX_DAYS_KEEP = 30;          // behold maks 30 dage i output
-const NOW_ISO = new Date().toISOString();
-
-// Utils
-const agoDays = (iso) => (!iso ? Infinity : (Date.now() - new Date(iso).getTime()) / 86400000);
-const safe = (v, d="") => (v == null ? d : v);
-
-async function fetchJson(url) {
-  const r = await fetch(url, { cache: "no-store" });
-  if (!r.ok) throw new Error(`HTTP ${r.status} for ${url}`);
-  return r.json();
-}
-
-// Udled stabil ID
-function getId(row) {
-  return (
-    row.post_id ||
-    row.id ||
-    row.url ||
-    (row.facebookUrl ? `${row.facebookUrl}|${row.user?.id ?? ""}` : null)
-  );
-}
-
-// Udled ægte post-dato
-function extractPostDate(row) {
-  // 1) creation_time (secs -> ms)
-  if (row.creation_time && Number.isFinite(+row.creation_time)) {
-    return new Date(Number(row.creation_time) * 1000).toISOString();
+function stableId(r){
+  if(!r) return '';
+  if(r.post_id) return String(r.post_id);
+  if(r.id) return String(r.id);
+  if(r.facebookId) return String(r.facebookId);
+  if(r.facebookUrl && r.user && r.user.id){
+    return `${r.facebookUrl}|${r.user.id}|${String((r.text||'').slice(0,80)).replace(/\s+/g,' ')}`;
   }
-  // 2) debug_info.tracking.post_context.publish_time (secs)
-  try {
-    const tRaw = row.debug_info?.tracking || row.tracking; // nogle feeds har tracking i root
-    if (tRaw) {
-      const tracking = typeof tRaw === "string" ? JSON.parse(tRaw) : tRaw;
-      const ts = tracking?.post_context?.publish_time;
-      if (ts && Number.isFinite(+ts)) {
-        return new Date(Number(ts) * 1000).toISOString();
+  // fallback hash of text+url
+  const h = crypto.createHash('sha1');
+  h.update(String(r.facebookUrl||'') + '|' + String((r.text||'').slice(0,200)));
+  return h.digest('hex');
+}
+
+function extractPostDate(r){
+  if(!r) return null;
+  // prefer explicit fields
+  const cand = r.postDate || r.posted_at || r.created_at || r.postedAt;
+  if(cand){
+    const n = Number(cand);
+    if(!Number.isNaN(n)){
+      if(n < 1e12) return new Date(n*1000).toISOString();
+      return new Date(n).toISOString();
+    }
+    const p = Date.parse(cand);
+    if(!Number.isNaN(p)) return new Date(p).toISOString();
+  }
+  if(r.creation_time){
+    const n = Number(r.creation_time);
+    if(!Number.isNaN(n)){
+      if(n < 1e12) return new Date(n*1000).toISOString();
+      return new Date(n).toISOString();
+    }
+  }
+  // debug_info paths
+  if(r.debug_info){
+    const di = r.debug_info;
+    if(di.creation_time){
+      const n = Number(di.creation_time);
+      if(!Number.isNaN(n)){
+        if(n < 1e12) return new Date(n*1000).toISOString();
+        return new Date(n).toISOString();
       }
     }
-  } catch (_) { /* ignore */ }
-
-  // 3) Hvis intet, prøv timestamp/date/createdAt fra Apify-rækken
-  if (row.timestamp) return new Date(row.timestamp).toISOString();
-  if (row.date)      return new Date(row.date).toISOString();
-  if (row.createdAt) return new Date(row.createdAt).toISOString();
-
-  // 4) Fallback til nu (så vi aldrig taber posten)
-  return NOW_ISO;
-}
-
-// Mapper en Apify-række til vores job-objekt
-function mapRow(row, s) {
-  const text = safe(row.text || row.postText || row.message?.text, "").trim();
-  const url =
-    row.postUrl ||
-    row.url ||
-    row.facebookUrl ||
-    row.permalink ||
-    row.attachments?.[0]?.url ||
-    s.url;
-
-  const postDate = extractPostDate(row);
-  return {
-    id: getId(row) || `${url}|${row.user?.id ?? ""}|${postDate}`, // sidste sikkerhedsnet
-    url,
-    title: text ? (text.length > 80 ? text.slice(0, 80) + "…" : text) : "(no title)",
-    summary: text,
-    country: s.country,
-    source: s.source,
-    postDate,                   // ÆGTE post-dato fra opslaget
-    importedAt: NOW_ISO,        // hvornår VI først så posten (låses ved merge)
-    raw: {
-      facebookUrl: row.facebookUrl || null,
-      user: row.user || null,
-      likes: row.likesCount ?? null,
-      comments: row.commentsCount ?? null,
-    },
-  };
-}
-
-// Læs eksisterende jobs.json (hvis findes)
-async function loadExisting() {
-  try {
-    const buf = await fs.readFile(OUTPUT_PATH, "utf8");
-    const json = JSON.parse(buf);
-    return json.items || [];
-  } catch {
-    return [];
+    const publish = di?.tracking?.post_context?.publish_time;
+    if(publish){
+      const n = Number(publish);
+      if(!Number.isNaN(n)){
+        if(n < 1e12) return new Date(n*1000).toISOString();
+        return new Date(n).toISOString();
+      }
+    }
   }
+  // fallback
+  if(r.fetched_at) return new Date(r.fetched_at).toISOString();
+  if(r.fetchedAt) return new Date(r.fetchedAt).toISOString();
+  return null;
 }
 
-// Merge, bevar importedAt + alt manuelt (checkmarks gemmes i localStorage i frontend)
-function mergeJobs(oldItems, newItems) {
-  const map = new Map();
-  for (const it of oldItems) map.set(it.id, it);
-
-  for (const it of newItems) {
-    const prev = map.get(it.id);
-    if (prev) {
-      // Bevar importedAt, og brug nyeste summary/titel/url/postDate hvis de mangler før
-      map.set(it.id, {
-        ...prev,
-        ...it,
-        importedAt: prev.importedAt || it.importedAt,
-        postDate: it.postDate || prev.postDate || prev.importedAt,
-      });
+async function loadJSON(source){
+  // source may be a URL or a local path
+  try{
+    if(/^(https?:)?\/\//.test(source)){
+      const res = await fetch(source);
+      if(!res.ok) throw new Error(`Fetch ${source} status ${res.status}`);
+      return await res.json();
     } else {
-      map.set(it.id, it);
+      const raw = await fs.readFile(source, 'utf8');
+      return JSON.parse(raw);
     }
+  }catch(err){
+    throw new Error(`Could not load JSON from ${source}: ${err.message}`);
   }
-
-  // Trim til de sidste 30 dage baseret på postDate (fallback importedAt)
-  const all = Array.from(map.values());
-  return all
-    .filter((x) => agoDays(x.postDate || x.importedAt) <= MAX_DAYS_KEEP)
-    .sort((a, b) => new Date(b.postDate || b.importedAt) - new Date(a.postDate || a.importedAt));
 }
 
-async function run() {
-  const existing = await loadExisting();
-  const fresh = [];
+function normalizeItems(raw){
+  // raw may be array or object with items
+  const items = Array.isArray(raw) ? raw : (raw.items || raw.data || raw.rows || []);
+  return items.map(it=>{
+    const copy = {...it};
+    // add computed postDate
+    copy._postDate = extractPostDate(it); // ISO or null
+    copy._stableId = stableId(it);
+    return copy;
+  });
+}
 
-  for (const s of SOURCES) {
-    try {
-      const rows = await fetchJson(s.url);
-      for (const r of rows) {
-        const id = getId(r);
-        const text = r.text || r.postText || r.message?.text || "";
-        if (!id || !text.trim()) continue; // ignorer støj/empty
-        fresh.push(mapRow(r, s));
+async function saveJSON(filePath, data){
+  await fs.mkdir(path.dirname(filePath), {recursive:true});
+  await fs.writeFile(filePath, JSON.stringify(data,null,2),'utf8');
+}
+
+function mergeArrays(existing, incoming){
+  const byId = new Map();
+  for(const e of existing){
+    const id = e._stableId || stableId(e);
+    byId.set(id, {...e});
+  }
+  let added=0, updated=0, kept=0;
+
+  for(const inc of incoming){
+    const id = inc._stableId;
+    const incDate = inc._postDate ? Date.parse(inc._postDate) : null;
+    if(!byId.has(id)){
+      // new item: store fetchedAt as now unless incoming has one
+      const toStore = {...inc};
+      toStore.fetched_at = toStore.fetched_at || new Date().toISOString();
+      byId.set(id, toStore);
+      added++;
+      continue;
+    }
+    const old = byId.get(id);
+    const oldDate = old._postDate ? Date.parse(old._postDate) : null;
+    // If incoming has a better postDate and it's newer, update fields.
+    if(incDate && (!oldDate || incDate > oldDate)){
+      // keep certain old metadata (like read flags) — front-end manages reads separately
+      const merged = {...old, ...inc};
+      merged.fetched_at = merged.fetched_at || new Date().toISOString();
+      // keep original created_at if present (so we do not overwrite run timestamp)
+      if(old.created_at && !merged.created_at) merged.created_at = old.created_at;
+      byId.set(id, merged);
+      updated++;
+    } else {
+      // keep older (existing) item — but we might want to augment if incoming has fields missing in old
+      // merge missing fields only
+      let changed=false;
+      for(const k of Object.keys(inc)){
+        if((old[k] === undefined || old[k] === null) && inc[k] !== undefined){
+          old[k] = inc[k];
+          changed=true;
+        }
       }
-    } catch (e) {
-      console.error("Fetch fail:", s.url, e.message);
+      if(changed) byId.set(id, old);
+      kept++;
     }
   }
 
-  const merged = mergeJobs(existing, fresh);
+  // return array sorted by postDate newest first
+  const out = Array.from(byId.values());
+  out.sort((a,b)=>{
+    const pa = a._postDate ? Date.parse(a._postDate) : 0;
+    const pb = b._postDate ? Date.parse(b._postDate) : 0;
+    return pb - pa;
+  });
 
-  const out = {
-    updatedAt: NOW_ISO,
-    meta: {
-      keptDays: MAX_DAYS_KEEP,
-      inputSources: SOURCES.map((s) => s.url),
-      counts: { existing: existing.length, fresh: fresh.length, total: merged.length },
-    },
-    items: merged,
+  return {merged: out, added, updated, kept};
+}
+
+async function main(){
+  const argv = process.argv.slice(2);
+  const opts = {};
+  for(let i=0;i<argv.length;i++){
+    if(argv[i]==='--new' && argv[i+1]){ opts.new = argv[i+1]; i++; }
+    if(argv[i]==='--out' && argv[i+1]){ opts.out = argv[i+1]; i++; }
+  }
+  const newSrc = opts.new || DEFAULT_NEW;
+  const outFile = opts.out || DATA_PATH;
+
+  console.log("Loading existing data:", outFile);
+  let existing = [];
+  try{
+    const raw = await fs.readFile(outFile,'utf8');
+    const json = JSON.parse(raw);
+    existing = Array.isArray(json) ? json : (json.items || []);
+    // ensure normalized fields exist
+    existing = existing.map(it=>{
+      it._stableId = it._stableId || stableId(it);
+      it._postDate = it._postDate || extractPostDate(it);
+      return it;
+    });
+  }catch(e){
+    console.log("No existing data found or invalid JSON – starting fresh.");
+    existing = [];
+  }
+
+  console.log("Loading incoming data from:", newSrc);
+  const incomingRaw = await loadJSON(newSrc);
+  const incoming = normalizeItems(incomingRaw);
+
+  const result = mergeArrays(existing, incoming);
+  const meta = {
+    mergedAt: new Date().toISOString(),
+    source: String(newSrc),
+    counts: {existing: existing.length, incoming: incoming.length, added: result.added, updated: result.updated, kept: result.kept}
   };
 
-  await fs.mkdir("radar/jobs/live", { recursive: true });
-  await fs.writeFile(OUTPUT_PATH, JSON.stringify(out, null, 2), "utf8");
-  console.log("Wrote", OUTPUT_PATH, "items:", merged.length);
+  // write out: top-level array
+  await saveJSON(outFile, result.merged);
+  // write meta file
+  await saveJSON(path.resolve(path.dirname(outFile),'jobs.meta.json'), meta);
+
+  console.log("Merge done. Stats:", meta.counts);
+  console.log("Saved merged data to:", outFile);
+  console.log("Saved meta to:", path.resolve(path.dirname(outFile),'jobs.meta.json'));
 }
 
-run().catch((err) => {
-  console.error(err);
+main().catch(err=>{
+  console.error("ERROR:", err);
   process.exit(1);
 });
