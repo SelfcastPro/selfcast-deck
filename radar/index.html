@@ -1,428 +1,81 @@
 <!doctype html>
-<html lang="da">
+<html lang="en">
 <head>
   <meta charset="utf-8"/>
   <title>Selfcast – Casting Jobs Radar</title>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <style>
-    :root{
-      --bg:#0b0b0b; --panel:#141414; --muted:#b3b3b3; --accent:#4da3ff; --text:#f5f5f5;
-    }
-    html,body{height:100%}
-    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;margin:20px;background:var(--bg);color:var(--text)}
-    a{color:var(--accent);text-decoration:none}
-    .wrap{max-width:1300px;margin:0 auto;display:grid;grid-template-columns:1fr 380px;gap:20px}
-    header{grid-column:1/-1;margin-bottom:6px}
-    h1{margin:0 0 10px;font-size:28px;font-weight:900}
-    .controls{display:flex;gap:10px;flex-wrap:wrap;margin:6px 0 18px;align-items:center}
-    input[type=search],select{padding:8px 12px;border:1px solid #222;background:var(--panel);color:var(--text);border-radius:10px;min-width:160px}
-    label.small{color:var(--muted);font-size:13px;display:flex;align-items:center;gap:8px}
-    table{width:100%;border-collapse:collapse;background:var(--panel);border-radius:12px;overflow:hidden;table-layout:fixed}
-    th,td{padding:12px;border-bottom:1px solid #222;vertical-align:top;text-align:left;font-size:14px}
-    th{font-weight:700;color:var(--muted);background:rgba(255,255,255,0.02)}
-    tr:hover{background:#161616}
-    th:nth-child(1),td:nth-child(1){width:44px;text-align:center}
-    th:nth-child(2),td:nth-child(2){width:30%}
-    th:nth-child(3),td:nth-child(3){width:8%}
+    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;margin:0;background:#0b0b0b;color:#f5f5f5;display:flex;height:100vh;overflow:hidden;font-size:13px}
+    a{color:#4da3ff;text-decoration:none}
+    .wrap{flex:1;display:flex;flex-direction:column;padding:14px;max-width:1200px}
+    h1{margin:0 0 10px;font-size:20px;font-weight:800}
+    .controls{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 10px;font-size:12px}
+    input,select{padding:5px 8px;border:1px solid #222;background:#141414;color:#f5f5f5;border-radius:6px;font-size:12px}
+    table{width:100%;border-collapse:collapse;background:#141414;border-radius:6px;overflow:hidden;table-layout:fixed;font-size:12px}
+    th,td{padding:5px 6px;border-bottom:1px solid #222;vertical-align:top;text-align:left}
+    tr:hover{background:#161616;cursor:pointer}
+    th:nth-child(1),td:nth-child(1){width:24px;text-align:center}
+    th:nth-child(2),td:nth-child(2){width:26%}
+    th:nth-child(3),td:nth-child(3){width:10%}
     th:nth-child(4),td:nth-child(4){width:14%}
-    th:nth-child(5),td:nth-child(5){width:36%}
+    th:nth-child(5),td:nth-child(5){width:38%}
     th:nth-child(6),td:nth-child(6){width:12%}
-    .snippet{white-space:pre-wrap;overflow:hidden;display:-webkit-box;-webkit-line-clamp:10;-webkit-box-orient:vertical}
-    .small{font-size:12px;color:var(--muted)}
-    .fallback{padding:2rem;text-align:center;color:#aaa}
-    /* right preview */
-    .preview{position:sticky;top:20px;padding:20px;background:var(--panel);border-radius:12px;height:calc(100vh - 40px);overflow:auto}
-    .preview h2{margin:0 0 10px;font-size:20px}
-    .preview .meta{color:var(--muted);font-size:13px;margin-bottom:10px}
-    .row-active{background:#0f2920 !important} /* subtle */
-    /* checkbox style */
-    .check{transform:scale(1.1)}
-    /* mail button */
-    .btn{display:inline-block;padding:8px 12px;border-radius:8px;background:transparent;border:1px solid rgba(255,255,255,0.07);cursor:pointer;margin-top:10px}
-    .btn.primary{border-color:var(--accent);color:var(--accent)}
-    /* mobile */
-    @media(max-width:1100px){
-      .wrap{grid-template-columns:1fr;gap:12px}
-      .preview{position:relative;height:auto;max-height:50vh}
-    }
+    .snippet{white-space:pre-wrap;max-height:6.5em;overflow:hidden}
+    .small{font-size:11px;color:#b3b3b3}
+    .fallback{padding:2rem;text-align:center;color:#aaa;font-size:12px}
+    .layout{display:flex;flex:1;overflow:hidden;gap:10px}
+    .left{flex:1;overflow:auto}
+    .right{width:600px;overflow:auto;background:#111;padding:12px;border-left:1px solid #222;font-size:12px;line-height:1.4}
+    .right h2{margin-top:0;font-size:14px}
+    button{background:#4da3ff;color:#fff;border:none;padding:5px 8px;margin:3px 3px 6px 0;border-radius:6px;cursor:pointer;font-size:12px}
+    button:hover{background:#3486d8}
   </style>
 </head>
 <body>
 <div class="wrap">
-  <header>
-    <h1>Selfcast – Casting Jobs Radar</h1>
-    <div id="meta" class="small">Loading…</div>
-  </header>
-
-  <div>
-    <div class="controls">
-      <input id="q" type="search" placeholder="Search title, snippet, role, city…" />
-      <select id="source"><option value="">All sources</option></select>
-      <select id="age">
-        <option value="">Any time</option>
-        <option value="1">Last 24h</option>
-        <option value="3">Last 3 days</option>
-        <option value="7" selected>Last 7 days</option>
-        <option value="14">Last 14 days</option>
-        <option value="30">Last 30 days</option>
-      </select>
-      <select id="sort">
-        <option value="desc" selected>Newest first</option>
-        <option value="asc">Oldest first</option>
-      </select>
-      <label class="small"><input type="checkbox" id="onlyUnread"> Only unread</label>
-    </div>
-
-    <table id="tbl" style="display:none">
-      <thead>
-        <tr>
-          <th>✓</th>
-          <th>Title</th>
-          <th>Country</th>
-          <th>Source</th>
-          <th>Snippet</th>
-          <th>Posted</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
-
-    <div id="fallback" class="fallback" style="display:none"></div>
+  <h1>Selfcast – Casting Jobs Radar</h1>
+  <div id="meta" class="small">Loading…</div>
+  <div class="controls">
+    <input id="q" type="search" placeholder="Search…"/>
+    <select id="source"><option value="">All sources</option></select>
+    <select id="age">
+      <option value="">Any time</option>
+      <option value="1">Last 24h</option>
+      <option value="3">Last 3 days</option>
+      <option value="7" selected>Last 7 days</option>
+      <option value="14">Last 14 days</option>
+      <option value="30">Last 30 days</option>
+    </select>
+    <select id="sort">
+      <option value="new">Newest first</option>
+      <option value="old">Oldest first</option>
+    </select>
+    <label class="small"><input type="checkbox" id="onlyUnread"> Only unread</label>
   </div>
-
-  <aside>
-    <div id="preview" class="preview">
-      <div class="small">Vælg et opslag for at se detaljer</div>
+  <div class="layout">
+    <div class="left">
+      <table id="tbl" style="display:none">
+        <thead>
+          <tr>
+            <th>✓</th>
+            <th>Title</th>
+            <th>Country</th>
+            <th>Source</th>
+            <th>Snippet</th>
+            <th>Posted</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <div id="fallback" class="fallback" style="display:none"></div>
     </div>
-  </aside>
+    <div class="right" id="detail"><em>Select a post…</em></div>
+  </div>
 </div>
 
 <script>
-const PATH = "live/jobs.json"; // URL eller relativ sti
-let DATA = [];
-let FILTERED = [];
-const readStoreKey = "radar:read:v1"; // stable localStorage key
-
-/* ---------- utilities ---------- */
-const esc = s => (s||'').replace(/[&<>"']/g, m=>({"&":"&amp;","<":"&lt;","&gt;":">","\"":"&quot;","'":"&#39;"}[m]));
-const fmtDate = (d)=> d ? new Date(d).toLocaleDateString("da-DK") : "";
-const toISO = (d)=> d ? (new Date(d)).toISOString() : null;
-const now = ()=> new Date().toISOString();
-
-/* stable id logic:
-   prefer explicit post_id fields (post_id, id, facebookId), else fallback to hash of facebookUrl + text snippet
-*/
-function stableId(r){
-  if(!r) return '';
-  if(r.post_id) return String(r.post_id);
-  if(r.id) return String(r.id);
-  if(r.facebookId) return String(r.facebookId);
-  if(r.facebookUrl && r.user && r.user.id){
-    // facebookUrl + user + shorttext
-    return `${r.facebookUrl}|${r.user.id}|${String((r.text||'').slice(0,80)).replace(/\s+/g,' ')}`;
-  }
-  return `${r.facebookUrl||''}|${String((r.text||'').slice(0,80)).replace(/\s+/g,' ')}`;
-}
-
-/* Try to extract a real post date.
-   Order:
-    - r.postDate
-    - r.posted_at
-    - r.creation_time (seconds unix)
-    - r.creation_time_ms / created_at (ms)
-    - r.debug_info?.creation_time
-    - r.debug_info?.tracking?.post_context?.publish_time (unix seconds)
-    - r.fetched_at || r.fetchedAt
-    - fallback: null
-*/
-function extractPostDate(r){
-  if(!r) return null;
-  const cand = r.postDate || r.posted_at || r.created_at || r.postedAt || r.postedAtMs;
-  if(cand){
-    // try to coerce to Date
-    const n = Number(cand);
-    if(!Number.isNaN(n)){
-      // if it's seconds (10 digits) convert to ms
-      if(n > 0 && n < 1e12 && String(cand).length <= 10) return new Date(n*1000).toISOString();
-      if(n > 1e12) return new Date(n).toISOString();
-    }
-    // try Date parse
-    const p = Date.parse(cand);
-    if(!Number.isNaN(p)) return new Date(p).toISOString();
-  }
-
-  // creation_time typical unix seconds in debug payload
-  if(r.creation_time){
-    const n = Number(r.creation_time);
-    if(!Number.isNaN(n)){
-      if(n < 1e12) return new Date(n*1000).toISOString();
-      return new Date(n).toISOString();
-    }
-  }
-  if(r.creation_time_ms){
-    const n = Number(r.creation_time_ms);
-    if(!Number.isNaN(n)) return new Date(n).toISOString();
-  }
-
-  // debug_info nested
-  if(r.debug_info){
-    try{
-      const di = r.debug_info;
-      if(di.creation_time){
-        const n = Number(di.creation_time);
-        if(!Number.isNaN(n)){
-          if(n < 1e12) return new Date(n*1000).toISOString();
-          return new Date(n).toISOString();
-        }
-      }
-      // tracking -> post_context -> publish_time
-      const publish = di?.tracking?.post_context?.publish_time;
-      if(publish){
-        const n = Number(publish);
-        if(!Number.isNaN(n)){
-          if(n < 1e12) return new Date(n*1000).toISOString();
-          return new Date(n).toISOString();
-        }
-      }
-      // other nested path used earlier in debug sample: creation_time in feedback etc
-      const maybe = di?.post_collaboration || di?.post_id || di?.creation_time;
-      // ignore – already attempted
-    }catch(e){/* ignore */ }
-  }
-
-  // fallback to fetched timestamps
-  if(r.fetched_at) return new Date(r.fetched_at).toISOString();
-  if(r.fetchedAt) return new Date(r.fetchedAt).toISOString();
-  if(r.updatedAt) return new Date(r.updatedAt).toISOString();
-
-  return null;
-}
-
-/* find email in text */
-function findEmail(text){
-  if(!text) return null;
-  const m = text.match(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/i);
-  return m ? m[0] : null;
-}
-
-/* localStorage for read checkmarks */
-function loadReads(){
-  try{ return JSON.parse(localStorage.getItem(readStoreKey)||"{}"); }catch(e){ return {} }
-}
-function saveReads(obj){ localStorage.setItem(readStoreKey, JSON.stringify(obj)); }
-
-/* UI render */
-function makeRow(r, isRead, idx){
-  const id = stableId(r);
-  const title = r.title || (r.text||'').split('\n')[0] || '(no title)';
-  const country = r.country || r.region || '';
-  const source = r.source || r.sourceName || r.origin || 'FacebookGroups';
-  const snippet = r.summary || r.snippet || (r.text||'').slice(0,2000);
-  const postDate = extractPostDate(r);
-  const postedStr = postDate ? fmtDate(postDate) : (r.posted_at?fmtDate(r.posted_at):'');
-  return `
-    <tr data-id="${esc(id)}" data-idx="${idx}">
-      <td><input class="check" type="checkbox" ${isRead? 'checked':''} data-id="${esc(id)}"></td>
-      <td><a class="open" href="#" data-id="${esc(id)}"><strong>${esc(title)}</strong></a></td>
-      <td>${esc(country)}</td>
-      <td>${esc(source)}</td>
-      <td class="snippet">${esc(snippet)}</td>
-      <td>${esc(postedStr)}</td>
-    </tr>
-  `;
-}
-
-/* render table & preview */
-function renderTable(rows){
-  const $tbody = document.querySelector('#tbl tbody');
-  $tbody.innerHTML = rows.map((r,i)=> makeRow(r, reads[stableId(r)], i)).join('');
-  document.getElementById("tbl").style.display = rows.length ? "table" : "none";
-  if(!rows.length){
-    document.getElementById("fallback").style.display = "block";
-    document.getElementById("fallback").textContent = `No casting jobs found — last update: ${meta.updatedAt || 'ukendt'}`;
-  } else {
-    document.getElementById("fallback").style.display = "none";
-  }
-
-  // bind events
-  document.querySelectorAll('#tbl tbody tr').forEach(tr=>{
-    tr.addEventListener('click', (e)=>{
-      // ignore clicks on the checkbox
-      if(e.target.matches('input[type=checkbox]')) return;
-      const id = tr.dataset.id;
-      const idx = Number(tr.dataset.idx);
-      setActiveRow(tr);
-      const r = FILTERED[idx];
-      renderPreview(r);
-    });
-  });
-
-  // checkboxes
-  document.querySelectorAll('#tbl tbody input[type=checkbox]').forEach(cb=>{
-    cb.addEventListener('change', e=>{
-      const id = cb.dataset.id;
-      reads[id] = cb.checked ? {when: now()} : undefined;
-      // normalize: remove undefined keys
-      const cleaned = {};
-      Object.keys(reads).forEach(k=>{ if(reads[k]) cleaned[k]=reads[k] });
-      saveReads(cleaned);
-    });
-  });
-}
-
-function setActiveRow(tr){
-  document.querySelectorAll('#tbl tbody tr').forEach(r=>r.classList.remove('row-active'));
-  if(tr) tr.classList.add('row-active');
-}
-
-/* preview render */
-function renderPreview(r){
-  const $p = document.getElementById('preview');
-  if(!r){
-    $p.innerHTML = '<div class="small">Vælg et opslag for at se detaljer</div>';
-    return;
-  }
-  const title = r.title || (r.text||'').split('\n')[0] || '(no title)';
-  const postDate = extractPostDate(r);
-  const postedStr = postDate ? fmtDate(postDate) : '';
-  const country = r.country || '';
-  const source = r.source||'FacebookGroups';
-  const text = r.text || r.summary || '';
-  const mail = findEmail(text);
-  const mailBody = encodeURIComponent(`Regarding your casting call on Facebook\n\nHi \n\nWe came across your casting post on Facebook and would love to help.\nPlease share more details about the role(s) and production so we can present the right candidates for you.\n\nThe more info we can give the talents, the better the match:\n- Client name\n- Role description (gender, age, look, special requirements, photos/videos)\n- Rights (e.g. 1 year worldwide, all platforms)\n- Salary (total fee incl. buyout)\n- Travel expenses (covered? up to 500 EUR?)\n- Date(s) (specific day or period)\n- Location (country, city/region)\n\nNext time you need talents, you can also book directly through the Selfcast platform.\nWe currently represent over 60,000 talents in 160+ countries, with a strong base across Europe.\n\nBest regards,\nThe Selfcast Team\nCASTING MADE EASY`);
-  const mailto = mail ? `mailto:${mail}?subject=${encodeURIComponent('Regarding your casting call on Facebook')}&body=${mailBody}` : `mailto:?subject=${encodeURIComponent('Regarding your casting call on Facebook')}&body=${mailBody}`;
-
-  // build attachments preview (first image)
-  let imagesHTML = '';
-  if(Array.isArray(r.attachments) && r.attachments.length){
-    const first = r.attachments[0];
-    const url = first.photo_image?.uri || first.thumbnail || first.url;
-    if(url) imagesHTML = `<div style="margin:10px 0"><img src="${esc(url)}" alt="" style="max-width:100%;border-radius:8px"></div>`;
-  }
-
-  $p.innerHTML = `
-    <h2>${esc(title)}</h2>
-    <div class="meta">${esc(country)} · ${esc(source)} · ${esc(postedStr)}</div>
-    ${imagesHTML}
-    <div style="white-space:pre-wrap;color:#ddd">${esc(text)}</div>
-    <div style="margin-top:12px">
-      <a class="btn primary" id="viewOriginal" href="${esc(r.facebookUrl||r.url||'')}" target="_blank" rel="noopener">View original post</a>
-      <button class="btn" id="sendMail">Send email</button>
-    </div>
-  `;
-
-  // mark row as read when preview opened
-  const id = stableId(r);
-  reads[id] = reads[id] || {when: now()};
-  saveReads(reads);
-  // update checkboxes in table (if present)
-  const cb = document.querySelector(`#tbl tbody input[data-id="${CSS.escape(id)}"]`);
-  if(cb) cb.checked = true;
-
-  document.getElementById('sendMail').addEventListener('click', ()=>{
-    window.location.href = mailto;
-  });
-}
-
-/* ---------- data loading + filtering ---------- */
-let reads = loadReads();
-let meta = {};
-
-function updateSourceFilter(list){
-  const s = document.getElementById('source');
-  const known = new Set(list.map(x => x.source || x.sourceName || 'FacebookGroups'));
-  s.innerHTML = `<option value="">All sources</option>` + [...known].sort().map(v=>`<option value="${esc(v)}">${esc(v)}</option>`).join('');
-}
-
-function applyFilters(){
-  const q = (document.getElementById('q').value||'').toLowerCase();
-  const source = document.getElementById('source').value;
-  const age = Number(document.getElementById('age').value) || 0;
-  const onlyUnread = document.getElementById('onlyUnread').checked;
-  const sortDir = document.getElementById('sort').value || 'desc';
-
-  const nowMs = Date.now();
-  FILTERED = DATA.filter(r=>{
-    // age filter
-    if(age){
-      const pd = extractPostDate(r);
-      if(!pd) return false;
-      const days = (nowMs - new Date(pd).getTime()) / 86400000;
-      if(days > age) return false;
-    }
-    // source filter
-    if(source && ( (r.source||r.sourceName||'').toLowerCase() !== source.toLowerCase() )) return false;
-    // only unread
-    if(onlyUnread && reads[stableId(r)]) return false;
-    // query
-    if(q){
-      const hay = ((r.title||'') + ' ' + (r.summary||'') + ' ' + (r.text||'') + ' ' + (r.user?.name||'') + ' ' + (r.facebookUrl||'')).toLowerCase();
-      if(!hay.includes(q)) return false;
-    }
-    return true;
-  });
-
-  // sort by postDate
-  FILTERED.sort((a,b)=>{
-    const da = extractPostDate(a);
-    const db = extractPostDate(b);
-    const na = da ? new Date(da).getTime() : 0;
-    const nb = db ? new Date(db).getTime() : 0;
-    return (sortDir === 'asc') ? (na - nb) : (nb - na);
-  });
-
-  renderTable(FILTERED);
-}
-
-function render(){
-  // update meta
-  meta.count = DATA.length;
-  meta.updatedAt = meta.updatedAt || now();
-  document.getElementById('meta').textContent = `Loaded ${DATA.length.toLocaleString()} posts · Updated: ${meta.updatedAt}`;
-
-  updateSourceFilter(DATA);
-  applyFilters();
-}
-
-/* ---------- init + fetch ---------- */
-fetch(PATH, {cache:'no-store'}).then(r=>{
-  if(!r.ok) throw new Error(`HTTP ${r.status}`);
-  return r.json();
-}).then(json=>{
-  // Accept two shapes:
-  // 1) { items: [...] , updatedAt: '...' }
-  // 2) [ ... ]
-  const items = Array.isArray(json) ? json : (json.items || json.rows || json.data || []);
-  DATA = items.map(it=>{
-    // normalize a bit: ensure user exists
-    it.user = it.user || it.from || {};
-    // ensure creation_time copied if present inside debug strings
-    // We'll not mutate more than necessary.
-    return it;
-  });
-
-  meta.updatedAt = (json && json.updatedAt) ? new Date(json.updatedAt).toLocaleString("da-DK") : now();
-  if(!DATA.length){
-    document.getElementById("meta").style.display = "none";
-    document.getElementById("tbl").style.display = "none";
-    document.getElementById("fallback").style.display = "block";
-    document.getElementById("fallback").textContent = `No casting jobs found — last update: ${meta.updatedAt}`;
-    return;
-  }
-  render();
-}).catch(err=>{
-  document.getElementById("meta").textContent = "Error loading jobs: " + err.message;
-});
-
-/* ---------- interactions ---------- */
-document.getElementById('q').addEventListener('input', applyFilters);
-document.getElementById('source').addEventListener('change', applyFilters);
-document.getElementById('age').addEventListener('change', applyFilters);
-document.getElementById('onlyUnread').addEventListener('change', applyFilters);
-document.getElementById('sort').addEventListener('change', applyFilters);
-
-// expose for debugging
-window.__RADAR = {extractPostDate, stableId, loadReads, saveReads};
+// Her peger vi dashboardet på crawlerens output
+const PATH = "jobs/live/jobs.json"; 
 </script>
 </body>
 </html>
