@@ -1,76 +1,74 @@
 // scripts/crawl.mjs
-// Crawler til CASTING RADAR — henter seneste dataset fra Apify Facebook Groups Scraper
-// og gemmer resultater i radar/jobs.json
-
 import fs from "node:fs/promises";
 
-// === Konfiguration ===
 const APIFY_TOKEN = process.env.APIFY_TOKEN;
-const ACTOR_ID = "apify~facebook-groups-scraper"; // brug actor navnet
-
 if (!APIFY_TOKEN) {
-  console.error("❌ APIFY_TOKEN er ikke sat. Tjek GitHub Actions secrets.");
+  console.error("❌ APIFY_TOKEN er ikke sat. Tjek dine GitHub Actions secrets.");
   process.exit(1);
 }
 
-// Helper
+const ACTOR_ID = "apify~facebook-groups-scraper";
+
+// Hent seneste runs
+const RUNS_URL = `https://api.apify.com/v2/acts/${ACTOR_ID}/runs?status=SUCCEEDED&desc=true&limit=1&token=${APIFY_TOKEN}`;
+
 async function fetchJson(url) {
   const res = await fetch(url);
   if (!res.ok) throw new Error(`HTTP ${res.status} for ${url}`);
   return res.json();
 }
 
-// Hent seneste succesfulde run
-async function fetchLatestRun() {
-  console.log("→ Henter seneste run fra Apify…");
-  const url = `https://api.apify.com/v2/acts/${ACTOR_ID}/runs?token=${APIFY_TOKEN}&limit=1&status=SUCCEEDED&desc=true`;
-  const res = await fetchJson(url);
-  if (!res.data || res.data.length === 0) throw new Error("Ingen succesfulde runs fundet.");
-  return res.data[0];
-}
-
-// Hent dataset
 async function fetchDataset(datasetId) {
-  console.log(`→ Henter dataset ${datasetId}…`);
   const url = `https://api.apify.com/v2/datasets/${datasetId}/items?token=${APIFY_TOKEN}&clean=true`;
   return fetchJson(url);
 }
 
-// Gem jobs
-async function saveJobs(items) {
+async function run() {
+  console.log("→ Henter seneste run fra Apify…");
+  const runs = await fetchJson(RUNS_URL);
+
+  // === Debug ===
+  console.log("  🔎 API response:", JSON.stringify(runs, null, 2).slice(0, 500));
+
+  const run = runs?.data?.items?.[0];
+  if (!run) {
+    throw new Error("Ingen SUCCEEDED runs fundet – tjek om du har kørt en task/actor manuelt i Apify.");
+  }
+
+  const { id: runId, defaultDatasetId } = run;
+  console.log(`  ✅ runId: ${runId}, dataset: ${defaultDatasetId}`);
+
+  console.log("→ Henter dataset items…");
+  const items = await fetchDataset(defaultDatasetId);
+
+  console.log(`  📊 Antal items hentet fra Apify: ${items.length}`);
+  if (items.length > 0) {
+    console.log("  🔎 Første item preview:", JSON.stringify(items[0], null, 2).slice(0, 500));
+  }
+
   const outPath = "radar/jobs.json";
-  const data = {
+  const out = {
     updatedAt: new Date().toISOString(),
-    items: items.map((x, i) => ({
-      id: x.id || `apify_${i}`,
+    items: items.map((x) => ({
       title: x.title || "(no title)",
       summary: x.text || "",
       country: "EU",
       source: "FacebookGroups",
-      url: x.url || x.postUrl || "",
+      url: x.url || "",
       posted_at: x.creation_time
         ? new Date(x.creation_time * 1000).toISOString()
         : null,
       fetched_at: new Date().toISOString(),
     })),
   };
+
   await fs.mkdir("radar", { recursive: true });
-  await fs.writeFile(outPath, JSON.stringify(data, null, 2), "utf8");
-  console.log(`✓ Gemte ${data.items.length} opslag i ${outPath}`);
+  await fs.writeFile(outPath, JSON.stringify(out, null, 2), "utf8");
+
+  console.log(`✓ Done. Wrote ${out.items.length} items to ${outPath}`);
 }
 
-// === Main ===
-(async () => {
-  try {
-    const run = await fetchLatestRun();
-    console.log("  runId:", run.id, "dataset:", run.defaultDatasetId);
-
-    const items = await fetchDataset(run.defaultDatasetId);
-    console.log(`  ${items.length} items hentet.`);
-
-    await saveJobs(items);
-  } catch (err) {
-    console.error("❌ Fejl under crawl:", err.message);
-    process.exit(1);
-  }
-})();
+run().catch((err) => {
+  console.error("❌ Fejl under crawl:", err.message);
+  process.exit(1);
+});
