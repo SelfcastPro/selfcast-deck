@@ -1,6 +1,7 @@
 // scripts/crawl.mjs
+// Henter opslag fra Apify Facebook Groups Scraper og gemmer dem i radar/jobs.json
 
-// Helper til at hente JSON med native fetch
+// Helper til fetch
 const fetchJson = async (url, options = {}) => {
   const res = await fetch(url, options);
   if (!res.ok) throw new Error(`HTTP ${res.status} for ${url}`);
@@ -14,15 +15,13 @@ if (!APIFY_TOKEN) {
   process.exit(1);
 }
 
-// Actor ID for Facebook Groups Scraper (tjek din Apify console for det korrekte ID)
+// Actor ID (standard: facebook-groups-scraper)
 const ACTOR_ID = "apify~facebook-groups-scraper";
 
-// URL til at køre aktøren
+// API URL’er
 const START_RUN_URL = `https://api.apify.com/v2/acts/${ACTOR_ID}/runs?token=${APIFY_TOKEN}`;
-// URL til at hente de seneste runs
-const RUNS_URL = `https://api.apify.com/v2/actor-tasks/${ACTOR_ID}/runs?token=${APIFY_TOKEN}&limit=1&desc=true`;
 
-const fs = await import("fs");
+import fs from "node:fs";
 
 // Start et nyt run
 async function startRun() {
@@ -31,8 +30,8 @@ async function startRun() {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      maxItems: 20,
-      // her kan du tilføje input fra dit Apify UI hvis nødvendigt
+      // input kan tilpasses (fx groupUrls, search terms osv.)
+      maxItems: 50
     }),
   });
   return res.data;
@@ -73,7 +72,7 @@ async function saveJobs(items) {
       summary: x.text || "",
       country: "EU",
       source: "FacebookGroups",
-      url: x.url || "",
+      url: x.url || x.postUrl || "",
       posted_at: x.creation_time
         ? new Date(x.creation_time * 1000).toISOString()
         : null,
