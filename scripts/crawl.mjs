@@ -1,6 +1,7 @@
 // scripts/crawl.mjs
 
 import fs from "fs";
+import path from "path";
 
 // Helper til at hente JSON
 const fetchJson = async (url, options = {}) => {
@@ -20,6 +21,16 @@ if (!APIFY_TOKEN) {
 const ACTOR_ID = "apify~facebook-groups-scraper";
 const RUNS_URL = `https://api.apify.com/v2/acts/${ACTOR_ID}/runs?token=${APIFY_TOKEN}&limit=1&desc=true`;
 
+// Output paths
+const OUT_DIR = path.join("radar", "jobs");
+const OUT_FILE = path.join(OUT_DIR, "jobs.json");
+
+// Sørg for at mappen findes
+if (!fs.existsSync(OUT_DIR)) {
+  fs.mkdirSync(OUT_DIR, { recursive: true });
+  console.log(`📂 Oprettede mappe: ${OUT_DIR}`);
+}
+
 async function getLatestRun() {
   console.log("→ Henter seneste run fra Apify…");
   const res = await fetchJson(RUNS_URL);
@@ -35,7 +46,6 @@ async function fetchDataset(datasetId) {
 }
 
 async function saveJobs(items) {
-  const outPath = "radar/jobs.json";
   const data = {
     updatedAt: new Date().toISOString(),
     items: items.map(x => ({
@@ -50,13 +60,13 @@ async function saveJobs(items) {
       fetched_at: new Date().toISOString(),
     })),
   };
-  fs.writeFileSync(outPath, JSON.stringify(data, null, 2));
-  console.log(`✅ Gemte ${items.length} opslag i ${outPath}`);
+  fs.writeFileSync(OUT_FILE, JSON.stringify(data, null, 2));
+  console.log(`✅ Gemte ${items.length} opslag i ${OUT_FILE}`);
 }
 
 function loadLastJobs() {
   try {
-    const buf = fs.readFileSync("radar/jobs.json", "utf8");
+    const buf = fs.readFileSync(OUT_FILE, "utf8");
     const json = JSON.parse(buf);
     console.log(`⚠️ Bruger fallback – beholdt ${json.items.length} gamle opslag`);
     return json.items || [];
