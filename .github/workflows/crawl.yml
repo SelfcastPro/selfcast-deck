@@ -2,17 +2,21 @@ name: Crawl casting jobs
 
 on:
   schedule:
-    - cron: "0 */6 * * *"   # Kører hver 6. time
-  workflow_dispatch:        # Tillader manuel kørsel
+    - cron: "0 */6 * * *"   # kører hver 6. time
+  workflow_dispatch:         # mulighed for at køre manuelt
 
 jobs:
   crawl:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 18   # 18+ har indbygget fetch
 
       - name: Run crawler
         run: node scripts/crawl.mjs
@@ -21,8 +25,8 @@ jobs:
 
       - name: Commit & push results
         run: |
-          git config user.name "GitHub Actions"
-          git config user.email "actions@github.com"
-          git add public/live/jobs.json
-          git commit -m "Update jobs.json" || echo "No changes"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add radar/jobs.json
+          git commit -m "data(jobs): update jobs.json" || echo "No changes to commit"
           git push
