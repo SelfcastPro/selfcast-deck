@@ -2,11 +2,11 @@ name: Crawl casting jobs
 
 on:
   schedule:
-    - cron: "0 */6 * * *"
-  workflow_dispatch:
+    - cron: "0 */6 * * *"   # Kører hver 6. time
+  workflow_dispatch:         # Mulighed for manuelt run
 
 permissions:
-  contents: write   # <-- Giv Actions lov til at pushe til repoet
+  contents: write   # Giv Actions lov til at pushe til repoet
 
 jobs:
   crawl:
@@ -21,7 +21,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 18   # Node 18+ har fetch indbygget
 
       - name: Run crawler
         run: node scripts/crawl.mjs
