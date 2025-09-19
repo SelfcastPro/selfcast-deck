@@ -2,36 +2,31 @@ name: Crawl casting jobs
 
 on:
   schedule:
-    - cron: "*/120 * * * *"     # hver 2. time
-  workflow_dispatch: {}          # mulighed for manuel kørsel
+    - cron: "0 */6 * * *"   # kører hver 6. time
+  workflow_dispatch:         # mulighed for at køre manuelt
 
 jobs:
   crawl:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Setup Node
+      - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "18"
+          node-version: 18   # 18+ har indbygget fetch
 
       - name: Run crawler
-        env:
-          APIFY_TOKEN: ${{ secrets.APIFY_TOKEN }}          # din hemmelige token
-          ACTOR_ID: apify~facebook-groups-scraper          # kan ændres hvis du bruger en fork af actor'en
         run: node scripts/crawl.mjs
+        env:
+          APIFY_TOKEN: ${{ secrets.APIFY_TOKEN }}
 
       - name: Commit & push results
         run: |
           git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          if [ -n "$(git status --porcelain)" ]; then
-            git add radar/jobs.json
-            git commit -m "data(jobs): update jobs.json"
-            git push
-          else
-            echo "No changes to commit."
-          fi
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add radar/jobs.json
+          git commit -m "data(jobs): update jobs.json" || echo "No changes to commit"
+          git push
