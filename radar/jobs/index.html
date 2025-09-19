@@ -5,146 +5,221 @@
   <title>Selfcast – Casting Jobs Radar</title>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <style>
-    body{font-family:system-ui,Roboto,Arial;margin:0;background:#0b0b0b;color:#f5f5f5}
+    body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;margin:0;background:#0b0b0b;color:#f5f5f5}
     a{color:#4da3ff;text-decoration:none}
-    .wrap{max-width:1400px;margin:0 auto;padding:20px}
-    h1{margin:0 0 10px;font-size:26px;font-weight:900}
-    .controls{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0 18px}
+    .wrap{display:flex;max-width:1600px;margin:0 auto}
+    h1{margin:20px;font-size:26px;font-weight:900}
+    .controls{display:flex;gap:10px;flex-wrap:wrap;margin:0 20px 18px}
     input,select{padding:6px 10px;border:1px solid #222;background:#141414;color:#f5f5f5;border-radius:8px}
-    .layout{display:flex;gap:20px}
-    .table-wrap{flex:2;overflow:auto}
-    .detail{flex:1;background:#111;padding:15px;border-radius:8px;position:sticky;top:20px;height:85vh;overflow:auto}
     table{width:100%;border-collapse:collapse;background:#141414;border-radius:12px;overflow:hidden;table-layout:fixed}
     th,td{padding:8px;border-bottom:1px solid #222;vertical-align:top;text-align:left;font-size:14px}
     tr:hover{background:#161616;cursor:pointer}
     th:nth-child(1),td:nth-child(1){width:32px;text-align:center}
-    th:nth-child(2),td:nth-child(2){width:26%}
-    th:nth-child(3),td:nth-child(3){width:10%}
-    th:nth-child(4),td:nth-child(4){width:14%}
-    th:nth-child(5),td:nth-child(5){width:38%}
-    th:nth-child(6),td:nth-child(6){width:12%}
-    .snippet{white-space:pre-wrap;max-height:10em;overflow:hidden}
+    th:nth-child(2),td:nth-child(2){width:25%}   /* Title */
+    th:nth-child(3),td:nth-child(3){width:10%}   /* Country */
+    th:nth-child(4),td:nth-child(4){width:8%}    /* Source (short) */
+    th:nth-child(5),td:nth-child(5){width:35%}   /* Snippet */
+    th:nth-child(6),td:nth-child(6){width:12%}   /* Posted */
+    .snippet{white-space:pre-wrap;max-height:6em;overflow:hidden;text-overflow:ellipsis}
     .small{font-size:12px;color:#b3b3b3}
     .fallback{padding:2rem;text-align:center;color:#aaa}
+    .details{width:40%;border-left:1px solid #333;padding:20px;overflow-y:auto;max-height:calc(100vh - 60px);position:sticky;top:0}
+    .list{flex:1;padding:0 20px}
   </style>
 </head>
 <body>
-<div class="wrap">
   <h1>Selfcast – Casting Jobs Radar</h1>
-  <div id="meta" class="small">Loading…</div>
+  <div id="meta" class="small" style="margin:0 20px 10px">Loading…</div>
 
   <div class="controls">
-    <input id="q" type="search" placeholder="Search…" />
+    <input id="q" type="search" placeholder="Search title, snippet, role, city…" />
     <select id="source"><option value="">All sources</option></select>
-    <select id="sort">
-      <option value="new">Newest first</option>
-      <option value="old">Oldest first</option>
+    <select id="age">
+      <option value="">Any time</option>
+      <option value="1">Last 24h</option>
+      <option value="3">Last 3 days</option>
+      <option value="7" selected>Last 7 days</option>
+      <option value="14">Last 14 days</option>
+      <option value="30">Last 30 days</option>
     </select>
     <label class="small"><input type="checkbox" id="onlyUnread"> Only unread</label>
+    <select id="sort">
+      <option value="newest" selected>Newest first</option>
+      <option value="oldest">Oldest first</option>
+    </select>
   </div>
 
-  <div class="layout">
-    <div class="table-wrap">
+  <div class="wrap">
+    <div class="list">
       <table id="tbl" style="display:none">
         <thead>
           <tr>
-            <th>✓</th><th>Title</th><th>Country</th><th>Source</th><th>Snippet</th><th>Posted</th>
+            <th>✓</th>
+            <th>Title</th>
+            <th>Country</th>
+            <th>Source</th>
+            <th>Snippet</th>
+            <th>Posted</th>
           </tr>
         </thead>
         <tbody></tbody>
       </table>
       <div id="fallback" class="fallback" style="display:none"></div>
     </div>
-    <div id="detail" class="detail">Select a job to view full details</div>
+    <div id="details" class="details" style="display:none">
+      <div class="small">Select a post to view details</div>
+    </div>
   </div>
-</div>
 
 <script>
 const PATH = "live/jobs.json";
+
 function loadSeen(){ try{return JSON.parse(localStorage.getItem("seenJobs")||"{}");}catch{return{}} }
 function saveSeen(x){ localStorage.setItem("seenJobs",JSON.stringify(x)); }
 let seen = loadSeen();
 
-const esc = (s)=> (s||'').replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;","&gt;":">","\"":"&quot;","'":"&#39;"}[m]));
+const agoDays = (iso) => !iso ? Infinity : (Date.now() - new Date(iso).getTime())/86400000;
+const uniq = (arr) => [...new Set(arr.filter(Boolean))].sort((a,b)=>a.localeCompare(b));
+const esc = (s)=> (s||'').replace(/[&<>"']/g, m=>({"&":"&amp;","<":"&lt;","&gt;":">","\"":"&quot;","'":"&#39;"}[m]));
 const fmtDate = (d)=> d ? new Date(d).toLocaleDateString("da-DK") : "";
 
-function truncate(text, maxLines=10){
-  const lines=text.split("\n");
-  return lines.slice(0,maxLines).join("\n")+(lines.length>maxLines?" …":"");
+// Lav mailto-links i tekst
+function makeMailtoLinks(text) {
+  if (!text) return "";
+  const emailRegex = /([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/g;
+  return text.replace(emailRegex, (email) => {
+    const subject = "Regarding your casting call on Facebook";
+    const body = `Hi,
+
+We came across your casting post on Facebook and would love to help.
+Please share more details about the role(s) and production so we can present the right candidates for you.
+
+The more info we can give the talents, the better the match:
+- Client name
+- Role description (gender, age, look, special requirements, photos/videos)
+- Rights (e.g. 1 year worldwide, all platforms)
+- Salary (total fee incl. buyout)
+- Travel expenses (covered? up to 500 EUR?)
+- Date(s) (specific day or period)
+- Location (country, city/region)
+
+Next time you need talents, you can also book directly through the Selfcast platform.
+We currently represent over 60,000 talents in 160+ countries, with a strong base across Europe.
+
+Best regards,
+The Selfcast Team
+CASTING MADE EASY`;
+    return `<a href="mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}">${email}</a>`;
+  });
 }
 
 let DATA=[];
 fetch(PATH,{cache:'no-store'})
- .then(r=>r.json())
- .then(json=>{
-   DATA = json.items||[];
-   const updatedAt=json.updatedAt?new Date(json.updatedAt).toLocaleString("da-DK"):"ukendt";
-   document.getElementById("meta").textContent=`Loaded ${DATA.length} posts · Updated: ${updatedAt}`;
-   uniq(DATA.map(r=>r.source)).forEach(s=>{const o=document.createElement("option");o.value=s;o.textContent=s;source.appendChild(o);});
-   render();
- });
+  .then(r=>r.json())
+  .then(json=>{
+    DATA = json.items || [];
+    const updatedAt = json.updatedAt ? new Date(json.updatedAt).toLocaleString("da-DK") : "ukendt";
+    document.getElementById("meta").textContent = `Loaded ${DATA.length.toLocaleString()} posts · Updated: ${updatedAt}`;
 
-function uniq(arr){return[...new Set(arr.filter(Boolean))];}
-function makeKey(r){return(r.url||"")+"_"+(r.posted_at||r.fetched_at||"");}
+    if (!DATA.length) {
+      document.getElementById("tbl").style.display = "none";
+      document.getElementById("fallback").style.display = "block";
+      document.getElementById("fallback").textContent = `No casting jobs found — last update: ${updatedAt}`;
+      return;
+    }
+
+    uniq(DATA.map(r=>r.source)).forEach(s=>{
+      const o=document.createElement('option');
+      o.value=s; o.textContent=s;
+      document.getElementById("source").appendChild(o);
+    });
+
+    document.getElementById("tbl").style.display='table';
+    render();
+  })
+  .catch(err=>{
+    document.getElementById("meta").textContent = "Error loading jobs: " + err.message;
+  });
+
+[q=$q=document.getElementById('q'),
+ $source=document.getElementById('source'),
+ $age=document.getElementById('age'),
+ $onlyUnread=document.getElementById('onlyUnread'),
+ $sort=document.getElementById('sort')];
+
+[$q,$source,$age,$onlyUnread,$sort].forEach(el=>el.addEventListener('input',render));
+
+function makeKey(r){
+  return (r.url||"") + "_" + (r.posted_at||r.fetched_at||"");
+}
+
+function matches(r){
+  const q = $q.value.trim().toLowerCase();
+  const so=$source.value, days=$age.value?parseInt($age.value,10):null;
+  if (so && r.source !== so) return false;
+  if (days!=null && agoDays(r.posted_at||r.fetched_at) > days) return false;
+  if ($onlyUnread.checked && seen[makeKey(r)]) return false;
+  if (!q) return true;
+  const hay = [r.title,r.summary,r.country,r.source].join(' ').toLowerCase();
+  return hay.includes(q);
+}
 
 function row(r){
-  const key=makeKey(r);
-  const checked=seen[key]?"checked":"";
-  return `<tr data-id="${esc(key)}">
-    <td><input type="checkbox" ${checked}></td>
-    <td><strong>${esc(r.title||"(no title)")}</strong></td>
-    <td>${esc(r.country||"")}</td>
-    <td>${esc(r.source||"")}</td>
-    <td class="snippet">${esc(truncate(r.summary||""))}</td>
-    <td>${esc(fmtDate(r.posted_at))}</td>
+  const key = makeKey(r);
+  const checked = seen[key] ? "checked" : "";
+  const date = r.posted_at || r.fetched_at;
+  return `
+  <tr data-id="${esc(key)}">
+    <td><input type="checkbox" data-id="${esc(key)}" ${checked}></td>
+    <td><strong>${esc(r.title||'(no title)')}</strong></td>
+    <td>${esc(r.country||'')}</td>
+    <td>${esc(r.source === 'FacebookGroups' ? 'FB' : r.source||'')}</td>
+    <td class="snippet">${makeMailtoLinks(r.summary||'')}</td>
+    <td>${esc(fmtDate(date))}</td>
   </tr>`;
 }
 
 function render(){
-  const q=document.getElementById("q").value.toLowerCase();
-  const so=document.getElementById("source").value;
-  const sort=document.getElementById("sort").value;
-  const onlyUnread=document.getElementById("onlyUnread").checked;
+  let rows = DATA.filter(matches);
+  if ($sort.value==="newest"){
+    rows.sort((a,b)=> (b.posted_at||b.fetched_at||'').localeCompare(a.posted_at||a.fetched_at||''));
+  } else {
+    rows.sort((a,b)=> (a.posted_at||a.fetched_at||'').localeCompare(b.posted_at||b.fetched_at||''));
+  }
+  rows = rows.slice(0,1000);
 
-  let rows=DATA.filter(r=>{
-    if(so && r.source!==so) return false;
-    if(onlyUnread && seen[makeKey(r)]) return false;
-    if(q && !`${r.title} ${r.summary}`.toLowerCase().includes(q)) return false;
-    return true;
-  });
+  $tbody=document.querySelector('#tbl tbody');
+  $tbody.innerHTML = rows.map(row).join('');
 
-  rows.sort((a,b)=>{
-    if(sort==="old") return new Date(a.posted_at)-new Date(b.posted_at);
-    return new Date(b.posted_at)-new Date(a.posted_at);
-  });
-
-  const $tbody=document.querySelector("#tbl tbody");
-  $tbody.innerHTML=rows.map(row).join("");
-  document.getElementById("tbl").style.display=rows.length?"table":"none";
-  document.getElementById("fallback").style.display=rows.length?"none":"block";
-
-  $tbody.querySelectorAll("tr").forEach(tr=>{
-    const key=tr.dataset.id;
-    tr.addEventListener("click",()=>{
-      const r=DATA.find(x=>makeKey(x)===key);
-      if(r) showDetail(r);
-    });
-    tr.querySelector("input").addEventListener("change",e=>{
-      if(e.target.checked) seen[key]=true; else delete seen[key];
+  $tbody.querySelectorAll('input[type=checkbox]').forEach(cb=>{
+    cb.addEventListener('change',()=>{
+      if(cb.checked) seen[cb.dataset.id]=true;
+      else delete seen[cb.dataset.id];
       saveSeen(seen);
     });
   });
+
+  $tbody.querySelectorAll('tr').forEach(tr=>{
+    tr.addEventListener('click',e=>{
+      if(e.target.tagName.toLowerCase()==="input") return;
+      const id = tr.getAttribute("data-id");
+      const job = DATA.find(r=>makeKey(r)===id);
+      if(job) showDetails(job);
+    });
+  });
 }
 
-function showDetail(r){
-  document.getElementById("detail").innerHTML=`
-    <h3>${esc(r.title||"")}</h3>
-    <div class="small">${esc(r.country||"")} · ${esc(r.source||"")} · ${fmtDate(r.posted_at)}</div>
-    <pre style="white-space:pre-wrap">${esc(r.summary||"")}</pre>
-    <p><a href="${esc(r.url)}" target="_blank">View original post</a></p>`;
+function showDetails(r){
+  const $d = document.getElementById("details");
+  $d.style.display="block";
+  const date = r.posted_at || r.fetched_at;
+  $d.innerHTML = `
+    <h3>${esc(r.title||'(no title)')}</h3>
+    <div class="small">${esc(r.country||'')} · ${esc(r.source||'')} · ${esc(fmtDate(date))}</div>
+    <pre style="white-space:pre-wrap">${makeMailtoLinks(r.summary||'')}</pre>
+    <p><a href="${esc(r.url)}" target="_blank">View original post</a></p>
+  `;
 }
-
-["q","source","sort","onlyUnread"].forEach(id=>document.getElementById(id).addEventListener("input",render));
 </script>
 </body>
 </html>
