@@ -2,7 +2,7 @@ name: Crawl casting jobs
 
 on:
   schedule:
-    - cron: "0 */2 * * *"   # kører hver 2. time
+    - cron: "0 */6 * * *"   # kører hver 6. time
   workflow_dispatch:         # mulighed for at køre manuelt
 
 jobs:
