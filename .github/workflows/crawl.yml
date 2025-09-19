@@ -3,7 +3,7 @@ name: Crawl casting jobs
 on:
   schedule:
     - cron: "0 */6 * * *"   # kører hver 6. time
-  workflow_dispatch:
+  workflow_dispatch:         # mulighed for at køre manuelt
 
 jobs:
   crawl:
@@ -12,28 +12,26 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0    # vigtigt for at kunne merge/pull
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 18   # Node 18+ har indbygget fetch
 
       - name: Run crawler
-        run: node scripts/crawl.mjs
+        run: |
+          echo "🔍 Starter crawler med debug logs..."
+          node scripts/crawl.mjs
         env:
           APIFY_TOKEN: ${{ secrets.APIFY_TOKEN }}
 
       - name: Commit & push results
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git pull --rebase origin main || true
           git add radar/jobs.json
           git commit -m "data(jobs): update jobs.json" || echo "No changes to commit"
-
-          # hent de nyeste ændringer fra main først
-          git pull --rebase origin main || true
-
-          # skub så resultaterne op
-          git push origin main
+          git push origin HEAD:main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
