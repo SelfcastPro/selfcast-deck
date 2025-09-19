@@ -1,198 +1,271 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Selfcast Casting Radar – V2.1</title>
-<meta name="robots" content="noindex,nofollow" />
+<meta charset="utf-8"/>
+<title>Selfcast – Casting Jobs Radar</title>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
 <style>
-  body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; margin: 20px; background:#0b0b0b; color:#f5f5f5; }
-  a { color: inherit; }
-  .wrap { max-width: 1400px; margin: 0 auto; }
-  h1 { margin: 8px 0 6px; font-size: 28px; font-weight: 900; }
-  .meta { color:#b3b3b3; font-size:12px; margin-bottom: 14px; }
-  .controls { display: flex; gap: 12px; flex-wrap: wrap; margin: 12px 0 20px; }
-  input, select, label { padding: 8px; border: 1px solid #222; background:#141414; color:#f5f5f5; border-radius: 10px; }
-  label.chk { display:flex; align-items:center; gap:8px; border:none; }
-  table { width: 100%; border-collapse: collapse; background:#141414; border-radius: 12px; overflow:hidden; }
-  th, td { text-align: left; padding: 10px; border-bottom: 1px solid #222; vertical-align: top; }
-  tr:hover { background: #161616; }
-  .pill { display:inline-block; padding:2px 8px; border-radius:999px; background:#1d1d1d; border:1px solid #222; font-size: 12px; }
-  .small { font-size:12px; color:#b3b3b3; }
-  .spinner { display:inline-block; width:18px; height:18px; border:2px solid #222; border-top:2px solid #888; border-radius:50%; animation:spin 0.8s linear infinite; }
-  @keyframes spin { to { transform: rotate(360deg); } }
-  .topbar { display:flex; justify-content:space-between; align-items:center; gap:12px; }
-  .btn { display:inline-flex; align-items:center; gap:8px; background:#e51c23; border:0; color:#fff; padding:10px 14px; border-radius:10px; text-decoration:none; font-weight:700; }
-  .btn.secondary{ background:#1f1f1f; border:1px solid #2a2a2a; color:#fff; }
+  :root{
+    --bg:#0b0b0b; --panel:#141414; --muted:#9aa3ab; --line:#222;
+    --text:#f5f5f5; --link:#7fb3ff; --accent:#2a2a2a;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--text);font:14px/1.45 system-ui,-apple-system,Segoe UI,Roboto,Arial}
+  a{color:var(--link);text-decoration:none}
+  .wrap{max-width:1200px;margin:0 auto;padding:18px}
+  h1{margin:0 0 8px;font-size:26px;font-weight:900}
+  .muted{color:var(--muted)}
+  .controls{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 14px}
+  input,select{padding:8px 10px;border:1px solid var(--line);background:var(--panel);color:var(--text);border-radius:10px}
+  .layout{display:grid;grid-template-columns: 1.6fr 1fr;gap:12px;align-items:start}
+  .table{background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  table{width:100%;border-collapse:collapse;table-layout:fixed}
+  th,td{padding:10px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{background:#111;font-weight:700}
+  tr:hover td{background:#161616}
+  th:nth-child(1),td:nth-child(1){width:36px;text-align:center}
+  th:nth-child(2){width:30%}
+  th:nth-child(3){width:9%}
+  th:nth-child(4){width:16%}
+  th:nth-child(5){width:auto}
+  th:nth-child(6),td:nth-child(6){width:110px}
+  .title a{font-weight:800}
+  .snippet{white-space:pre-wrap;max-height:6.6em;overflow:hidden}
+  .side{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px;position:sticky;top:14px;max-height:calc(100vh - 28px);overflow:auto}
+  .side h2{margin:0 0 6px;font-size:18px}
+  .side .meta{display:flex;gap:12px;flex-wrap:wrap;margin:6px 0 12px}
+  .btns{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 12px}
+  .btn{background:#1f1f1f;border:1px solid var(--line);padding:8px 10px;border-radius:10px;cursor:pointer;color:var(--text)}
+  .btn:hover{background:#232323}
+  .fallback{padding:2rem;text-align:center;color:var(--muted)}
+  .pill{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:2px 8px;background:#101010}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <div class="topbar">
-    <h1 id="title">Selfcast Casting Radar – V2.1</h1>
-    <div>
-      <a class="btn secondary" href="/">← Back to main</a>
+  <h1>Selfcast – Casting Jobs Radar</h1>
+  <div id="meta" class="muted">Loading…</div>
+
+  <div class="controls">
+    <input id="q" type="search" placeholder="Search title, snippet, role, city…" />
+    <select id="source"><option value="">All sources</option></select>
+    <select id="age">
+      <option value="">Any time</option>
+      <option value="1">Last 24h</option>
+      <option value="3">Last 3 days</option>
+      <option value="7" selected>Last 7 days</option>
+      <option value="14">Last 14 days</option>
+      <option value="30">Last 30 days</option>
+    </select>
+    <select id="sort">
+      <option value="new">Newest first</option>
+      <option value="old">Oldest first</option>
+    </select>
+    <label class="muted"><input type="checkbox" id="onlyUnread"> Only unread</label>
+  </div>
+
+  <div class="layout">
+    <div class="table">
+      <table id="tbl">
+        <thead>
+          <tr>
+            <th>✓</th>
+            <th>Title</th>
+            <th>Country</th>
+            <th>Source</th>
+            <th>Snippet</th>
+            <th>Posted</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <div id="fallback" class="fallback" style="display:none"></div>
     </div>
-  </div>
-  <div class="meta">Data file: <code id="source-url"></code></div>
-  <div id="status" class="small"><span class="spinner"></span> Loading latest data…</div>
 
-  <div class="controls" style="display:none" id="controls">
-    <input id="q" type="search" placeholder="Search name, notes, country, city, email, phone…" />
-    <select id="country"><option value="">All countries</option></select>
-    <select id="type"><option value="">All types</option></select>
-    <label class="chk"><input type="checkbox" id="contactsOnly" /> Contacts only</label>
+    <aside class="side" id="preview">
+      <div class="muted">Select a post to preview…</div>
+    </aside>
   </div>
-
-  <table id="tbl" style="display:none">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Country</th>
-        <th>City/Region</th>
-        <th>Type</th>
-        <th>Contact</th>
-        <th>URL</th>
-        <th>Notes</th>
-        <th>Source</th>
-      </tr>
-    </thead>
-    <tbody></tbody>
-  </table>
 </div>
 
 <script>
-// --- OPTIONAL AUTH GUARD (kræver login-cookie fra jeres /api/login) ---
-// Slå til ved at ændre requireAuth = true;
-const requireAuth = false;
-if (requireAuth) {
-  const loggedIn = document.cookie.split(';').some(c => c.trim().startsWith('sc_auth=ok'));
-  if (!loggedIn) location.href = '/login/';
-}
+const PATH = "live/jobs.json";                           // samme som crawl skriver
+const LS_READ = "radar.read.v1";                        // checkmarks
+let READ = JSON.parse(localStorage.getItem(LS_READ) || "{}");
 
-// Helpers
-function escapeHtml(s) { return (s||'').replace(/[&<>"']/g, m => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[m])); }
-function escapeAttr(s) { return (s||'').replace(/"/g, '&quot;'); }
-function uniqueSorted(arr) { return Array.from(new Set(arr.filter(Boolean))).sort((a,b)=>a.localeCompare(b)); }
+const esc = (s)=> (s||'').replace(/[&<>"']/g, m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[m]));
+const fmtDate = (d)=> d ? new Date(d).toLocaleDateString("da-DK") : "";
+const agoDays = (iso)=> !iso ? Infinity : (Date.now() - new Date(iso).getTime())/86400000;
 
-// Tiny CSV parser (quotes/commas safe)
-function parseCSV(text) {
-  const rows = []; let row = []; let field = ''; let inQuotes = false;
-  for (let i = 0; i < text.length; i++) {
-    const c = text[i], n = text[i+1];
-    if (inQuotes) {
-      if (c === '"' && n === '"') { field += '"'; i++; continue; }
-      if (c === '"') { inQuotes = false; continue; }
-      field += c;
-    } else {
-      if (c === '"') { inQuotes = true; continue; }
-      if (c === ',') { row.push(field); field = ''; continue; }
-      if (c === '\n') { row.push(field); rows.push(row); row = []; field=''; continue; }
-      if (c === '\r') { continue; }
-      field += c;
+let DATA=[], FILTERED=[];
+
+// Email template
+const MAIL_BODY = `Regarding your casting call on Facebook
+
+Hi
+
+We came across your casting post on Facebook and would love to help.
+Please share more details about the role(s) and production so we can present the right candidates for you.
+
+The more info we can give the talents, the better the match:
+- Client name
+- Role description (gender, age, look, special requirements, photos/videos)
+- Rights (e.g. 1 year worldwide, all platforms)
+- Salary (total fee incl. buyout)
+- Travel expenses (covered? up to 500 EUR?)
+- Date(s) (specific day or period)
+- Location (country, city/region)
+
+Next time you need talents, you can also book directly through the Selfcast platform.
+We currently represent over 60,000 talents in 160+ countries, with a strong base across Europe.
+
+Best regards,
+The Selfcast Team
+CASTING MADE EASY`;
+
+// Load data
+fetch(PATH, { cache: "no-store" })
+  .then(r=>r.json())
+  .then(json=>{
+    DATA = json.items || [];
+    document.getElementById("meta").textContent =
+      `Loaded ${DATA.length.toLocaleString()} posts · Updated: ${new Date(json.updatedAt || Date.now()).toLocaleString("da-DK")} · live from Apify`;
+
+    // Source filter options
+    const $src = document.getElementById("source");
+    const unique = [...new Set(DATA.map(x=>x.source||""))].filter(Boolean).sort();
+    for (const s of unique) {
+      const o = document.createElement("option");
+      o.value = s; o.textContent = s;
+      $src.appendChild(o);
     }
+
+    applyAndRender();
+  })
+  .catch(err=>{
+    document.getElementById("meta").textContent = "Error loading jobs: " + err.message;
+    document.getElementById("fallback").style.display = "block";
+    document.getElementById("fallback").textContent = "Could not load data.";
+  });
+
+// Filtering
+function applyFilters(row){
+  const q = document.getElementById("q").value.trim().toLowerCase();
+  const src = document.getElementById("source").value;
+  const age = document.getElementById("age").value;
+  const onlyUnread = document.getElementById("onlyUnread").checked;
+
+  // age: brug ægte postDate (fallback importedAt)
+  const postD = row.postDate || row.importedAt;
+  if (age && agoDays(postD) > Number(age)) return false;
+
+  if (src && (row.source||"") !== src) return false;
+
+  if (onlyUnread && READ[row.id]) return false;
+
+  if (q){
+    const hay = (row.title + " " + row.summary + " " + (row.country||"") + " " + (row.source||"")).toLowerCase();
+    if (!hay.includes(q)) return false;
   }
-  if (field.length || row.length) { row.push(field); rows.push(row); }
-  return rows;
+
+  return true;
 }
-function toObjects(rows) {
-  if (!rows.length) return [];
-  const headers = rows[0].map(h => (h||'').trim());
-  return rows.slice(1).map(r => {
-    const obj = {};
-    headers.forEach((h, idx) => obj[h] = r[idx] ?? '');
-    return obj;
+
+function sortRows(a,b){
+  const s = document.getElementById("sort").value;
+  const da = new Date(a.postDate || a.importedAt);
+  const db = new Date(b.postDate || b.importedAt);
+  return s === "old" ? (da - db) : (db - da);
+}
+
+function applyAndRender() {
+  FILTERED = DATA.filter(applyFilters).sort(sortRows);
+  renderTable(FILTERED);
+}
+
+function toggleRead(id, checked){
+  if (checked) READ[id] = 1; else delete READ[id];
+  localStorage.setItem(LS_READ, JSON.stringify(READ));
+}
+
+function rowTemplate(r){
+  const posted = fmtDate(r.postDate || r.importedAt);
+  const checked = !!READ[r.id];
+  return `<tr data-id="${esc(r.id)}">
+    <td><input type="checkbox" ${checked?'checked':''} aria-label="read"></td>
+    <td class="title"><a href="#" data-open="1"><strong>${esc(r.title||'(no title)')}</strong></a></td>
+    <td>${esc(r.country||'')}</td>
+    <td><span class="pill">${esc(r.source||'')}</span></td>
+    <td class="snippet">${esc(r.summary||'')}</td>
+    <td>${esc(posted)}</td>
+  </tr>`;
+}
+
+function renderTable(rows){
+  const $tbody=document.querySelector('#tbl tbody');
+  $tbody.innerHTML = rows.map(rowTemplate).join('');
+  document.getElementById("fallback").style.display = rows.length ? "none" : "block";
+  document.getElementById("fallback").textContent = rows.length ? "" : "No casting jobs match your filters.";
+
+  // handlers
+  $tbody.querySelectorAll('input[type=checkbox]').forEach((box)=>{
+    box.addEventListener('change', (e)=>{
+      const id = e.target.closest('tr').dataset.id;
+      toggleRead(id, e.target.checked);
+    });
+  });
+
+  $tbody.querySelectorAll('a[data-open]').forEach((a)=>{
+    a.addEventListener('click', (e)=>{
+      e.preventDefault();
+      const id = e.target.closest('tr').dataset.id;
+      const r = FILTERED.find(x=>x.id===id) || DATA.find(x=>x.id===id);
+      renderPreview(r);
+    });
   });
 }
 
-(async function boot() {
-  const $title = document.getElementById('title');
-  const $src = document.getElementById('source-url');
-  const $status = document.getElementById('status');
-  const $controls = document.getElementById('controls');
-  const $q = document.getElementById('q');
-  const $country = document.getElementById('country');
-  const $type = document.getElementById('type');
-  const $contactsOnly = document.getElementById('contactsOnly');
-  const $tbl = document.getElementById('tbl');
-  const $tbody = document.querySelector('#tbl tbody');
+function mailtoHref(subject, body){
+  return `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+}
 
-  try {
-    const cfgRes = await fetch('./config.json', {cache:'no-store'});
-    const cfg = await cfgRes.json();
-    if (cfg.page_title) $title.textContent = cfg.page_title;
-    if (cfg.noindex) document.querySelector('meta[name="robots"]').setAttribute('content','noindex,nofollow');
-    const CSV_URL = cfg.csv_url;
-    $src.textContent = CSV_URL;
+function renderPreview(r){
+  const $p = document.getElementById("preview");
+  if (!r){ $p.innerHTML = `<div class="muted">Select a post to preview…</div>`; return; }
+  const posted = fmtDate(r.postDate || r.importedAt);
 
-    const res = await fetch(CSV_URL, { cache: 'no-store' });
-    if (!res.ok) throw new Error('HTTP ' + res.status);
-    const text = await res.text();
-    const rows = parseCSV(text);
-    const objs = toObjects(rows);
+  $p.innerHTML = `
+    <h2>${esc(r.title||'(no title)')}</h2>
+    <div class="meta">
+      <span class="pill">${esc(r.country||'')}</span>
+      <span class="pill">${esc(r.source||'')}</span>
+      <span class="pill">Posted: ${esc(posted)}</span>
+    </div>
+    <div class="btns">
+      <a class="btn" href="${esc(r.url)}" target="_blank" rel="noopener">View original</a>
+      <a class="btn" href="${mailtoHref('Regarding your casting call on Facebook', MAIL_BODY)}">Email (mailto)</a>
+      <button class="btn" id="copyMail">Copy email text</button>
+      <button class="btn" id="markRead">${READ[r.id] ? 'Unmark' : 'Mark read'}</button>
+    </div>
+    <pre style="white-space:pre-wrap;margin:0">${esc(r.summary||'')}</pre>
+  `;
 
-    const needed = ['display_name','country','city','region','type','notes','url','source_file','sheet','emails_found','phones_found'];
-    const DATA = objs.map(o => {
-      const obj = {};
-      needed.forEach(k => obj[k] = (o[k] ?? '').trim());
-      return obj;
-    });
+  // copy + mark handlers
+  document.getElementById('copyMail').onclick = ()=>{
+    navigator.clipboard.writeText(MAIL_BODY);
+  };
+  document.getElementById('markRead').onclick = ()=>{
+    const newState = !READ[r.id];
+    toggleRead(r.id, newState);
+    applyAndRender();
+    renderPreview(r);
+  };
+}
 
-    function loadFilters() {
-      uniqueSorted(DATA.map(r => r.country)).forEach(c => {
-        const o = document.createElement('option'); o.value=c; o.textContent=c; $country.appendChild(o);
-      });
-      uniqueSorted(DATA.map(r => r.type)).forEach(t => {
-        const o = document.createElement('option'); o.value=t; o.textContent=t; $type.appendChild(o);
-      });
-    }
-
-    function matches(r) {
-      const q = $q.value.trim().toLowerCase();
-      const cn = $country.value;
-      const tp = $type.value;
-      const hasContact = (r.emails_found && r.emails_found.length) || (r.phones_found && r.phones_found.length);
-      if (cn && r.country !== cn) return false;
-      if (tp && r.type !== tp) return false;
-      if ($contactsOnly.checked && !hasContact) return false;
-      if (!q) return true;
-      const hay = [r.display_name,r.country,r.city,r.region,r.type,r.notes,r.url,r.emails_found,r.phones_found,r.source_file,r.sheet].join(' ').toLowerCase();
-      return hay.includes(q);
-    }
-
-    function render() {
-      const rows = DATA.filter(matches).slice(0, 2000);
-      $tbody.innerHTML = rows.map(r => `
-        <tr>
-          <td><strong>${escapeHtml(r.display_name || '')}</strong></td>
-          <td>${escapeHtml(r.country || '')}</td>
-          <td>${escapeHtml([r.city, r.region].filter(Boolean).join(' / '))}</td>
-          <td><span class="pill">${escapeHtml(r.type || '')}</span></td>
-          <td>
-            ${r.emails_found ? `<div class="small"><strong>Email:</strong> ${escapeHtml(r.emails_found)}</div>` : ''}
-            ${r.phones_found ? `<div class="small"><strong>Phone:</strong> ${escapeHtml(r.phones_found)}</div>` : ''}
-          </td>
-          <td>${r.url ? `<a href="${escapeAttr(r.url)}" target="_blank" rel="noopener">Open</a>` : ''}</td>
-          <td>${escapeHtml(r.notes || '')}</td>
-          <td class="small">${escapeHtml(r.source_file || '')} • ${escapeHtml(r.sheet || '')}</td>
-        </tr>
-      `).join('');
-    }
-
-    $status.textContent = `Loaded ${objs.length.toLocaleString()} rows`;
-    $controls.style.display = 'flex';
-    $tbl.style.display = 'table';
-    loadFilters();
-    render();
-
-    $q.addEventListener('input', render);
-    $country.addEventListener('change', render);
-    $type.addEventListener('change', render);
-    $contactsOnly.addEventListener('change', render);
-  } catch (e) {
-    document.getElementById('status').textContent = 'Error: ' + e.message;
-  }
-})();
+// UI events
+["q","source","age","sort","onlyUnread"].forEach(id=>{
+  document.getElementById(id).addEventListener('input', applyAndRender);
+});
 </script>
 </body>
 </html>
