@@ -2,32 +2,24 @@ name: Crawl casting jobs
 
 on:
   schedule:
-    - cron: "0 * * * *"
-  workflow_dispatch: {}
-
-permissions:
-  contents: write
+    - cron: "0 */6 * * *"   # hver 6. time
+  workflow_dispatch:        # muliggør manuel kørsel
 
 jobs:
   crawl:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
-
-      - name: Run crawler
+          node-version: 18
+      - run: npm install
+      - run: node scripts/crawl.mjs
         env:
-          APIFY_TOKEN:    ${{ secrets.APIFY_TOKEN }}
-          APIFY_ACTOR_ID: ${{ secrets.APIFY_ACTOR_ID }}
-        run: node scripts/crawl.mjs
-
-      - name: Commit & push results
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
+          APIFY_TOKEN: ${{ secrets.APIFY_TOKEN }}
+      - run: git config --global user.name "github-actions[bot]"
+      - run: git config --global user.email "github-actions[bot]@users.noreply.github.com"
+      - run: |
           git add radar/jobs/live/jobs.json
-          git diff --cached --quiet || git commit -m "data(jobs): update jobs.json"
+          git commit -m "data(jobs): update jobs.json" || echo "No changes"
           git push
