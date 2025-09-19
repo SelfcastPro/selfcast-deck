@@ -1,34 +1,55 @@
 import fs from "fs/promises";
 import fetch from "node-fetch";
 
-const ACTOR_ID = "2chN8UQcH1CfxLRNE";     // Dit faste Actor ID
-const TOKEN = process.env.APIFY_TOKEN;    // Dit API token fra GitHub secrets
-const PATH = "data/jobs.json";
+const ACTOR_ID = "apify~facebook-groups-scraper";   // this stays constant
+const TOKEN = process.env.APIFY_TOKEN;              // we pull from GitHub secrets
 
-async function fetchJobs() {
-  const url = `https://api.apify.com/v2/actors/${ACTOR_ID}/runs/last/dataset/items?token=${TOKEN}`;
-  const res = await fetch(url);
-  if (!res.ok) throw new Error(`Failed to fetch jobs: ${res.statusText}`);
-  const items = await res.json();
+async function run() {
+  if (!TOKEN) {
+    throw new Error("APIFY_TOKEN is not set!");
+  }
 
-  const data = {
+  // Start actor run
+  const start = await fetch(`https://api.apify.com/v2/acts/${ACTOR_ID}/runs?token=${TOKEN}`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      // optional: add your input if needed, e.g. group URLs
+    }),
+  });
+  const started = await start.json();
+  if (!started.data) throw new Error("Failed to start actor: " + JSON.stringify(started));
+  const runId = started.data.id;
+  console.log("Started run", runId);
+
+  // Poll until finished
+  let status = "RUNNING", run;
+  while (status === "RUNNING" || status === "READY") {
+    await new Promise(r => setTimeout(r, 10000));
+    const res = await fetch(`https://api.apify.com/v2/actor-runs/${runId}?token=${TOKEN}`);
+    run = await res.json();
+    status = run.data.status;
+    console.log("Status:", status);
+  }
+
+  if (status !== "SUCCEEDED") {
+    throw new Error("Run failed with status " + status);
+  }
+
+  // Fetch dataset items
+  const datasetId = run.data.defaultDatasetId;
+  const out = await fetch(`https://api.apify.com/v2/datasets/${datasetId}/items?clean=true&format=json&token=${TOKEN}`);
+  const items = await out.json();
+
+  await fs.writeFile("data/jobs.json", JSON.stringify({
     updatedAt: new Date().toISOString(),
-    items: items.map(it => ({
-      url: it.url || "",
-      title: it.title || "",
-      summary: it.text || "",
-      country: "EU",
-      source: "FacebookGroups",
-      posted_at: it.creation_time ? new Date(it.creation_time * 1000).toISOString() : null,
-      fetched_at: new Date().toISOString()
-    }))
-  };
+    items
+  }, null, 2));
 
-  await fs.writeFile(PATH, JSON.stringify(data, null, 2));
-  console.log(`Saved ${data.items.length} jobs to ${PATH}`);
+  console.log(`Saved ${items.length} jobs to data/jobs.json`);
 }
 
-fetchJobs().catch(err => {
-  console.error("Error:", err);
+run().catch(err => {
+  console.error(err);
   process.exit(1);
 });
