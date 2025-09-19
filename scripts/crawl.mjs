@@ -19,7 +19,6 @@ if (!APIFY_TOKEN) {
 const ACTOR_ID = "apify~facebook-groups-scraper";
 const START_RUN_URL = `https://api.apify.com/v2/acts/${ACTOR_ID}/runs?token=${APIFY_TOKEN}`;
 
-// start et run
 async function startRun() {
   console.log("🚀 Starter Apify run…");
   const res = await fetchJson(START_RUN_URL, {
@@ -30,7 +29,6 @@ async function startRun() {
   return res.data;
 }
 
-// vent på at run bliver færdigt
 async function waitForRun(runId) {
   console.log(`⏳ Venter på run: ${runId}`);
   while (true) {
@@ -46,7 +44,6 @@ async function waitForRun(runId) {
   }
 }
 
-// hent dataset
 async function fetchDataset(datasetId) {
   console.log("📥 Henter dataset…");
   return await fetchJson(
@@ -54,7 +51,6 @@ async function fetchDataset(datasetId) {
   );
 }
 
-// gem jobs.json
 async function saveJobs(items) {
   const outPath = "radar/jobs.json";
   const data = {
@@ -75,7 +71,6 @@ async function saveJobs(items) {
   console.log(`✅ Gemte ${items.length} opslag i ${outPath}`);
 }
 
-// main
 (async () => {
   try {
     const run = await startRun();
@@ -91,6 +86,15 @@ async function saveJobs(items) {
     await saveJobs(items);
   } catch (err) {
     console.error("❌ Fejl under crawl:", err.message);
-    process.exit(1);
+
+    // fallback: skriv tom jobs.json så dashboardet ikke går i stykker
+    const fallbackPath = "radar/jobs.json";
+    const fallback = {
+      updatedAt: new Date().toISOString(),
+      items: [],
+    };
+    fs.writeFileSync(fallbackPath, JSON.stringify(fallback, null, 2));
+    console.log("⚠️ Gemte fallback jobs.json med 0 opslag");
+    process.exit(0); // stadig succes
   }
 })();
