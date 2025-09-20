@@ -183,7 +183,7 @@
     return textSnippet || null;
   }
 
-  function jobTimestamp(job){
+    function jobTimestamp(job){
     const candidates = [
       job.postDate,
       job.posted_at,
@@ -208,11 +208,285 @@
     "email",
     "emails",
     "emailAddress",
-@@ -277,74 +348,94 @@
+    "emailAddresses",
+    "contactEmail",
+    "contactEmails",
+    "contact_email",
+    "contact_emails",
+    "producerEmail",
+    "producerEmails",
+    "ownerEmail",
+    "owner_email",
+    "replyTo",
+    "reply_to",
+  ];
+  const EMAIL_TEXT_FIELDS = [
+    "text",
+    "summary",
+    "snippet",
+    "description",
+    "message",
+    "body",
+    "notes",
+    "about",
+  ];
+  const PHONE_FIELDS = [
+    "phone",
+    "phones",
+    "phoneNumber",
+    "phoneNumbers",
+    "contactPhone",
+    "contactPhones",
+    "telephone",
+    "mobile",
+    "mobilePhone",
+    "contact_phone",
+    "contact_number",
+  ];
+  const PHONE_PATTERN = /\+?[0-9][0-9().\s-]{5,}[0-9]/g;
+
+  function collectEmailsFromValue(value, emails, depth = 0){
+    if (!value || depth > 4) return;
+    if (typeof value === "string") {
+      const matches = value.match(EMAIL_PATTERN);
+      if (!matches) return;
+      for (const match of matches) {
+        const normalised = match.trim().toLowerCase();
+        if (normalised) emails.add(normalised);
+      }
+      return;
+    }
+    if (Array.isArray(value)) {
+      for (const entry of value) {
+        collectEmailsFromValue(entry, emails, depth + 1);
+      }
+      return;
+    }
+    if (typeof value === "object") {
+      if (value === null) return;
+      const nextDepth = depth + 1;
+      if (typeof value.email === "string") {
+        collectEmailsFromValue(value.email, emails, nextDepth);
+      }
+      if (typeof value.address === "string") {
+        collectEmailsFromValue(value.address, emails, nextDepth);
+      }
+      if (
+        typeof value.value === "string" &&
+        (typeof value.type === "string" && value.type.toLowerCase().includes("email"))
+      ) {
+        collectEmailsFromValue(value.value, emails, nextDepth);
+      }
+      for (const [key, nested] of Object.entries(value)) {
+        if (EMAIL_FIELDS.includes(key) || EMAIL_TEXT_FIELDS.includes(key) || /email/i.test(key)) {
+          collectEmailsFromValue(nested, emails, nextDepth);
+        }
+      }
+    }
+  }
+
+  function extractEmails(raw){
+    if (!raw || typeof raw !== "object") return [];
+    const emails = new Set();
+    for (const field of EMAIL_FIELDS) {
+      if (field in raw) {
+        collectEmailsFromValue(raw[field], emails, 0);
+      }
+    }
+    for (const field of EMAIL_TEXT_FIELDS) {
+      if (typeof raw[field] === "string") {
+        collectEmailsFromValue(raw[field], emails, 0);
+      }
+    }
+    if (Array.isArray(raw.contacts)) {
+      for (const contact of raw.contacts) {
+        collectEmailsFromValue(contact, emails, 0);
+      }
+    }
+    if (raw.contact) {
+      collectEmailsFromValue(raw.contact, emails, 0);
+    }
+    return Array.from(emails).sort((a, b) => a.localeCompare(b));
+  }
+
+  function collectPhonesFromValue(value, map, depth = 0){
+    if (!value || depth > 4) return;
+    if (typeof value === "string") {
+      const matches = value.match(PHONE_PATTERN);
+      if (!matches) return;
+      for (const match of matches) {
+        const formatted = match.trim();
+        if (!formatted) continue;
+        const key = formatted.replace(/[^0-9+]/g, "");
+        if (!key) continue;
+        if (!map.has(key)) {
+          map.set(key, formatted);
+        }
+      }
+      return;
+    }
+    if (Array.isArray(value)) {
+      for (const entry of value) {
+        collectPhonesFromValue(entry, map, depth + 1);
+      }
+      return;
+    }
+    if (typeof value === "object") {
+      if (value === null) return;
+      const nextDepth = depth + 1;
+      if (typeof value.phone === "string") {
+        collectPhonesFromValue(value.phone, map, nextDepth);
+      }
+      if (
+        typeof value.value === "string" &&
+        (typeof value.type === "string" && value.type.toLowerCase().includes("phone"))
+      ) {
+        collectPhonesFromValue(value.value, map, nextDepth);
+      }
+      for (const [key, nested] of Object.entries(value)) {
+        if (PHONE_FIELDS.includes(key) || /phone|tel/i.test(key)) {
+          collectPhonesFromValue(nested, map, nextDepth);
+        }
+      }
+    }
+  }
+
+  function extractPhones(raw){
+    if (!raw || typeof raw !== "object") return [];
+    const map = new Map();
+    for (const field of PHONE_FIELDS) {
+      if (field in raw) {
+        collectPhonesFromValue(raw[field], map, 0);
+      }
+    }
+    if (Array.isArray(raw.contacts)) {
+      for (const contact of raw.contacts) {
+        collectPhonesFromValue(contact, map, 0);
+      }
+    }
+    if (raw.contact) {
+      collectPhonesFromValue(raw.contact, map, 0);
+    }
+    return Array.from(map.values());
+  }
+
+  function normaliseJob(raw){
+    if (!raw || typeof raw !== "object") return null;
+    const job = { ...raw };
+    const id = stableId(job);
+    if (!id) return null;
+    job.id = id;
+
+    const sourceCandidate =
+      job._source ||
+      job.source ||
+      job.sourceName ||
+      job.origin ||
+      job.provider ||
+      job.groupName ||
+      job.channel ||
+      job.feed ||
+      job.site ||
+      job.page ||
+      job.owner?.name ||
+      job.from?.name ||
+      "Unknown";
+    job._source = String(sourceCandidate).trim() || "Unknown";
+
+    const countryCandidate =
+      job._country ||
+      job.country ||
+      job.location?.country ||
+      job.location?.name ||
+      (Array.isArray(job.locations)
+        ? job.locations
+            .map((item) =>
+              item && typeof item === "object"
+                ? item.country || item.name || item.label
+                : item
+            )
+            .find(Boolean)
+        : null) ||
+      job.region ||
+      job.area ||
+      job.countryCode ||
+      "";
+    job._country = countryCandidate ? String(countryCandidate).trim() : "";
+
+    const textCandidate =
+      job._text ||
+      job.text ||
+      job.summary ||
+      job.snippet ||
+      job.message ||
+      job.description ||
+      job.body ||
+      job.caption ||
+      "";
+    job._text = String(textCandidate || "");
+    job._snippet = job._text
+      ? job._text.replace(/\s+/g, " ").trim().slice(0, 320)
+      : "";
+
+    const emails = extractEmails(job);
+    job._emails = emails;
+    job._primaryEmail = emails.length ? emails[0] : "";
+
+    const phones = extractPhones(job);
+    job._phones = phones;
+
+    const haystackParts = [
+      job.title,
+      job._text,
+      job._source,
+      job._country,
+      job.language,
+      job.category,
+      job.tags ? (Array.isArray(job.tags) ? job.tags.join(" ") : String(job.tags)) : "",
+      job.user?.name,
+      job.owner?.name,
+      job.from?.name,
+      job.company,
+      job.employer,
+      Array.isArray(job.locations)
+        ? job.locations
+            .map((item) =>
+              item && typeof item === "object"
+                ? item.country || item.name || item.label
+                : item
+            )
+            .join(" ")
+        : "",
+      emails.join(" "),
+      phones.join(" "),
+    ].filter(Boolean);
+    job._haystack = haystackParts
+      .map((value) => String(value).toLowerCase())
+      .join(" ");
+
+    job._timestamp = jobTimestamp(job);
+    job._dateLabel = job._timestamp ? formatDate(job._timestamp) : "";
+
+    const linkCandidate =
+      job._link ||
+      job.url ||
+      job.facebookUrl ||
+      job.permalinkUrl ||
+      job.postUrl ||
+      job.link ||
+      job.href ||
+      job.externalUrl ||
+      (typeof job.sharedPost?.url === "string" ? job.sharedPost.url : "") ||
+      (typeof job.sharedPost?.permalink_url === "string"
+        ? job.sharedPost.permalink_url
+        : "");
+    job._link = linkCandidate ? String(linkCandidate).trim() : "";
+
+    job._readAt = readMap[job.id] || null;
+    job._read = Boolean(job._readAt);
 
     return job;
   }
-
   function populateSources(items){
     if (!sourceSelect) return;
     const seen = new Set();
@@ -238,46 +512,7 @@
 
   function renderList(items){
     if (!tbodyEl) return;
-    const frag = document.createDocumentFragment();
-    for (const job of items) {
-      const tr = document.createElement("tr");
-      tr.dataset.id = job.id;
-      if (job._read) tr.classList.add("is-read");
-      if (selectedId && job.id === selectedId) {
-        tr.classList.add("is-active");
-      }
-
-      const readCell = document.createElement("td");
-      readCell.dataset.cell = "read";
-      readCell.textContent = job._read ? "✓" : "";
-      tr.appendChild(readCell);
-
-      const titleCell = document.createElement("td");
-      titleCell.innerHTML = `<div class="job-title">${esc(job.title || "(no title)")}</div>`;
-      tr.appendChild(titleCell);
-
-      const countryCell = document.createElement("td");
-      countryCell.textContent = job._country || "";
-      tr.appendChild(countryCell);
-
-      const sourceCell = document.createElement("td");
-      sourceCell.textContent = job._source;
-      tr.appendChild(sourceCell);
-
-      const snippetCell = document.createElement("td");
-      snippetCell.className = "snippet";
-      snippetCell.textContent = job._snippet || job.title || "";
-      tr.appendChild(snippetCell);
-
-      const postedCell = document.createElement("td");
-      postedCell.textContent = job._dateLabel || "";
-      tr.appendChild(postedCell);
-
-      frag.appendChild(tr);
-    }
-
-    tbodyEl.replaceChildren(frag);
-    updateRowClasses();
+@@ -281,53 +555,255 @@
   }
 
   function buildProducerEmailTemplate(job){
@@ -303,10 +538,211 @@
     const subject = title ? `Selfcast x ${title}` : "Selfcast – Casting support";
     const lines = ["Hi,", ""];
     let spottedLine = "We spotted your casting";
-@@ -542,25 +633,281 @@
+    if (title) spottedLine += ` "${title}"`;
+    if (source) spottedLine += ` on ${source}`;
+    if (country) spottedLine += ` (${country})`;
+    spottedLine += ".";
+    lines.push(spottedLine);
+    lines.push("We help productions with outreach, shortlisting and scheduling talent.");
+    lines.push("Would you be open to a quick call to explore how we can support this project?");
+    if (link) {
+      lines.push("");
+      lines.push(`Casting link: ${link}`);
+    }
+    lines.push("");
+    lines.push("Best,");
+    lines.push("Selfcast");
+    lines.push("www.selfcast.com");
+
+    return {
+      subject,
+      body: lines.join("\n"),
+    };
   }
 
-  function setRead(job, value){
+  async function copyToClipboard(value){
+    if (!value) return false;
+    try {
+      if (typeof navigator !== "undefined" && navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(value);
+        return true;
+      }
+    } catch (err) {
+      console.warn("Radar dashboard: clipboard write failed", err);
+    }
+    if (typeof document === "undefined") return false;
+    const textarea = document.createElement("textarea");
+    textarea.value = value;
+    textarea.setAttribute("readonly", "");
+    textarea.style.position = "absolute";
+    textarea.style.left = "-9999px";
+    document.body.appendChild(textarea);
+    textarea.select();
+    let success = false;
+    try {
+      success = document.execCommand ? document.execCommand("copy") : false;
+    } catch (err) {
+      success = false;
+    }
+    document.body.removeChild(textarea);
+    return success;
+  }
+
+  function openMailClient(emails, template){
+    if (!emails || !emails.length || !template || !template.body) return false;
+    if (typeof window === "undefined") return false;
+    const to = emails[0];
+    const mailto =
+      `mailto:${encodeURIComponent(to)}?subject=${encodeURIComponent(template.subject)}&body=${encodeURIComponent(template.body)}`;
+    try {
+      window.open(mailto, "_blank");
+      return true;
+    } catch (err) {
+      console.warn("Radar dashboard: unable to open mail client", err);
+      return false;
+    }
+  }
+
+  function renderDetail(job){
+    if (!detailEl) return;
+    if (!job) {
+      detailEl.innerHTML = "<em>Select a post…</em>";
+      return;
+    }
+
+    const inFiltered = filtered.some((item) => item.id === job.id);
+    const emails = Array.isArray(job._emails) ? job._emails : [];
+    const phones = Array.isArray(job._phones) ? job._phones : [];
+    const template = buildProducerEmailTemplate(job);
+
+    const parts = [];
+    parts.push(`<h2>${esc(job.title || "(no title)")}</h2>`);
+
+    const metaBits = [];
+    if (job._source) metaBits.push(esc(job._source));
+    if (job._country) metaBits.push(esc(job._country));
+    if (job._dateLabel) metaBits.push(esc(job._dateLabel));
+    if (job?.user?.name) metaBits.push(esc(job.user.name));
+    if (metaBits.length) {
+      parts.push(`<div class="small">${metaBits.join(" · ")}</div>`);
+    }
+
+    if (!inFiltered) {
+      parts.push(
+        '<div class="detail-note">Hidden by current filters. Adjust filters to show this post in the list.</div>'
+      );
+    }
+
+    const actions = [];
+    if (job._link) {
+      actions.push(
+        `<a href="${esc(job._link)}" target="_blank" rel="noreferrer">Open original post</a>`
+      );
+    }
+    if (job.facebookUrl && job.facebookUrl !== job._link) {
+      actions.push(
+        `<a href="${esc(job.facebookUrl)}" target="_blank" rel="noreferrer">Facebook link</a>`
+      );
+    }
+    if (emails.length && template.body) {
+      actions.push('<button type="button" data-action="copy-email">Copy outreach email</button>');
+      actions.push('<button type="button" data-action="compose-email">Compose email</button>');
+    }
+    const toggleLabel = job._read ? "Mark as unread" : "Mark as read";
+    actions.push(`<button type="button" data-action="toggle-read">${toggleLabel}</button>`);
+    if (actions.length) {
+      parts.push(
+        `<div class="detail-actions">${actions
+          .map((html) => `<span>${html}</span>`)
+          .join("")}</div>`
+      );
+    }
+
+    const timeline = [];
+    if (job.postDate || job.posted_at) {
+      timeline.push(`<strong>Posted:</strong> ${esc(formatDate(job.postDate || job.posted_at))}`);
+    }
+    if (job.importedAt) {
+      timeline.push(`<strong>Imported:</strong> ${esc(formatDate(job.importedAt))}`);
+    }
+    if (job.fetched_at) {
+      timeline.push(`<strong>Fetched:</strong> ${esc(formatDate(job.fetched_at))}`);
+    }
+    if (job._readAt) {
+      timeline.push(`<strong>Read:</strong> ${esc(formatDate(job._readAt))}`);
+    }
+    if (timeline.length) {
+      parts.push(`<div class="detail-meta">${timeline.join("<br>")}</div>`);
+    }
+
+    if (emails.length) {
+      const emailLinks = emails
+        .map((email) => `<a href="mailto:${encodeURIComponent(email)}">${esc(email)}</a>`)
+        .join(", ");
+      parts.push(
+        `<div class="detail-contact"><strong>Email${emails.length > 1 ? "s" : ""}:</strong> ${emailLinks}</div>`
+      );
+    } else {
+      parts.push('<div class="detail-contact"><strong>Emails:</strong> None detected</div>');
+    }
+    if (phones.length) {
+      parts.push(
+        `<div class="detail-contact"><strong>Phone${phones.length > 1 ? "s" : ""}:</strong> ${phones
+          .map((phone) => esc(phone))
+          .join(", ")}</div>`
+      );
+    }
+
+    if (template.body) {
+      parts.push(
+        `<details class="detail-email"${emails.length ? " open" : ""}>
+          <summary>Producer outreach email</summary>
+          <div class="detail-email__subject"><strong>Subject:</strong> ${esc(template.subject)}</div>
+          <pre>${esc(template.body)}</pre>
+        </details>`
+      );
+    }
+
+    if (job._text) {
+      const formatted = esc(job._text).replace(/\n{2,}/g, "\n\n").replace(/\n/g, "<br>");
+      parts.push(`<div class="detail-text">${formatted}</div>`);
+    }
+
+    const rawJson = esc(JSON.stringify(job, null, 2));
+    parts.push(
+      `<details class="detail-raw"><summary>Show raw data</summary><pre>${rawJson}</pre></details>`
+    );
+
+    detailEl.innerHTML = parts.join("");
+
+    const toggleBtn = detailEl.querySelector('[data-action="toggle-read"]');
+    if (toggleBtn) {
+      toggleBtn.addEventListener("click", () => toggleRead(job));
+    }
+
+    const copyBtn = detailEl.querySelector('[data-action="copy-email"]');
+    if (copyBtn && template.body) {
+      copyBtn.addEventListener("click", async () => {
+        const snippet = `Subject: ${template.subject}\n\n${template.body}`;
+        const ok = await copyToClipboard(snippet);
+        if (ok) {
+          showToast("Email template copied to clipboard", "success");
+        } else {
+          showToast("Unable to copy email template", "error");
+        }
+      });
+    }
+
+    const composeBtn = detailEl.querySelector('[data-action="compose-email"]');
+    if (composeBtn && template.body && emails.length) {
+      composeBtn.addEventListener("click", () => {
+        const opened = openMailClient(emails, template);
+        if (!opened) {
+          showToast("Unable to open email client", "error");
+        }
+      });
+    }
+  }  function setRead(job, value){
     if (!job) return;
     if (value) {
       const ts = nowISO();
