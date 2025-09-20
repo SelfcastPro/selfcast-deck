@@ -13,6 +13,11 @@ vi.mock("node:fs/promises", () => ({
 }));
 
 const importCleaner = () => import("../clean-jobs.mjs");
+
+const runCleaner = async () => {
+  const mod = await importCleaner();
+  return mod.cleanJobs();
+};
 const OUTPUT_PATH = "radar/jobs/live/jobs.json";
 
 describe("clean-jobs.mjs", () => {
@@ -42,7 +47,7 @@ describe("clean-jobs.mjs", () => {
     );
     writeFileMock.mockResolvedValue();
 
-    await importCleaner();
+    await runCleaner();
 
     expect(writeFileMock).toHaveBeenCalledTimes(1);
     const [target, payload] = writeFileMock.mock.calls[0];
@@ -66,7 +71,7 @@ describe("clean-jobs.mjs", () => {
     );
     writeFileMock.mockResolvedValue();
 
-    await importCleaner();
+    await runCleaner();
 
     const [, payload] = writeFileMock.mock.calls[0];
     const result = JSON.parse(payload);
@@ -90,7 +95,7 @@ describe("clean-jobs.mjs", () => {
     );
     writeFileMock.mockResolvedValue();
 
-    await importCleaner();
+    await runCleaner();
 
     const [, payload] = writeFileMock.mock.calls[0];
     const result = JSON.parse(payload);
