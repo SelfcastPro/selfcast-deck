@@ -512,7 +512,46 @@
 
   function renderList(items){
     if (!tbodyEl) return;
-@@ -281,53 +555,255 @@
+    const frag = document.createDocumentFragment();
+    for (const job of items) {
+      const tr = document.createElement("tr");
+      tr.dataset.id = job.id;
+      if (job._read) tr.classList.add("is-read");
+      if (selectedId && job.id === selectedId) {
+        tr.classList.add("is-active");
+      }
+
+      const readCell = document.createElement("td");
+      readCell.dataset.cell = "read";
+      readCell.textContent = job._read ? "✓" : "";
+      tr.appendChild(readCell);
+
+      const titleCell = document.createElement("td");
+      titleCell.innerHTML = `<div class="job-title">${esc(job.title || "(no title)")}</div>`;
+      tr.appendChild(titleCell);
+
+      const countryCell = document.createElement("td");
+      countryCell.textContent = job._country || "";
+      tr.appendChild(countryCell);
+
+      const sourceCell = document.createElement("td");
+      sourceCell.textContent = job._source;
+      tr.appendChild(sourceCell);
+
+      const snippetCell = document.createElement("td");
+      snippetCell.className = "snippet";
+      snippetCell.textContent = job._snippet || job.title || "";
+      tr.appendChild(snippetCell);
+
+      const postedCell = document.createElement("td");
+      postedCell.textContent = job._dateLabel || "";
+      tr.appendChild(postedCell);
+
+      frag.appendChild(tr);
+    }
+
+    tbodyEl.replaceChildren(frag);
+    updateRowClasses();
   }
 
   function buildProducerEmailTemplate(job){
@@ -537,8 +576,7 @@
 
     const subject = title ? `Selfcast x ${title}` : "Selfcast – Casting support";
     const lines = ["Hi,", ""];
-    let spottedLine = "We spotted your casting";
-    if (title) spottedLine += ` "${title}"`;
+    let spottedLine = "We spotted your casting";    if (title) spottedLine += ` "${title}"`;
     if (source) spottedLine += ` on ${source}`;
     if (country) spottedLine += ` (${country})`;
     spottedLine += ".";
