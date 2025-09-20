@@ -304,9 +304,34 @@ async function waitForRun(runId) {
 // Hent dataset fra run
 async function fetchDataset(datasetId) {
   console.log("📥 Henter dataset…");
-  return await fetchJson(
-    `https://api.apify.com/v2/datasets/${datasetId}/items?token=${APIFY_TOKEN}&clean=true`
-  );
+ 
+  const allItems = [];
+  const limit = 1000;
+  let offset = 0;
+
+  while (true) {
+    const pageUrl = `https://api.apify.com/v2/datasets/${datasetId}/items?token=${APIFY_TOKEN}&clean=true&limit=${limit}&offset=${offset}`;
+    const pageItems = await fetchJson(pageUrl);
+
+    if (!Array.isArray(pageItems)) {
+      throw new Error(
+        `Uventet respons fra Apify dataset: Forventede en liste, fik ${typeof pageItems}`
+      );
+    }
+
+    allItems.push(...pageItems);
+
+    console.log(
+      `   Hentede ${pageItems.length} poster (offset ${offset}) – i alt ${allItems.length}`
+    );
+
+    if (pageItems.length < limit) break;
+    offset += limit;
+  }
+
+  console.log(`📦 I alt ${allItems.length} poster hentet fra dataset ${datasetId}`);
+
+  return allItems;
 }
 
 // Gem jobs.json
