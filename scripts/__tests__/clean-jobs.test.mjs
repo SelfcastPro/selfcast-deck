@@ -102,4 +102,35 @@ describe("clean-jobs.mjs", () => {
 
     expect(result.items.map((x) => x.id)).toEqual(["beta", "gamma", "alpha"]);
   });
+
+  it("normaliserer legacy datoer", async () => {
+    const now = new Date("2024-02-10T00:00:00.000Z").getTime();
+    vi.spyOn(Date, "now").mockReturnValue(now);
+
+    readFileMock.mockResolvedValue(
+      JSON.stringify({
+        items: [
+          {
+            id: "legacy",
+            timestamp: 1_706_140_800,
+            fetched_at: "2024-01-26T15:00:00Z",
+          },
+        ],
+      })
+    );
+    writeFileMock.mockResolvedValue();
+
+    await runCleaner();
+
+    const [, payload] = writeFileMock.mock.calls[0];
+    const result = JSON.parse(payload);
+
+    expect(result.items).toHaveLength(1);
+    expect(result.items[0]).toMatchObject({
+      id: "legacy",
+      postDate: "2024-01-25T00:00:00.000Z",
+      importedAt: "2024-01-26T15:00:00.000Z",
+    });
+  });
+});
 });
