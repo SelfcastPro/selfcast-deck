@@ -1,26 +1,70 @@
-<script>
-const PATH = "jobs/live/jobs.json"; // URL eller relativ sti
-let DATA = [];
-let FILTERED = [];
-const readStoreKey = "radar:read:v1"; // stable localStorage key
-
-/* ---------- utilities ---------- */
-const esc = s => (s||'').replace(/[&<>"']/g, m=>({"&":"&amp;","<":"&lt;","&gt;":">","\"":"&quot;","'":"&#39;"}[m]));
-const fmtDate = (d)=> d ? new Date(d).toLocaleDateString("da-DK") : "";
-const toISO = (d)=> d ? (new Date(d)).toISOString() : null;
-const now = ()=> new Date().toISOString();
-
-/* stable id logic:
-   prefer explicit post_id fields (post_id, id, facebookId), else fallback to hash of facebookUrl + text snippet
-*/
-function stableId(r){
-  if(!r) return '';
-  if(r.post_id) return String(r.post_id);
-  if(r.id) return String(r.id);
-  if(r.facebookId) return String(r.facebookId);
-  if(r.facebookUrl && r.user && r.user.id){
-    return `${r.facebookUrl}|${r.user.id}|${String((r.text||'').slice(0,80)).replace(/\s+/g,' ')}`;
-  }
-  return `${r.facebookUrl||''}|${String((r.text||'').slice(0,80)).replace(/\s+/g,' ')}`;
-}
-</script>
+diff --git a/radar/jobs/live/jobs.json b/radar/jobs/live/jobs.json
+index 8b9749b19caaeb805d1952a24eb4a7291848656b..9eaf7320da5afa2850e35a0374856dbab463fdeb 100644
+--- a/radar/jobs/live/jobs.json
++++ b/radar/jobs/live/jobs.json
+@@ -1,26 +1,40 @@
+-<script>
+-const PATH = "jobs/live/jobs.json"; // URL eller relativ sti
+-let DATA = [];
+-let FILTERED = [];
+-const readStoreKey = "radar:read:v1"; // stable localStorage key
+-
+-/* ---------- utilities ---------- */
+-const esc = s => (s||'').replace(/[&<>"']/g, m=>({"&":"&amp;","<":"&lt;","&gt;":">","\"":"&quot;","'":"&#39;"}[m]));
+-const fmtDate = (d)=> d ? new Date(d).toLocaleDateString("da-DK") : "";
+-const toISO = (d)=> d ? (new Date(d)).toISOString() : null;
+-const now = ()=> new Date().toISOString();
+-
+-/* stable id logic:
+-   prefer explicit post_id fields (post_id, id, facebookId), else fallback to hash of facebookUrl + text snippet
+-*/
+-function stableId(r){
+-  if(!r) return '';
+-  if(r.post_id) return String(r.post_id);
+-  if(r.id) return String(r.id);
+-  if(r.facebookId) return String(r.facebookId);
+-  if(r.facebookUrl && r.user && r.user.id){
+-    return `${r.facebookUrl}|${r.user.id}|${String((r.text||'').slice(0,80)).replace(/\s+/g,' ')}`;
+-  }
+-  return `${r.facebookUrl||''}|${String((r.text||'').slice(0,80)).replace(/\s+/g,' ')}`;
++{
++  "updatedAt": "2025-09-20T08:30:00.000Z",
++  "items": [
++    {
++      "id": "sample-short-film",
++      "title": "Casting: Nordic short film seeking lead actor",
++      "summary": "Self-funded short film is looking for a bilingual lead (Danish/English). Shooting in Copenhagen late September.",
++      "text": "Self-funded short film is looking for a bilingual lead (Danish/English).\nShooting in Copenhagen late September.\nPlease send headshots and recent work.",
++      "source": "FacebookGroups",
++      "country": "DK",
++      "language": "da",
++      "tags": ["short-film", "lead"],
++      "postDate": "2025-09-18T15:00:00.000Z",
++      "importedAt": "2025-09-19T10:00:00.000Z",
++      "fetched_at": "2025-09-19T10:05:00.000Z",
++      "url": "https://example.com/casting/short-film",
++      "facebookUrl": "https://facebook.com/groups/sample/posts/1",
++      "user": {
++        "id": "123456",
++        "name": "Mette Casting"
++      }
++    },
++    {
++      "post_id": "sample-commercial",
++      "title": "Commercial casting: families with kids",
++      "message": "Agency in Aarhus is seeking real families for a branded shoot. Travel and accommodation covered.",
++      "source": "AgencyPortal",
++      "country": "DK",
++      "language": "en",
++      "postDate": "2025-09-16T09:00:00.000Z",
++      "fetched_at": "2025-09-16T09:05:00.000Z",
++      "url": "https://example.com/casting/commercial-family",
++      "facebookUrl": "https://facebook.com/groups/sample/posts/2",
++      "user": {
++        "id": "654321",
++        "name": "North Agency"
++      }
++    }
++  ]
+ }
+-</script>
