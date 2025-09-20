@@ -12,6 +12,12 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
+      - name: Prepare repository
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git pull --rebase
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -22,12 +28,6 @@ jobs:
           if [ -f package.json ]; then
             npm install
           fi
-
-      - name: Prepare repository
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git pull --rebase
 
       - name: Run crawler
         run: node scripts/crawl.mjs
