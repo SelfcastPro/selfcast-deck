@@ -19,6 +19,8 @@
   const ageSelect = document.getElementById("age");
   const sortSelect = document.getElementById("sort");
   const onlyUnreadCheckbox = document.getElementById("onlyUnread");
+  const toastEl = document.getElementById("toast");
+  let toastTimer = null;
 
   if (!tbodyEl || !detailEl) {
     console.warn("Radar dashboard: required DOM nodes missing - aborting initialisation");
@@ -67,6 +69,18 @@
     }
   }
 
+  function showToast(message, variant = "info"){
+    if (!toastEl) return;
+    const normalised = variant === "success" || variant === "error" ? variant : "info";
+    toastEl.textContent = message;
+    toastEl.classList.remove("toast--success", "toast--error", "toast--info", "show");
+    toastEl.classList.add(`toast--${normalised}`, "show");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => {
+      toastEl.classList.remove("show", "toast--success", "toast--error", "toast--info");
+    }, 2600);
+  }
+
   function nowISO(){
     return new Date().toISOString();
   }
@@ -92,96 +106,7 @@
       return value;
     }
     if (typeof value === "string") {
-      const trimmed = value.trim();
-      if (!trimmed) return null;
-      const asNumber = Number(trimmed);
-      if (!Number.isNaN(asNumber)) return coerceDate(asNumber);
-      const parsed = Date.parse(trimmed);
-      return Number.isNaN(parsed) ? null : parsed;
-    }
-    if (typeof value === "object") {
-      if (typeof value.seconds === "number" && Number.isFinite(value.seconds)) {
-        return coerceDate(value.seconds);
-      }
-      if (typeof value.ms === "number" && Number.isFinite(value.ms)) {
-        return coerceDate(value.ms);
-      }
-    }
-    return null;
-  }
-
-  function formatDate(value){
-    const ts = typeof value === "number" ? value : coerceDate(value);
-    if (!ts) return "";
-    try {
-      return formatter.format(new Date(ts));
-    } catch {
-      return "";
-    }
-  }
-
-  function stableId(record){
-    if (!record || typeof record !== "object") return null;
-    const directCandidates = [
-      record.post_id,
-      record.postId,
-      record.postID,
-      record.id,
-      record.facebookId,
-    ];
-    for (const candidate of directCandidates) {
-      if (candidate === null || candidate === undefined) continue;
-      const str = String(candidate).trim();
-      if (str) return str;
-    }
-
-    const urlCandidates = [
-      record.facebookUrl,
-      record.url,
-      record.permalinkUrl,
-      record.postUrl,
-      record.link,
-    ];
-    let url = "";
-    for (const candidate of urlCandidates) {
-      if (candidate === null || candidate === undefined) continue;
-      const str = String(candidate).trim();
-      if (str) {
-        url = str;
-        break;
-      }
-    }
-
-    const userCandidates = [
-      record?.user?.id,
-      record?.from?.id,
-      record?.owner?.id,
-      record?.author?.id,
-    ];
-    let userId = "";
-    for (const candidate of userCandidates) {
-      if (candidate === null || candidate === undefined) continue;
-      const str = String(candidate).trim();
-      if (str) {
-        userId = str;
-        break;
-      }
-    }
-
-    const textCandidate = (
-      record.summary ||
-      record.text ||
-      record.snippet ||
-      record.message ||
-      record.description ||
-      ""
-    );
-    const text = String(textCandidate || "")
-      .slice(0, 80)
-      .replace(/\s+/g, " ")
-      .trim();
-
-    if (url && userId && text) return `${url}|${userId}|${text}`;
+@@ -185,101 +199,192 @@
     if (url && text) return `${url}|${text}`;
     if (text) return text;
     return null;
@@ -207,8 +132,96 @@
     return null;
   }
 
+  const EMAIL_PATTERN = /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi;
+  const EMAIL_FIELDS = [
+    "email",
+    "emails",
+    "emailAddress",
+    "emailAddresses",
+    "contactEmail",
+    "contactEmails",
+    "contactEmailAddress",
+    "contact_email",
+    "contact_emails",
+    "producerEmail",
+    "producerEmails",
+  ];
+  const EMAIL_TEXT_FIELDS = ["text", "summary", "snippet", "description", "message", "body"];
+
+  function extractEmails(raw){
+    if (!raw || typeof raw !== "object") return [];
+
+    const found = new Map();
+
+    const addEmail = (value) => {
+      if (!value) return;
+      const matches = String(value).match(EMAIL_PATTERN);
+      if (!matches) return;
+      for (const match of matches) {
+        const trimmed = match.trim();
+        if (!trimmed) continue;
+        const lower = trimmed.toLowerCase();
+        if (!found.has(lower)) {
+          found.set(lower, trimmed);
+        }
+      }
+    };
+
+    const collect = (value, depth = 0) => {
+      if (!value || depth > 3) return;
+      if (typeof value === "string" || typeof value === "number") {
+        addEmail(value);
+        return;
+      }
+      if (Array.isArray(value)) {
+        for (const item of value) {
+          collect(item, depth + 1);
+        }
+        return;
+      }
+      if (typeof value === "object") {
+        for (const field of EMAIL_FIELDS) {
+          if (Object.prototype.hasOwnProperty.call(value, field)) {
+            collect(value[field], depth + 1);
+          }
+        }
+      }
+    };
+
+    for (const field of EMAIL_FIELDS) {
+      if (Object.prototype.hasOwnProperty.call(raw, field)) {
+        collect(raw[field]);
+      }
+    }
+
+    if (raw.contact) collect(raw.contact);
+    if (raw.contactInfo) collect(raw.contactInfo);
+    if (raw.metadata) collect(raw.metadata);
+    if (raw.details) collect(raw.details);
+    if (raw.organisation) collect(raw.organisation);
+    if (Array.isArray(raw.contacts)) {
+      for (const contact of raw.contacts) {
+        collect(contact);
+      }
+    }
+    if (Array.isArray(raw.contactPersons)) {
+      for (const person of raw.contactPersons) {
+        collect(person);
+      }
+    }
+
+    for (const field of EMAIL_TEXT_FIELDS) {
+      if (raw[field]) {
+        collect(raw[field]);
+      }
+    }
+
+    return Array.from(found.values());
+  }
+
   function normaliseJob(raw){
     if (!raw || typeof raw !== "object") return null;
+    const emailList = extractEmails(raw);
     const job = { ...raw };
     const id = stableId(job);
     if (!id) return null;
@@ -239,6 +252,7 @@
       job.language,
       job.tags ? job.tags.join(" ") : "",
       job?.user?.name,
+      emailList.join(" "),
     ]
       .filter(Boolean)
       .map((value) => String(value).toLowerCase());
@@ -258,6 +272,8 @@
 
     job._readAt = readMap[job.id] || null;
     job._read = Boolean(job._readAt);
+    job._emails = emailList;
+    job._primaryEmail = emailList.length ? emailList[0] : "";
 
     return job;
   }
@@ -283,57 +299,7 @@
       opt.textContent = source;
       sourceSelect.appendChild(opt);
     }
-  }
-
-  function unreadCount(){
-    return data.reduce((acc, job) => (job._read ? acc : acc + 1), 0);
-  }
-
-  function renderMeta(){
-    if (!metaEl) return;
-    if (!data.length) {
-      metaEl.textContent = "No posts available.";
-      return;
-    }
-    const total = data.length;
-    const visible = filtered.length;
-    const unread = unreadCount();
-    const parts = [`Showing ${visible} of ${total} posts`];
-    if (unread) parts.push(`Unread: ${unread}`);
-    if (updatedAt) parts.push(`Updated ${formatDate(updatedAt)}`);
-    metaEl.textContent = parts.join(" · ");
-  }
-
-  function renderTable(){
-    if (!tableEl || !tbodyEl) return;
-    if (!filtered.length) {
-      tableEl.style.display = "none";
-      fallbackEl.style.display = "block";
-      fallbackEl.textContent = data.length
-        ? "No posts match the current filters."
-        : "No posts available.";
-      return;
-    }
-    tableEl.style.display = "table";
-    fallbackEl.style.display = "none";
-
-    const frag = document.createDocumentFragment();
-    for (const job of filtered) {
-      const tr = document.createElement("tr");
-      tr.dataset.id = job.id;
-      if (job._read) tr.classList.add("is-read");
-      if (job.id === selectedId) tr.classList.add("is-active");
-
-      const tdRead = document.createElement("td");
-      tdRead.textContent = job._read ? "✓" : "";
-      tdRead.title = job._read ? "Marked as read" : "Unread";
-      tr.appendChild(tdRead);
-
-      const titleCell = document.createElement("td");
-      titleCell.innerHTML = `
-        <div class="job-title">${esc(job.title || "(no title)")}</div>
-        ${job?.user?.name ? `<div class="small">${esc(job.user.name)}</div>` : ""}
-      `;
+@@ -337,124 +442,264 @@
       tr.appendChild(titleCell);
 
       const countryCell = document.createElement("td");
@@ -359,6 +325,122 @@
     tbodyEl.replaceChildren(frag);
   }
 
+  function buildProducerEmailTemplate(job){
+    const title = job?.title ? String(job.title).trim() : "";
+    const source = job?._source
+      ? String(job._source).trim()
+      : job?.source
+      ? String(job.source).trim()
+      : "";
+    const link = job?._link
+      ? String(job._link).trim()
+      : job?.facebookUrl
+      ? String(job.facebookUrl).trim()
+      : job?.url
+      ? String(job.url).trim()
+      : "";
+    const country = job?._country
+      ? String(job._country).trim()
+      : job?.country
+      ? String(job.country).trim()
+      : "";
+
+    const subject = title ? `Selfcast x ${title}` : "Selfcast – Casting support";
+    const lines = ["Hi,", ""];
+    let spottedLine = "We spotted your casting";
+    if (title) spottedLine += ` "${title}"`;
+    if (source) spottedLine += ` on ${source}`;
+    spottedLine += ".";
+    lines.push(spottedLine);
+    lines.push(
+      "Selfcast is a global roster of actors ready to deliver self-tapes within 24 hours."
+    );
+    lines.push("If you're still casting, we'd love to help connect you with suitable talent fast.");
+    if (country) {
+      lines.push(`We can prioritise talent based in ${country}.`);
+    }
+    if (link) {
+      lines.push("", `Listing: ${link}`);
+    }
+    lines.push("", "Best,", "The Selfcast Team");
+
+    return { subject, body: lines.join("\n") };
+  }
+
+  function openMailClient(email, template){
+    if (!email) return;
+    const params = [];
+    if (template?.subject) params.push(`subject=${encodeURIComponent(template.subject)}`);
+    if (template?.body) params.push(`body=${encodeURIComponent(template.body)}`);
+    const query = params.length ? `?${params.join("&")}` : "";
+    window.location.href = `mailto:${encodeURIComponent(email)}${query}`;
+  }
+
+  async function sendProducerReply(job, emails, button){
+    if (!emails || !emails.length) {
+      showToast("No email address available for this job", "error");
+      return;
+    }
+
+    const primaryEmail = emails[0];
+    const template = buildProducerEmailTemplate(job);
+
+    if (button) button.disabled = true;
+
+    if (typeof fetch !== "function") {
+      showToast("Opening email client…", "info");
+      openMailClient(primaryEmail, template);
+      if (button) button.disabled = false;
+      return;
+    }
+
+    showToast("Sending email…", "info");
+
+    try {
+      const response = await fetch("/api/sendProducerReply", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: primaryEmail,
+          jobId: job?.id || null,
+          jobTitle: job?.title || job?._snippet || "",
+          jobSource: job?._source || job?.source || "",
+          jobLink: job?._link || job?.facebookUrl || job?.url || "",
+          jobCountry: job?._country || job?.country || "",
+        }),
+      });
+
+      let data = null;
+      try {
+        data = await response.json();
+      } catch {
+        data = null;
+      }
+
+      if (response.ok && data && data.ok) {
+        showToast("Producer reply sent", "success");
+        return;
+      }
+
+      if (response.status === 501 || data?.code === "smtp_not_configured") {
+        const fallbackTemplate = data?.template && data.template.body ? data.template : template;
+        showToast("Mail service not configured. Opening email client…", "info");
+        openMailClient(primaryEmail, fallbackTemplate);
+        return;
+      }
+
+      const errorMessage =
+        (data && (data.error || data.message)) || `Failed to send email (${response.status})`;
+      showToast(errorMessage, "error");
+    } catch (err) {
+      console.error("Radar dashboard: failed to send producer reply", err);
+      showToast("Unable to contact email service. Opening email client…", "error");
+      openMailClient(primaryEmail, template);
+    } finally {
+      if (button) button.disabled = false;
+    }
+  }
+
   function renderDetail(job){
     if (!job) {
       detailEl.innerHTML = "<em>Select a post…</em>";
@@ -366,6 +448,7 @@
     }
 
     const inFiltered = filtered.some((item) => item.id === job.id);
+    const emails = Array.isArray(job._emails) ? job._emails : [];
     const details = [];
     details.push(`<h2>${esc(job.title || "(no title)")}</h2>`);
     const metaBits = [];
@@ -381,6 +464,16 @@
       );
     }
 
+    if (emails.length) {
+      const emailLinks = emails
+        .map((address) => {
+          const href = `mailto:${encodeURIComponent(address)}`;
+          return `<a href="${href}">${esc(address)}</a>`;
+        })
+        .join("<br>");
+      details.push(`<div class="detail-contact"><strong>Emails:</strong><br>${emailLinks}</div>`);
+    }
+
     const links = [];
     if (job._link) {
       links.push(
@@ -390,6 +483,15 @@
     if (job.facebookUrl && job.facebookUrl !== job._link) {
       links.push(
         `<a href="${esc(job.facebookUrl)}" target="_blank" rel="noreferrer">Open Facebook link</a>`
+      );
+    }
+    if (emails.length) {
+      const primaryEmail = emails[0];
+      const label = emails.length > 1 ? `Email producer (${emails.length})` : "Email producer";
+      links.push(
+        `<button type="button" data-action="producer-email" title="Send to ${esc(
+          primaryEmail
+        )}">${label}</button>`
       );
     }
     const toggleLabel = job._read ? "Mark as unread" : "Mark as read";
@@ -433,6 +535,10 @@
     if (toggleBtn) {
       toggleBtn.addEventListener("click", () => toggleRead(job));
     }
+    const producerBtn = detailEl.querySelector('[data-action="producer-email"]');
+    if (producerBtn) {
+      producerBtn.addEventListener("click", () => sendProducerReply(job, emails, producerBtn));
+    }
   }
 
   function setRead(job, value){
@@ -458,98 +564,3 @@
   function toggleRead(job){
     if (!job) return;
     setRead(job, !job._read);
-    applyFilters();
-  }
-
-  function applyFilters(){
-    const query = qInput ? qInput.value.trim().toLowerCase() : "";
-    const source = sourceSelect ? sourceSelect.value : "";
-    const ageDays = ageSelect ? Number(ageSelect.value || 0) : 0;
-    const sort = sortSelect ? sortSelect.value : "new";
-    const onlyUnread = onlyUnreadCheckbox ? onlyUnreadCheckbox.checked : false;
-
-    const now = Date.now();
-    const ageThreshold = ageDays ? now - ageDays * 86400000 : null;
-
-    filtered = data.filter((job) => {
-      if (source && job._source !== source) return false;
-      if (query && (!job._haystack || !job._haystack.includes(query))) return false;
-      if (onlyUnread && job._read) return false;
-      if (ageThreshold && job._timestamp) {
-        if (job._timestamp < ageThreshold) return false;
-      }
-      return true;
-    });
-
-    const sortAccessor = (job) => (job._timestamp ? job._timestamp : 0);
-    filtered.sort((a, b) => {
-      const diff = sortAccessor(a) - sortAccessor(b);
-      return sort === "old" ? diff : -diff;
-    });
-
-    renderTable();
-    renderMeta();
-    renderDetail(itemsById.get(selectedId) || null);
-  }
-
-  function handleRowClick(event){
-    const tr = event.target.closest("tr");
-    if (!tr) return;
-    const id = tr.dataset.id;
-    if (!id) return;
-    const job = itemsById.get(id);
-    if (!job) return;
-    selectedId = job.id;
-    markAsRead(job);
-    renderDetail(job);
-    applyFilters();
-  }
-
-  async function loadData(){
-    try {
-      const res = await fetch(path, { cache: "no-store" });
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const payload = await res.json();
-      const items = Array.isArray(payload?.items) ? payload.items : [];
-      updatedAt = payload?.updatedAt || null;
-
-      const prepared = [];
-      itemsById.clear();
-      for (const raw of items) {
-        const job = normaliseJob(raw);
-        if (!job) continue;
-        prepared.push(job);
-        itemsById.set(job.id, job);
-      }
-
-      data = prepared;
-      selectedId = data[0]?.id || null;
-      populateSources(data);
-      applyFilters();
-    } catch (err) {
-      console.error("Radar dashboard: failed to load jobs", err);
-      metaEl.textContent = "Failed to load jobs.";
-      tableEl.style.display = "none";
-      fallbackEl.style.display = "block";
-      fallbackEl.textContent = "Failed to load jobs.";
-      detailEl.innerHTML = "<em>Unable to load data.</em>";
-    }
-  }
-
-  function init(){
-    if (tbodyEl) tbodyEl.addEventListener("click", handleRowClick);
-    if (qInput) qInput.addEventListener("input", debounce(applyFilters, 150));
-    if (sourceSelect) sourceSelect.addEventListener("change", applyFilters);
-    if (ageSelect) ageSelect.addEventListener("change", applyFilters);
-    if (sortSelect) sortSelect.addEventListener("change", applyFilters);
-    if (onlyUnreadCheckbox) onlyUnreadCheckbox.addEventListener("change", applyFilters);
-
-    loadData();
-  }
-
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", init, { once: true });
-  } else {
-    init();
-  }
-})();
