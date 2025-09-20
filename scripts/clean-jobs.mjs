@@ -1,6 +1,3 @@
-+48
--63
-
 import fs from "node:fs/promises";
 import { pathToFileURL } from "node:url";
 
@@ -26,26 +23,3 @@ export const cleanJobs = async () => {
     if (!item || !item.id) continue;
     if (!map.has(item.id)) {
       map.set(item.id, item);
-    }
-  }
-
-  const items = Array.from(map.values())
-    .filter((item) => agoDays(item.postDate || item.importedAt) <= MAX_DAYS_KEEP)
-    .sort((a, b) => pickDate(b) - pickDate(a));
-
-  const out = { ...json, updatedAt: new Date().toISOString(), items };
-  await fs.writeFile(OUTPUT_PATH, JSON.stringify(out, null, 2), "utf8");
-  return items.length;
-};
-
-const entryFileUrl = process.argv[1] ? pathToFileURL(process.argv[1]).href : undefined;
-if (import.meta.url === entryFileUrl) {
-  cleanJobs()
-    .then((count) => {
-      console.log("Cleaned. Items:", count);
-    })
-    .catch((error) => {
-      console.error(error);
-      process.exit(1);
-    });
-}
