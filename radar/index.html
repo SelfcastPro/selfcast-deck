@@ -18,7 +18,7 @@
     th:nth-child(2),td:nth-child(2){width:32%}
     th:nth-child(3),td:nth-child(3){width:12%}
     th:nth-child(4),td:nth-child(4){width:14%}
-    th:nth-child(5),td:nth-child(5){width:42%}
+       th:nth-child(5),td:nth-child(5){width:42%}
     th:nth-child(6),td:nth-child(6){width:12%}
     .snippet{white-space:pre-wrap;max-height:6.5em;overflow:hidden}
     .small{font-size:11px;color:#b3b3b3}
@@ -43,6 +43,12 @@
     .detail-raw{margin-top:12px}
     .detail-raw summary{cursor:pointer}
     .detail-raw pre{background:#0f0f0f;color:#e5e7eb;padding:10px;border-radius:6px;max-height:220px;overflow:auto}
+    .detail-contact{margin-top:10px;line-height:1.4}
+    .toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#111;border:1px solid #2a2a2a;padding:10px 14px;border-radius:10px;color:#f5f5f5;display:none;box-shadow:0 12px 30px rgba(0,0,0,0.45);z-index:2000;pointer-events:none;min-width:200px;text-align:center}
+    .toast.show{display:block}
+    .toast.toast--success{border-color:#16a34a}
+    .toast.toast--error{border-color:#dc2626}
+    .toast.toast--info{border-color:#4da3ff}
   </style>
 </head>
 <body>
@@ -86,6 +92,8 @@
     <div class="right" id="detail"><em>Select a post…</em></div>
   </div>
 </div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script>
 // Her peger vi dashboardet på crawlerens output
