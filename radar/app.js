@@ -422,12 +422,10 @@
       details.push(`<div class="detail-text">${formatted}</div>`);
     }
 
-    if (job._haystack && job._haystack !== job._text.toLowerCase()) {
-      const rawJson = esc(JSON.stringify(job, null, 2));
-      details.push(
-        `<details class="detail-raw"><summary>Show raw data</summary><pre>${rawJson}</pre></details>`
-      );
-    }
+        const rawJson = esc(JSON.stringify(job, null, 2));
+    details.push(
+      `<details class="detail-raw"><summary>Show raw data</summary><pre>${rawJson}</pre></details>`
+    );
 
     detailEl.innerHTML = details.join("");
 
