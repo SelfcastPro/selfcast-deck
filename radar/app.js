@@ -531,7 +531,7 @@
       tr.appendChild(titleCell);
 
       const countryCell = document.createElement("td");
-      countryCell.textContent = job._country || "";
+            countryCell.textContent = job._country || "";
       tr.appendChild(countryCell);
 
       const sourceCell = document.createElement("td");
@@ -556,11 +556,6 @@
 
   function buildProducerEmailTemplate(job){
     const title = job?.title ? String(job.title).trim() : "";
-    const source = job?._source
-      ? String(job._source).trim()
-      : job?.source
-      ? String(job.source).trim()
-      : "";
     const link = job?._link
       ? String(job._link).trim()
       : job?.facebookUrl
@@ -574,23 +569,53 @@
       ? String(job.country).trim()
       : "";
 
-    const subject = title ? `Selfcast x ${title}` : "Selfcast – Casting support";
+    const subject = "Regarding your casting call on Facebook";
     const lines = ["Hi,", ""];
-    let spottedLine = "We spotted your casting";    if (title) spottedLine += ` "${title}"`;
-    if (source) spottedLine += ` on ${source}`;
-    if (country) spottedLine += ` (${country})`;
-    spottedLine += ".";
-    lines.push(spottedLine);
-    lines.push("We help productions with outreach, shortlisting and scheduling talent.");
-    lines.push("Would you be open to a quick call to explore how we can support this project?");
-    if (link) {
-      lines.push("");
-      lines.push(`Casting link: ${link}`);
-    }
+    let intro = "We came across your casting post on Facebook";
+    if (title) intro += ` for "${title}"`;
+    if (country) intro += ` (${country})`;
+    intro += " and wanted to introduce Selfcast as a casting partner.";
+    lines.push(intro);
     lines.push("");
-    lines.push("Best,");
+    lines.push(
+      "Could you share a few more details about the production so we can tailor support?",
+    );
+    lines.push("");
+    lines.push("✨ The more info you can share, the better we can help:");
+    lines.push("- Project overview & format");
+    lines.push("- Roles or talent you're casting (including headcount)");
+    lines.push("- Key dates, deadlines, and timeline");
+    lines.push("- Location(s)");
+    lines.push("- Rates, budget, or union status");
+    lines.push("");
+    lines.push(
+      "You'll be able to review and book talent via Selfcast once you're ready to move forward.",
+    );
+    lines.push("");
+    lines.push("Best regards,");
     lines.push("Selfcast");
-    lines.push("www.selfcast.com");
+    lines.push("CASTING MADE EASY");
+
+    const postText = [
+      job?._text,
+      job?.text,
+      job?.summary,
+      job?.description,
+      job?.message,
+      job?._snippet,
+    ]
+      .find((value) => typeof value === "string" && value.trim())
+      ?.trim();
+
+    if (title || link || postText) {
+      lines.push("");
+      if (title) lines.push(title);
+      if (link) lines.push(`Casting link: ${link}`);
+      if (postText) {
+        lines.push("");
+        lines.push(postText);
+      }
+    }
 
     return {
       subject,
