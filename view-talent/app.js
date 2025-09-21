@@ -24,7 +24,7 @@
       });
       return { title:'Demo Project', owner:{name:'Selfcast',email:'info@selfcast.com',phone:'+45 22 81 31 13'}, talents, density };
     }
-    const raw = u.searchParams.get('data'); if (!raw) return null;
+     const raw = u.searchParams.get('data'); if (!raw) return null;
     let parsed=null; try{ parsed = JSON.parse(decodeURIComponent(escape(atob(raw)))); }catch(e){ console.error('data parse error', e); }
     if (!parsed) return null;
     parsed.density = density;
@@ -49,13 +49,47 @@
     return card;
   }
 
+  function contactItems(owner){
+    if (!owner) return [];
+    const items = [];
+    const normalize = (value)=>{
+      if (typeof value === 'string'){
+        const trimmed = value.trim();
+        return trimmed ? trimmed : '';
+      }
+      return value;
+    };
+    const name = normalize(owner.name);
+    if (name) items.push({type:'text', value:name});
+    const email = normalize(owner.email);
+    if (email) items.push({type:'link', value:email, href:`mailto:${email}`});
+    const phone = normalize(owner.phone);
+    if (phone) items.push({type:'text', value:phone});
+    return items;
+  }
+
   /* ---------- screen render ---------- */
   function renderScreen(data){
     const root = qs('#root'); root.innerHTML = '';
     qs('#deckTitle').textContent = data.title || 'Untitled';
-    if (data.owner?.name)  qs('#cName').textContent  = data.owner.name;
-    if (data.owner?.email){ const a=qs('#cEmail'); a.textContent=data.owner.email; a.href=`mailto:${data.owner.email}`; }
-    if (data.owner?.phone) qs('#cPhone').textContent = data.owner.phone;
+    const contactLine = qs('#contactLine');
+    if (contactLine){
+      contactLine.innerHTML='';
+      const items = contactItems(data.owner);
+      if (!items.length){
+        contactLine.style.display='none';
+      } else {
+        contactLine.style.display='';
+        items.forEach((item, idx)=>{
+          if (idx>0) contactLine.appendChild(document.createTextNode(' · '));
+          if (item.type==='link'){
+            const a=el('a','', item.value); a.href=item.href; contactLine.appendChild(a);
+          } else {
+            contactLine.appendChild(el('span','', item.value));
+          }
+        });
+      }
+    }
 
     (data.talents||[]).forEach(t=> root.appendChild(cardNode(t)));
   }
@@ -75,13 +109,13 @@
 
       const header = el('div','print-header');
       const left = el('div','ph-left', `<h1>${data.title || 'Untitled'}</h1>`);
+      const contactPieces = contactItems(data.owner).map(item =>
+        item.type==='link' ? `<a href="${item.href}">${item.value}</a>` : `<span>${item.value}</span>`
+      );
+      const contactHtml = contactPieces.length ? `<div class="ph-contact">${contactPieces.join(' · ')}</div>` : '';
       const right = el('div','ph-right',
         `<div class="ph-brand"><div class="ph-word">SELFCAST</div><div class="ph-tag">CASTING MADE EASY</div></div>
-         <div class="ph-contact">
-           ${data.owner?.name ? `<span>${data.owner.name}</span>`:''}
-           ${data.owner?.email ? ` · <a href="mailto:${data.owner.email}">${data.owner.email}</a>`:''}
-           ${data.owner?.phone ? ` · <span>${data.owner.phone}</span>`:''}
-         </div>`);
+         ${contactHtml}`);
       header.append(left, right);
       page.appendChild(header);
 
