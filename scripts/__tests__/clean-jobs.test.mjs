@@ -133,4 +133,3 @@ describe("clean-jobs.mjs", () => {
     });
   });
 });
-});
