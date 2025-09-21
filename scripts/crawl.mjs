@@ -1,4 +1,6 @@
 import fs from "fs";
+import path from "node:path";
+import { pathToFileURL } from "node:url";
 
 // Helper til at hente JSON med native fetch
 const fetchJson = async (url, options = {}) => {
@@ -9,10 +11,6 @@ const fetchJson = async (url, options = {}) => {
 
 // Miljøvariabler
 const APIFY_TOKEN = process.env.APIFY_TOKEN;
-if (!APIFY_TOKEN) {
-  console.error("❌ APIFY_TOKEN mangler. Tjek GitHub Secrets.");
-  process.exit(1);
-}
 
 // Actor ID for Facebook Groups Scraper
 const ACTOR_ID = "apify~facebook-groups-scraper";
@@ -335,10 +333,12 @@ async function fetchDataset(datasetId) {
 }
 
 // Gem jobs.json
-async function saveJobs(rawItems) {
-  fs.mkdirSync(OUT_DIR, { recursive: true });
+export async function saveJobs(rawItems, options = {}) {
+  const outFile = options.outFile ?? OUT_FILE;
+  const outDir =
+    options.outDir ?? (options.outFile ? path.dirname(outFile) : OUT_DIR);
 
-  const flattened = flattenRecords(rawItems);
+  fs.mkdirSync(outDir, { recursive: true });  const flattened = flattenRecords(rawItems);
   const normalised = flattened.map(normalizeJob).filter(Boolean);
 
   const seen = new Set();
@@ -348,6 +348,27 @@ async function saveJobs(rawItems) {
     if (seen.has(job.id)) continue;
     seen.add(job.id);
     deduped.push(job);
+  }
+  const droppedBeforeDedup = flattened.length - normalised.length;
+  const duplicatesRemoved = normalised.length - deduped.length;
+  if (droppedBeforeDedup > 0) {
+    console.log(`ℹ️ Ignorerede ${droppedBeforeDedup} poster uden gyldigt indhold`);
+  }
+  if (duplicatesRemoved > 0) {
+    console.log(`ℹ️ Fjernede ${duplicatesRemoved} dubletter baseret på id`);
+  }
+
+  if (deduped.length === 0) {
+    if (fs.existsSync(outFile)) {
+      console.warn(
+        `⚠️ Ingen opslag hentet fra Apify – beholder eksisterende fil: ${outFile}`
+      );
+    } else {
+      console.warn(
+        `⚠️ Ingen opslag hentet fra Apify – ingen fil skrevet (${outFile})`
+      );
+    }
+    return null;
   }
 
   deduped.sort(
@@ -375,22 +396,23 @@ async function saveJobs(rawItems) {
     items: deduped,
   };
 
-  fs.writeFileSync(OUT_FILE, JSON.stringify(out, null, 2));
+  fs.writeFileSync(outFile, JSON.stringify(out, null, 2));
 
-  const droppedBeforeDedup = flattened.length - normalised.length;
-  const duplicatesRemoved = normalised.length - deduped.length;
-  if (droppedBeforeDedup > 0) {
-    console.log(`ℹ️ Ignorerede ${droppedBeforeDedup} poster uden gyldigt indhold`);
-  }
-  if (duplicatesRemoved > 0) {
-    console.log(`ℹ️ Fjernede ${duplicatesRemoved} dubletter baseret på id`);
-  }
-
-  console.log(`✅ Gemte ${out.items.length} opslag i ${OUT_FILE}`);
+  console.log(`✅ Gemte ${out.items.length} opslag i ${outFile}`);
+  return out;
 }
 
 // ---------- Main ----------
-(async () => {
+const entryFileUrl = process.argv[1]
+  ? pathToFileURL(process.argv[1]).href
+  : undefined;
+
+async function run() {
+  if (!APIFY_TOKEN) {
+    console.error("❌ APIFY_TOKEN mangler. Tjek GitHub Secrets.");
+    process.exit(1);
+  }
+
   try {
     console.log("→ Henter seneste run fra Apify…");
     const runsRes = await fetchJson(RUNS_URL);
@@ -425,4 +447,8 @@ async function saveJobs(rawItems) {
     console.error("❌ Fejl under crawl:", err.message);
     process.exit(1);
   }
-})();
+}
+
+if (import.meta.url === entryFileUrl) {
+  run();
+}
