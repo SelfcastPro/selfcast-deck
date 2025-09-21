@@ -733,58 +733,57 @@
     setRead(job, !job._read);
     renderDetail(job);
     updateRowClasses();
-    updateMeta();
-    applyFilters();
-  }
+     }
+    if (timeline.length) {
+      parts.push(`<div class="detail-meta">${timeline.join("<br>")}</div>`);
+    }
 
-  function updateRowClasses(){
-    if (!tbodyEl) return;
-    const rows = tbodyEl.querySelectorAll("tr");
-    for (const row of rows) {
-      const job = itemsById.get(row.dataset.id);
-      const isSelected = selectedId && row.dataset.id === selectedId;
-      row.classList.toggle("is-active", Boolean(isSelected));
-      row.classList.toggle("is-read", Boolean(job && job._read));
-      const readCell = row.querySelector('td[data-cell="read"]');
-      if (readCell) {
-        readCell.textContent = job && job._read ? "✓" : "";
-      }
+    if (emails.length) {
+      const emailLinks = emails
+        .map((email) => `<a href="mailto:${encodeURIComponent(email)}">${esc(email)}</a>`)
+        .join(", ");
+      parts.push(
+        `<div class="detail-contact"><strong>Email${emails.length > 1 ? "s" : ""}:</strong> ${emailLinks}</div>`
+      );
+    } else {
+      parts.push('<div class="detail-contact"><strong>Emails:</strong> None detected</div>');
     }
-  }
+    if (phones.length) {
+      parts.push(
+        `<div class="detail-contact"><strong>Phone${phones.length > 1 ? "s" : ""}:</strong> ${phones
+          .map((phone) => esc(phone))
+          .join(", ")}</div>`
+      );
+    }
 
-  function hideFallback(){
-    if (fallbackEl) {
-      fallbackEl.style.display = "none";
-      fallbackEl.textContent = "";
+    if (template.body) {
+      parts.push(
+        `<details class="detail-email">
+          <summary>Producer outreach email</summary>
+          <div class="detail-email__subject"><strong>Subject:</strong> ${esc(template.subject)}</div>
+          <pre>${esc(template.body)}</pre>
+        </details>`
+      );
     }
-    if (tableEl) {
-      tableEl.style.display = "";
-    }
-  }
 
-  function showFallback(message){
-    if (fallbackEl) {
-      fallbackEl.textContent = message;
-      fallbackEl.style.display = "block";
+    if (job._text) {
+      const formatted = esc(job._text).replace(/\n{2,}/g, "\n\n").replace(/\n/g, "<br>");
+      parts.push(`<div class="detail-text">${formatted}</div>`);
     }
-    if (tableEl) {
-      tableEl.style.display = "none";
-    }
-  }
 
-  function unreadCount(){
-    let unread = 0;
-    for (const job of data) {
-      if (!job._read) unread += 1;
-    }
-    return unread;
-  }
+    const rawJson = esc(JSON.stringify(job, null, 2));
+    parts.push(
+      `<details class="detail-raw"><summary>Show raw data</summary><pre>${rawJson}</pre></details>`
+    );
 
-  function updateMeta(){
-    if (!metaEl) return;
-    if (!data.length) {
-      metaEl.textContent = "No posts available.";
-      return;
+    detailEl.innerHTML = parts.join("");
+
+    const toggleBtn = detailEl.querySelector('[data-action="toggle-read"]');
+    if (toggleBtn) {
+      toggleBtn.addEventListener("click", () => toggleRead(job));
+    }
+
+    const copyBtn = detailEl.querySelector('[data-action="copy-email"]');      return;
     }
     const parts = [];
     const visible = filtered.length;
