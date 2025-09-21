@@ -733,7 +733,7 @@
     }
     if (job._readAt) {
       timeline.push(`<strong>Read:</strong> ${esc(formatDate(job._readAt))}`);
-    }
+      }
     if (timeline.length) {
       parts.push(`<div class="detail-meta">${timeline.join("<br>")}</div>`);
     }
@@ -758,7 +758,7 @@
 
     if (template.body) {
       parts.push(
-        `<details class="detail-email"${emails.length ? " open" : ""}>
+        `<details class="detail-email">
           <summary>Producer outreach email</summary>
           <div class="detail-email__subject"><strong>Subject:</strong> ${esc(template.subject)}</div>
           <pre>${esc(template.body)}</pre>
