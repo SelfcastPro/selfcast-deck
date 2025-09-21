@@ -96,18 +96,38 @@
   }
   function saveProject(){
     const name = (els.title?.value || '').trim(); if (!name) return alert('Give the project a name first.');
-    const all = readProjects(); all[name] = currentDeckData(); writeProjects(all);
+    const deck = currentDeckData();
+    const payload = {
+      version: 2,
+      deck,
+      talents: talents.map(t => ({ ...t })),
+      selectedIds: Array.from(selected.keys())
+    };
+    const all = readProjects(); all[name] = payload; writeProjects(all);
     refreshProjectSelect(); els.selProject.value = name; alert('Project saved.');
   }
   function openProject(){
     const name = els.selProject?.value; if (!name) return alert('Select a saved project first.');
-    const deck = readProjects()[name]; if (!deck) return alert('Not found.');
-    els.title.value      = deck.title || '';
-    els.ownerName.value  = deck.owner?.name  || '';
-    els.ownerEmail.value = deck.owner?.email || '';
-    els.ownerPhone.value = deck.owner?.phone || '';
-    talents  = Array.isArray(deck.talents) ? deck.talents.slice() : [];
-    selected = new Map(talents.map(t => [t.id, t]));
+    const stored = readProjects()[name]; if (!stored) return alert('Not found.');
+    const deck = stored?.deck?.kind === 'talent-deck' ? stored.deck : stored;
+    els.title.value      = deck?.title || '';
+    els.ownerName.value  = deck?.owner?.name  || '';
+    els.ownerEmail.value = deck?.owner?.email || '';
+    els.ownerPhone.value = deck?.owner?.phone || '';
+
+    const savedTalents = Array.isArray(stored?.talents)
+      ? stored.talents.slice()
+      : Array.isArray(deck?.talents) ? deck.talents.slice() : [];
+    const selectedIds = Array.isArray(stored?.selectedIds)
+      ? stored.selectedIds.map(id => String(id))
+      : Array.isArray(deck?.talents) ? deck.talents.map(t => String(t.id)) : [];
+
+    const selectedSet = new Set(selectedIds);
+    talents = savedTalents.map(t => ({ ...t }));
+    selected = new Map();
+    talents.forEach(t => {
+      if (selectedSet.has(String(t.id))) selected.set(t.id, t);
+    });
     renderList(); autosave(); openPreview();
   }
   function deleteProject(){
