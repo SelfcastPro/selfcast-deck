@@ -800,7 +800,9 @@
     if (composeBtn && template.body && emails.length) {
       composeBtn.addEventListener("click", () => {
         const opened = openMailClient(emails, template);
-        if (!opened) {
+        if (opened) {
+          composeBtn.classList.add("is-sent");
+        } else {
           showToast("Unable to open email client", "error");
         }
       });
@@ -826,6 +828,7 @@
   }
 
   function toggleRead(job){
+
     if (!job) return;
     setRead(job, !job._read);
     renderDetail(job);
