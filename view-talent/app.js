@@ -83,9 +83,14 @@
         items.forEach((item, idx)=>{
           if (idx>0) contactLine.appendChild(document.createTextNode(' · '));
           if (item.type==='link'){
-            const a=el('a','', item.value); a.href=item.href; contactLine.appendChild(a);
+            const a=document.createElement('a');
+            a.href=item.href;
+            a.textContent=item.value;
+            contactLine.appendChild(a);
           } else {
-            contactLine.appendChild(el('span','', item.value));
+            const span=document.createElement('span');
+            span.textContent=item.value;
+            contactLine.appendChild(span);
           }
         });
       }
@@ -110,8 +115,7 @@
       const header = el('div','print-header');
       const left = el('div','ph-left', `<h1>${data.title || 'Untitled'}</h1>`);
       const contactPieces = contactItems(data.owner).map(item =>
-        item.type==='link' ? `<a href="${item.href}">${item.value}</a>` : `<span>${item.value}</span>`
-      );
+        item.type==='link' ? `<a href="${item.href}">${item.value}</a>` : `<span>${item.value}</span>`      );
       const contactHtml = contactPieces.length ? `<div class="ph-contact">${contactPieces.join(' · ')}</div>` : '';
       const right = el('div','ph-right',
         `<div class="ph-brand"><div class="ph-word">SELFCAST</div><div class="ph-tag">CASTING MADE EASY</div></div>
