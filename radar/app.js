@@ -446,107 +446,7 @@
       job.user?.name,
       job.owner?.name,
       job.from?.name,
-      job.company,
-      job.employer,
-      Array.isArray(job.locations)
-        ? job.locations
-            .map((item) =>
-              item && typeof item === "object"
-                ? item.country || item.name || item.label
-                : item
-            )
-            .join(" ")
-        : "",
-      emails.join(" "),
-      phones.join(" "),
-    ].filter(Boolean);
-    job._haystack = haystackParts
-      .map((value) => String(value).toLowerCase())
-      .join(" ");
-
-    job._timestamp = jobTimestamp(job);
-    job._dateLabel = job._timestamp ? formatDate(job._timestamp) : "";
-
-    const linkCandidate =
-      job._link ||
-      job.url ||
-      job.facebookUrl ||
-      job.permalinkUrl ||
-      job.postUrl ||
-      job.link ||
-      job.href ||
-      job.externalUrl ||
-      (typeof job.sharedPost?.url === "string" ? job.sharedPost.url : "") ||
-      (typeof job.sharedPost?.permalink_url === "string"
-        ? job.sharedPost.permalink_url
-        : "");
-    job._link = linkCandidate ? String(linkCandidate).trim() : "";
-
-    job._readAt = readMap[job.id] || null;
-    job._read = Boolean(job._readAt);
-
-    return job;
-  }
-  function populateSources(items){
-    if (!sourceSelect) return;
-    const seen = new Set();
-    const sources = [];
-    for (const job of items) {
-      const key = job._source;
-      if (key && !seen.has(key)) {
-        seen.add(key);
-        sources.push(key);
-      }
-    }
-    sources.sort((a, b) => a.localeCompare(b, "da", { sensitivity: "base" }));
-    while (sourceSelect.options.length > 1) {
-      sourceSelect.remove(1);
-    }
-    for (const source of sources) {
-      const opt = document.createElement("option");
-      opt.value = source;
-      opt.textContent = source;
-      sourceSelect.appendChild(opt);
-    }
-  }
-
-  function renderList(items){
-    if (!tbodyEl) return;
-    const frag = document.createDocumentFragment();
-    for (const job of items) {
-      const tr = document.createElement("tr");
-      tr.dataset.id = job.id;
-      if (job._read) tr.classList.add("is-read");
-      if (selectedId && job.id === selectedId) {
-        tr.classList.add("is-active");
-      }
-
-      const readCell = document.createElement("td");
-      readCell.dataset.cell = "read";
-      readCell.textContent = job._read ? "✓" : "";
-      tr.appendChild(readCell);
-
-      const titleCell = document.createElement("td");
-      titleCell.innerHTML = `<div class="job-title">${esc(job.title || "(no title)")}</div>`;
-      tr.appendChild(titleCell);
-
-      const countryCell = document.createElement("td");
-            countryCell.textContent = job._country || "";
-      tr.appendChild(countryCell);
-
-      const sourceCell = document.createElement("td");
-      sourceCell.textContent = job._source;
-      tr.appendChild(sourceCell);
-
-      const snippetCell = document.createElement("td");
-      snippetCell.className = "snippet";
-      snippetCell.textContent = job._snippet || job.title || "";
-      tr.appendChild(snippetCell);
-
-      const postedCell = document.createElement("td");
-      postedCell.textContent = job._dateLabel || "";
-      tr.appendChild(postedCell);
-
+      
       frag.appendChild(tr);
     }
 
@@ -571,17 +471,13 @@
 
     const subject = "Regarding your casting call on Facebook";
     const lines = ["Hi,", ""];
-    let intro = "We came across your casting post on Facebook";
+    let intro = "We saw your casting post on Facebook";
     if (title) intro += ` for "${title}"`;
     if (country) intro += ` (${country})`;
-    intro += " and wanted to introduce Selfcast as a casting partner.";
+    intro += " and wanted to see how Selfcast can support your casting.";
     lines.push(intro);
     lines.push("");
-    lines.push(
-      "Could you share a few more details about the production so we can tailor support?",
-    );
-    lines.push("");
-    lines.push("✨ The more info you can share, the better we can help:");
+    lines.push("To help us move quickly, could you share the following?");
     lines.push("- Project overview & format");
     lines.push("- Roles or talent you're casting (including headcount)");
     lines.push("- Key dates, deadlines, and timeline");
@@ -589,11 +485,11 @@
     lines.push("- Rates, budget, or union status");
     lines.push("");
     lines.push(
-      "You'll be able to review and book talent via Selfcast once you're ready to move forward.",
+      "Selfcast represents 60,000 talents across 160+ countries, so once we have the brief we can send curated options right away.",
     );
     lines.push("");
     lines.push("Best regards,");
-    lines.push("Selfcast");
+    lines.push("The Selfcast Team");
     lines.push("CASTING MADE EASY");
 
     const postText = [
@@ -607,15 +503,19 @@
       .find((value) => typeof value === "string" && value.trim())
       ?.trim();
 
-    if (title || link || postText) {
-      lines.push("");
-      if (title) lines.push(title);
-      if (link) lines.push(`Casting link: ${link}`);
-      if (postText) {
-        lines.push("");
-        lines.push(postText);
-      }
-    }
+    const postPlaceholder = "(Original post text unavailable.)";
+    const linkPlaceholder = "(Casting link unavailable.)";
+    const originalPost = postText || postPlaceholder;
+    const castingLink = link || linkPlaceholder;
+
+    lines.push("");
+    lines.push("---");
+    lines.push("Original post for reference:");
+    originalPost.split(/\r?\n/).forEach((line) => {
+      lines.push(line);
+    });
+    lines.push("");
+    lines.push(`Casting link: ${castingLink}`);
 
     return {
       subject,
