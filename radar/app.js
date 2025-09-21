@@ -446,14 +446,247 @@
       job.user?.name,
       job.owner?.name,
       job.from?.name,
-      
+      job._primaryEmail,
+      phones.join(" "),
+      emails.join(" "),
+    ];
+    job._haystack = haystackParts
+      .map((value) => (value === null || value === undefined ? "" : String(value)))
+      .map((value) => value.trim())
+      .filter(Boolean)
+      .map((value) => value.toLowerCase())
+      .join(" ");
+
+    const timestampCandidates = [
+      jobTimestamp(job),
+      coerceDate(job.updatedAt),
+      coerceDate(job.updated_at),
+      coerceDate(job.importedAt),
+      coerceDate(job.fetched_at),
+      coerceDate(job.created_at),
+      coerceDate(job.createdAt),
+    ];
+    const timestamp = timestampCandidates.find(
+      (value) => typeof value === "number" && !Number.isNaN(value)
+    );
+    job._timestamp = timestamp || null;
+    job._dateLabel = timestamp ? formatDate(timestamp) : "";
+
+    const readEntry = readMap[job.id];
+    if (readEntry) {
+      job._read = true;
+      job._readAt = readEntry;
+    } else {
+      job._read = false;
+      job._readAt = null;
+    }
+
+    const linkCandidates = [];
+    const pushCandidate = (value) => {
+      if (typeof value !== "string") return;
+      const trimmed = value.trim();
+      if (trimmed) {
+        linkCandidates.push(trimmed);
+      }
+    };
+
+    pushCandidate(job._link);
+    pushCandidate(job.link);
+    pushCandidate(job.url);
+    pushCandidate(job.permalinkUrl);
+    pushCandidate(job.permalink_url);
+    pushCandidate(job.permalink);
+    pushCandidate(job.postUrl);
+    pushCandidate(job.post_url);
+    pushCandidate(job.postLink);
+    pushCandidate(job.post_link);
+    pushCandidate(job.facebookUrl);
+    pushCandidate(job.facebook_url);
+    pushCandidate(job.externalUrl);
+    pushCandidate(job.external_url);
+    pushCandidate(job.sourceUrl);
+    pushCandidate(job.source_url);
+    pushCandidate(job.meta?.url);
+    pushCandidate(job.meta?.link);
+
+    if (Array.isArray(job.links)) {
+      for (const entry of job.links) {
+        pushCandidate(entry);
+      }
+    }
+
+    const attachments = Array.isArray(job.attachments)
+      ? job.attachments
+      : Array.isArray(job.attachments?.data)
+      ? job.attachments.data
+      : [];
+    for (const attachment of attachments) {
+      if (!attachment || typeof attachment !== "object") continue;
+      pushCandidate(attachment.url);
+      pushCandidate(attachment.unshimmed_url);
+      pushCandidate(attachment.permalink_url);
+      pushCandidate(attachment.href);
+      pushCandidate(attachment.target?.url);
+      pushCandidate(attachment.target?.href);
+    }
+
+    job._link = linkCandidates.find(Boolean) || "";
+
+    return job;
+  }
+
+  function renderList(items){
+    if (!tbodyEl || !tableEl) return;
+    const list = Array.isArray(items) ? items : [];
+
+    if (!list.length) {
+      tbodyEl.replaceChildren();
+      tableEl.style.display = "none";
+      updateRowClasses();
+      return;
+    }
+
+    tableEl.style.display = "";
+
+    const frag = document.createDocumentFragment();
+    for (const job of list) {
+      const tr = document.createElement("tr");
+      tr.dataset.id = job.id;
+
+      const statusCell = document.createElement("td");
+      statusCell.textContent = job._read ? "✓" : "";
+      tr.appendChild(statusCell);
+
+      const titleCell = document.createElement("td");
+      const titleParts = [];
+      const title = job.title ? esc(job.title) : "(no title)";
+      titleParts.push(`<div class="job-title">${title}</div>`);
+      const subtitle = [];
+      if (job._primaryEmail) subtitle.push(esc(job._primaryEmail));
+      if (Array.isArray(job._phones) && job._phones.length) {
+        subtitle.push(esc(job._phones[0]));
+      }
+      if (subtitle.length) {
+        titleParts.push(`<div class="small">${subtitle.join(" · ")}</div>`);
+      }
+      titleCell.innerHTML = titleParts.join("");
+      tr.appendChild(titleCell);
+
+      const countryCell = document.createElement("td");
+      countryCell.textContent = job._country || "";
+      tr.appendChild(countryCell);
+
+      const sourceCell = document.createElement("td");
+      sourceCell.textContent = job._source || "";
+      tr.appendChild(sourceCell);
+
+      const snippetCell = document.createElement("td");
+      const snippet = job._snippet || "";
+      snippetCell.innerHTML = `<div class="snippet">${esc(snippet)}</div>`;
+      tr.appendChild(snippetCell);
+
+      const dateCell = document.createElement("td");
+      dateCell.textContent = job._dateLabel || "";
+      tr.appendChild(dateCell);
+
+      tr.classList.toggle("is-read", !!job._read);
+      tr.classList.toggle("is-active", job.id === selectedId);
+
+
       frag.appendChild(tr);
     }
 
     tbodyEl.replaceChildren(frag);
     updateRowClasses();
   }
+function updateRowClasses(){
+    if (!tbodyEl) return;
+    const rows = tbodyEl.querySelectorAll("tr");
+    for (const row of rows) {
+      const jobId = row.dataset.id || "";
+      const job = itemsById.get(jobId) || null;
+      const isActive = jobId && jobId === selectedId;
+      row.classList.toggle("is-active", !!isActive);
+      row.classList.toggle("is-read", !!job?._read);
+      const statusCell = row.firstElementChild;
+      if (statusCell && statusCell.nodeType === Node.ELEMENT_NODE) {
+        statusCell.textContent = job && job._read ? "✓" : "";
+      }
+    }
+  }
 
+  function unreadCount(){
+    return data.reduce((count, job) => (job && !job._read ? count + 1 : count), 0);
+  }
+
+  function updateMeta(){
+    if (!metaEl) return;
+    const parts = [];
+    const visible = filtered.length;
+    parts.push(`${visible} ${visible === 1 ? "post" : "posts"} shown`);
+    parts.push(`${data.length} total`);
+    const unread = unreadCount();
+    if (unread) {
+      parts.push(`${unread} unread`);
+    }
+    if (updatedAt) {
+      const label = formatDate(updatedAt);
+      if (label) parts.push(`Updated ${label}`);
+    }
+    metaEl.textContent = parts.join(" · ");
+  }
+
+  function showFallback(message){
+    if (fallbackEl) {
+      fallbackEl.textContent = message || "";
+      fallbackEl.style.display = "block";
+    }
+    if (tableEl) {
+      tableEl.style.display = "none";
+    }
+  }
+
+  function hideFallback(){
+    if (fallbackEl) {
+      fallbackEl.style.display = "none";
+    }
+    if (tableEl) {
+      tableEl.style.display = "";
+    }
+  }
+
+  function populateSources(items){
+    if (!sourceSelect) return;
+    const currentValue = sourceSelect.value;
+    const uniqueSources = Array.from(
+      new Set(
+        (Array.isArray(items) ? items : [])
+          .map((job) => (job?._source ? String(job._source).trim() : ""))
+          .filter(Boolean)
+      )
+    ).sort((a, b) => a.localeCompare(b));
+
+    const frag = document.createDocumentFragment();
+    const defaultOption = document.createElement("option");
+    defaultOption.value = "";
+    defaultOption.textContent = "All sources";
+    frag.appendChild(defaultOption);
+
+    for (const source of uniqueSources) {
+      const option = document.createElement("option");
+      option.value = source;
+      option.textContent = source;
+      frag.appendChild(option);
+    }
+
+    sourceSelect.replaceChildren(frag);
+
+    if (currentValue && uniqueSources.includes(currentValue)) {
+      sourceSelect.value = currentValue;
+    } else {
+      sourceSelect.value = "";
+    }
+  }
   function buildProducerEmailTemplate(job){
     const title = job?.title ? String(job.title).trim() : "";
     const link = job?._link
@@ -566,7 +799,7 @@
     }
   }
 
-  function renderDetail(job){
+  fufunction renderDetail(job){
     if (!detailEl) return;
     if (!job) {
       detailEl.innerHTML = "<em>Select a post…</em>";
@@ -707,7 +940,9 @@
         }
       });
     }
-  }  function setRead(job, value){
+  }  
+  
+  function setRead(job, value){
     if (!job) return;
     if (value) {
       const ts = nowISO();
@@ -728,77 +963,12 @@
   }
 
   function toggleRead(job){
-
+-
     if (!job) return;
     setRead(job, !job._read);
     renderDetail(job);
     updateRowClasses();
-     }
-    if (timeline.length) {
-      parts.push(`<div class="detail-meta">${timeline.join("<br>")}</div>`);
-    }
-
-    if (emails.length) {
-      const emailLinks = emails
-        .map((email) => `<a href="mailto:${encodeURIComponent(email)}">${esc(email)}</a>`)
-        .join(", ");
-      parts.push(
-        `<div class="detail-contact"><strong>Email${emails.length > 1 ? "s" : ""}:</strong> ${emailLinks}</div>`
-      );
-    } else {
-      parts.push('<div class="detail-contact"><strong>Emails:</strong> None detected</div>');
-    }
-    if (phones.length) {
-      parts.push(
-        `<div class="detail-contact"><strong>Phone${phones.length > 1 ? "s" : ""}:</strong> ${phones
-          .map((phone) => esc(phone))
-          .join(", ")}</div>`
-      );
-    }
-
-    if (template.body) {
-      parts.push(
-        `<details class="detail-email">
-          <summary>Producer outreach email</summary>
-          <div class="detail-email__subject"><strong>Subject:</strong> ${esc(template.subject)}</div>
-          <pre>${esc(template.body)}</pre>
-        </details>`
-      );
-    }
-
-    if (job._text) {
-      const formatted = esc(job._text).replace(/\n{2,}/g, "\n\n").replace(/\n/g, "<br>");
-      parts.push(`<div class="detail-text">${formatted}</div>`);
-    }
-
-    const rawJson = esc(JSON.stringify(job, null, 2));
-    parts.push(
-      `<details class="detail-raw"><summary>Show raw data</summary><pre>${rawJson}</pre></details>`
-    );
-
-    detailEl.innerHTML = parts.join("");
-
-    const toggleBtn = detailEl.querySelector('[data-action="toggle-read"]');
-    if (toggleBtn) {
-      toggleBtn.addEventListener("click", () => toggleRead(job));
-    }
-
-    const copyBtn = detailEl.querySelector('[data-action="copy-email"]');      return;
-    }
-    const parts = [];
-    const visible = filtered.length;
-    parts.push(`${visible} ${visible === 1 ? "post" : "posts"} shown`);
-    parts.push(`${data.length} total`);
-    const unread = unreadCount();
-    if (unread) {
-      parts.push(`${unread} unread`);
-    }
-    if (updatedAt) {
-      const label = formatDate(updatedAt);
-      if (label) parts.push(`Updated ${label}`);
-    }
-    metaEl.textContent = parts.join(" · ");
-  }
+   }
 
   function applyFilters(){
     let items = data.slice();
