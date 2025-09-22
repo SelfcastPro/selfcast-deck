@@ -81,7 +81,7 @@
     }, 2600);
   }
 
-   function nowISO(){
+  function nowISO(){
     return new Date().toISOString();
   }
 
@@ -183,7 +183,7 @@
     return textSnippet || null;
   }
 
-    function jobTimestamp(job){
+  function jobTimestamp(job){
     const candidates = [
       job.postDate,
       job.posted_at,
@@ -599,7 +599,8 @@
     tbodyEl.replaceChildren(frag);
     updateRowClasses();
   }
-function updateRowClasses(){
+
+  function updateRowClasses(){
     if (!tbodyEl) return;
     const rows = tbodyEl.querySelectorAll("tr");
     for (const row of rows) {
@@ -799,7 +800,7 @@ function updateRowClasses(){
     }
   }
 
-  fufunction renderDetail(job){
+  function renderDetail(job){
     if (!detailEl) return;
     if (!job) {
       detailEl.innerHTML = "<em>Select a post…</em>";
@@ -866,7 +867,7 @@ function updateRowClasses(){
     }
     if (job._readAt) {
       timeline.push(`<strong>Read:</strong> ${esc(formatDate(job._readAt))}`);
-      }
+    }
     if (timeline.length) {
       parts.push(`<div class="detail-meta">${timeline.join("<br>")}</div>`);
     }
@@ -963,12 +964,12 @@ function updateRowClasses(){
   }
 
   function toggleRead(job){
--
+
     if (!job) return;
     setRead(job, !job._read);
     renderDetail(job);
     updateRowClasses();
-   }
+  }
 
   function applyFilters(){
     let items = data.slice();
