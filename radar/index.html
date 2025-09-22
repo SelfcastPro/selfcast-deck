@@ -62,16 +62,19 @@
   <h1>Selfcast – Casting Jobs Radar</h1>
   <div id="meta" class="small">Loading…</div>
   <div class="controls">
-   <option value="">Any time</option>
-  <option value="1">Last 24h</option>
-  <option value="3">Last 3 days</option>
-  <option value="7">Last 7 days</option>
-  <option value="14">Last 14 days</option>
-  <option value="30" selected>Last 30 days</option>
-</select>
-<select id="sort">
-  <option value="new">Newest first</option>
-    <select id="sort">
+       <input type="search" id="q" placeholder="Search posts" aria-label="Search posts"/>
+    <select id="source" aria-label="Filter by source">
+      <option value="">All sources</option>
+    </select>
+    <select id="age" aria-label="Filter by age">
+      <option value="">Any time</option>
+      <option value="1">Last 24h</option>
+      <option value="3">Last 3 days</option>
+      <option value="7">Last 7 days</option>
+      <option value="14">Last 14 days</option>
+      <option value="30" selected>Last 30 days</option>
+    </select>
+    <select id="sort" aria-label="Sort posts">
       <option value="new">Newest first</option>
       <option value="old">Oldest first</option>
     </select>
