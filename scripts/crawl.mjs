@@ -8,9 +8,11 @@ const fetchJson = async (url, options = {}) => {
   if (!res.ok) throw new Error(`HTTP ${res.status} for ${url}`);
   return res.json();
 };
-
-// Miljøvariabler
 const APIFY_TOKEN = process.env.APIFY_TOKEN;
+if (!APIFY_TOKEN) {
+  console.error("❌ APIFY_TOKEN mangler. Tjek GitHub Secrets.");
+  process.exit(1);
+}
 
 // Actor ID for Facebook Groups Scraper
 const ACTOR_ID = "apify~facebook-groups-scraper";
@@ -310,8 +312,6 @@ async function fetchDataset(datasetId) {
   while (true) {
     const pageUrl = `https://api.apify.com/v2/datasets/${datasetId}/items?token=${APIFY_TOKEN}&clean=true&limit=${limit}&offset=${offset}`;
     const pageItems = await fetchJson(pageUrl);
-
-    if (!Array.isArray(pageItems)) {
       throw new Error(
         `Uventet respons fra Apify dataset: Forventede en liste, fik ${typeof pageItems}`
       );
