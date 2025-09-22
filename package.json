@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "vitest run"
+  "test": "vitest run"
   },
   "dependencies": {
     "nodemailer": "^7.0.6"
