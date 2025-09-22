@@ -9,10 +9,6 @@ const fetchJson = async (url, options = {}) => {
   return res.json();
 };
 const APIFY_TOKEN = process.env.APIFY_TOKEN;
-if (!APIFY_TOKEN) {
-  console.error("❌ APIFY_TOKEN mangler. Tjek GitHub Secrets.");
-  process.exit(1);
-}
 
 // Actor ID for Facebook Groups Scraper
 const ACTOR_ID = "apify~facebook-groups-scraper";
