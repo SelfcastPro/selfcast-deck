@@ -338,7 +338,9 @@ export async function saveJobs(rawItems, options = {}) {
   const outDir =
     options.outDir ?? (options.outFile ? path.dirname(outFile) : OUT_DIR);
 
-  fs.mkdirSync(outDir, { recursive: true });  const flattened = flattenRecords(rawItems);
+  fs.mkdirSync(outDir, { recursive: true });
+
+  const flattened = flattenRecords(rawItems);
   const normalised = flattened.map(normalizeJob).filter(Boolean);
 
   const seen = new Set();
@@ -349,6 +351,7 @@ export async function saveJobs(rawItems, options = {}) {
     seen.add(job.id);
     deduped.push(job);
   }
+
   const droppedBeforeDedup = flattened.length - normalised.length;
   const duplicatesRemoved = normalised.length - deduped.length;
   if (droppedBeforeDedup > 0) {
@@ -400,8 +403,6 @@ export async function saveJobs(rawItems, options = {}) {
 
   console.log(`✅ Gemte ${out.items.length} opslag i ${outFile}`);
   return out;
-}
-
 // ---------- Main ----------
 const entryFileUrl = process.argv[1]
   ? pathToFileURL(process.argv[1]).href
