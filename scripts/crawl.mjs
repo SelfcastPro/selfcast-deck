@@ -312,6 +312,7 @@ async function fetchDataset(datasetId) {
   while (true) {
     const pageUrl = `https://api.apify.com/v2/datasets/${datasetId}/items?token=${APIFY_TOKEN}&clean=true&limit=${limit}&offset=${offset}`;
     const pageItems = await fetchJson(pageUrl);
+    if (!Array.isArray(pageItems)) {
       throw new Error(
         `Uventet respons fra Apify dataset: Forventede en liste, fik ${typeof pageItems}`
       );
@@ -403,6 +404,8 @@ export async function saveJobs(rawItems, options = {}) {
 
   console.log(`✅ Gemte ${out.items.length} opslag i ${outFile}`);
   return out;
+}
+
 // ---------- Main ----------
 const entryFileUrl = process.argv[1]
   ? pathToFileURL(process.argv[1]).href
