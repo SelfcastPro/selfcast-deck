@@ -1,5 +1,3 @@
-### `src/app/api/profiles/route.ts`
-```ts
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
 
@@ -26,4 +24,3 @@ if (status) where.status = status;
 const items = await prisma.profile.findMany({ where, orderBy: { createdAt: 'desc' }, take: 100 });
 return NextResponse.json({ items });
 }
-```
