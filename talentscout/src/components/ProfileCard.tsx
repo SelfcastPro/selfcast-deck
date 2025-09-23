@@ -1,5 +1,3 @@
-## `src/components/ProfileCard.tsx`
-```tsx
 'use client';
 import { useState } from 'react';
 import { ProfileDTO } from '@/types';
@@ -42,4 +40,3 @@ return (
 </div>
 );
 }
-```
