@@ -1,5 +1,3 @@
-## `tailwind.config.ts`
-```ts
 import type { Config } from 'tailwindcss';
 
 
@@ -23,4 +21,3 @@ borderRadius: {
 },
 plugins: []
 } satisfies Config;
-```
