@@ -15,6 +15,21 @@ vi.mock('@/lib/db', () => ({
   },
 }));
 
+vi.mock('next/server', () => ({
+  NextResponse: {
+    json: (data: unknown, init?: ResponseInit) => {
+      const headers = new Headers(init?.headers ?? {});
+      if (!headers.has('content-type')) {
+        headers.set('content-type', 'application/json');
+      }
+      return new Response(JSON.stringify(data), {
+        ...init,
+        headers,
+      });
+    },
+  },
+}));
+
 import { POST } from './route';
 
 describe('POST /api/ingest', () => {
@@ -101,6 +116,39 @@ describe('POST /api/ingest', () => {
     expect(transactionMock).toHaveBeenCalledWith([upsertResult]);
   });
 
+ it.each([
+    ['12k', 12000],
+    ['1.2M', 1_200_000],
+    ['987', 987],
+  ])('normalizes follower shorthand %s to %d', async (input, expected) => {
+    const request = {
+      headers: new Headers({
+        'x-ingest-token': 'test-token',
+      }),
+      json: async () => [
+        {
+          username: 'shorthand',
+          followers: input,
+        },
+      ],
+    } as unknown as NextRequest;
+
+    const upsertResult = Symbol('upsert');
+    upsertMock.mockReturnValue(upsertResult);
+    transactionMock.mockResolvedValue(undefined);
+
+    const response = await POST(request);
+
+    expect(response.status).toBe(200);
+    await expect(response.json()).resolves.toEqual({ ok: true, count: 1 });
+
+    expect(upsertMock).toHaveBeenCalledTimes(1);
+    const upsertArgs = upsertMock.mock.calls[0][0];
+    expect(upsertArgs.update.followers).toBe(expected);
+    expect(upsertArgs.create.followers).toBe(expected);
+    expect(transactionMock).toHaveBeenCalledWith([upsertResult]);
+  });
+  
   it('normalizes follower strings without digits to null', async () => {
     const request = {
       headers: new Headers({
