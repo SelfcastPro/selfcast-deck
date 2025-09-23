@@ -1,4 +1,4 @@
-## `src/app/page.tsx`
+`src/app/page.tsx`
 ```tsx
 'use client';
 import { useEffect, useState } from 'react';
