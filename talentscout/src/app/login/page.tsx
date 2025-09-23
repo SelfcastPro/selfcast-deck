@@ -1,5 +1,3 @@
-## `src/app/login/page.tsx`
-```tsx
 'use client';
 import { useState } from 'react';
 
@@ -27,4 +25,3 @@ return (
 </div>
 );
 }
-```
