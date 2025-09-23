@@ -24,4 +24,3 @@ return NextResponse.redirect(url);
 
 return NextResponse.next();
 }
-```
