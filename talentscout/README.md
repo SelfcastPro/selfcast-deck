@@ -43,3 +43,9 @@ Body example: [
 }
 ]
 ```
+
+## Notes
+- Auth is intentionally lightweight for speed. Swap to NextAuth/SAML later.
+- Status values are: `NEW`, `CONTACTED`, `REPLIED`, `SIGNED_UP`, `NOT_INTERESTED`.
+- DM Composer lets scouts inject **up to 3 Instagram handles** for credibility.
+- All UI is Tailwind; easy to restyle in `globals.css`.
