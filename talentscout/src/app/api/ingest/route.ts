@@ -1,5 +1,3 @@
-### `src/app/api/ingest/route.ts`
-```ts
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
 
@@ -41,4 +39,3 @@ country: it.country ?? null,
 await prisma.$transaction(ops);
 return NextResponse.json({ ok: true, count: ops.length });
 }
-```
