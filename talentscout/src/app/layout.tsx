@@ -1,5 +1,3 @@
-## `src/app/layout.tsx`
-```tsx
 import './globals.css';
 import Link from 'next/link';
 import { cookies } from 'next/headers';
@@ -33,4 +31,3 @@ return (
 </html>
 );
 }
-```
