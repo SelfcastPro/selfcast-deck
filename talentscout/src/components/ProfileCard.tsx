@@ -10,8 +10,35 @@ const [loading, setLoading] = useState(false);
 async function updateStatus(status: string) {
 setLoading(true);
 try {
-await fetch(`/api/profiles/${p.id}/status`, { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ status }) });
+const res = await fetch(`/api/profiles/${p.id}/status`, {
+method: 'PATCH',
+headers: { 'Content-Type': 'application/json' },
+body: JSON.stringify({ status })
+});
+
+if (!res.ok) {
+let errorMessage = res.statusText || 'Failed to update status.';
+const responseText = await res.text();
+const trimmedResponse = responseText.trim();
+
+if (trimmedResponse) {
+try {
+const data = JSON.parse(trimmedResponse) as { message?: string; error?: string };
+errorMessage = data.message ?? data.error ?? errorMessage;
+} catch (parseError) {
+console.error('Unable to parse error response', parseError);
+errorMessage = trimmedResponse;
+}
+}
+
+throw new Error(errorMessage);
+}
+
 onStatusChanged(status);
+} catch (err) {
+const message = err instanceof Error ? err.message : 'Failed to update status.';
+console.error('Failed to update profile status', err);
+window.alert(message);
 } finally {
 setLoading(false);
 }
