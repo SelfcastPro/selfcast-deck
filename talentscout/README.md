@@ -1,0 +1,45 @@
+## `README.md`
+```md
+# TalentScout (SelfcastPro sub‑app)
+
+
+Standalone Next.js app living under `/talentscout`. Deploy as a **separate Vercel project** (Root Directory = `talentscout`) to keep it isolated from the rest of the repo.
+
+
+## Quick start (local)
+1. `cd talentscout`
+2. `cp .env.example .env`
+3. `npm i`
+4. `npm run prisma:push` (creates SQLite `dev.db`)
+5. `npm run dev`
+
+
+Open http://localhost:3000 → you’ll be asked for a display name (dev cookie).
+
+
+## Deploy
+- Create a new Vercel project → *Import GitHub repo* → set **Root Directory** to `talentscout` → add env vars:
+- `DATABASE_URL` (Vercel Postgres or Neon)
+- `INGEST_TOKEN`
+- `SESSION_SECRET`
+- Run `prisma generate` during build (already in `build` script).
+
+
+## Connect Apify Hashtag Scraper
+Set your Apify actor to POST JSON array to:
+```
+POST https://<your-vercel-domain>/api/ingest
+Headers: x-ingest-token: <INGEST_TOKEN>
+Body example: [
+{
+"username": "janedoe",
+"fullName": "Jane Doe",
+"bio": "Actor | Model",
+"profileUrl": "https://instagram.com/janedoe",
+"avatarUrl": "https://.../profile.jpg",
+"followers": 12000,
+"sourceHashtag": "castingdenmark",
+"country": "DK"
+}
+]
+```
