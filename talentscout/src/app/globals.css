@@ -1,0 +1,20 @@
+## `src/app/globals.css`
+```css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+:root {
+--bg: #0b0b0b;
+}
+
+
+body { @apply bg-neutral-950 text-white; }
+.btn { @apply inline-flex items-center gap-2 rounded-2xl px-4 py-2 font-medium shadow; }
+.btn-primary { @apply bg-brand text-white hover:bg-brand-dark transition; }
+.card { @apply rounded-2xl bg-neutral-900 border border-neutral-800 shadow p-4; }
+.input { @apply w-full rounded-xl bg-neutral-900 border border-neutral-800 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand; }
+.select { @apply rounded-xl bg-neutral-900 border border-neutral-800 px-3 py-2 text-sm; }
+.badge { @apply rounded-xl px-2 py-1 text-xs font-medium border border-neutral-700; }
+```
