@@ -1,5 +1,3 @@
-## `src/components/DMComposer.tsx`
-```tsx
 'use client';
 import { useMemo, useState } from 'react';
 
@@ -51,4 +49,3 @@ return (
 </div>
 );
 }
-```
