@@ -100,4 +100,33 @@ describe('POST /api/ingest', () => {
     });
     expect(transactionMock).toHaveBeenCalledWith([upsertResult]);
   });
+
+  it('normalizes follower strings without digits to null', async () => {
+    const request = {
+      headers: new Headers({
+        'x-ingest-token': 'test-token',
+      }),
+      json: async () => [
+        {
+          username: 'nodigits',
+          followers: 'n/a',
+        },
+      ],
+    } as unknown as NextRequest;
+
+    const upsertResult = Symbol('upsert');
+    upsertMock.mockReturnValue(upsertResult);
+    transactionMock.mockResolvedValue(undefined);
+
+    const response = await POST(request);
+
+    expect(response.status).toBe(200);
+    await expect(response.json()).resolves.toEqual({ ok: true, count: 1 });
+
+    expect(upsertMock).toHaveBeenCalledTimes(1);
+    const upsertArgs = upsertMock.mock.calls[0][0];
+    expect(upsertArgs.update.followers).toBeNull();
+    expect(upsertArgs.create.followers).toBeNull();
+    expect(transactionMock).toHaveBeenCalledWith([upsertResult]);
+  });  
 });
