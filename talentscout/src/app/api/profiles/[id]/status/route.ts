@@ -1,5 +1,3 @@
-### `src/app/api/profiles/[id]/status/route.ts`
-```ts
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
 
@@ -21,7 +19,3 @@ await prisma.contactLog.create({ data: { profileId: params.id, scoutName } });
 
 return NextResponse.json({ ok: true });
 }
-```
-
-
----
