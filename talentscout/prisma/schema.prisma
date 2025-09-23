@@ -4,7 +4,7 @@ provider = "prisma-client-js"
 
 
 datasource db {
-provider = "sqlite" // swap to "postgresql" for Vercel Postgres
+provider = "postgresql"
 url = env("DATABASE_URL")
 }
 
