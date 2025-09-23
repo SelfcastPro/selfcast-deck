@@ -1,5 +1,3 @@
-## `src/components/Filters.tsx`
-```tsx
 'use client';
 import { STATUS_OPTIONS } from '@/lib/utils';
 
@@ -31,4 +29,3 @@ onChange={e => onChange({ q, status: e.target.value })}
 </div>
 );
 }
-```
