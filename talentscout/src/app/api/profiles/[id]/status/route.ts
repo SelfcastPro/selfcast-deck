@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { Prisma } from '@prisma/client';
 import { prisma } from '@/lib/db';
 
 
@@ -13,8 +14,15 @@ const cookie = req.headers.get('cookie') ?? '';
 const scoutName = decodeURIComponent((/scout-name=([^;]+)/.exec(cookie)?.[1] ?? ''));
 
 
-await prisma.profile.update({ where: { id: params.id }, data: { status, lastContactedAt: status==='CONTACTED' ? new Date() : undefined } });
-await prisma.contactLog.create({ data: { profileId: params.id, scoutName } });
+  try {
+    await prisma.profile.update({ where: { id: params.id }, data: { status, lastContactedAt: status==='CONTACTED' ? new Date() : undefined } });
+    await prisma.contactLog.create({ data: { profileId: params.id, scoutName } });
+  } catch (error) {
+    if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2025') {
+      return NextResponse.json({ error: 'Profile not found' }, { status: 404 });
+    }
+    throw error;
+  }
 
 
 return NextResponse.json({ ok: true });
