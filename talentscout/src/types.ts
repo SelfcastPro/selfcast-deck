@@ -1,5 +1,3 @@
-## `src/types.ts`
-```ts
 export type ProfileDTO = {
 id: string;
 username: string;
@@ -12,4 +10,3 @@ sourceHashtag?: string | null;
 country?: string | null;
 status: 'NEW' | 'CONTACTED' | 'REPLIED' | 'SIGNED_UP' | 'NOT_INTERESTED';
 };
-```
