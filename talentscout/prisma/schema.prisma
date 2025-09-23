@@ -1,5 +1,3 @@
-## `prisma/schema.prisma`
-```prisma
 generator client {
 provider = "prisma-client-js"
 }
@@ -47,4 +45,3 @@ message String?
 channel String @default("instagram_dm")
 createdAt DateTime @default(now())
 }
-```
