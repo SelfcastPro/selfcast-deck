@@ -1,5 +1,3 @@
-## `README.md`
-```md
 # TalentScout (SelfcastPro sub‑app)
 
 
