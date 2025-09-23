@@ -35,7 +35,11 @@ export async function POST(req: NextRequest) {
     }
     const trimmed = String(value).trim();
     if (!trimmed) return null;
-    const numeric = Number(trimmed.replace(/[^0-9.-]/g, ''));
+    const cleaned = trimmed.replace(/[^0-9.-]/g, '');
+    if (!/[0-9]/.test(cleaned)) {
+      return null;
+    }
+    const numeric = Number(cleaned);
     return Number.isFinite(numeric) ? numeric : null;
   };
 
