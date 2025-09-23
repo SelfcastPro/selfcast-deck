@@ -35,6 +35,28 @@ export async function POST(req: NextRequest) {
     }
     const trimmed = String(value).trim();
     if (!trimmed) return null;
+
+    const shorthandMatch = trimmed.match(/([-+]?\d[\d,]*(?:\.\d+)?)\s*([kmb])\b/i);
+    if (shorthandMatch) {
+      const [, numericPart, suffix] = shorthandMatch;
+      const normalizedNumeric = numericPart.replace(/,/g, '');
+      const numericValue = Number(normalizedNumeric);
+      if (Number.isFinite(numericValue)) {
+        const multipliers: Record<string, number> = {
+          k: 1_000,
+          m: 1_000_000,
+          b: 1_000_000_000,
+        };
+        const multiplier = multipliers[suffix.toLowerCase()];
+        if (multiplier !== undefined) {
+          const result = numericValue * multiplier;
+          if (Number.isFinite(result)) {
+            return result;
+          }
+        }
+      }
+    }
+
     const cleaned = trimmed.replace(/[^0-9.-]/g, '');
     if (!/[0-9]/.test(cleaned)) {
       return null;
