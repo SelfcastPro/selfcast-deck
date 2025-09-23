@@ -1,0 +1,50 @@
+## `prisma/schema.prisma`
+```prisma
+generator client {
+provider = "prisma-client-js"
+}
+
+
+datasource db {
+provider = "sqlite" // swap to "postgresql" for Vercel Postgres
+url = env("DATABASE_URL")
+}
+
+
+enum Status {
+NEW
+CONTACTED
+REPLIED
+SIGNED_UP
+NOT_INTERESTED
+}
+
+
+model Profile {
+id String @id @default(cuid())
+username String @unique
+fullName String?
+bio String?
+profileUrl String
+avatarUrl String?
+followers Int?
+sourceHashtag String?
+country String?
+status Status @default(NEW)
+lastContactedAt DateTime?
+createdAt DateTime @default(now())
+updatedAt DateTime @updatedAt
+contactLogs ContactLog[]
+}
+
+
+model ContactLog {
+id String @id @default(cuid())
+profile Profile @relation(fields: [profileId], references: [id])
+profileId String
+scoutName String?
+message String?
+channel String @default("instagram_dm")
+createdAt DateTime @default(now())
+}
+```
