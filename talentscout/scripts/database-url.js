@@ -1,25 +1,57 @@
-#!/usr/bin/env node
-const { spawnSync } = require('node:child_process');
+const PLACEHOLDER_TOKENS = new Set(['USER', 'USERNAME', 'PASSWORD', 'HOST', 'DBNAME']);
 
-const { normalizeDatabaseUrl } = require('./database-url');
+const isPlaceholder = (value) => {
+  if (typeof value !== 'string') return false;
+  if (value.toUpperCase() !== value) return false;
+  return PLACEHOLDER_TOKENS.has(value);
+};
 
-const url = normalizeDatabaseUrl(process.env.DATABASE_URL);
-if (!url) {
-  console.log(
-    'Skipping `prisma migrate deploy`: DATABASE_URL is missing, empty, or still uses placeholder values.',
-  );
-  process.exit(0);
+const isSupportedProtocol = (protocol) => protocol === 'postgres:' || protocol === 'postgresql:';
+
+function isValidDatabaseUrl(value) {
+  if (typeof value !== 'string') return false;
+  const trimmed = value.trim();
+  if (!trimmed) return false;
+
+  let parsed;
+  try {
+    parsed = new URL(trimmed);
+  } catch (error) {
+    return false;
+  }
+
+  if (!isSupportedProtocol(parsed.protocol)) {
+    return false;
+  }
+
+  const databaseName = parsed.pathname.replace(/^\//, '');
+  if (!databaseName) {
+    return false;
+  }
+
+  if (parsed.port && !/^\d+$/.test(parsed.port)) {
+    return false;
+  }
+
+  if (isPlaceholder(parsed.username) || isPlaceholder(parsed.password)) {
+    return false;
+  }
+
+  if (isPlaceholder(parsed.hostname) || isPlaceholder(databaseName)) {
+    return false;
+  }
+
+  return true;
 }
 
-process.env.DATABASE_URL = url;
-
-const binary = process.platform === 'win32' ? 'prisma.cmd' : 'prisma';
-const result = spawnSync(binary, ['migrate', 'deploy'], { stdio: 'inherit' });
-
-if (result.error) {
-  console.error('Failed to run `prisma migrate deploy`:', result.error);
+function normalizeDatabaseUrl(value) {
+  if (!isValidDatabaseUrl(value)) {
+    return undefined;
+  }
+  return value.trim();
 }
 
-if (typeof result.status === 'number' && result.status !== 0) {
-  process.exit(result.status);
-}
+module.exports = {
+  isValidDatabaseUrl,
+  normalizeDatabaseUrl,
+};
