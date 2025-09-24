@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Selfcast Talentscout – Instagram Outreach Board</title>
+  <meta name="color-scheme" content="dark light"/>
+  <link rel="stylesheet" href="./styles.css"/>
+</head>
+<body>
+  <div class="wrap">
+    <header class="header">
+      <div>
+        <h1>Talentscout – Instagram Outreach</h1>
+        <p>Review new profiles sourced from Instagram hashtags and casting accounts. Update statuses locally while we build the automation layer.</p>
+      </div>
+      <div class="summary" id="summary">
+        <span id="total-count">0 leads</span>
+        <span id="new-count">0 new</span>
+      </div>
+    </header>
+
+    <section class="controls" aria-label="Filters">
+      <input id="search" type="search" placeholder="Search handle, notes or tags" aria-label="Search leads"/>
+      <select id="status-filter" aria-label="Filter by status">
+        <option value="">All statuses</option>
+      </select>
+      <select id="source-filter" aria-label="Filter by source">
+        <option value="">All sources</option>
+      </select>
+      <label class="checkbox">
+        <input id="only-priority" type="checkbox"/>
+        Priority only
+      </label>
+    </section>
+
+    <section class="layout">
+      <div class="left">
+        <table id="lead-table" class="lead-table" aria-label="Talentscout leads">
+          <thead>
+            <tr>
+              <th scope="col">Handle</th>
+              <th scope="col">Followers</th>
+              <th scope="col">Source</th>
+              <th scope="col">Status</th>
+              <th scope="col">Notes</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+        <div id="empty" class="empty" hidden>No leads match the current filters.</div>
+      </div>
+
+      <aside class="right">
+        <section class="detail" id="detail" aria-live="polite">
+          <p>Select a lead to see details and log outreach.</p>
+        </section>
+
+        <section class="hashtags" aria-label="Hashtag watchlist">
+          <h2>Instagram hashtags to monitor</h2>
+          <p class="muted">Keep these in your scraper or manual search rotation.</p>
+          <ul id="hashtag-list"></ul>
+        </section>
+      </aside>
+    </section>
+  </div>
+
+  <template id="row-template">
+    <tr>
+      <td class="handle"></td>
+      <td class="followers"></td>
+      <td class="source"></td>
+      <td class="status"></td>
+      <td class="note"></td>
+    </tr>
+  </template>
+
+  <template id="hashtag-template">
+    <li><code></code></li>
+  </template>
+
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
