@@ -1,16 +1,31 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { listProfiles, PROFILE_STATUSES, type ProfileStatus } from '@/lib/profile-store';
+import {
+  PROFILE_STATUSES,
+  ProfileNotFoundError,
+  type ProfileStatus,
+  updateProfileStatus,
+} from '@/lib/profile-store';
 
 const statusSet = new Set<ProfileStatus>(PROFILE_STATUSES);
 
 export async function GET(req: NextRequest) {
-  const { searchParams } = new URL(req.url);
-  const q = searchParams.get('q')?.trim();
-  const rawStatus = searchParams.get('status')?.trim().toUpperCase();
-  const status = rawStatus && statusSet.has(rawStatus as ProfileStatus)
-    ? (rawStatus as ProfileStatus)
-    : undefined;
+  const body = await req.json();
+  const statusValue = String(body.status ?? '').trim().toUpperCase();
+  if (!statusSet.has(statusValue as ProfileStatus)) {
+    return NextResponse.json({ error: 'Bad status' }, { status: 400 });
+  }
 
- const items = await listProfiles({ q: q || undefined, status });
-  return NextResponse.json({ items });
+  const cookie = req.headers.get('cookie') ?? '';
+  const scoutName = decodeURIComponent((/scout-name=([^;]+)/.exec(cookie)?.[1] ?? ''));
+
+  try {
+    await updateProfileStatus(params.id, statusValue as ProfileStatus, scoutName);
+      } catch (error) {
+    if (error instanceof ProfileNotFoundError) {
+      return NextResponse.json({ error: 'Profile not found' }, { status: 404 });
+    }
+    throw error;
+  }
+
+  return NextResponse.json({ ok: true });
 }
