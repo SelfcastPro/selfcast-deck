@@ -1,10 +1,14 @@
 import { PrismaClient } from '@prisma/client';
+import { normalizeDatabaseUrl } from './database-url';
 
 const globalForPrisma = globalThis as unknown as { prisma?: PrismaClient };
-const hasDatabaseUrl =
-  typeof process.env.DATABASE_URL === 'string' && process.env.DATABASE_URL.trim().length > 0;
+const databaseUrl = normalizeDatabaseUrl(process.env.DATABASE_URL);
 
-const prismaClient = hasDatabaseUrl ? globalForPrisma.prisma ?? new PrismaClient() : undefined;
+if (databaseUrl) {
+  process.env.DATABASE_URL = databaseUrl;
+}
+
+const prismaClient = databaseUrl ? globalForPrisma.prisma ?? new PrismaClient() : undefined;
 
 if (prismaClient && process.env.NODE_ENV !== 'production') {
   globalForPrisma.prisma = prismaClient;
