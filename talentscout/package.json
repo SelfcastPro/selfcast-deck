@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "prebuild": "node scripts/ensure-database.js",
+    "postinstall": "node scripts/setup-prisma-wrapper.js",
     "build": "prisma generate && next build",
     "start": "next start",
     "prisma:push": "prisma db push",
