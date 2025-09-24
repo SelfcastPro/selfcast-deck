@@ -122,7 +122,7 @@ describe('POST /api/ingest', () => {
     expect(response.status).toBe(200);
     await expect(response.json()).resolves.toEqual({ ok: true, count: 1 });
 
-       expect(saveProfilesMock).toHaveBeenCalledTimes(1);
+    expect(saveProfilesMock).toHaveBeenCalledTimes(1);
     const saved = saveProfilesMock.mock.calls[0][0][0];
     expect(saved.followers).toBe(expected);
   });
@@ -140,7 +140,7 @@ describe('POST /api/ingest', () => {
       ],
     } as unknown as NextRequest;
 
-       saveProfilesMock.mockResolvedValue(1);
+    saveProfilesMock.mockResolvedValue(1);
     
     const response = await POST(request);
 
