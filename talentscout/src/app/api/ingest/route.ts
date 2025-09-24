@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { prisma } from '@/lib/db';
+import { saveProfiles, type ProfileUpsertInput } from '@/lib/profile-store';
 
 // Receives Apify payload (array of profiles). Protect with INGEST_TOKEN header.
 export async function POST(req: NextRequest) {
@@ -13,7 +13,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Expected array' }, { status: 400 });
   }
 
-    const isRecord = (value: unknown): value is Record<string, unknown> =>
+  const isRecord = (value: unknown): value is Record<string, unknown> =>
     typeof value === 'object' && value !== null;
 
   const toTrimmedString = (value: unknown) => {
@@ -81,11 +81,11 @@ export async function POST(req: NextRequest) {
         }
       }
     }
-    return undefined;  
+    return undefined;
   };
+ 
+  const normalizedItems: ProfileUpsertInput[] = [];
   
-  const normalizedItems: any [] = [];
-
   for (const rawItem of items) {
     const base: Record<string, unknown> = isRecord(rawItem) ? { ...rawItem } : {};
     const owner = isRecord((rawItem as any)?.owner)
@@ -97,37 +97,30 @@ export async function POST(req: NextRequest) {
     const ownerUsername =
       base.ownerUsername ??
       base.ownerUserName ??
-      (owner?.username ?? owner?.userName ?? owner?.handle);   
+     (owner?.username ?? owner?.userName ?? owner?.handle);
     
     let username = normalizeUsername(rawUsername);
     if (!username) {
-    username = normalizeUsername(ownerUsername);  
+    username = normalizeUsername(ownerUsername);
     }
 
-      if (!username) {
+    if (!username) {
       return NextResponse.json({ error: 'Username is required' }, { status: 400 });
     }
       
-   const normalized: Record<string, unknown> = {
-      ...base,
-      username,
-    };
-
+    const normalized: ProfileUpsertInput = { username };
+    
     const fullName =
       toTrimmedString(
         base.fullName ?? base.name ?? base.ownerFullName ?? owner?.fullName ?? owner?.name,
       ) ?? undefined;
     if (fullName !== undefined) {
       normalized.fullName = fullName;
-    } else {
-      delete normalized.fullName;
-    }
+        }
 
     const bio = toTrimmedString(base.bio ?? base.biography ?? owner?.biography ?? owner?.bio);
     if (bio !== undefined) {
       normalized.bio = bio;
-    } else {
-      delete normalized.bio;
     }
 
     const profileUrl = toTrimmedString(
@@ -143,8 +136,6 @@ export async function POST(req: NextRequest) {
     );
     if (profileUrl !== undefined) {
       normalized.profileUrl = profileUrl;
-    } else {
-      delete normalized.profileUrl;
     }
 
     const avatarUrl = toTrimmedString(
@@ -158,14 +149,16 @@ export async function POST(req: NextRequest) {
     );
     if (avatarUrl !== undefined) {
       normalized.avatarUrl = avatarUrl;
-    } else {
-      delete normalized.avatarUrl;
     }
 
     const followers = normalizeFollowers(
       base.followers ?? base.ownerFollowers ?? base.followerCount ?? owner?.followers ?? owner?.followerCount,
     );
-    normalized.followers = followers;
+      if (typeof followers === 'number') {
+      normalized.followers = followers;
+    } else if (followers === null) {
+      normalized.followers = null;
+    }
 
     const sourceHashtag = pickHashtag(
       base.sourceHashtag,
@@ -176,8 +169,6 @@ export async function POST(req: NextRequest) {
     );
     if (sourceHashtag !== undefined) {
       normalized.sourceHashtag = sourceHashtag;
-    } else {
-      delete normalized.sourceHashtag;
     }
 
     const country = toTrimmedString(
@@ -185,42 +176,11 @@ export async function POST(req: NextRequest) {
     );
     if (country !== undefined) {
       normalized.country = country;
-    } else {
-      delete normalized.country;
     }
 
-    normalizedItems.push({
-      ...normalized,
-   });
+    normalizedItems.push(normalized);
   }
 
-  const ops = normalizedItems.map((it: any) => {
-    const username = it.username as string;
-
-    return prisma.profile.upsert({
-      where: { username },
-      update: {
-        fullName: it.fullName ?? null,
-        bio: it.bio ?? null,
-        profileUrl: it.profileUrl ?? `https://instagram.com/${username}`,
-        avatarUrl: it.avatarUrl ?? null,
-        followers: typeof it.followers === 'number' ? it.followers : null,
-        sourceHashtag: it.sourceHashtag ?? null,
-        country: it.country ?? null,
-      },
-      create: {
-        username,
-        fullName: it.fullName ?? null,
-        bio: it.bio ?? null,
-        profileUrl: it.profileUrl ?? `https://instagram.com/${username}`,
-        avatarUrl: it.avatarUrl ?? null,
-        followers: typeof it.followers === 'number' ? it.followers : null,
-        sourceHashtag: it.sourceHashtag ?? null,
-        country: it.country ?? null,
-      },
-    });
-  });
-  
-  await prisma.$transaction(ops);
-  return NextResponse.json({ ok: true, count: ops.length });
+  const count = await saveProfiles(normalizedItems);
+  return NextResponse.json({ ok: true, count });
 }
