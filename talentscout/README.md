@@ -13,7 +13,7 @@ Open http://localhost:3000 → you’ll be asked for a display name (dev cookie)
 
 ## Deploy
 - Create a new Vercel project → *Import GitHub repo* → set **Root Directory** to `talentscout` → add env vars:
-- `DATABASE_URL` *(optional – enables persistent Postgres storage; when omitted the app uses an in-memory store that resets between deploys)*
+- `DATABASE_URL` *(optional – enables persistent Postgres storage; when omitted the app uses an in-memory store that resets between deploys)*. If you set it, paste the **actual** Postgres connection string from your provider (for example `postgres://myuser:mysecret@db.eu-west-1.aws.neon.tech:5432/app?sslmode=require`). Placeholder fragments such as `USER`, `PASSWORD`, `HOST` or `DBNAME` are treated as missing, so migrations are skipped and Prisma stays disabled.
 - `INGEST_TOKEN`
 - `SESSION_SECRET`
 - Build script auto-skips `prisma migrate deploy` when `DATABASE_URL` is missing, so deploys succeed even without a database.
