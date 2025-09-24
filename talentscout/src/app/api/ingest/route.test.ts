@@ -1,18 +1,13 @@
 import { describe, expect, it, vi, beforeEach, afterEach } from 'vitest';
 import type { NextRequest } from 'next/server';
+import type { ProfileUpsertInput } from '@/lib/profile-store';
 
-const { upsertMock, transactionMock } = vi.hoisted(() => ({
-  upsertMock: vi.fn(),
-  transactionMock: vi.fn(),
+const { saveProfilesMock } = vi.hoisted(() => ({
+  saveProfilesMock: vi.fn<(...args: [ProfileUpsertInput[]]) => Promise<number>>(),
 }));
 
-vi.mock('@/lib/db', () => ({
-  prisma: {
-    profile: {
-      upsert: upsertMock,
-    },
-    $transaction: transactionMock,
-  },
+vi.mock('@/lib/profile-store', () => ({
+  saveProfiles: saveProfilesMock,
 }));
 
 vi.mock('next/server', () => ({
@@ -34,8 +29,7 @@ import { POST } from './route';
 
 describe('POST /api/ingest', () => {
   beforeEach(() => {
-    upsertMock.mockReset();
-    transactionMock.mockReset();
+    saveProfilesMock.mockReset();
     process.env.INGEST_TOKEN = 'test-token';
   });
 
@@ -58,8 +52,7 @@ describe('POST /api/ingest', () => {
     const response = await POST(request);
     expect(response.status).toBe(400);
     await expect(response.json()).resolves.toEqual({ error: 'Username is required' });
-    expect(upsertMock).not.toHaveBeenCalled();
-    expect(transactionMock).not.toHaveBeenCalled();
+    expect(saveProfilesMock).not.toHaveBeenCalled();
   });
   
   it('accepts Apify-style payloads', async () => {
@@ -82,41 +75,30 @@ describe('POST /api/ingest', () => {
       ],
     } as unknown as NextRequest;
 
-    const upsertResult = Symbol('upsert');
-    upsertMock.mockReturnValue(upsertResult);
-    transactionMock.mockResolvedValue(undefined);
+    saveProfilesMock.mockResolvedValue(1);
 
     const response = await POST(request);
 
     expect(response.status).toBe(200);
     await expect(response.json()).resolves.toEqual({ ok: true, count: 1 });
 
-    expect(upsertMock).toHaveBeenCalledTimes(1);
-    const upsertArgs = upsertMock.mock.calls[0][0];
-    expect(upsertArgs.where).toEqual({ username: 'apify_user' });
-    expect(upsertArgs.update).toEqual({
-      fullName: 'Apify User',
-      bio: 'Example bio',
-      profileUrl: 'https://example.com/profile',
-      avatarUrl: 'https://example.com/avatar.jpg',
-      followers: 1234,
-      sourceHashtag: 'Foo',
-      country: 'Denmark',
-    });
-    expect(upsertArgs.create).toEqual({
-      username: 'apify_user',
-      fullName: 'Apify User',
-      bio: 'Example bio',
-      profileUrl: 'https://example.com/profile',
-      avatarUrl: 'https://example.com/avatar.jpg',
-      followers: 1234,
-      sourceHashtag: 'Foo',
-      country: 'Denmark',
-    });
-    expect(transactionMock).toHaveBeenCalledWith([upsertResult]);
+    expect(saveProfilesMock).toHaveBeenCalledTimes(1);
+    const saved = saveProfilesMock.mock.calls[0][0];
+    expect(saved).toEqual([
+      {
+        username: 'apify_user',
+        fullName: 'Apify User',
+        bio: 'Example bio',
+        profileUrl: 'https://example.com/profile',
+        avatarUrl: 'https://example.com/avatar.jpg',
+        followers: 1234,
+        sourceHashtag: 'Foo',
+        country: 'Denmark',
+      },
+    ]);
   });
 
- it.each([
+  it.each([
     ['12k', 12000],
     ['1.2M', 1_200_000],
     ['987', 987],
@@ -133,20 +115,16 @@ describe('POST /api/ingest', () => {
       ],
     } as unknown as NextRequest;
 
-    const upsertResult = Symbol('upsert');
-    upsertMock.mockReturnValue(upsertResult);
-    transactionMock.mockResolvedValue(undefined);
-
+    saveProfilesMock.mockResolvedValue(1);
+    
     const response = await POST(request);
 
     expect(response.status).toBe(200);
     await expect(response.json()).resolves.toEqual({ ok: true, count: 1 });
 
-    expect(upsertMock).toHaveBeenCalledTimes(1);
-    const upsertArgs = upsertMock.mock.calls[0][0];
-    expect(upsertArgs.update.followers).toBe(expected);
-    expect(upsertArgs.create.followers).toBe(expected);
-    expect(transactionMock).toHaveBeenCalledWith([upsertResult]);
+       expect(saveProfilesMock).toHaveBeenCalledTimes(1);
+    const saved = saveProfilesMock.mock.calls[0][0][0];
+    expect(saved.followers).toBe(expected);
   });
   
   it('normalizes follower strings without digits to null', async () => {
@@ -162,19 +140,15 @@ describe('POST /api/ingest', () => {
       ],
     } as unknown as NextRequest;
 
-    const upsertResult = Symbol('upsert');
-    upsertMock.mockReturnValue(upsertResult);
-    transactionMock.mockResolvedValue(undefined);
-
+       saveProfilesMock.mockResolvedValue(1);
+    
     const response = await POST(request);
 
     expect(response.status).toBe(200);
     await expect(response.json()).resolves.toEqual({ ok: true, count: 1 });
 
-    expect(upsertMock).toHaveBeenCalledTimes(1);
-    const upsertArgs = upsertMock.mock.calls[0][0];
-    expect(upsertArgs.update.followers).toBeNull();
-    expect(upsertArgs.create.followers).toBeNull();
-    expect(transactionMock).toHaveBeenCalledWith([upsertResult]);
-  });  
+    expect(saveProfilesMock).toHaveBeenCalledTimes(1);
+    const saved = saveProfilesMock.mock.calls[0][0][0];
+    expect(saved.followers).toBeNull();
+  });
 });
