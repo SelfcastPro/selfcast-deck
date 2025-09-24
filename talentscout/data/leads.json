@@ -1,0 +1,67 @@
+[
+  {
+    "handle": "thea_casts",
+    "followers": 2100,
+    "location": "Copenhagen, DK",
+    "source": "#castingdenmark",
+    "post_url": "https://www.instagram.com/p/ClExample1/",
+    "profile_url": "https://www.instagram.com/thea_casts/",
+    "tags": ["commercial", "dk", "selftape"],
+    "notes": "Kommenterede 'Interested' på @danishcasting opslag om international reklame.",
+    "status": "New",
+    "last_contacted": null,
+    "priority": true
+  },
+  {
+    "handle": "noora.actor",
+    "followers": 5800,
+    "location": "Oslo, NO",
+    "source": "#castingnorway",
+    "post_url": "https://www.instagram.com/p/ClExample2/",
+    "profile_url": "https://www.instagram.com/noora.actor/",
+    "tags": ["actor", "no", "drama"],
+    "notes": "Har deltaget i lokale teaterproduktioner – søger internationale roller.",
+    "status": "Contacted",
+    "last_contacted": "2024-07-10",
+    "priority": false
+  },
+  {
+    "handle": "samuel.models",
+    "followers": 11200,
+    "location": "Stockholm, SE",
+    "source": "@modelscout.se",
+    "post_url": "https://www.instagram.com/p/ClExample3/",
+    "profile_url": "https://www.instagram.com/samuel.models/",
+    "tags": ["male", "print", "se"],
+    "notes": "Fik 400+ likes på runway casting – klar til kommercielle produktioner.",
+    "status": "Follow-up",
+    "last_contacted": "2024-07-05",
+    "priority": true
+  },
+  {
+    "handle": "lina_child_actor",
+    "followers": 3200,
+    "location": "Tallinn, EE",
+    "source": "#kidscasting",
+    "post_url": "https://www.instagram.com/p/ClExample4/",
+    "profile_url": "https://www.instagram.com/lina_child_actor/",
+    "tags": ["kids", "ee", "actor"],
+    "notes": "Forældre åbnede DM – bedt om at sende self tape.",
+    "status": "Converted",
+    "last_contacted": "2024-07-08",
+    "priority": false
+  },
+  {
+    "handle": "valentinamodel",
+    "followers": 26400,
+    "location": "Paris, FR",
+    "source": "#castingfrance",
+    "post_url": "https://www.instagram.com/p/ClExample5/",
+    "profile_url": "https://www.instagram.com/valentinamodel/",
+    "tags": ["fashion", "fr", "model"],
+    "notes": "DM sendt med app-link – venter på svar.",
+    "status": "New",
+    "last_contacted": null,
+    "priority": false
+  }
+]
