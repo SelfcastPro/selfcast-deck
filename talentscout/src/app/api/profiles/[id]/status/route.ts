@@ -1,29 +1,32 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { Prisma } from '@prisma/client';
-import { prisma } from '@/lib/db';
+import {
+  PROFILE_STATUSES,
+  ProfileNotFoundError,
+  type ProfileStatus,
+  updateProfileStatus,
+} from '@/lib/profile-store';
 
+const statusSet = new Set<ProfileStatus>(PROFILE_STATUSES);
 
 export async function PATCH(req: NextRequest, { params }: { params: { id: string } }) {
-const body = await req.json();
-const status = String(body.status).toUpperCase();
-const valid = ['NEW','CONTACTED','REPLIED','SIGNED_UP','NOT_INTERESTED'];
-if (!valid.includes(status)) return NextResponse.json({ error: 'Bad status' }, { status: 400 });
-
-
-const cookie = req.headers.get('cookie') ?? '';
-const scoutName = decodeURIComponent((/scout-name=([^;]+)/.exec(cookie)?.[1] ?? ''));
-
-
+  const body = await req.json();
+  const statusValue = String(body.status ?? '').trim().toUpperCase();
+  if (!statusSet.has(statusValue as ProfileStatus)) {
+    return NextResponse.json({ error: 'Bad status' }, { status: 400 });
+  }
+  
+  const cookie = req.headers.get('cookie') ?? '';
+  const scoutName = decodeURIComponent((/scout-name=([^;]+)/.exec(cookie)?.[1] ?? ''));
+  
   try {
-    await prisma.profile.update({ where: { id: params.id }, data: { status, lastContactedAt: status==='CONTACTED' ? new Date() : undefined } });
-    await prisma.contactLog.create({ data: { profileId: params.id, scoutName } });
+    await updateProfileStatus(params.id, statusValue as ProfileStatus, scoutName);
   } catch (error) {
-    if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2025') {
+    if (error instanceof ProfileNotFoundError) {
       return NextResponse.json({ error: 'Profile not found' }, { status: 404 });
     }
     throw error;
   }
 
 
-return NextResponse.json({ ok: true });
+  return NextResponse.json({ ok: true });
 }
