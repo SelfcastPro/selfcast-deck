@@ -17,8 +17,9 @@ Open http://localhost:3000 → you’ll be asked for a display name (dev cookie)
 - `INGEST_TOKEN`
 - `SESSION_SECRET`
 - Build script auto-skips `prisma migrate deploy` when `DATABASE_URL` is missing, so deploys succeed even without a database.
+- The Prisma CLI is wrapped as well, so even explicit `prisma migrate deploy` invocations exit cleanly when the URL still contains placeholders.
 - Run `prisma generate` during build (already in `build` script).
-
+  
 ## Connect Apify Hashtag Scraper
 Set your Apify actor to POST JSON array to:
 ```
