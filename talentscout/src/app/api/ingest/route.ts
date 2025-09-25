@@ -46,16 +46,3 @@ export async function POST(request: NextRequest) {
   let payload: unknown;
   try {
     payload = await request.json();
-  } catch (error) {
-    return NextResponse.json({ error: "Invalid JSON payload" }, { status: 400 });
-  }
-
-  const items = extractItems(payload);
-  if (!items.length) {
-    return NextResponse.json({ error: "Payload must contain an array of items" }, { status: 400 });
-  }
-
-  const { inserted, skipped } = addItemsToBuffer(items);
-  const buffered = getBufferEntries().length;
-  return NextResponse.json({ inserted, skipped, buffered });
-}
