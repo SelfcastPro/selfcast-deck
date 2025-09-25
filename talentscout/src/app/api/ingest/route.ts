@@ -5,34 +5,31 @@ function extractItems(payload: unknown): unknown[] {
   if (Array.isArray(payload)) {
     return payload;
   }
+
   if (payload && typeof payload === "object") {
     const maybeRecord = payload as Record<string, unknown>;
-    const directItems = maybeRecord.items;
-    if (Array.isArray(directItems)) {
-      return directItems;
+
+    if (Array.isArray(maybeRecord.items)) {
+      return maybeRecord.items;
     }
-    const data = maybeRecord.data;
-    if (Array.isArray(data)) {
-      return data;
+
+    const nestedData = maybeRecord.data;
+    if (Array.isArray(nestedData)) {
+      return nestedData;
     }
-    if (data && typeof data === "object") {
-      const nestedDataItems = (data as Record<string, unknown>).items;
-      if (Array.isArray(nestedDataItems)) {
-        return nestedDataItems;
-      }
-    }
-    const eventData = maybeRecord.eventData;
-    if (eventData && typeof eventData === "object") {
-      const nestedItems = (eventData as Record<string, unknown>).items;
+
+    if (nestedData && typeof nestedData === "object") {
+      const nestedItems = (nestedData as Record<string, unknown>).items;
       if (Array.isArray(nestedItems)) {
         return nestedItems;
       }
     }
   }
+
   return [];
 }
 
-export async function POST(request: NextRequest) {
+export async function POST(request: NextRequest): Promise<NextResponse> {
   const expectedToken = process.env.INGEST_TOKEN;
   if (!expectedToken) {
     return new NextResponse("INGEST_TOKEN is not configured", { status: 500 });
@@ -43,6 +40,14 @@ export async function POST(request: NextRequest) {
     return new NextResponse("Unauthorized", { status: 401 });
   }
 
-  let payload: unknown;
   try {
-    payload = await request.json();
+    const payload = await request.json();
+    const items = extractItems(payload);
+    const { inserted, skipped } = addItemsToBuffer(items);
+    const buffered = getBufferEntries().length;
+
+    return NextResponse.json({ inserted, skipped, buffered });
+  } catch (error) {
+    return NextResponse.json({ error: "Failed to parse payload" }, { status: 400 });
+  }
+}
