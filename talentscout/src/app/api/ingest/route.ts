@@ -11,6 +11,16 @@ function extractItems(payload: unknown): unknown[] {
     if (Array.isArray(directItems)) {
       return directItems;
     }
+        const data = maybeRecord.data;
+    if (Array.isArray(data)) {
+      return data;
+    }
+    if (data && typeof data === "object") {
+      const nestedDataItems = (data as Record<string, unknown>).items;
+      if (Array.isArray(nestedDataItems)) {
+        return nestedDataItems;
+      }
+    }
     const data = maybeRecord.data;
     if (data && typeof data === "object") {
       const dataItems = (data as Record<string, unknown>).items;
