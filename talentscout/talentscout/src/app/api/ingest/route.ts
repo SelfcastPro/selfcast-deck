@@ -1,0 +1,45 @@
+import { NextRequest, NextResponse } from "next/server";
+import { addItemsToBuffer, getBufferEntries } from "@/lib/ingest-buffer";
+
+function extractItems(payload: unknown): unknown[] {
+  if (Array.isArray(payload)) {
+    return payload;
+  }
+  if (payload && typeof payload === "object") {
+    const maybeRecord = payload as Record<string, unknown>;
+    const directItems = maybeRecord.items;
+    if (Array.isArray(directItems)) {
+      return directItems;
+    }
+    const data = maybeRecord.data;
+    if (data && typeof data === "object") {
+      const dataItems = (data as Record<string, unknown>).items;
+      if (Array.isArray(dataItems)) {
+        return dataItems;
+      }
+    }
+    const eventData = maybeRecord.eventData;
+    if (eventData && typeof eventData === "object") {
+      const nestedItems = (eventData as Record<string, unknown>).items;
+      if (Array.isArray(nestedItems)) {
+        return nestedItems;
+      }
+    }
+  }
+  return [];
+}
+
+export async function POST(request: NextRequest) {
+  const expectedToken = process.env.INGEST_TOKEN;
+  if (!expectedToken) {
+    return new NextResponse("INGEST_TOKEN is not configured", { status: 500 });
+  }
+
+  const providedToken = request.headers.get("x-ingest-token");
+  if (!providedToken || providedToken !== expectedToken) {
+    return new NextResponse("Unauthorized", { status: 401 });
+  }
+
+  let payload: unknown;
+  try {
+    payload = await request.json();
