@@ -11,6 +11,13 @@ function extractItems(payload: unknown): unknown[] {
     if (Array.isArray(directItems)) {
       return directItems;
     }
+    const data = maybeRecord.data;
+    if (data && typeof data === "object") {
+      const dataItems = (data as Record<string, unknown>).items;
+      if (Array.isArray(dataItems)) {
+        return dataItems;
+      }
+    }
     const eventData = maybeRecord.eventData;
     if (eventData && typeof eventData === "object") {
       const nestedItems = (eventData as Record<string, unknown>).items;
@@ -36,16 +43,3 @@ export async function POST(request: NextRequest) {
   let payload: unknown;
   try {
     payload = await request.json();
-  } catch (error) {
-    return NextResponse.json({ error: "Invalid JSON payload" }, { status: 400 });
-  }
-
-  const items = extractItems(payload);
-  if (!items.length) {
-    return NextResponse.json({ error: "Payload must contain an array of items" }, { status: 400 });
-  }
-
-  const { inserted, skipped } = addItemsToBuffer(items);
-  const buffered = getBufferEntries().length;
-  return NextResponse.json({ inserted, skipped, buffered });
-}
