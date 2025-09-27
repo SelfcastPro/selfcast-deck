@@ -353,7 +353,98 @@ function buildDmTemplate(profile: Profile): string | undefined {
 
 export default function Page() {
   const [query, setQuery] = useState("");
-@@ -482,198 +479,313 @@ export default function Page() {
+@@ -401,279 +398,404 @@ export default function Page() {
+      setError(message);
+      setProfiles([]);
+    } finally {
+      if (latestRequestRef.current === requestId) setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchProfiles("");
+  }, [fetchProfiles]);
+
+  const handleSearchSubmit = useCallback(
+    (event: FormEvent<HTMLFormElement>) => {
+      event.preventDefault();
+      fetchProfiles(query);
+    },
+    [fetchProfiles, query]
+  );
+
+  const handleRefresh = useCallback(() => {
+    setIsRefreshing(true);
+    fetchProfiles(activeQuery).finally(() => setIsRefreshing(false));
+  }, [activeQuery, fetchProfiles]);
+
+  const handleCopyDm = useCallback((profile: Profile) => {
+    if (typeof window === "undefined") return;
+
+    const text = buildDmTemplate(profile);
+    if (!text) return;
+
+    const fallbackCopy = () => {
+      if (typeof document === "undefined") {
+        throw new Error("Document is not available for clipboard fallback");
+      }
+      const textarea = document.createElement("textarea");
+      textarea.value = text;
+      textarea.style.position = "fixed";
+      textarea.style.opacity = "0";
+      document.body.appendChild(textarea);
+      textarea.focus();
+      textarea.select();
+      document.execCommand("copy");
+      document.body.removeChild(textarea);
+    };
+
+    const runCopy = async () => {
+      if (typeof navigator !== "undefined" && navigator.clipboard && typeof navigator.clipboard.writeText === "function") {
+        await navigator.clipboard.writeText(text);
+      } else {
+        fallbackCopy();
+      }
+    };
+
+    runCopy()
+      .then(() => {
+        const id = profile.id ?? profile.username ?? text;
+        setCopiedProfileId(id);
+        setTimeout(() => {
+          setCopiedProfileId(current => (current === id ? null : current));
+        }, 2000);
+      })
+      .catch(error => {
+        console.error("Failed to copy DM", error);
+        if (typeof alert === "function") {
+          alert("Unable to copy the DM text automatically. Please copy it manually.");
+        }
+      });
+  }, []);
+
+  const sortedProfiles = useMemo(() => {
+    const list = [...profiles];
+    list.sort((a, b) => {
+      if (sortBy === "likes") {
+        const aLikes = a.likes ?? 0;
+        const bLikes = b.likes ?? 0;
+        return bLikes - aLikes;
+      }
+      if (sortBy === "hashtags") {
+        const aCount = a.hashtags?.length ?? 0;
+        const bCount = b.hashtags?.length ?? 0;
+        return bCount - aCount;
+      }
+      const aTime = a.timestamp ?? a.bufferedAt;
+      const bTime = b.timestamp ?? b.bufferedAt;
+      const aDate = aTime ? new Date(aTime).getTime() : 0;
+      const bDate = bTime ? new Date(bTime).getTime() : 0;
+      return bDate - aDate;
+    });
+    return list;
+  }, [profiles, sortBy]);
+
   return (
     <div style={{ padding: "32px 24px", maxWidth: 1100, margin: "0 auto" }}>
       <header style={{ display: "flex", flexDirection: "column", gap: 12, marginBottom: 24 }}>
