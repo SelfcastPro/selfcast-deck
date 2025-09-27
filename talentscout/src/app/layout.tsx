@@ -1,15 +1,15 @@
 import "./globals.css";
 
-export const metadata = { title: "Selfcast – TalentScout (IG)" };
+export const metadata = {
+  title: "Selfcast – Instagram TalentScout",
+  description: "Browse the most recent Instagram profiles collected via the webhook buffer.",
+};
 
-export default function Root({ children }: { children: React.ReactNode }) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body>
-        <div className="container">
-          <h1>🎬 Selfcast – Instagram TalentScout</h1>
-          {children}
-        </div>
+      <body style={{ background: "#f9fafb", fontFamily: "sans-serif" }}>
+        {children}
       </body>
     </html>
   );
