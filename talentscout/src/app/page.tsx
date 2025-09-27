@@ -236,7 +236,7 @@ export default function Page() {
       .then(res => res.json())
       .then(data => {
         const items = Array.isArray(data.items) ? data.items : [];
-        setProfiles(items.map(item => normalizeProfile(item as UnknownRecord)));
+setProfiles(items.map((item: unknown) => normalizeProfile(item as UnknownRecord)));
       })
       .catch(() => setProfiles([]))
       .finally(() => setLoading(false));
