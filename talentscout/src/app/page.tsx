@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useCallback, useEffect, useMemo, useState } from "react";
+import { FormEvent, useEffect, useMemo, useState } from "react";
 
 type UnknownRecord = Record<string, unknown>;
 
@@ -28,12 +28,6 @@ const numberFormatter = new Intl.NumberFormat("en-US", {
   maximumFractionDigits: 1,
 });
 
-function toRecord(value: unknown): UnknownRecord | undefined {
-  return value && typeof value === "object" && !Array.isArray(value)
-    ? (value as UnknownRecord)
-    : undefined;
-}
-
 function firstString(...values: unknown[]): string | undefined {
   for (const v of values) {
     if (typeof v === "string" && v.trim()) return v.trim();
@@ -41,67 +35,20 @@ function firstString(...values: unknown[]): string | undefined {
   return undefined;
 }
 
-function firstDefined<T>(...values: (T | null | undefined)[]): T | undefined {
-  for (const v of values) if (v !== undefined && v !== null) return v;
-  return undefined;
-}
-
-function normalizeHashtags(value: unknown): string[] | undefined {
-  const tags: string[] = [];
-  const seen = new Set<string>();
-
-  const add = (t: string) => {
-    const c = t.replace(/^#+/, "").trim();
-    if (!c) return;
-    const k = c.toLowerCase();
-    if (seen.has(k)) return;
-    seen.add(k);
-    tags.push(c);
-  };
-
-  const handle = (input: unknown) => {
-    if (!input) return;
-    if (Array.isArray(input)) return input.forEach(handle);
-    if (typeof input === "string") return input.split(/[\s,]+/).forEach(add);
-    if (typeof input === "object") {
-      const rec = input as UnknownRecord;
-      const cand = firstString(rec.name, rec.tag, rec.value);
-      if (cand) handle(cand);
-    }
-  };
-
-  handle(value);
-  return tags.length ? tags : undefined;
-}
-
-function parseNumeric(value: unknown): number | undefined {
-  if (value == null) return;
-  if (typeof value === "number") return Number.isFinite(value) ? value : undefined;
-  if (typeof value === "string") {
-    const n = Number(value.replace(/,/g, ""));
-    return Number.isFinite(n) ? n : undefined;
-  }
-}
-
 function normalizeProfile(raw: UnknownRecord): Profile {
-  const owner = toRecord(raw.owner);
-  const post = toRecord(raw.post);
-
   return {
     id: (raw.id as string) ?? raw.permalink?.toString(),
-    username: firstString(raw.username, owner?.username),
-    fullName: firstString(raw.fullName, owner?.fullName),
-    avatarUrl: firstString(raw.avatarUrl, owner?.avatarUrl),
-    followers: parseNumeric(firstDefined(raw.followers, owner?.followers)),
-    caption: firstString(raw.caption, post?.caption),
-    postUrl: firstString(raw.url, raw.postUrl, post?.url),
+    username: firstString(raw.username),
+    fullName: firstString(raw.fullName),
+    avatarUrl: firstString(raw.avatarUrl),
+    caption: firstString(raw.caption),
+    postUrl: firstString(raw.url, raw.postUrl),
     profileUrl:
-      firstString(raw.profileUrl, owner?.profileUrl) ??
+      firstString(raw.profileUrl) ??
       (raw.username ? `https://instagram.com/${raw.username}` : undefined),
-    hashtags: normalizeHashtags(firstDefined(raw.hashtags, post?.hashtags)),
-    displayUrl: firstString(raw.displayUrl, post?.displayUrl),
-    timestamp: firstString(raw.timestamp, post?.timestamp),
-    likes: parseNumeric(firstDefined(raw.likes, post?.likes)),
+    displayUrl: firstString(raw.displayUrl),
+    timestamp: firstString(raw.timestamp),
+    likes: typeof raw.likes === "number" ? raw.likes : undefined,
     bufferedAt: firstString(raw.bufferedAt, raw.ingestedAt),
     raw,
   };
@@ -110,17 +57,12 @@ function normalizeProfile(raw: UnknownRecord): Profile {
 function formatFollowers(n?: number) {
   return n === undefined ? undefined : n >= 1_000 ? numberFormatter.format(n) : n.toString();
 }
-function formatDate(v?: string) {
-  if (!v) return;
-  const d = new Date(v);
-  return isNaN(d.getTime()) ? undefined : d.toLocaleString();
-}
 
-function buildDm(profile: Profile) {
+function buildDm(profile: Profile): string {
   return profile.dmCopy?.trim()
     ? profile.dmCopy
     : profile.username
-    ? `Hi @${profile.username}, we’re casting for new projects! Please apply via Selfcast: https://selfcast.com`
+    ? `Hi @${profile.username}, we’re casting for new projects! ✨ Please apply via Selfcast: https://selfcast.com`
     : "Hi! We’re casting for new projects! Please apply via Selfcast: https://selfcast.com";
 }
 
@@ -130,6 +72,7 @@ export default function Page() {
   const [sortBy, setSortBy] = useState<"date" | "likes" | "hashtags">("date");
   const [loading, setLoading] = useState(true);
   const [copied, setCopied] = useState<string | null>(null);
+  const [drafts, setDrafts] = useState<Record<string, string>>({});
 
   useEffect(() => {
     setLoading(true);
@@ -148,16 +91,19 @@ export default function Page() {
     list.sort((a, b) => {
       if (sortBy === "likes") return (b.likes ?? 0) - (a.likes ?? 0);
       if (sortBy === "hashtags") return (b.hashtags?.length ?? 0) - (a.hashtags?.length ?? 0);
-      return new Date(b.timestamp ?? b.bufferedAt ?? 0).getTime() -
-             new Date(a.timestamp ?? a.bufferedAt ?? 0).getTime();
+      return (
+        new Date(b.timestamp ?? b.bufferedAt ?? 0).getTime() -
+        new Date(a.timestamp ?? a.bufferedAt ?? 0).getTime()
+      );
     });
     return list;
   }, [profiles, sortBy]);
 
   const handleCopy = (p: Profile) => {
-    const text = buildDm(p);
+    const key = p.id ?? p.username ?? "";
+    const text = drafts[key] ?? buildDm(p);
     navigator.clipboard.writeText(text).then(() => {
-      setCopied(p.id ?? p.username ?? "");
+      setCopied(key);
       setTimeout(() => setCopied(null), 2000);
     });
   };
@@ -167,16 +113,19 @@ export default function Page() {
       <header style={{ marginBottom: 24 }}>
         <h1>🎬 Selfcast – Instagram TalentScout</h1>
         <form
-          onSubmit={(e: FormEvent) => {
-            e.preventDefault();
-          }}
+          onSubmit={(e: FormEvent) => e.preventDefault()}
           style={{ display: "flex", gap: 12, marginTop: 12 }}
         >
           <input
             value={query}
             onChange={e => setQuery(e.target.value)}
             placeholder="Filter profiles (e.g. berlin, followers>10k)"
-            style={{ flex: 1, padding: "8px 12px", borderRadius: 6, border: "1px solid #ccc" }}
+            style={{
+              flex: 1,
+              padding: "8px 12px",
+              borderRadius: 6,
+              border: "1px solid #ccc",
+            }}
           />
           <select
             value={sortBy}
@@ -204,10 +153,12 @@ export default function Page() {
             )
             .map(p => {
               const avatarSrc = p.avatarUrl ?? p.displayUrl ?? "";
+              const defaultMsg = buildDm(p);
+              const key = p.id ?? p.username ?? "";
 
               return (
                 <article
-                  key={p.id ?? Math.random()}
+                  key={key}
                   style={{
                     border: "1px solid #e5e7eb",
                     borderRadius: 12,
@@ -242,48 +193,31 @@ export default function Page() {
                       </div>
                     )}
                     <div style={{ flex: 1 }}>
-                      <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                        <strong>@{p.username}</strong>
-                        {p.fullName && <span style={{ color: "#555" }}>{p.fullName}</span>}
-                        {p.followers && (
-                          <span style={{ marginLeft: "auto", color: "#666" }}>
-                            {formatFollowers(p.followers)} followers
-                          </span>
-                        )}
-                      </div>
-                      {p.location && <div style={{ color: "#777" }}>{p.location}</div>}
-                      {p.caption && <p style={{ margin: "8px 0" }}>{p.caption}</p>}
+                      <strong>@{p.username}</strong>
+                      {p.fullName && (
+                        <span style={{ marginLeft: 8, color: "#555" }}>{p.fullName}</span>
+                      )}
+                      {p.followers && (
+                        <span style={{ marginLeft: "auto", color: "#666" }}>
+                          {formatFollowers(p.followers)} followers
+                        </span>
+                      )}
                     </div>
                   </div>
 
-                  {p.displayUrl && (
-                    <div style={{ marginTop: 12 }}>
-                      <img
-                        src={p.displayUrl}
-                        alt="post"
-                        style={{ width: "100%", borderRadius: 8 }}
-                      />
-                    </div>
-                  )}
-
-                  {p.hashtags && (
-                    <div style={{ marginTop: 8, display: "flex", flexWrap: "wrap", gap: 6 }}>
-                      {p.hashtags.map(t => (
-                        <span
-                          key={t}
-                          style={{
-                            background: "#eef2ff",
-                            color: "#4338ca",
-                            padding: "3px 8px",
-                            borderRadius: 999,
-                            fontSize: 13,
-                          }}
-                        >
-                          #{t}
-                        </span>
-                      ))}
-                    </div>
-                  )}
+                  <textarea
+                    value={drafts[key] ?? defaultMsg}
+                    onChange={e => setDrafts(d => ({ ...d, [key]: e.target.value }))}
+                    style={{
+                      width: "100%",
+                      marginTop: 12,
+                      padding: 8,
+                      borderRadius: 6,
+                      border: "1px solid #ccc",
+                      fontSize: 14,
+                      resize: "vertical",
+                    }}
+                  />
 
                   <footer style={{ display: "flex", gap: 12, marginTop: 12 }}>
                     {p.postUrl && (
@@ -323,12 +257,12 @@ export default function Page() {
                         padding: "8px 14px",
                         border: "1px solid #111827",
                         borderRadius: 6,
-                        background: copied === (p.id ?? p.username) ? "#111827" : "#fff",
-                        color: copied === (p.id ?? p.username) ? "#fff" : "#111827",
+                        background: copied === key ? "#111827" : "#fff",
+                        color: copied === key ? "#fff" : "#111827",
                         cursor: "pointer",
                       }}
                     >
-                      {copied === (p.id ?? p.username) ? "Copied!" : "Copy DM"}
+                      {copied === key ? "Copied!" : "Copy DM"}
                     </button>
                   </footer>
                 </article>
