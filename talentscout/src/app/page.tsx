@@ -1,175 +1,3 @@
-import { NextRequest, NextResponse } from "next/server";
-import { clearBuffer, getBufferEntries, type IngestBufferEntry } from "@/lib/ingest-buffer";
-
-const TIMESTAMP_FIELDS = [
-  "bufferedAt",
-  "ingestedAt",
-  "createdAt",
-  "created_at",
-  "timestamp",
-  "postedAt",
-  "updatedAt",
-];
-
-export async function GET(request: NextRequest) {
-  const datasetId = process.env.APIFY_DATASET_ID;
-  if (!datasetId) {
-    return NextResponse.json({ error: "APIFY_DATASET_ID is not configured" }, { status: 500 });
-  }
-
-  const token = process.env.APIFY_TOKEN;
-  if (!token) {
-    return NextResponse.json({ error: "APIFY_TOKEN is not configured" }, { status: 500 });
-  }
-
-  const requestUrl = new URL(request.url);
-  const query = requestUrl.searchParams.get("q")?.toLowerCase().trim();
-
-  const { items: datasetItems, error: datasetError } = await fetchDatasetItems(datasetId, token);
-  const bufferEntries = getBufferEntries();
-  const bufferItems = bufferEntries.map(entry => entry.item);
-  const items = mergeItems(datasetItems, bufferItems);
-
-  const filtered = query ? filterByQuery(items, query) : items;
-  const latestIngestedAt = computeLatestTimestamp(datasetItems, bufferEntries);
-
-  if (datasetError && datasetItems.length === 0 && bufferItems.length === 0) {
-    return NextResponse.json(
-      { error: "Unable to load profiles from Apify", details: datasetError.message },
-      { status: 502 }
-    );
-  }
-
-  return NextResponse.json({
-    items: filtered,
-    count: filtered.length,
-    latestIngestedAt,
-  });
-}
-
-export async function DELETE() {
-  clearBuffer();
-  return NextResponse.json({ cleared: true });
-}
-
-async function fetchDatasetItems(
-  datasetId: string,
-  token: string
-): Promise<{ items: unknown[]; error: Error | null }> {
-  const url = `https://api.apify.com/v2/datasets/${datasetId}/items?token=${token}`;
-  try {
-    const response = await fetch(url, { cache: "no-store" });
-    if (!response.ok) {
-      throw new Error(`Request failed with status ${response.status}`);
-    }
-    const payload = await response.json();
-    return { items: normalizeItems(payload), error: null };
-  } catch (error) {
-    const normalizedError =
-      error instanceof Error ? error : new Error(typeof error === "string" ? error : "Unknown error");
-    console.error("Failed to fetch Apify dataset", normalizedError);
-    return { items: [], error: normalizedError };
-  }
-}
-
-function normalizeItems(payload: unknown): unknown[] {
-  if (Array.isArray(payload)) {
-    return payload;
-  }
-  if (payload && typeof payload === "object") {
-    const record = payload as Record<string, unknown>;
-    if (Array.isArray(record.items)) return record.items;
-    if (Array.isArray(record.data)) return record.data;
-    if (Array.isArray(record.records)) return record.records;
-  }
-  return [];
-}
-
-function mergeItems(datasetItems: unknown[], bufferItems: unknown[]): unknown[] {
-  const merged: unknown[] = [];
-  const seen = new Set<string>();
-
-  for (const item of datasetItems) {
-    const key = safeDedupeKey(item);
-    if (seen.has(key)) continue;
-    seen.add(key);
-    merged.push(item);
-  }
-
-  for (const item of bufferItems) {
-    const key = safeDedupeKey(item);
-    if (seen.has(key)) continue;
-    seen.add(key);
-    merged.push(item);
-  }
-
-  return merged;
-}
-
-function filterByQuery(items: unknown[], query: string): unknown[] {
-  return items.filter(item => {
-    try {
-      return JSON.stringify(item).toLowerCase().includes(query);
-    } catch (error) {
-      return false;
-    }
-  });
-}
-
-function computeLatestTimestamp(datasetItems: unknown[], bufferEntries: IngestBufferEntry[]): string | null {
-  let latest = Number.NEGATIVE_INFINITY;
-
-  for (const item of datasetItems) {
-    const timestamp = extractTimestamp(item);
-    if (timestamp !== null) {
-      latest = Math.max(latest, timestamp);
-    }
-  }
-
-  for (const entry of bufferEntries) {
-    const parsed = Date.parse(entry.receivedAt);
-    if (Number.isFinite(parsed)) {
-      latest = Math.max(latest, parsed);
-    }
-  }
-
-  if (!Number.isFinite(latest)) {
-    return null;
-  }
-
-  return new Date(latest).toISOString();
-}
-
-function extractTimestamp(item: unknown): number | null {
-  if (!item || typeof item !== "object") {
-    return null;
-  }
-
-  const record = item as Record<string, unknown>;
-  for (const field of TIMESTAMP_FIELDS) {
-    const value = record[field];
-    if (typeof value === "string" && value.trim()) {
-      const parsed = Date.parse(value);
-      if (Number.isFinite(parsed)) {
-        return parsed;
-      }
-    }
-  }
-
-  return null;
-}
-
-function safeDedupeKey(item: unknown): string {
-  try {
-    return typeof item === "string" ? item : JSON.stringify(item);
-  } catch (error) {
-    return String(item);
-  }
-}
-talentscout/src/app/page.tsx
-+126
--6
-
 "use client";
 
 import { FormEvent, useCallback, useEffect, useMemo, useRef, useState } from "react";
@@ -216,30 +44,195 @@ function firstDefined<T>(...values: T[]): T | undefined {
   }
   return undefined;
 }
-@@ -167,211 +170,287 @@ function normalizeProfile(raw: UnknownRecord): Profile {
+
+function normalizeHashtags(value: unknown): string[] | undefined {
+  if (value === null || value === undefined) {
+    return undefined;
+  }
+
+  const tags: string[] = [];
+  const seen = new Set<string>();
+
+  const addTag = (tag: string) => {
+    const cleaned = tag.replace(/^#+/, "").trim();
+    if (!cleaned) return;
+    const key = cleaned.toLowerCase();
+    if (seen.has(key)) return;
+    seen.add(key);
+    tags.push(cleaned);
+  };
+
+  const handle = (input: unknown) => {
+    if (input === null || input === undefined) return;
+    if (Array.isArray(input)) {
+      for (const entry of input) {
+        handle(entry);
+      }
+      return;
+    }
+    if (typeof input === "string") {
+      const parts = input.split(/[\s,]+/);
+      for (const part of parts) {
+        addTag(part);
+      }
+      return;
+    }
+    if (typeof input === "object") {
+      const record = input as UnknownRecord;
+      const candidate = firstString(record.name, record.tag, record.value);
+      if (candidate) {
+        handle(candidate);
+      }
+    }
+  };
+
+  handle(value);
+
+  return tags.length > 0 ? tags : undefined;
+}
+
+function parseNumericValue(value: unknown): number | undefined {
+  if (value === null || value === undefined) return undefined;
+  if (typeof value === "number") {
+    return Number.isFinite(value) ? value : undefined;
+  }
+  if (typeof value === "string") {
+    const trimmed = value.trim();
+    if (!trimmed) return undefined;
+    const normalized = trimmed.replace(/,/g, "");
+    const compactMatch = normalized.match(/^(-?\d+(?:\.\d+)?)([kKmM]?)$/);
+    if (compactMatch) {
+      const base = Number(compactMatch[1]);
+      if (!Number.isFinite(base)) return undefined;
+      const suffix = compactMatch[2].toLowerCase();
+      const multiplier = suffix == "k" ? 1_000 : suffix == "m" ? 1_000_000 : 1;
+      return base * multiplier;
+    }
+    const parsed = Number(normalized);
+    return Number.isFinite(parsed) ? parsed : undefined;
+  }
+  return undefined;
+}
+
+function parseFollowers(value: unknown): number | undefined {
+  if (value === null || value === undefined) return undefined;
+
+  if (typeof value === "object" && !Array.isArray(value)) {
+    const record = value as UnknownRecord;
+    const nested = firstDefined(record.count, record.value, record.total);
+    if (nested !== undefined) {
+      return parseFollowers(nested);
+    }
+  }
+
+  const numeric = parseNumericValue(value);
+  if (numeric === undefined) return undefined;
+  return Math.round(numeric);
+}
+
+function normalizeProfile(raw: UnknownRecord): Profile {
+  const owner = raw.owner as UnknownRecord | undefined;
+  const post = raw.post as UnknownRecord | undefined;
+
+  const username = firstString(
+    raw.username,
+    raw.userName,
+    raw.user_name,
+    raw.handle,
+    raw.instagramHandle,
+    raw.instagram_handle,
+    owner?.username,
+    owner?.userName,
+    owner?.handle
+  );
+
+  const fullName = firstString(
+    raw.fullName,
+    raw.full_name,
+    raw.name,
+    raw.displayName,
+    raw.display_name,
+    owner?.fullName,
+    owner?.full_name,
+    owner?.name
+  );
+
+  const avatarUrl = firstString(
+    raw.avatarUrl,
+    raw.avatar_url,
+    raw.profilePicture,
+    raw.profile_picture,
+    raw.profilePic,
+    raw.profile_pic,
+    raw.profilePicUrl,
+    raw.profile_pic_url,
+    raw.profilePictureUrl,
+    raw.profile_picture_url,
+    owner?.avatarUrl,
+    owner?.avatar_url,
+    owner?.profilePicture,
+    owner?.profile_picture,
+    owner?.profilePicUrl,
+    owner?.profile_pic_url
+  );
+
+  const followers = parseFollowers(
+    firstDefined(
+      raw.followers,
+      raw.followersCount,
+      raw.followers_count,
+      raw.followerCount,
+      raw.follower_count,
+      raw.followersTotal,
+      raw.followers_total,
+      owner?.followers,
+      owner?.followersCount,
+      owner?.followers_count
+    )
+  );
+
+  const caption = firstString(
+    raw.caption,
+    raw.postCaption,
+    raw.post_caption,
+    raw.description,
+    raw.postDescription,
+    raw.post_description,
+    post?.caption,
+    post?.description
+  );
+
+  const postUrl = firstString(
+    raw.postUrl,
+    raw.post_url,
+    raw.url,
     raw.permalink,
-    (raw.post as UnknownRecord | undefined)?.url
+    raw.link,
+    post?.url,
+    post?.permalink
+  );
+
+  const profileUrlCandidate = firstString(
+    raw.profileUrl,
+    raw.profile_url,
+    raw.profileLink,
+    raw.profile_link,
+    raw.profilePage,
+    raw.profile_page,
+    raw.url,
+    owner?.profileUrl,
+    owner?.profile_url,
+    owner?.profileLink,
+    owner?.profile_link,
+    owner?.url
   );
 
   const dmCopy = firstString(raw.dmCopy, raw.dm_copy, raw.dmTemplate, raw.outreachTemplate, raw.outreach_copy);
 
-  const location = firstString(
-    raw.location,
-    raw.city,
-    raw.country,
-    raw.profileLocation,
-    (raw.owner as UnknownRecord | undefined)?.location
-  );
+  const location = firstString(raw.location, raw.city, raw.country, raw.profileLocation, owner?.location);
 
   const hashtags = normalizeHashtags(
-    firstDefined(
-      raw.hashtags,
-      raw.tags,
-      raw.hashTags,
-      raw.hashtags_text,
-      (raw.post as UnknownRecord | undefined)?.hashtags,
-      (raw.post as UnknownRecord | undefined)?.tags
-    )
+    firstDefined(raw.hashtags, raw.tags, raw.hashTags, raw.hashtags_text, post?.hashtags, post?.tags)
   );
 
   const displayUrl = firstString(
@@ -251,8 +244,10 @@ function firstDefined<T>(...values: T[]): T | undefined {
     raw.image_url,
     raw.thumbnailSrc,
     raw.thumbnail_src,
-    (raw.post as UnknownRecord | undefined)?.displayUrl,
-    (raw.post as UnknownRecord | undefined)?.thumbnailSrc
+    post?.displayUrl,
+    post?.thumbnailSrc,
+    post?.imageUrl,
+    post?.image_url
   );
 
   const timestamp = firstString(
@@ -265,8 +260,10 @@ function firstDefined<T>(...values: T[]): T | undefined {
     raw.published_at,
     raw.createdAt,
     raw.created_at,
-    (raw.post as UnknownRecord | undefined)?.takenAt,
-    (raw.post as UnknownRecord | undefined)?.timestamp
+    post?.takenAt,
+    post?.timestamp,
+    post?.createdAt,
+    post?.created_at
   );
 
   const likes = parseFollowers(
@@ -277,8 +274,9 @@ function firstDefined<T>(...values: T[]): T | undefined {
       raw.likeCount,
       raw.like_count,
       raw.reactions,
-      (raw.post as UnknownRecord | undefined)?.likes,
-      (raw.post as UnknownRecord | undefined)?.likeCount
+      post?.likes,
+      post?.likeCount,
+      post?.like_count
     )
   );
 
@@ -304,9 +302,7 @@ function firstDefined<T>(...values: T[]): T | undefined {
   ];
   const id = idCandidates
     .map(candidate => {
-      if (typeof candidate === "number" && Number.isFinite(candidate)) return String(candidate);
-      if (typeof candidate === "string") {
-        const trimmed = candidate.trim();
+@@ -310,51 +308,50 @@ function firstDefined<T>(...values: T[]): T | undefined {
         return trimmed || undefined;
       }
       return undefined;
@@ -332,7 +328,6 @@ function firstDefined<T>(...values: T[]): T | undefined {
     raw,
   };
 }
-
 function formatFollowers(value: number | undefined): string | undefined {
   if (value === undefined) return undefined;
   if (value >= 1_000) return numberFormatter.format(value);
@@ -358,127 +353,7 @@ function buildDmTemplate(profile: Profile): string | undefined {
 
 export default function Page() {
   const [query, setQuery] = useState("");
-  const [activeQuery, setActiveQuery] = useState("");
-  const [profiles, setProfiles] = useState<Profile[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [isRefreshing, setIsRefreshing] = useState(false);
-  const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
-  const [copiedProfileId, setCopiedProfileId] = useState<string | null>(null);
-  const [sortBy, setSortBy] = useState<"date" | "likes" | "hashtags">("date");
-  const latestRequestRef = useRef(0);
-  
-  const fetchProfiles = useCallback(async (search: string) => {
-    const trimmed = search.trim();
-    const requestId = Date.now();
-    latestRequestRef.current = requestId;
-    setLoading(true);
-    setError(null);
-    try {
-      const params = new URLSearchParams();
-      if (trimmed) params.set("q", trimmed);
-      const url = `/api/profiles${params.toString() ? `?${params.toString()}` : ""}`;
-      const response = await fetch(url, { cache: "no-store" });
-      if (!response.ok) throw new Error(`Failed to load profiles (${response.status})`);
-      const json = await response.json();
-      const rawList = Array.isArray(json)
-        ? json
-        : Array.isArray((json as any)?.profiles)
-        ? (json as any).profiles
-        : Array.isArray((json as any)?.items)
-        ? (json as any).items
-        : Array.isArray((json as any)?.data)
-        ? (json as any).data
-        : [];
-      if (!Array.isArray(rawList)) throw new Error("Unexpected response format");
-      if (latestRequestRef.current !== requestId) return;
-      setProfiles(rawList.map((item: UnknownRecord) => normalizeProfile(item)));
-      setActiveQuery(trimmed);
-      setLastUpdated(new Date());
-    } catch (err) {
-      if (latestRequestRef.current !== requestId) return;
-      const message = err instanceof Error ? err.message : "Unable to load profiles";
-      setError(message);
-      setProfiles([]);
-    } finally {
-      if (latestRequestRef.current === requestId) setLoading(false);
-    }
-  }, []);
-
-  useEffect(() => {
-    fetchProfiles("");
-  }, [fetchProfiles]);
-
-  const handleSearchSubmit = useCallback(
-    (event: FormEvent<HTMLFormElement>) => {
-      event.preventDefault();
-      fetchProfiles(query);
-    },
-    [fetchProfiles, query]
-  );
-
-  const handleRefresh = useCallback(() => {
-    setIsRefreshing(true);
-    fetchProfiles(activeQuery).finally(() => setIsRefreshing(false));
-  }, [activeQuery, fetchProfiles]);
-
-  const handleCopyDm = useCallback((profile: Profile) => {
-    const text = buildDmTemplate(profile);
-    if (!text) return;
-    const fallbackCopy = () => {
-      const textarea = document.createElement("textarea");
-      textarea.value = text;
-      textarea.style.position = "fixed";
-      textarea.style.opacity = "0";
-      document.body.appendChild(textarea);
-      textarea.focus();
-      textarea.select();
-      document.execCommand("copy");
-      document.body.removeChild(textarea);
-    };
-    const runCopy = async () => {
-      if (navigator.clipboard && typeof navigator.clipboard.writeText === "function") {
-        await navigator.clipboard.writeText(text);
-      } else {
-        fallbackCopy();
-      }
-    };
-    runCopy()
-      .then(() => {
-        const id = profile.id ?? profile.username ?? text;
-        setCopiedProfileId(id);
-        window.setTimeout(() => {
-          setCopiedProfileId(current => (current === id ? null : current));
-        }, 2000);
-      })
-      .catch(error => {
-        console.error("Failed to copy DM", error);
-        alert("Unable to copy the DM text automatically. Please copy it manually.");
-      });
-  }, []);
-
-  const sortedProfiles = useMemo(() => {
-    const list = [...profiles];
-    list.sort((a, b) => {
-      if (sortBy === "likes") {
-        const aLikes = a.likes ?? 0;
-        const bLikes = b.likes ?? 0;
-        return bLikes - aLikes;
-      }
-      if (sortBy === "hashtags") {
-        const aCount = a.hashtags?.length ?? 0;
-        const bCount = b.hashtags?.length ?? 0;
-        return bCount - aCount;
-      }
-      const aTime = a.timestamp ?? a.bufferedAt;
-      const bTime = b.timestamp ?? b.bufferedAt;
-      const aDate = aTime ? new Date(aTime).getTime() : 0;
-      const bDate = bTime ? new Date(bTime).getTime() : 0;
-      return bDate - aDate;
-    });
-    return list;
-  }, [profiles, sortBy]);
-
+@@ -482,198 +479,313 @@ export default function Page() {
   return (
     <div style={{ padding: "32px 24px", maxWidth: 1100, margin: "0 auto" }}>
       <header style={{ display: "flex", flexDirection: "column", gap: 12, marginBottom: 24 }}>
@@ -504,7 +379,17 @@ export default function Page() {
           />
           <button
             type="submit"
-@@ -389,77 +468,98 @@ export default function Page() {
+            style={{
+              padding: "10px 16px",
+              borderRadius: 8,
+              border: "none",
+              background: "#111827",
+              color: "#fff",
+              fontSize: 16,
+              cursor: "pointer",
+            }}
+            disabled={loading && !isRefreshing}
+          >
             {loading && !isRefreshing ? "Searching…" : "Search"}
           </button>
           <button
@@ -524,7 +409,16 @@ export default function Page() {
             {isRefreshing ? "Refreshing…" : "Refresh"}
           </button>
         </form>
-        <div style={{ display: "flex", flexWrap: "wrap", gap: 16, alignItems: "center", color: "#4b5563", fontSize: 14 }}>
+        <div
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            gap: 16,
+            alignItems: "center",
+            color: "#4b5563",
+            fontSize: 14,
+          }}
+        >
           <span>
             Showing <strong>{profiles.length}</strong> profile{profiles.length === 1 ? "" : "s"}
             {activeQuery ? ` for “${activeQuery}”` : ""}.
@@ -575,9 +469,16 @@ export default function Page() {
             const postDateLabel = formatDateTime(profile.timestamp);
             const postUrl = profile.postUrl;
             const profileUrl = profile.profileUrl;
+            const resolvedProfileUrl = profileUrl ?? (profile.username ? `https://instagram.com/${profile.username}` : undefined);
             const dmMessage = buildDmTemplate(profile);
-            const hasDmCopy = Boolean(dmMessage);
             const likesLabel = formatFollowers(profile.likes);
+            const copyTarget = profile.id ?? profile.username ?? dmMessage ?? key;
+            const isCopied = copiedProfileId === copyTarget;
+            const avatarFallback =
+              profile.username?.charAt(0)?.toUpperCase() ??
+              profile.fullName?.charAt(0)?.toUpperCase() ??
+              "👤";
+
             return (
               <article
                 key={key}
@@ -603,7 +504,44 @@ export default function Page() {
                   ) : (
                     <div
                       style={{
-@@ -500,53 +600,73 @@ export default function Page() {
+                        width: 72,
+                        height: 72,
+                        borderRadius: "50%",
+                        background: "#111827",
+                        color: "#fff",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        fontWeight: 600,
+                        fontSize: 24,
+                        flexShrink: 0,
+                      }}
+                    >
+                      {avatarFallback}
+                    </div>
+                  )}
+                  <div style={{ flex: 1, minWidth: 0, display: "flex", flexDirection: "column", gap: 4 }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
+                      {profile.username ? (
+                        <a
+                          href={resolvedProfileUrl}
+                          target="_blank"
+                          rel="noreferrer"
+                          style={{
+                            fontWeight: 600,
+                            color: "#111827",
+                            textDecoration: "none",
+                            fontSize: 18,
+                          }}
+                        >
+                          @{profile.username}
+                        </a>
+                      ) : (
+                        <span style={{ fontWeight: 600, color: "#111827", fontSize: 18 }}>
+                          {profile.fullName ?? "Unknown profile"}
+                        </span>
+                      )}
+                      {profile.fullName && profile.username && (
                         <span style={{ color: "#6b7280", fontSize: 15 }}>{profile.fullName}</span>
                       )}
                       {followersLabel && (
@@ -622,22 +560,16 @@ export default function Page() {
                       )}
                     </div>
                     {profile.location && (
-                      <div style={{ color: "#4b5563", fontSize: 14, marginTop: 4 }}>{profile.location}</div>
+                      <div style={{ color: "#4b5563", fontSize: 14 }}>{profile.location}</div>
                     )}
                     {bufferedLabel && (
-                      <div style={{ color: "#9ca3af", fontSize: 12, marginTop: 4 }}>
-                        Buffered {bufferedLabel}
-                      </div>
+                      <div style={{ color: "#9ca3af", fontSize: 12 }}>Buffered {bufferedLabel}</div>
                     )}
                     {postDateLabel && (
-                      <div style={{ color: "#9ca3af", fontSize: 12, marginTop: 2 }}>
-                        Posted {postDateLabel}
-                      </div>
+                      <div style={{ color: "#9ca3af", fontSize: 12 }}>Posted {postDateLabel}</div>
                     )}
                     {likesLabel && (
-                      <div style={{ color: "#4b5563", fontSize: 13, marginTop: 6 }}>
-                        ❤️ {likesLabel} likes
-                      </div>
+                      <div style={{ color: "#4b5563", fontSize: 13 }}>❤️ {likesLabel} likes</div>
                     )}
                   </div>
                 </div>
@@ -677,3 +609,61 @@ export default function Page() {
 
                 <footer style={{ display: "flex", flexWrap: "wrap", gap: 12, justifyContent: "flex-end" }}>
                   {postUrl && (
+                    <a
+                      href={postUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      style={{
+                        padding: "10px 16px",
+                        borderRadius: 8,
+                        background: "#2563eb",
+                        color: "#fff",
+                        textDecoration: "none",
+                        fontSize: 14,
+                      }}
+                    >
+                      View post
+                    </a>
+                  )}
+                  {resolvedProfileUrl && (
+                    <a
+                      href={resolvedProfileUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      style={{
+                        padding: "10px 16px",
+                        borderRadius: 8,
+                        border: "1px solid #d1d5db",
+                        color: "#111827",
+                        textDecoration: "none",
+                        fontSize: 14,
+                      }}
+                    >
+                      View profile
+                    </a>
+                  )}
+                  {dmMessage && (
+                    <button
+                      type="button"
+                      onClick={() => handleCopyDm(profile)}
+                      style={{
+                        padding: "10px 16px",
+                        borderRadius: 8,
+                        border: "1px solid #111827",
+                        background: isCopied ? "#111827" : "#fff",
+                        color: isCopied ? "#fff" : "#111827",
+                        cursor: "pointer",
+                      }}
+                    >
+                      {isCopied ? "Copied!" : "Copy DM"}
+                    </button>
+                  )}
+                </footer>
+              </article>
+            );
+          })}
+        </div>
+      )}
+    </div>
+  );
+}
