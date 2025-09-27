@@ -50,6 +50,7 @@ function normalizeProfile(raw: UnknownRecord): Profile {
     timestamp: firstString(raw.timestamp),
     likes: typeof raw.likes === "number" ? raw.likes : undefined,
     bufferedAt: firstString(raw.bufferedAt, raw.ingestedAt),
+    hashtags: Array.isArray(raw.hashtags) ? (raw.hashtags as string[]) : [],
     raw,
   };
 }
@@ -62,8 +63,11 @@ function buildDm(profile: Profile): string {
   return profile.dmCopy?.trim()
     ? profile.dmCopy
     : profile.username
-    ? `Hi @${profile.username}, we’re casting for new projects! ✨ Please apply via Selfcast: https://selfcast.com`
-    : "Hi! We’re casting for new projects! Please apply via Selfcast: https://selfcast.com";
+    ? `Hey @${profile.username}, 👋  
+We’re currently casting for upcoming international projects in film, TV, and commercials.  
+You can apply directly and create your professional profile here: https://selfcast.com ✨  
+Looking forward to seeing your talent!`
+    : "Hey 👋 We’re currently casting for upcoming international projects. Apply now via https://selfcast.com";
 }
 
 export default function Page() {
@@ -202,8 +206,38 @@ export default function Page() {
                           {formatFollowers(p.followers)} followers
                         </span>
                       )}
+                      {p.caption && <p style={{ marginTop: 6 }}>{p.caption}</p>}
                     </div>
                   </div>
+
+                  {p.displayUrl && (
+                    <div style={{ marginTop: 12 }}>
+                      <img
+                        src={p.displayUrl}
+                        alt="post"
+                        style={{ width: "100%", borderRadius: 8 }}
+                      />
+                    </div>
+                  )}
+
+                  {p.hashtags && (
+                    <div style={{ marginTop: 8, display: "flex", flexWrap: "wrap", gap: 6 }}>
+                      {p.hashtags.map(t => (
+                        <span
+                          key={t}
+                          style={{
+                            background: "#eef2ff",
+                            color: "#4338ca",
+                            padding: "3px 8px",
+                            borderRadius: 999,
+                            fontSize: 13,
+                          }}
+                        >
+                          #{t}
+                        </span>
+                      ))}
+                    </div>
+                  )}
 
                   <textarea
                     value={drafts[key] ?? defaultMsg}
