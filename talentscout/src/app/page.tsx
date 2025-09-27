@@ -29,249 +29,309 @@ const numberFormatter = new Intl.NumberFormat("en-US", {
 });
 
 function toRecord(value: unknown): UnknownRecord | undefined {
-  if (value && typeof value === "object" && !Array.isArray(value)) {
-    return value as UnknownRecord;
-  }
-  return undefined;
+  return value && typeof value === "object" && !Array.isArray(value)
+    ? (value as UnknownRecord)
+    : undefined;
 }
 
 function firstString(...values: unknown[]): string | undefined {
-  for (const value of values) {
-    if (typeof value === "string") {
-      const trimmed = value.trim();
-      if (trimmed) return trimmed;
-    }
+  for (const v of values) {
+    if (typeof v === "string" && v.trim()) return v.trim();
   }
   return undefined;
 }
 
 function firstDefined<T>(...values: (T | null | undefined)[]): T | undefined {
-  for (const value of values) {
-    if (value !== undefined && value !== null) return value;
-  }
+  for (const v of values) if (v !== undefined && v !== null) return v;
   return undefined;
 }
 
 function normalizeHashtags(value: unknown): string[] | undefined {
-  if (value === null || value === undefined) return undefined;
-
   const tags: string[] = [];
   const seen = new Set<string>();
 
-  const addTag = (tag: string) => {
-    const cleaned = tag.replace(/^#+/, "").trim();
-    if (!cleaned) return;
-    const key = cleaned.toLowerCase();
-    if (seen.has(key)) return;
-    seen.add(key);
-    tags.push(cleaned);
+  const add = (t: string) => {
+    const c = t.replace(/^#+/, "").trim();
+    if (!c) return;
+    const k = c.toLowerCase();
+    if (seen.has(k)) return;
+    seen.add(k);
+    tags.push(c);
   };
 
   const handle = (input: unknown) => {
-    if (input === null || input === undefined) return;
-
-    if (Array.isArray(input)) {
-      for (const entry of input) handle(entry);
-      return;
-    }
-
-    if (typeof input === "string") {
-      const parts = input.split(/[\s,]+/);
-      for (const part of parts) addTag(part);
-      return;
-    }
-
+    if (!input) return;
+    if (Array.isArray(input)) return input.forEach(handle);
+    if (typeof input === "string") return input.split(/[\s,]+/).forEach(add);
     if (typeof input === "object") {
-      const record = input as UnknownRecord;
-      const candidate = firstString(record.name, record.tag, record.value);
-      if (candidate) handle(candidate);
+      const rec = input as UnknownRecord;
+      const cand = firstString(rec.name, rec.tag, rec.value);
+      if (cand) handle(cand);
     }
   };
 
   handle(value);
-  return tags.length > 0 ? tags : undefined;
+  return tags.length ? tags : undefined;
 }
 
-function parseNumericValue(value: unknown): number | undefined {
-  if (value === null || value === undefined) return undefined;
-
-  if (typeof value === "number") {
-    return Number.isFinite(value) ? value : undefined;
-  }
-
+function parseNumeric(value: unknown): number | undefined {
+  if (value == null) return;
+  if (typeof value === "number") return Number.isFinite(value) ? value : undefined;
   if (typeof value === "string") {
-    const trimmed = value.trim();
-    if (!trimmed) return undefined;
-    const normalized = trimmed.replace(/,/g, "");
-
-    const compactMatch = normalized.match(/^(-?\d+(?:\.\d+)?)([kKmM]?)$/);
-    if (compactMatch) {
-      const base = Number(compactMatch[1]);
-      if (!Number.isFinite(base)) return undefined;
-      const suffix = compactMatch[2].toLowerCase();
-      if (suffix === "k") return base * 1_000;
-      if (suffix === "m") return base * 1_000_000;
-      return base;
-    }
-
-    const parsed = Number(normalized);
-    return Number.isFinite(parsed) ? parsed : undefined;
+    const n = Number(value.replace(/,/g, ""));
+    return Number.isFinite(n) ? n : undefined;
   }
-
-  return undefined;
-}
-
-function extractUsername(raw: UnknownRecord, owner?: UnknownRecord) {
-  return firstString(
-    raw.username,
-    raw.userName,
-    raw.handle,
-    raw.instagramHandle,
-    owner?.username,
-    owner?.handle
-  );
-}
-
-function extractFullName(raw: UnknownRecord, owner?: UnknownRecord) {
-  return firstString(raw.fullName, raw.name, raw.displayName, owner?.fullName, owner?.name);
-}
-
-function extractAvatarUrl(raw: UnknownRecord, owner?: UnknownRecord) {
-  return firstString(
-    raw.avatarUrl,
-    raw.avatar_url,
-    raw.profilePicture,
-    raw.profilePic,
-    owner?.avatarUrl,
-    owner?.profilePicture
-  );
-}
-
-function extractFollowersCount(raw: UnknownRecord, owner?: UnknownRecord): number | undefined {
-  return parseNumericValue(
-    firstDefined(
-      raw.followers,
-      raw.followersCount,
-      raw.followerCount,
-      owner?.followers,
-      owner?.followersCount
-    )
-  );
-}
-
-function extractCaption(raw: UnknownRecord, post?: UnknownRecord) {
-  return firstString(raw.caption, raw.description, post?.caption, post?.description);
-}
-
-function extractPostUrl(raw: UnknownRecord, post?: UnknownRecord) {
-  return firstString(raw.postUrl, raw.url, raw.permalink, post?.url, post?.permalink);
-}
-
-function extractProfileUrl(raw: UnknownRecord, owner: UnknownRecord | undefined, username?: string) {
-  const explicit = firstString(raw.profileUrl, owner?.profileUrl, raw.url, owner?.url);
-  if (explicit) return explicit;
-  if (username) return `https://instagram.com/${username}`;
-  return undefined;
-}
-
-function extractHashtags(raw: UnknownRecord, post?: UnknownRecord) {
-  return normalizeHashtags(firstDefined(raw.hashtags, post?.hashtags));
-}
-
-function extractDisplayImageUrl(raw: UnknownRecord, post?: UnknownRecord) {
-  return firstString(raw.displayUrl, raw.mediaUrl, raw.imageUrl, post?.displayUrl, post?.mediaUrl);
-}
-
-function extractTimestamp(raw: UnknownRecord, post?: UnknownRecord) {
-  return firstString(raw.timestamp, raw.takenAt, raw.createdAt, post?.timestamp, post?.createdAt);
-}
-
-function extractLikes(raw: UnknownRecord, post?: UnknownRecord) {
-  return parseNumericValue(firstDefined(raw.likes, raw.likesCount, post?.likes, post?.likesCount));
 }
 
 function normalizeProfile(raw: UnknownRecord): Profile {
   const owner = toRecord(raw.owner);
   const post = toRecord(raw.post);
-  const username = extractUsername(raw, owner);
 
   return {
-    id: raw.id as string,
-    username,
-    fullName: extractFullName(raw, owner),
-    avatarUrl: extractAvatarUrl(raw, owner),
-    followers: extractFollowersCount(raw, owner),
-    caption: extractCaption(raw, post),
-    postUrl: extractPostUrl(raw, post),
-    profileUrl: extractProfileUrl(raw, owner, username),
-    hashtags: extractHashtags(raw, post),
-    displayUrl: extractDisplayImageUrl(raw, post),
-    timestamp: extractTimestamp(raw, post),
-    likes: extractLikes(raw, post),
+    id: (raw.id as string) ?? raw.permalink?.toString(),
+    username: firstString(raw.username, owner?.username),
+    fullName: firstString(raw.fullName, owner?.fullName),
+    avatarUrl: firstString(raw.avatarUrl, owner?.avatarUrl),
+    followers: parseNumeric(firstDefined(raw.followers, owner?.followers)),
+    caption: firstString(raw.caption, post?.caption),
+    postUrl: firstString(raw.url, raw.postUrl, post?.url),
+    profileUrl:
+      firstString(raw.profileUrl, owner?.profileUrl) ??
+      (raw.username ? `https://instagram.com/${raw.username}` : undefined),
+    hashtags: normalizeHashtags(firstDefined(raw.hashtags, post?.hashtags)),
+    displayUrl: firstString(raw.displayUrl, post?.displayUrl),
+    timestamp: firstString(raw.timestamp, post?.timestamp),
+    likes: parseNumeric(firstDefined(raw.likes, post?.likes)),
+    bufferedAt: firstString(raw.bufferedAt, raw.ingestedAt),
     raw,
   };
 }
 
-function formatFollowers(value: number | undefined) {
-  if (value === undefined) return undefined;
-  if (value >= 1_000) return numberFormatter.format(value);
-  return value.toLocaleString("en-US");
+function formatFollowers(n?: number) {
+  return n === undefined ? undefined : n >= 1_000 ? numberFormatter.format(n) : n.toString();
+}
+function formatDate(v?: string) {
+  if (!v) return;
+  const d = new Date(v);
+  return isNaN(d.getTime()) ? undefined : d.toLocaleString();
 }
 
-function buildDmTemplate(profile: Profile): string {
-  if (profile.dmCopy?.trim()) return profile.dmCopy.trim();
-  if (profile.username) {
-    return `Hi @${profile.username}, we’re casting for new projects! Please apply via Selfcast: https://selfcast.com`;
-  }
-  return "Hi! We’re casting for new projects! Please apply via Selfcast: https://selfcast.com";
+function buildDm(profile: Profile) {
+  return profile.dmCopy?.trim()
+    ? profile.dmCopy
+    : profile.username
+    ? `Hi @${profile.username}, we’re casting for new projects! Please apply via Selfcast: https://selfcast.com`
+    : "Hi! We’re casting for new projects! Please apply via Selfcast: https://selfcast.com";
 }
 
 export default function Page() {
   const [query, setQuery] = useState("");
   const [profiles, setProfiles] = useState<Profile[]>([]);
-  const [loading, setLoading] = useState(false);
+  const [sortBy, setSortBy] = useState<"date" | "likes" | "hashtags">("date");
+  const [loading, setLoading] = useState(true);
+  const [copied, setCopied] = useState<string | null>(null);
 
   useEffect(() => {
+    setLoading(true);
     fetch("/api/profiles")
       .then(res => res.json())
       .then(data => {
         const items = Array.isArray(data.items) ? data.items : [];
-setProfiles(items.map((item: unknown) => normalizeProfile(item as UnknownRecord)));
+        setProfiles(items.map((i: unknown) => normalizeProfile(i as UnknownRecord)));
       })
       .catch(() => setProfiles([]))
       .finally(() => setLoading(false));
   }, []);
 
+  const sorted = useMemo(() => {
+    const list = [...profiles];
+    list.sort((a, b) => {
+      if (sortBy === "likes") return (b.likes ?? 0) - (a.likes ?? 0);
+      if (sortBy === "hashtags") return (b.hashtags?.length ?? 0) - (a.hashtags?.length ?? 0);
+      return new Date(b.timestamp ?? b.bufferedAt ?? 0).getTime() -
+             new Date(a.timestamp ?? a.bufferedAt ?? 0).getTime();
+    });
+    return list;
+  }, [profiles, sortBy]);
+
+  const handleCopy = (p: Profile) => {
+    const text = buildDm(p);
+    navigator.clipboard.writeText(text).then(() => {
+      setCopied(p.id ?? p.username ?? "");
+      setTimeout(() => setCopied(null), 2000);
+    });
+  };
+
   return (
-    <div style={{ padding: 24 }}>
-      <h1>🎬 Selfcast – Instagram TalentScout</h1>
-      <form
-        onSubmit={e => {
-          e.preventDefault();
-        }}
-      >
-        <input
-          value={query}
-          onChange={e => setQuery(e.target.value)}
-          placeholder="Filter profiles (e.g. berlin, followers>10k)"
-        />
-      </form>
-      {loading && <p>Loading…</p>}
-      {!loading &&
-        profiles.map(p => (
-          <div key={p.id} style={{ margin: "12px 0", padding: 12, border: "1px solid #ccc" }}>
-            <strong>@{p.username}</strong>
-            <p>{p.caption}</p>
-            {p.displayUrl && <img src={p.displayUrl} alt="" width={200} />}
-            <button
-              onClick={() => {
-                navigator.clipboard.writeText(buildDmTemplate(p));
-              }}
-            >
-              Copy DM
-            </button>
-          </div>
-        ))}
+    <div style={{ padding: 32, maxWidth: 1100, margin: "0 auto" }}>
+      <header style={{ marginBottom: 24 }}>
+        <h1>🎬 Selfcast – Instagram TalentScout</h1>
+        <form
+          onSubmit={(e: FormEvent) => {
+            e.preventDefault();
+          }}
+          style={{ display: "flex", gap: 12, marginTop: 12 }}
+        >
+          <input
+            value={query}
+            onChange={e => setQuery(e.target.value)}
+            placeholder="Filter profiles (e.g. berlin, followers>10k)"
+            style={{ flex: 1, padding: "8px 12px", borderRadius: 6, border: "1px solid #ccc" }}
+          />
+          <select
+            value={sortBy}
+            onChange={e => setSortBy(e.target.value as any)}
+            style={{ padding: "8px 12px", borderRadius: 6 }}
+          >
+            <option value="date">Newest</option>
+            <option value="likes">Most likes</option>
+            <option value="hashtags">Most hashtags</option>
+          </select>
+        </form>
+      </header>
+
+      {loading ? (
+        <p>Loading profiles…</p>
+      ) : (
+        <div style={{ display: "grid", gap: 20 }}>
+          {sorted
+            .filter(p =>
+              query
+                ? p.username?.includes(query) ||
+                  p.fullName?.includes(query) ||
+                  p.caption?.includes(query)
+                : true
+            )
+            .map(p => (
+              <article
+                key={p.id ?? Math.random()}
+                style={{
+                  border: "1px solid #e5e7eb",
+                  borderRadius: 12,
+                  padding: 20,
+                  background: "#fff",
+                }}
+              >
+                <div style={{ display: "flex", gap: 16 }}>
+                  {p.avatarUrl ? (
+                    <img
+                      src={p.avatarUrl}
+                      alt={p.username ?? ""}
+                      width={60}
+                      height={60}
+                      style={{ borderRadius: "50%" }}
+                    />
+                  ) : (
+                    <div
+                      style={{
+                        width: 60,
+                        height: 60,
+                        borderRadius: "50%",
+                        background: "#111827",
+                        color: "#fff",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        fontWeight: 600,
+                      }}
+                    >
+                      {p.username?.[0]?.toUpperCase() ?? "?"}
+                    </div>
+                  )}
+                  <div style={{ flex: 1 }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                      <strong>@{p.username}</strong>
+                      {p.fullName && <span style={{ color: "#555" }}>{p.fullName}</span>}
+                      {p.followers && (
+                        <span style={{ marginLeft: "auto", color: "#666" }}>
+                          {formatFollowers(p.followers)} followers
+                        </span>
+                      )}
+                    </div>
+                    {p.location && <div style={{ color: "#777" }}>{p.location}</div>}
+                    {p.caption && <p style={{ margin: "8px 0" }}>{p.caption}</p>}
+                  </div>
+                </div>
+
+                {p.displayUrl && (
+                  <div style={{ marginTop: 12 }}>
+                    <img
+                      src={p.displayUrl}
+                      alt="post"
+                      style={{ width: "100%", borderRadius: 8 }}
+                    />
+                  </div>
+                )}
+
+                {p.hashtags && (
+                  <div style={{ marginTop: 8, display: "flex", flexWrap: "wrap", gap: 6 }}>
+                    {p.hashtags.map(t => (
+                      <span
+                        key={t}
+                        style={{
+                          background: "#eef2ff",
+                          color: "#4338ca",
+                          padding: "3px 8px",
+                          borderRadius: 999,
+                          fontSize: 13,
+                        }}
+                      >
+                        #{t}
+                      </span>
+                    ))}
+                  </div>
+                )}
+
+                <footer style={{ display: "flex", gap: 12, marginTop: 12 }}>
+                  {p.postUrl && (
+                    <a
+                      href={p.postUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      style={{
+                        padding: "8px 14px",
+                        background: "#2563eb",
+                        color: "#fff",
+                        borderRadius: 6,
+                        textDecoration: "none",
+                      }}
+                    >
+                      View Post
+                    </a>
+                  )}
+                  {p.profileUrl && (
+                    <a
+                      href={p.profileUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      style={{
+                        padding: "8px 14px",
+                        border: "1px solid #ccc",
+                        borderRadius: 6,
+                        textDecoration: "none",
+                      }}
+                    >
+                      View Profile
+                    </a>
+                  )}
+                  <button
+                    onClick={() => handleCopy(p)}
+                    style={{
+                      padding: "8px 14px",
+                      border: "1px solid #111827",
+                      borderRadius: 6,
+                      background: copied === (p.id ?? p.username) ? "#111827" : "#fff",
+                      color: copied === (p.id ?? p.username) ? "#fff" : "#111827",
+                      cursor: "pointer",
+                    }}
+                  >
+                    {copied === (p.id ?? p.username) ? "Copied!" : "Copy DM"}
+                  </button>
+                </footer>
+              </article>
+            ))}
+        </div>
+      )}
     </div>
   );
 }
