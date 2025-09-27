@@ -1,6 +1,178 @@
+import { NextRequest, NextResponse } from "next/server";
+import { clearBuffer, getBufferEntries, type IngestBufferEntry } from "@/lib/ingest-buffer";
+
+const TIMESTAMP_FIELDS = [
+  "bufferedAt",
+  "ingestedAt",
+  "createdAt",
+  "created_at",
+  "timestamp",
+  "postedAt",
+  "updatedAt",
+];
+
+export async function GET(request: NextRequest) {
+  const datasetId = process.env.APIFY_DATASET_ID;
+  if (!datasetId) {
+    return NextResponse.json({ error: "APIFY_DATASET_ID is not configured" }, { status: 500 });
+  }
+
+  const token = process.env.APIFY_TOKEN;
+  if (!token) {
+    return NextResponse.json({ error: "APIFY_TOKEN is not configured" }, { status: 500 });
+  }
+
+  const requestUrl = new URL(request.url);
+  const query = requestUrl.searchParams.get("q")?.toLowerCase().trim();
+
+  const { items: datasetItems, error: datasetError } = await fetchDatasetItems(datasetId, token);
+  const bufferEntries = getBufferEntries();
+  const bufferItems = bufferEntries.map(entry => entry.item);
+  const items = mergeItems(datasetItems, bufferItems);
+
+  const filtered = query ? filterByQuery(items, query) : items;
+  const latestIngestedAt = computeLatestTimestamp(datasetItems, bufferEntries);
+
+  if (datasetError && datasetItems.length === 0 && bufferItems.length === 0) {
+    return NextResponse.json(
+      { error: "Unable to load profiles from Apify", details: datasetError.message },
+      { status: 502 }
+    );
+  }
+
+  return NextResponse.json({
+    items: filtered,
+    count: filtered.length,
+    latestIngestedAt,
+  });
+}
+
+export async function DELETE() {
+  clearBuffer();
+  return NextResponse.json({ cleared: true });
+}
+
+async function fetchDatasetItems(
+  datasetId: string,
+  token: string
+): Promise<{ items: unknown[]; error: Error | null }> {
+  const url = `https://api.apify.com/v2/datasets/${datasetId}/items?token=${token}`;
+  try {
+    const response = await fetch(url, { cache: "no-store" });
+    if (!response.ok) {
+      throw new Error(`Request failed with status ${response.status}`);
+    }
+    const payload = await response.json();
+    return { items: normalizeItems(payload), error: null };
+  } catch (error) {
+    const normalizedError =
+      error instanceof Error ? error : new Error(typeof error === "string" ? error : "Unknown error");
+    console.error("Failed to fetch Apify dataset", normalizedError);
+    return { items: [], error: normalizedError };
+  }
+}
+
+function normalizeItems(payload: unknown): unknown[] {
+  if (Array.isArray(payload)) {
+    return payload;
+  }
+  if (payload && typeof payload === "object") {
+    const record = payload as Record<string, unknown>;
+    if (Array.isArray(record.items)) return record.items;
+    if (Array.isArray(record.data)) return record.data;
+    if (Array.isArray(record.records)) return record.records;
+  }
+  return [];
+}
+
+function mergeItems(datasetItems: unknown[], bufferItems: unknown[]): unknown[] {
+  const merged: unknown[] = [];
+  const seen = new Set<string>();
+
+  for (const item of datasetItems) {
+    const key = safeDedupeKey(item);
+    if (seen.has(key)) continue;
+    seen.add(key);
+    merged.push(item);
+  }
+
+  for (const item of bufferItems) {
+    const key = safeDedupeKey(item);
+    if (seen.has(key)) continue;
+    seen.add(key);
+    merged.push(item);
+  }
+
+  return merged;
+}
+
+function filterByQuery(items: unknown[], query: string): unknown[] {
+  return items.filter(item => {
+    try {
+      return JSON.stringify(item).toLowerCase().includes(query);
+    } catch (error) {
+      return false;
+    }
+  });
+}
+
+function computeLatestTimestamp(datasetItems: unknown[], bufferEntries: IngestBufferEntry[]): string | null {
+  let latest = Number.NEGATIVE_INFINITY;
+
+  for (const item of datasetItems) {
+    const timestamp = extractTimestamp(item);
+    if (timestamp !== null) {
+      latest = Math.max(latest, timestamp);
+    }
+  }
+
+  for (const entry of bufferEntries) {
+    const parsed = Date.parse(entry.receivedAt);
+    if (Number.isFinite(parsed)) {
+      latest = Math.max(latest, parsed);
+    }
+  }
+
+  if (!Number.isFinite(latest)) {
+    return null;
+  }
+
+  return new Date(latest).toISOString();
+}
+
+function extractTimestamp(item: unknown): number | null {
+  if (!item || typeof item !== "object") {
+    return null;
+  }
+
+  const record = item as Record<string, unknown>;
+  for (const field of TIMESTAMP_FIELDS) {
+    const value = record[field];
+    if (typeof value === "string" && value.trim()) {
+      const parsed = Date.parse(value);
+      if (Number.isFinite(parsed)) {
+        return parsed;
+      }
+    }
+  }
+
+  return null;
+}
+
+function safeDedupeKey(item: unknown): string {
+  try {
+    return typeof item === "string" ? item : JSON.stringify(item);
+  } catch (error) {
+    return String(item);
+  }
+}
+talentscout/src/app/page.tsx
++126
+-6
+
 "use client";
 
-import { FormEvent, useCallback, useEffect, useRef, useState } from "react";
+import { FormEvent, useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 type UnknownRecord = Record<string, unknown>;
 
@@ -16,6 +188,9 @@ interface Profile {
   dmCopy?: string;
   location?: string;
   hashtags?: string[];
+  displayUrl?: string;
+  timestamp?: string;
+  likes?: number;
   bufferedAt?: string;
   raw: UnknownRecord;
 }
@@ -41,129 +216,7 @@ function firstDefined<T>(...values: T[]): T | undefined {
   }
   return undefined;
 }
-
-function parseFollowers(value: unknown): number | undefined {
-  if (typeof value === "number" && Number.isFinite(value)) return value;
-  if (typeof value === "string") {
-    const trimmed = value.trim();
-    if (!trimmed) return undefined;
-    const normalized = trimmed.replace(/[,\s]/g, "").toLowerCase();
-    const match = normalized.match(/^([\d.]+)([kmb])?$/);
-    if (match) {
-      const base = Number(match[1]);
-      if (!Number.isFinite(base)) return undefined;
-      const suffix = match[2];
-      switch (suffix) {
-        case "k":
-          return base * 1_000;
-        case "m":
-          return base * 1_000_000;
-        case "b":
-          return base * 1_000_000_000;
-        default:
-          return base;
-      }
-    }
-    const fallback = Number(normalized);
-    return Number.isFinite(fallback) ? fallback : undefined;
-  }
-  return undefined;
-}
-
-function normalizeHashtags(value: unknown): string[] | undefined {
-  if (Array.isArray(value)) {
-    const normalized = value
-      .map(item => {
-        if (typeof item === "string") return item.replace(/^#/, "").trim();
-        if (item && typeof item === "object" && "name" in item && typeof (item as any).name === "string") {
-          return ((item as any).name as string).replace(/^#/, "").trim();
-        }
-        return "";
-      })
-      .filter(Boolean);
-    return normalized.length ? normalized : undefined;
-  }
-  if (typeof value === "string") {
-    const normalized = value
-      .split(/[\s,]+/)
-      .map(token => token.replace(/^#/, "").trim())
-      .filter(Boolean);
-    return normalized.length ? normalized : undefined;
-  }
-  return undefined;
-}
-
-function normalizeProfile(raw: UnknownRecord): Profile {
-  const username = firstString(
-    raw.username,
-    raw.handle,
-    raw.ownerUsername,
-    (raw.owner as UnknownRecord | undefined)?.username,
-    (raw.user as UnknownRecord | undefined)?.username,
-    (raw.profile as UnknownRecord | undefined)?.username,
-    raw.instagramHandle,
-    raw.igHandle
-  );
-
-  const avatarUrl = firstString(
-    raw.avatarUrl,
-    raw.avatar,
-    raw.profilePictureUrl,
-    raw.profile_picture_url,
-    raw.profile_picture,
-    raw.profileImageUrl,
-    raw.profileImage,
-    raw.profilePicUrl,
-    raw.avatar_url,
-    raw.profilePic,
-    (raw.owner as UnknownRecord | undefined)?.profilePictureUrl
-  );
-
-  const followers = parseFollowers(
-    firstDefined(
-      raw.followers,
-      raw.followersCount,
-      raw.followers_count,
-      raw.followerCount,
-      raw.follower_count,
-      raw.followersNum,
-      raw.followers_number,
-      (raw.stats as UnknownRecord | undefined)?.followers,
-      (raw.profile as UnknownRecord | undefined)?.followers
-    )
-  );
-
-  const caption = firstString(
-    raw.caption,
-    raw.postCaption,
-    raw.latestCaption,
-    (raw.post as UnknownRecord | undefined)?.caption,
-    raw.description,
-    raw.caption_text
-  );
-
-  const fullName = firstString(
-    raw.fullName,
-    raw.name,
-    raw.ownerFullName,
-    (raw.owner as UnknownRecord | undefined)?.fullName,
-    (raw.user as UnknownRecord | undefined)?.fullName
-  );
-
-  const profileUrlCandidate = firstString(
-    raw.profileUrl,
-    raw.profile_url,
-    raw.ownerProfileUrl,
-    (raw.owner as UnknownRecord | undefined)?.profileUrl,
-    (raw.user as UnknownRecord | undefined)?.url,
-    raw.urlProfile,
-    raw.link
-  );
-
-  const postUrl = firstString(
-    raw.postUrl,
-    raw.post_url,
-    raw.url,
+@@ -167,211 +170,287 @@ function normalizeProfile(raw: UnknownRecord): Profile {
     raw.permalink,
     (raw.post as UnknownRecord | undefined)?.url
   );
@@ -186,6 +239,46 @@ function normalizeProfile(raw: UnknownRecord): Profile {
       raw.hashtags_text,
       (raw.post as UnknownRecord | undefined)?.hashtags,
       (raw.post as UnknownRecord | undefined)?.tags
+    )
+  );
+
+  const displayUrl = firstString(
+    raw.displayUrl,
+    raw.display_url,
+    raw.mediaUrl,
+    raw.media_url,
+    raw.imageUrl,
+    raw.image_url,
+    raw.thumbnailSrc,
+    raw.thumbnail_src,
+    (raw.post as UnknownRecord | undefined)?.displayUrl,
+    (raw.post as UnknownRecord | undefined)?.thumbnailSrc
+  );
+
+  const timestamp = firstString(
+    raw.timestamp,
+    raw.postedAt,
+    raw.posted_at,
+    raw.takenAt,
+    raw.taken_at,
+    raw.publishedAt,
+    raw.published_at,
+    raw.createdAt,
+    raw.created_at,
+    (raw.post as UnknownRecord | undefined)?.takenAt,
+    (raw.post as UnknownRecord | undefined)?.timestamp
+  );
+
+  const likes = parseFollowers(
+    firstDefined(
+      raw.likes,
+      raw.likesCount,
+      raw.likes_count,
+      raw.likeCount,
+      raw.like_count,
+      raw.reactions,
+      (raw.post as UnknownRecord | undefined)?.likes,
+      (raw.post as UnknownRecord | undefined)?.likeCount
     )
   );
 
@@ -232,6 +325,9 @@ function normalizeProfile(raw: UnknownRecord): Profile {
     dmCopy,
     location,
     hashtags,
+    displayUrl,
+    timestamp,
+    likes,
     bufferedAt,
     raw,
   };
@@ -250,6 +346,16 @@ function formatDateTime(value: string | undefined): string | undefined {
   return date.toLocaleString();
 }
 
+function buildDmTemplate(profile: Profile): string | undefined {
+  const explicit = profile.dmCopy?.trim();
+  if (explicit) return explicit;
+  const username = profile.username?.trim();
+  if (username) {
+    return `Hi @${username}, we’re casting for new projects! Please apply via Selfcast: https://selfcast.com`;
+  }
+  return "Hi! We’re casting for new projects! Please apply via Selfcast: https://selfcast.com";
+}
+
 export default function Page() {
   const [query, setQuery] = useState("");
   const [activeQuery, setActiveQuery] = useState("");
@@ -259,6 +365,7 @@ export default function Page() {
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
   const [copiedProfileId, setCopiedProfileId] = useState<string | null>(null);
+  const [sortBy, setSortBy] = useState<"date" | "likes" | "hashtags">("date");
   const latestRequestRef = useRef(0);
   
   const fetchProfiles = useCallback(async (search: string) => {
@@ -293,7 +400,7 @@ export default function Page() {
       const message = err instanceof Error ? err.message : "Unable to load profiles";
       setError(message);
       setProfiles([]);
-       } finally {
+    } finally {
       if (latestRequestRef.current === requestId) setLoading(false);
     }
   }, []);
@@ -316,8 +423,8 @@ export default function Page() {
   }, [activeQuery, fetchProfiles]);
 
   const handleCopyDm = useCallback((profile: Profile) => {
-    if (!profile.dmCopy) return;
-    const text = profile.dmCopy;
+    const text = buildDmTemplate(profile);
+    if (!text) return;
     const fallbackCopy = () => {
       const textarea = document.createElement("textarea");
       textarea.value = text;
@@ -350,6 +457,28 @@ export default function Page() {
       });
   }, []);
 
+  const sortedProfiles = useMemo(() => {
+    const list = [...profiles];
+    list.sort((a, b) => {
+      if (sortBy === "likes") {
+        const aLikes = a.likes ?? 0;
+        const bLikes = b.likes ?? 0;
+        return bLikes - aLikes;
+      }
+      if (sortBy === "hashtags") {
+        const aCount = a.hashtags?.length ?? 0;
+        const bCount = b.hashtags?.length ?? 0;
+        return bCount - aCount;
+      }
+      const aTime = a.timestamp ?? a.bufferedAt;
+      const bTime = b.timestamp ?? b.bufferedAt;
+      const aDate = aTime ? new Date(aTime).getTime() : 0;
+      const bDate = bTime ? new Date(bTime).getTime() : 0;
+      return bDate - aDate;
+    });
+    return list;
+  }, [profiles, sortBy]);
+
   return (
     <div style={{ padding: "32px 24px", maxWidth: 1100, margin: "0 auto" }}>
       <header style={{ display: "flex", flexDirection: "column", gap: 12, marginBottom: 24 }}>
@@ -375,17 +504,7 @@ export default function Page() {
           />
           <button
             type="submit"
-            style={{
-              padding: "10px 16px",
-              borderRadius: 8,
-              border: "none",
-              background: "#111827",
-              color: "#fff",
-              fontSize: 16,
-              cursor: "pointer",
-            }}
-            disabled={loading}
-          >
+@@ -389,77 +468,98 @@ export default function Page() {
             {loading && !isRefreshing ? "Searching…" : "Search"}
           </button>
           <button
@@ -411,6 +530,24 @@ export default function Page() {
             {activeQuery ? ` for “${activeQuery}”` : ""}.
           </span>
           {lastUpdated && <span>Last updated {lastUpdated.toLocaleString()}.</span>}
+          <label style={{ display: "inline-flex", alignItems: "center", gap: 8 }}>
+            <span>Sort by</span>
+            <select
+              value={sortBy}
+              onChange={event => setSortBy(event.target.value as typeof sortBy)}
+              style={{
+                padding: "6px 10px",
+                borderRadius: 8,
+                border: "1px solid #d1d5db",
+                background: "#fff",
+                color: "#111827",
+              }}
+            >
+              <option value="date">Newest</option>
+              <option value="likes">Most likes</option>
+              <option value="hashtags">Most hashtags</option>
+            </select>
+          </label>
         </div>
         {error && (
           <div
@@ -431,13 +568,16 @@ export default function Page() {
         <div style={{ padding: "32px 0", textAlign: "center", color: "#4b5563" }}>Loading profiles…</div>
       ) : (
         <div style={{ display: "grid", gap: 20 }}>
-          {profiles.map(profile => {
+          {sortedProfiles.map(profile => {
             const key = profile.id ?? profile.username ?? Math.random().toString(36).slice(2);
             const followersLabel = formatFollowers(profile.followers);
             const bufferedLabel = formatDateTime(profile.bufferedAt);
+            const postDateLabel = formatDateTime(profile.timestamp);
             const postUrl = profile.postUrl;
             const profileUrl = profile.profileUrl;
-            const hasDmCopy = Boolean(profile.dmCopy);
+            const dmMessage = buildDmTemplate(profile);
+            const hasDmCopy = Boolean(dmMessage);
+            const likesLabel = formatFollowers(profile.likes);
             return (
               <article
                 key={key}
@@ -463,40 +603,7 @@ export default function Page() {
                   ) : (
                     <div
                       style={{
-                        width: 72,
-                        height: 72,
-                        borderRadius: "50%",
-                        background: "#e5e7eb",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        fontSize: 28,
-                        flexShrink: 0,
-                      }}
-                    >
-                      👤
-                    </div>
-                  )}
-                  <div style={{ flex: 1, minWidth: 0 }}>
-                    <div style={{ display: "flex", alignItems: "center", gap: 8, flexWrap: "wrap" }}>
-                      {profile.username ? (
-                        <a
-                          href={profileUrl ?? undefined}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          style={{
-                            fontWeight: 600,
-                            fontSize: 18,
-                            color: "#111827",
-                            textDecoration: "none",
-                          }}
-                        >
-                          @{profile.username}
-                        </a>
-                      ) : (
-                        <span style={{ fontWeight: 600, fontSize: 18, color: "#111827" }}>Unknown username</span>
-                      )}
-                      {profile.fullName && (
+@@ -500,53 +600,73 @@ export default function Page() {
                         <span style={{ color: "#6b7280", fontSize: 15 }}>{profile.fullName}</span>
                       )}
                       {followersLabel && (
@@ -522,8 +629,28 @@ export default function Page() {
                         Buffered {bufferedLabel}
                       </div>
                     )}
+                    {postDateLabel && (
+                      <div style={{ color: "#9ca3af", fontSize: 12, marginTop: 2 }}>
+                        Posted {postDateLabel}
+                      </div>
+                    )}
+                    {likesLabel && (
+                      <div style={{ color: "#4b5563", fontSize: 13, marginTop: 6 }}>
+                        ❤️ {likesLabel} likes
+                      </div>
+                    )}
                   </div>
                 </div>
+
+                {profile.displayUrl && (
+                  <div style={{ position: "relative", overflow: "hidden", borderRadius: 12 }}>
+                    <img
+                      src={profile.displayUrl}
+                      alt={profile.caption ? profile.caption.slice(0, 80) : "Instagram post"}
+                      style={{ width: "100%", height: "auto", objectFit: "cover", display: "block" }}
+                    />
+                  </div>
+                )}
 
                 {profile.caption && (
                   <div style={{ color: "#111827", fontSize: 15, whiteSpace: "pre-wrap" }}>{profile.caption}</div>
@@ -550,68 +677,3 @@ export default function Page() {
 
                 <footer style={{ display: "flex", flexWrap: "wrap", gap: 12, justifyContent: "flex-end" }}>
                   {postUrl && (
-                    <a
-                      href={postUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      style={{
-                        padding: "9px 14px",
-                        borderRadius: 8,
-                        border: "1px solid #d1d5db",
-                        textDecoration: "none",
-                        color: "#111827",
-                        fontSize: 14,
-                      }}
-                    >
-                      View Post
-                    </a>
-                  )}
-                  {profileUrl && !postUrl && (
-                    <a
-                      href={profileUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      style={{
-                        padding: "9px 14px",
-                        borderRadius: 8,
-                        border: "1px solid #d1d5db",
-                        textDecoration: "none",
-                        color: "#111827",
-                        fontSize: 14,
-                      }}
-                    >
-                      View Profile
-                    </a>
-                  )}
-                  <button
-                    type="button"
-                    onClick={() => handleCopyDm(profile)}
-                    disabled={!hasDmCopy}
-                    style={{
-                      padding: "9px 14px",
-                      borderRadius: 8,
-                      border: "none",
-                      background: hasDmCopy ? "#2563eb" : "#d1d5db",
-                      color: hasDmCopy ? "#fff" : "#6b7280",
-                      fontSize: 14,
-                      cursor: hasDmCopy ? "pointer" : "not-allowed",
-                    }}
-                  >
-                    {copiedProfileId && (copiedProfileId === profile.id || copiedProfileId === profile.username)
-                      ? "Copied!"
-                      : "Copy DM"}
-                  </button>
-                </footer>
-              </article>
-            );
-          })}
-          {!profiles.length && !loading && !error && (
-            <div style={{ padding: "32px 0", textAlign: "center", color: "#6b7280" }}>
-              No profiles found for the current filters.
-            </div>
-          )}
-        </div>
-      )}
-    </div>
-  );
-}
