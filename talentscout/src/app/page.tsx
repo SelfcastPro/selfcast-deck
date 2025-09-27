@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { FormEvent, useCallback, useEffect, useMemo, useState } from "react";
 
 type UnknownRecord = Record<string, unknown>;
 
@@ -202,134 +202,138 @@ export default function Page() {
                   p.caption?.includes(query)
                 : true
             )
-            .map(p => (
-              <article
-                key={p.id ?? Math.random()}
-                style={{
-                  border: "1px solid #e5e7eb",
-                  borderRadius: 12,
-                  padding: 20,
-                  background: "#fff",
-                }}
-              >
-                <div style={{ display: "flex", gap: 16 }}>
-                  {p.avatarUrl ? (
-                    <img
-                      src={p.avatarUrl}
-                      alt={p.username ?? ""}
-                      width={60}
-                      height={60}
-                      style={{ borderRadius: "50%" }}
-                    />
-                  ) : (
-                    <div
-                      style={{
-                        width: 60,
-                        height: 60,
-                        borderRadius: "50%",
-                        background: "#111827",
-                        color: "#fff",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        fontWeight: 600,
-                      }}
-                    >
-                      {p.username?.[0]?.toUpperCase() ?? "?"}
-                    </div>
-                  )}
-                  <div style={{ flex: 1 }}>
-                    <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                      <strong>@{p.username}</strong>
-                      {p.fullName && <span style={{ color: "#555" }}>{p.fullName}</span>}
-                      {p.followers && (
-                        <span style={{ marginLeft: "auto", color: "#666" }}>
-                          {formatFollowers(p.followers)} followers
-                        </span>
-                      )}
-                    </div>
-                    {p.location && <div style={{ color: "#777" }}>{p.location}</div>}
-                    {p.caption && <p style={{ margin: "8px 0" }}>{p.caption}</p>}
-                  </div>
-                </div>
+            .map(p => {
+              const avatarSrc = p.avatarUrl ?? p.displayUrl ?? "";
 
-                {p.displayUrl && (
-                  <div style={{ marginTop: 12 }}>
-                    <img
-                      src={p.displayUrl}
-                      alt="post"
-                      style={{ width: "100%", borderRadius: 8 }}
-                    />
-                  </div>
-                )}
-
-                {p.hashtags && (
-                  <div style={{ marginTop: 8, display: "flex", flexWrap: "wrap", gap: 6 }}>
-                    {p.hashtags.map(t => (
-                      <span
-                        key={t}
+              return (
+                <article
+                  key={p.id ?? Math.random()}
+                  style={{
+                    border: "1px solid #e5e7eb",
+                    borderRadius: 12,
+                    padding: 20,
+                    background: "#fff",
+                  }}
+                >
+                  <div style={{ display: "flex", gap: 16 }}>
+                    {avatarSrc ? (
+                      <img
+                        src={avatarSrc}
+                        alt={p.username ?? ""}
+                        width={60}
+                        height={60}
+                        style={{ borderRadius: "50%" }}
+                      />
+                    ) : (
+                      <div
                         style={{
-                          background: "#eef2ff",
-                          color: "#4338ca",
-                          padding: "3px 8px",
-                          borderRadius: 999,
-                          fontSize: 13,
+                          width: 60,
+                          height: 60,
+                          borderRadius: "50%",
+                          background: "#111827",
+                          color: "#fff",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          fontWeight: 600,
                         }}
                       >
-                        #{t}
-                      </span>
-                    ))}
+                        {p.username?.[0]?.toUpperCase() ?? "?"}
+                      </div>
+                    )}
+                    <div style={{ flex: 1 }}>
+                      <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                        <strong>@{p.username}</strong>
+                        {p.fullName && <span style={{ color: "#555" }}>{p.fullName}</span>}
+                        {p.followers && (
+                          <span style={{ marginLeft: "auto", color: "#666" }}>
+                            {formatFollowers(p.followers)} followers
+                          </span>
+                        )}
+                      </div>
+                      {p.location && <div style={{ color: "#777" }}>{p.location}</div>}
+                      {p.caption && <p style={{ margin: "8px 0" }}>{p.caption}</p>}
+                    </div>
                   </div>
-                )}
 
-                <footer style={{ display: "flex", gap: 12, marginTop: 12 }}>
-                  {p.postUrl && (
-                    <a
-                      href={p.postUrl}
-                      target="_blank"
-                      rel="noreferrer"
+                  {p.displayUrl && (
+                    <div style={{ marginTop: 12 }}>
+                      <img
+                        src={p.displayUrl}
+                        alt="post"
+                        style={{ width: "100%", borderRadius: 8 }}
+                      />
+                    </div>
+                  )}
+
+                  {p.hashtags && (
+                    <div style={{ marginTop: 8, display: "flex", flexWrap: "wrap", gap: 6 }}>
+                      {p.hashtags.map(t => (
+                        <span
+                          key={t}
+                          style={{
+                            background: "#eef2ff",
+                            color: "#4338ca",
+                            padding: "3px 8px",
+                            borderRadius: 999,
+                            fontSize: 13,
+                          }}
+                        >
+                          #{t}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+
+                  <footer style={{ display: "flex", gap: 12, marginTop: 12 }}>
+                    {p.postUrl && (
+                      <a
+                        href={p.postUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        style={{
+                          padding: "8px 14px",
+                          background: "#2563eb",
+                          color: "#fff",
+                          borderRadius: 6,
+                          textDecoration: "none",
+                        }}
+                      >
+                        View Post
+                      </a>
+                    )}
+                    {p.profileUrl && (
+                      <a
+                        href={p.profileUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        style={{
+                          padding: "8px 14px",
+                          border: "1px solid #ccc",
+                          borderRadius: 6,
+                          textDecoration: "none",
+                        }}
+                      >
+                        View Profile
+                      </a>
+                    )}
+                    <button
+                      onClick={() => handleCopy(p)}
                       style={{
                         padding: "8px 14px",
-                        background: "#2563eb",
-                        color: "#fff",
+                        border: "1px solid #111827",
                         borderRadius: 6,
-                        textDecoration: "none",
+                        background: copied === (p.id ?? p.username) ? "#111827" : "#fff",
+                        color: copied === (p.id ?? p.username) ? "#fff" : "#111827",
+                        cursor: "pointer",
                       }}
                     >
-                      View Post
-                    </a>
-                  )}
-                  {p.profileUrl && (
-                    <a
-                      href={p.profileUrl}
-                      target="_blank"
-                      rel="noreferrer"
-                      style={{
-                        padding: "8px 14px",
-                        border: "1px solid #ccc",
-                        borderRadius: 6,
-                        textDecoration: "none",
-                      }}
-                    >
-                      View Profile
-                    </a>
-                  )}
-                  <button
-                    onClick={() => handleCopy(p)}
-                    style={{
-                      padding: "8px 14px",
-                      border: "1px solid #111827",
-                      borderRadius: 6,
-                      background: copied === (p.id ?? p.username) ? "#111827" : "#fff",
-                      color: copied === (p.id ?? p.username) ? "#fff" : "#111827",
-                      cursor: "pointer",
-                    }}
-                  >
-                    {copied === (p.id ?? p.username) ? "Copied!" : "Copy DM"}
-                  </button>
-                </footer>
-              </article>
-            ))}
+                      {copied === (p.id ?? p.username) ? "Copied!" : "Copy DM"}
+                    </button>
+                  </footer>
+                </article>
+              );
+            })}
         </div>
       )}
     </div>
