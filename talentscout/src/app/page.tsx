@@ -436,6 +436,18 @@ export default function Page() {
         const bCount = b.hashtags?.length ?? 0;
         return bCount - aCount;
       }
+const list = [...profiles];
+    list.sort((a, b) => {
+      if (sortBy === "likes") {
+        const aLikes = a.likes ?? 0;
+        const bLikes = b.likes ?? 0;
+        return bLikes - aLikes;
+      }
+      if (sortBy === "hashtags") {
+        const aCount = a.hashtags?.length ?? 0;
+        const bCount = b.hashtags?.length ?? 0;
+        return bCount - aCount;
+      }
       const aTime = a.timestamp ?? a.bufferedAt;
       const bTime = b.timestamp ?? b.bufferedAt;
       const aDate = aTime ? new Date(aTime).getTime() : 0;
@@ -449,8 +461,7 @@ export default function Page() {
     <div style={{ padding: "32px 24px", maxWidth: 1100, margin: "0 auto" }}>
       <header style={{ display: "flex", flexDirection: "column", gap: 12, marginBottom: 24 }}>
         <div>
-          <h1 style={{ margin: 0 }}>🎬 Selfcast – Instagram TalentScout</h1>
-          <p style={{ margin: "8px 0 0", color: "#555" }}>
+          <p style={{ margin: 0, color: "#555" }}>
             Browse the most recent Instagram profiles collected via the webhook buffer.
           </p>
         </div>
