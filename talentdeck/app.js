@@ -197,10 +197,10 @@
   }
   function openPreview(){
     const deck = currentDeckData();
-    if (!deck.talents?.length){ els.preview.src = '/view-talent/?demo=1'; return; }
+    if (!deck.talents?.length){ els.preview.src = '/view-talent/?demo=1&density=9'; return; }
     const data = btoa(unescape(encodeURIComponent(JSON.stringify(deck))));
-    // use density=12 by default (nice balance 3×4)
-    els.preview.src = `/view-talent/?density=12&data=${data}`;
+    // use density=9 by default (3×3 is the default PDF layout)
+    els.preview.src = `/view-talent/?density=9&data=${data}`;
   }
 
   // Load from textarea (new items at TOP)
@@ -226,64 +226,7 @@
 
       const profile_url = toProfileUrl(raw);
       upsertTop({ id:idFromProfileUrl(profile_url), name:'', height_cm:'', country:'', primary_image:'', requested_media_url:'', profile_url });
-    }
-
-    els.input.value = '';
-    renderList(); autosave(); openPreview();
-  }
-
-  // Events
-  els.load?.addEventListener('click', loadFromTextarea);
-  els.selectAll?.addEventListener('click', ()=>{ talents.forEach(t=>selected.set(t.id,t)); renderList(); autosave(); openPreview(); });
-  els.clear?.addEventListener('click', ()=>{ talents=[]; selected.clear(); els.list.innerHTML=''; autosave(); openPreview(); });
-
-  [els.title, els.ownerName, els.ownerEmail, els.ownerPhone].forEach(inp=>{
-    inp?.addEventListener('input', ()=>{ autosave(); openPreview(); });
-  });
-  els.filter?.addEventListener('input', renderList);
-
-  els.list?.addEventListener('click', (e)=>{
-    const editBtn = e.target.closest('.edit-btn');
-    const removeBtn = e.target.closest('.remove-btn');
-    const cancelBtn = e.target.closest('.cancel-edit');
-
-    if (editBtn){
-      const id = editBtn.dataset.id;
-      const li = els.list.querySelector(`li[data-id="${CSS.escape(id)}"]`);
-      li?.classList.toggle('open');
-    }
-    if (removeBtn){
-      const id = removeBtn.dataset.id;
-      talents = talents.filter(t=>String(t.id)!==String(id));
-      selected.delete(id);
-      renderList(); autosave(); openPreview();
-    }
-    if (cancelBtn){
-      cancelBtn.closest('li.list-item')?.classList.remove('open');
-    }
-  });
-
-  els.list?.addEventListener('change', (e)=>{
-    const cb = e.target;
-    if (cb?.dataset?.id){
-      const t = talents.find(x=>String(x.id)===String(cb.dataset.id));
-      if (cb.checked) selected.set(t.id, t); else selected.delete(t.id);
-      autosave(); openPreview();
-    }
-  });
-
-  els.list?.addEventListener('submit', (e)=>{
-    const form = e.target.closest('form.edit-panel'); if (!form) return;
-    e.preventDefault();
-    const id  = form.dataset.id;
-    const idx = talents.findIndex(x=>String(x.id)===String(id)); if (idx<0) return;
-    const fd  = new FormData(form);
-    const t   = talents[idx];
-    t.name                = (fd.get('name')||'').toString().trim();
-    t.height_cm           = (fd.get('height_cm')||'').toString().trim();
-    t.country             = (fd.get('country')||'').toString().trim();
-    t.profile_url         = (fd.get('profile_url')||'').toString().trim();
-    t.requested_media_url = (fd.get('requested_media_url')||'').toString().trim();
+@@ -287,28 +287,28 @@
     t.primary_image       = (fd.get('primary_image')||'').toString().trim();
     talents[idx] = t; selected.set(t.id,t);
     renderList(); autosave(); openPreview();
@@ -309,6 +252,6 @@
 
   // Init
   const restored = autoload();
-  if (!restored) els.preview.src = '/view-talent/?demo=1';
+  if (!restored) els.preview.src = '/view-talent/?demo=1&density=9';
   console.log('[talentdeck v4.2.2] ready');
 })();
