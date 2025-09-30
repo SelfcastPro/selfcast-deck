@@ -89,7 +89,16 @@
 
     const body = el('div','body');
     body.appendChild(el('h3','', talent.name || 'Unnamed'));
-    if (talent.country) body.appendChild(el('p','sub', talent.country));
+
+    const heightRaw = talent.height_cm;
+    const heightStr = typeof heightRaw === 'number'
+      ? `${heightRaw}`
+      : (typeof heightRaw === 'string' ? heightRaw.trim() : '');
+    const heightDisplay = heightStr ? `${heightStr}${/cm$/i.test(heightStr) ? '' : ' cm'}` : '';
+
+    const countryStr = typeof talent.country === 'string' ? talent.country.trim() : '';
+    const subLine = [heightDisplay, countryStr].filter(Boolean).join(' · ');
+    if (subLine) body.appendChild(el('p','sub', subLine));
 
     const links = el('div','links');
     if (talent.profile_url){
