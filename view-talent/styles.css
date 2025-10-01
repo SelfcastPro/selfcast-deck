@@ -261,10 +261,10 @@ body.compact .hero {
   }
 
   .card {
-    background: #ffffff;
+    background: #ffffff !important;
     border: 0.5pt solid #cfcfd3;
     border-radius: 12px;
-    color: #000000;
+    color: #000000 !important;
     page-break-inside: avoid;
     break-inside: avoid;
   }
@@ -276,17 +276,17 @@ body.compact .hero {
 
   .hero {
     position: relative;
-    height: 68mm;
+    height: 63mm;
     aspect-ratio: auto;
     background: #f5f5f7;
   }
 
   body.d12 .hero {
-    height: 60mm;
+    height: 54mm;
   }
 
   body.d15 .hero {
-    height: 52mm;
+    height: 42mm;
   }
 
   .hero img {
@@ -301,6 +301,7 @@ body.compact .hero {
 
   .body {
     padding: 5px 7px;
+    min-height: 17mm;
   }
 
   .card h3 {
@@ -326,5 +327,3 @@ body.compact .hero {
   .a::before {
     content: "🔗";
     margin-right: 4px;
-  }
-}
