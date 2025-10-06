@@ -1,354 +1,6 @@
 {
-  "updatedAt": "2025-10-06T12:18:11.744Z",
+  "updatedAt": "2025-10-06T13:22:00.117Z",
   "items": [
-    {
-      "facebookUrl": "https://www.facebook.com/groups/245568709343712/",
-      "url": "https://www.facebook.com/groups/245568709343712/",
-      "time": "2025-10-02T17:03:22.000Z",
-      "user": {
-        "id": "100090622758524",
-        "name": "Saturation"
-      },
-      "text": "👋 Hey Filmmakers! Just wanted to let you know about us if you aren't yet familiar. Saturation helps producers, directors, and production teams in film, TV, commercials, documentaries, and music videos streamline every stage of production. Think budgeting, payments, actualization, and expense tracking - all in one collaborative cloud-based platform.\n\nWe have a demo on our website, and it's also free to join: https://saturation.io/join",
-      "textReferences": [
-        {
-          "id": "100090622758524",
-          "url": "https://www.facebook.com/saturation.io",
-          "answer_agent_group_id": null,
-          "profile_url": "https://www.facebook.com/saturation.io",
-          "short_name": "Saturation",
-          "work_info": null,
-          "work_foreign_entity_info": null,
-          "is_verified": false,
-          "mobileUrl": "https://m.facebook.com/saturation.io/"
-        },
-        {
-          "url": "https://l.facebook.com/l.php?u=https%3A%2F%2Fsaturation.io%2Fjoin&h=AT2wgWLSI3iVnXv6LBe7GI1LTkOqNLW83vzrE9DYCV6GcQ-_y25YuL_chbaDecZgLCxWDsh-Ne984zEsvvjatiBNo18Cc8AhmjR7uq40ubOEr5kGXqBnWdpgAbpn8OAw3egzj2fUGC8OOWbCNEndfqe_-vV5nsM8&s=1",
-          "external_url": "https://saturation.io/join",
-          "web_link": {
-            "__typename": "ExternalWebLink",
-            "url": "https://saturation.io/join",
-            "fbclid": null,
-            "lynx_mode": "ASYNCLAZY"
-          },
-          "mobileUrl": "https://lm.facebook.com/l.php?u=https%3A%2F%2Fsaturation.io%2Fjoin&h=AT01bAplaSjyMI7mh_RKOSaH9Oe9dsbScin8mYnviCuQQu75__a0xETfugb5ttLa69jqfYN2BNUFQWfSkz7vTiEF1n3zHrcVQPANqbD6SF74A9a0d4j7Z7vqBxHAmvMUbpxAG1W8SFASgMvZvp3jwW1H9Y_Ixt9p&s=1",
-          "id": "NjQyMTgzOTU5MjA4MTA3Omh0dHBzXGEvL3NhdHVyYXRpb24uaW8vam9pbjo6Ojo6MjAwMDQ2MjM4Mzg1NDMyNw=="
-        }
-      ],
-      "link": "https://saturation.io/join",
-      "topReactionsCount": 0,
-      "feedbackId": "ZmVlZGJhY2s6MjAwMDQ2MjM4Mzg1NDMyNw==",
-      "id": "UzpfSTEwMDA5MDYyMjc1ODUyNDpWSzoyMDAwNDYyMzgzODU0MzI3",
-      "legacyId": "2000462383854327",
-      "attachments": [
-        {
-          "mediaset_token": "pcb.2000462383854327",
-          "url": "https://www.facebook.com/media/set/?set=pcb.2000462383854327&type=1",
-          "comet_product_tag_feed_overlay_renderer": null
-        },
-        {
-          "thumbnail": "https://scontent-atl3-1.xx.fbcdn.net/v/t39.30808-6/557772898_762855390078546_5865840819658247431_n.jpg?stp=dst-jpg_p235x350_tt6&_nc_cat=103&ccb=1-7&_nc_sid=aa7b47&_nc_ohc=Ehu81NZ_hXsQ7kNvwHfEXdF&_nc_oc=AdmsDTzh6Yb3onu24qYt3dHh9WCVjVwNpTMKAtYtfh-VNN6tTmerZYjYF8dbJaCdcFI&_nc_zt=23&_nc_ht=scontent-atl3-1.xx&_nc_gid=9KKCtRGO277GWyUmIlfd5w&oh=00_Afc2KyHaJdQHc966AXhs6OI4YsENg-VRPNsH_HxZgeodUw&oe=68E7EAE2",
-          "__typename": "Photo",
-          "is_playable": false,
-          "image": {
-            "uri": "https://scontent-atl3-1.xx.fbcdn.net/v/t39.30808-6/557772898_762855390078546_5865840819658247431_n.jpg?stp=dst-jpg_p235x350_tt6&_nc_cat=103&ccb=1-7&_nc_sid=aa7b47&_nc_ohc=Ehu81NZ_hXsQ7kNvwHfEXdF&_nc_oc=AdmsDTzh6Yb3onu24qYt3dHh9WCVjVwNpTMKAtYtfh-VNN6tTmerZYjYF8dbJaCdcFI&_nc_zt=23&_nc_ht=scontent-atl3-1.xx&_nc_gid=9KKCtRGO277GWyUmIlfd5w&oh=00_Afc2KyHaJdQHc966AXhs6OI4YsENg-VRPNsH_HxZgeodUw&oe=68E7EAE2",
-            "height": 350,
-            "width": 591
-          },
-          "id": "762855386745213",
-          "__isMedia": "Photo",
-          "photo_cix_screen": null,
-          "copyright_banner_info": null,
-          "owner": {
-            "__typename": "User",
-            "id": "100090622758524"
-          },
-          "ocrText": "May be a graphic of text that says 'SpaceRanger Space Ranger Space Ranger 日 Descripten A ៣ B PrepCrew Shac.Crcw Share 田 Estimate D E ® JJ Working 506,498.5 Actual $426,629.34 $292,458.26 Var ance S20,871 $26,965.32 $256,032.56 $10,279.00 $77,347.10 Equipment $30.00 136,457.30 $30,294.03 StudoCosts $5,534.30 $18,04312 $8,715.16 Medis $9,990.00 $27.02 $14,548.46 $2,100.00 $18,078.00 Sub- -TotalAtoK Total tok $1,030.15 $16,228.00 $17,603.30 Director'&Fees 516,003.00 $1,667.97 $2,000.00 $1,100.00 5า0,000.00 $2,000.00 $1,100.00 $1,085,256.38 32,000.00 $3,023.53 $13,000.00 SB19,748.69 $130,806. 35 5 $18,869.20 $13,000.00 Space anger otal $18.789.20 13,600.00 GrandTotal Total $121.09 $0.00 $0.00 $1,283,864.18 $0.00 $856,840.09 an $1,283,864.18 $145,727.44 $856,840.89 $145,727.44'"
-        },
-        {
-          "thumbnail": "https://scontent-atl3-3.xx.fbcdn.net/v/t39.30808-6/557352324_762856040078481_9062500250156816406_n.jpg?stp=dst-jpg_s600x600_tt6&_nc_cat=110&ccb=1-7&_nc_sid=aa7b47&_nc_ohc=4KrEpv4tyMMQ7kNvwHnljO3&_nc_oc=Adk37leE6vUSAxMRT3-RHmZ0RcETmy24-OPdVlhpD44Ml0ugN_6edqIaD2Fu5JZaUJA&_nc_zt=23&_nc_ht=scontent-atl3-3.xx&_nc_gid=9KKCtRGO277GWyUmIlfd5w&oh=00_Afex0GfuxPMDdLO9pOYTshOuWX3MTYaqtqbF-xgz6WrrSw&oe=68E7CB93",
-          "__typename": "Photo",
-          "is_playable": false,
-          "image": {
-            "uri": "https://scontent-atl3-3.xx.fbcdn.net/v/t39.30808-6/557352324_762856040078481_9062500250156816406_n.jpg?stp=dst-jpg_s600x600_tt6&_nc_cat=110&ccb=1-7&_nc_sid=aa7b47&_nc_ohc=4KrEpv4tyMMQ7kNvwHnljO3&_nc_oc=Adk37leE6vUSAxMRT3-RHmZ0RcETmy24-OPdVlhpD44Ml0ugN_6edqIaD2Fu5JZaUJA&_nc_zt=23&_nc_ht=scontent-atl3-3.xx&_nc_gid=9KKCtRGO277GWyUmIlfd5w&oh=00_Afex0GfuxPMDdLO9pOYTshOuWX3MTYaqtqbF-xgz6WrrSw&oe=68E7CB93",
-            "height": 337,
-            "width": 600
-          },
-          "id": "762856033411815",
-          "__isMedia": "Photo",
-          "photo_cix_screen": null,
-          "copyright_banner_info": null,
-          "owner": {
-            "__typename": "User",
-            "id": "100090622758524"
-          },
-          "ocrText": "May be an image of text that says 'MPMiche MP Miche CG Export 1099 Report Casey Select date range ElginE 2024 (Year to Date) Jenny Include transaction details Miles| Include contact W-9s www.sy www.sy.pherfilms.com oherfi ilms.com Export'"
-        },
-        {
-          "thumbnail": "https://scontent-atl3-3.xx.fbcdn.net/v/t39.30808-6/558892589_762856450078440_2197902134778045725_n.jpg?stp=dst-jpg_s600x600_tt6&_nc_cat=108&ccb=1-7&_nc_sid=aa7b47&_nc_ohc=DuPPjRFuGyYQ7kNvwHN2IQX&_nc_oc=AdlMTiYOfg8wZUjBh_UfHsEVcFn2xbpKBaHdlHv_paU-cfM8kJqNTHc75KKgX5iT2Pc&_nc_zt=23&_nc_ht=scontent-atl3-3.xx&_nc_gid=9KKCtRGO277GWyUmIlfd5w&oh=00_AfevRpMDBbKHSr6py4r7-FknCgQDYMbOY8oOZYgGnAVuSA&oe=68E7F39A",
-          "__typename": "Photo",
-          "is_playable": false,
-          "image": {
-            "uri": "https://scontent-atl3-3.xx.fbcdn.net/v/t39.30808-6/558892589_762856450078440_2197902134778045725_n.jpg?stp=dst-jpg_s600x600_tt6&_nc_cat=108&ccb=1-7&_nc_sid=aa7b47&_nc_ohc=DuPPjRFuGyYQ7kNvwHN2IQX&_nc_oc=AdlMTiYOfg8wZUjBh_UfHsEVcFn2xbpKBaHdlHv_paU-cfM8kJqNTHc75KKgX5iT2Pc&_nc_zt=23&_nc_ht=scontent-atl3-3.xx&_nc_gid=9KKCtRGO277GWyUmIlfd5w&oh=00_AfevRpMDBbKHSr6py4r7-FknCgQDYMbOY8oOZYgGnAVuSA&oe=68E7F39A",
-            "height": 338,
-            "width": 600
-          },
-          "id": "762856446745107",
-          "__isMedia": "Photo",
-          "photo_cix_screen": null,
-          "copyright_banner_info": null,
-          "owner": {
-            "__typename": "User",
-            "id": "100090622758524"
-          },
-          "ocrText": "May be a graphic of 2 people and text that says 'saturation Production Management Supercharged.'"
-        },
-        {
-          "thumbnail": "https://scontent-atl3-2.xx.fbcdn.net/v/t39.30808-6/558827503_762856473411771_6936573065270089298_n.jpg?stp=dst-jpg_s600x600_tt6&_nc_cat=104&ccb=1-7&_nc_sid=aa7b47&_nc_ohc=nUG8f-rTPf8Q7kNvwEqy8uT&_nc_oc=Adl4ivDBk9zAYRWfggShww8MvE8dGxui6mhe_4rV_glYjbxPUEmYGV0mWXyEXXYQ4G8&_nc_zt=23&_nc_ht=scontent-atl3-2.xx&_nc_gid=9KKCtRGO277GWyUmIlfd5w&oh=00_Afck1G6BaNVRR9jUyrqcIwt1lbPCP2V39YQklQ0RK63Wmg&oe=68E7DE0F",
-          "__typename": "Photo",
-          "is_playable": false,
-          "image": {
-            "uri": "https://scontent-atl3-2.xx.fbcdn.net/v/t39.30808-6/558827503_762856473411771_6936573065270089298_n.jpg?stp=dst-jpg_s600x600_tt6&_nc_cat=104&ccb=1-7&_nc_sid=aa7b47&_nc_ohc=nUG8f-rTPf8Q7kNvwEqy8uT&_nc_oc=Adl4ivDBk9zAYRWfggShww8MvE8dGxui6mhe_4rV_glYjbxPUEmYGV0mWXyEXXYQ4G8&_nc_zt=23&_nc_ht=scontent-atl3-2.xx&_nc_gid=9KKCtRGO277GWyUmIlfd5w&oh=00_Afck1G6BaNVRR9jUyrqcIwt1lbPCP2V39YQklQ0RK63Wmg&oe=68E7DE0F",
-            "height": 338,
-            "width": 600
-          },
-          "id": "762856466745105",
-          "__isMedia": "Photo",
-          "photo_cix_screen": null,
-          "copyright_banner_info": null,
-          "owner": {
-            "__typename": "User",
-            "id": "100090622758524"
-          },
-          "ocrText": "May be a graphic of text that says 'Contact Management. Mike MikeStorm Storm CONTRACTOR > Title Email Email Cinemtographer mike@lightemup.com'"
-        }
-      ],
-      "likesCount": 0,
-      "sharesCount": 0,
-      "commentsCount": 0,
-      "topComments": [],
-      "facebookId": "245568709343712",
-      "groupTitle": "LA Actors, Agents, Casting Directors, Producers",
-      "inputUrl": "https://www.facebook.com/groups/245568709343712/",
-      "summary": "👋 Hey Filmmakers! Just wanted to let you know about us if you aren't yet familiar. Saturation helps producers, directors, and production teams in film, TV, commercials, documentaries, and music videos streamline every stage of production. Think budgeting, payments, actualization, and expense tracking - all in one collaborative cloud-based platform.\n\nWe have a demo on our website, and it's also free to join: https://saturation.io/join",
-      "title": "👋 Hey Filmmakers! Just wanted to let you know about us if you aren't yet familiar. Saturation helps producers, directors, and production teams in film, TV, commercials, documentaries, and music videos streamline every stage of production. Think budgeting, payments, actualization, and expense tracking - all in one collaborative cloud-based platform.",
-      "source": "FacebookGroups",
-      "country": "EU",
-      "fetched_at": "2025-10-06T12:18:11.743Z",
-      "importedAt": "2025-10-06T12:18:11.743Z"
-    },
-    {
-      "facebookUrl": "https://www.facebook.com/groups/actorscastinguk/",
-      "url": "https://www.facebook.com/groups/actorscastinguk/",
-      "time": "2025-10-02T21:27:48.000Z",
-      "user": {
-        "id": "100000506795271",
-        "name": "Rob Hutt"
-      },
-      "text": "CASTING CALL — FEMALE LEAD 🎬\n\nBanbury, Oxfordshire | £250 for 2 days + travel considered\n\nWe’re casting for the final scenes of Failsafe, a psychological short film currently in production with a professional crew.\n\nDirected by Rob Hutt — award-winning filmmaker of Time Spent (23 awards, 22 nominations, 8.8 IMDb rating). You can view Rob’s IMDb profile here:\n👉 https://www.imdb.com/name/nm4254248/?ref_=ext_shr_lnk\n\nThis project is already generating festival momentum and will be featured in Pro Movie Maker Magazine.\n\nROLE:\n • Female, playing age 25–35\n • Character: A game designer whose reality begins to fracture, blurring with the world she created. Performance requires range: strength, vulnerability, psychological depth.\n\nDETAILS:\n • £250 for 2 days filming.\n • Shoot will take place across one Saturday & Sunday, back-to-back.\n • Filming must be completed on one of the following weekends:\n • 11–12 October 2025\n • 18–19 October 2025\n • 25–26 October 2025\n • Location: Banbury, Oxfordshire. Reasonable travel costs considered.\n • Short film — to be submitted to national and international film festivals.\n • Professional set with full crew.\n • Self-tape auditions required.\n\n📩 To apply / receive the self-tape brief:\nhttps://www.starnow.com/casting/failsafe-3020838/female-games-designer-5368483/ or DM directly.\n\n✨ This is a chance to be part of a powerful, festival-ready film with proven pedigree.",
-      "textReferences": [
-        {
-          "url": "https://l.facebook.com/l.php?u=https%3A%2F%2Fwww.imdb.com%2Fname%2Fnm4254248%2F%3Fref_%3Dext_shr_lnk&h=AT3ePZx5aF5qq3ir7-8ziaj09mpLGk0s53wb-CH86cgYNgJfIQi3JL1HXya7ri0e3flTUnTPVBLoe4zi0x4LfPRS-HsRwggrpBvUAj_Gd7nV4DltHMw6qslWRKv90lT05zPXNUw6SSy-KlJwjFNwgPHKZbLLg5Lh&s=1",
-          "external_url": "https://www.imdb.com/name/nm4254248/?ref_=ext_shr_lnk",
-          "web_link": {
-            "__typename": "ExternalWebLink",
-            "url": "https://www.imdb.com/name/nm4254248/?ref_=ext_shr_lnk",
-            "fbclid": null,
-            "lynx_mode": "ASYNCLAZY"
-          },
-          "mobileUrl": "https://lm.facebook.com/l.php?u=https%3A%2F%2Fwww.imdb.com%2Fname%2Fnm4254248%2F%3Fref_%3Dext_shr_lnk&h=AT0oKq1q2R3mDOXqfcLr0ByaSFxCGSbpOwo2heJQDh-BFgqb-soyq3BeXLmC_h_kCFkjkfbfchpbmWCA9vlS3HO5TPcihKYvasWZ0Gey9LAH3ZfsdwdG6o06EgJIOOeVsUDA1qOqYrO2km72oo6NnlKg4mVh4syc&s=1",
-          "id": "NjQyMTgzOTU5MjA4MTA3Omh0dHBzXGEvL3d3dy5pbWRiLmNvbS9uYW1lL25tNDI1NDI0OC8/cmVmXGI9ZXh0XGJzaHJcYmxuazo6Ojo6MTkyMzMxMTg4ODI1MTA5MA=="
-        },
-        {
-          "url": "https://l.facebook.com/l.php?u=https%3A%2F%2Fwww.starnow.com%2Fcasting%2Ffailsafe-3020838%2Ffemale-games-designer-5368483%2F&h=AT0jJMf8C9AFR8JfZfw0s21xd_t3ZxPnDPSLKliYu_H0jR0ywrq5A6CjxBCMoBBwXw2B3mJbTDBmX8LYAL_WdSAMyNqtCSa2wd_ttONl9pgTK6Rw9SFjF3R7kitfoiD4_etEkisw8kOis1-C5eT3lZ448A9TzdCo&s=1",
-          "external_url": "https://www.starnow.com/casting/failsafe-3020838/female-games-designer-5368483/",
-          "web_link": {
-            "__typename": "ExternalWebLink",
-            "url": "https://www.starnow.com/casting/failsafe-3020838/female-games-designer-5368483/",
-            "fbclid": null,
-            "lynx_mode": "ASYNCLAZY"
-          },
-          "mobileUrl": "https://lm.facebook.com/l.php?u=https%3A%2F%2Fwww.starnow.com%2Fcasting%2Ffailsafe-3020838%2Ffemale-games-designer-5368483%2F&h=AT0ZVHAAeYVeXJ0ZtuTRwNDof71K02-InXAL2oEjVig5h8LL1WxwzYnI8ebr4awjtQfkrl0jEbabLo-ic5hx1P6zLm64oFg0JYa7-1QpMu2cch04ISKsQSbIV1LULmW9tVzP8ddh81B7gQVSW09jK2LUPsB65AbT&s=1",
-          "id": "NjQyMTgzOTU5MjA4MTA3Omh0dHBzXGEvL3d3dy5zdGFybm93LmNvbS9jYXN0aW5nL2ZhaWxzYWZlLTMwMjA4MzgvZmVtYWxlLWdhbWVzLWRlc2lnbmVyLTUzNjg0ODMvOjo6OjoxOTIzMzExODg4MjUxMDkw"
-        }
-      ],
-      "link": "https://www.imdb.com/name/nm4254248/?ref_=ext_shr_lnk",
-      "topReactionsCount": 2,
-      "feedbackId": "ZmVlZGJhY2s6MTkyMzMxMTg4ODI1MTA5MA==",
-      "reactionLikeCount": 22,
-      "reactionLoveCount": 1,
-      "id": "UzpfSTEwMDAwMDUwNjc5NTI3MTpWSzoxOTIzMzExODg4MjUxMDkw",
-      "legacyId": "1923311888251090",
-      "attachments": [
-        {
-          "thumbnail": "https://scontent.fosu1-1.fna.fbcdn.net/v/t39.30808-6/559299718_25693006933632848_4616189120339103949_n.jpg?stp=dst-jpg_p526x296_tt6&_nc_cat=107&ccb=1-7&_nc_sid=aa7b47&_nc_ohc=-rNOE66YzCMQ7kNvwFfdlTi&_nc_oc=Adm0AvipAnq-gV2BmrNdPnBieb9rkn_6wlA9pIxHA4v_1G8iYSqft4AAFnTI56wC-ZQ&_nc_zt=23&_nc_ht=scontent.fosu1-1.fna&_nc_gid=q0_x2U_uDVrTdhmzKvEGSg&oh=00_Afd-bsBssnwZKz6WZ0gXo0U28-u5-uNxFt-vOiedm2gNKw&oe=68E7DECF",
-          "__typename": "Photo",
-          "photo_image": {
-            "uri": "https://scontent.fosu1-1.fna.fbcdn.net/v/t39.30808-6/559299718_25693006933632848_4616189120339103949_n.jpg?stp=dst-jpg_p526x296_tt6&_nc_cat=107&ccb=1-7&_nc_sid=aa7b47&_nc_ohc=-rNOE66YzCMQ7kNvwFfdlTi&_nc_oc=Adm0AvipAnq-gV2BmrNdPnBieb9rkn_6wlA9pIxHA4v_1G8iYSqft4AAFnTI56wC-ZQ&_nc_zt=23&_nc_ht=scontent.fosu1-1.fna&_nc_gid=q0_x2U_uDVrTdhmzKvEGSg&oh=00_Afd-bsBssnwZKz6WZ0gXo0U28-u5-uNxFt-vOiedm2gNKw&oe=68E7DECF",
-            "height": 789,
-            "width": 526
-          },
-          "__isMedia": "Photo",
-          "accent_color": "FF05060B",
-          "photo_product_tags": [],
-          "url": "https://www.facebook.com/photo.php?fbid=25693006913632850&set=gm.1923311888251090&type=3",
-          "id": "25693006913632850",
-          "ocrText": "May be an image of 1 person and text that says 'CASTING FAILSAFE'"
-        }
-      ],
-      "likesCount": 23,
-      "sharesCount": 1,
-      "commentsCount": 9,
-      "topComments": [
-        {
-          "commentUrl": "https://www.facebook.com/groups/actorscastinguk/permalink/1923311888251090/?comment_id=1923701501545462",
-          "id": "Y29tbWVudDoxOTIzMzExODg4MjUxMDkwXzE5MjM3MDE1MDE1NDU0NjI=",
-          "feedbackId": "ZmVlZGJhY2s6MTkyMzMxMTg4ODI1MTA5MF8xOTIzNzAxNTAxNTQ1NDYy",
-          "date": "2025-10-03T09:00:31.000Z",
-          "text": "Messaged! ☺️",
-          "profilePicture": "https://scontent.fosu1-1.fna.fbcdn.net/v/t39.30808-1/451005599_10229776880399558_6780204466034942175_n.jpg?stp=cp6_dst-jpg_s32x32_tt6&_nc_cat=109&ccb=1-7&_nc_sid=e99d92&_nc_ohc=TyXmaMf4rBcQ7kNvwFsNK4u&_nc_oc=AdmxQZungTy7J2l1b1XmsT25lxD_l09oVchxAeeLguVeVJrxCbF9_pHWt4153Mv1yIU&_nc_zt=24&_nc_ht=scontent.fosu1-1.fna&_nc_gid=q0_x2U_uDVrTdhmzKvEGSg&oh=00_AfeKUjjEbnpmz2cxSsY_mzFx40EXuFwRtN7WgBdQX3zeww&oe=68E7F12E",
-          "profileId": "pfbid02r2vjEydLEeBkALg6VDeWc7v5ar5J7oWoWVjT67PY3ycLcMbd6NKFMJ5LZ9eTzjFZl",
-          "profileName": "Flavia Ferretti",
-          "likesCount": "1",
-          "threadingDepth": 0
-        },
-        {
-          "commentUrl": "https://www.facebook.com/groups/actorscastinguk/permalink/1923311888251090/?comment_id=1923692751546337",
-          "id": "Y29tbWVudDoxOTIzMzExODg4MjUxMDkwXzE5MjM2OTI3NTE1NDYzMzc=",
-          "feedbackId": "ZmVlZGJhY2s6MTkyMzMxMTg4ODI1MTA5MF8xOTIzNjkyNzUxNTQ2MzM3",
-          "date": "2025-10-03T08:46:21.000Z",
-          "text": "Sent you a DM, thanks X",
-          "profilePicture": "https://scontent.fosu1-1.fna.fbcdn.net/v/t39.30808-1/515545777_10161336441647927_5123200224180815833_n.jpg?stp=cp0_dst-jpg_s32x32_tt6&_nc_cat=101&ccb=1-7&_nc_sid=e99d92&_nc_ohc=HvoWlJC8aJQQ7kNvwFkkGmz&_nc_oc=Adk9mvq_nBXQ60IPtCA1UgY9OGIzJ2VFlmL6wmCxtAhGYQVj2o1bQXPP-1zdS090OCU&_nc_zt=24&_nc_ht=scontent.fosu1-1.fna&_nc_gid=q0_x2U_uDVrTdhmzKvEGSg&oh=00_Afd7Tk0mhw7YlkMQSoLf6gH1RlVczvoPfyb3cAXCfFwrbw&oe=68E7D97D",
-          "profileId": "pfbid02bQamcer2fLQKwMTJ7zd1yM3JHyGgSe8Gd7AWfjYo7mffAJ6SFYJYfSNC2omH6i3cl",
-          "profileName": "Jaz Reid",
-          "likesCount": "1",
-          "threadingDepth": 0
-        }
-      ],
-      "facebookId": "590002431582049",
-      "groupTitle": "Casting Calls for Actors UK",
-      "pageAdLibrary": {
-        "is_business_page_active": false,
-        "id": "615093625009867"
-      },
-      "inputUrl": "https://www.facebook.com/groups/actorscastinguk/",
-      "summary": "CASTING CALL — FEMALE LEAD 🎬\n\nBanbury, Oxfordshire | £250 for 2 days + travel considered\n\nWe’re casting for the final scenes of Failsafe, a psychological short film currently in production with a professional crew.\n\nDirected by Rob Hutt — award-winning filmmaker of Time Spent (23 awards, 22 nominations, 8.8 IMDb rating). You can view Rob’s IMDb profile here:\n👉 https://www.imdb.com/name/nm4254248/?ref_=ext_shr_lnk\n\nThis project is already generating festival momentum and will be featured in Pro Movie Maker Magazine.\n\nROLE:\n • Female, playing age 25–35\n • Character: A game designer whose reality begins to fracture, blurring with the world she created. Performance requires range: strength, vulnerability, psychological depth.\n\nDETAILS:\n • £250 for 2 days filming.\n • Shoot will take place across one Saturday & Sunday, back-to-back.\n • Filming must be completed on one of the following weekends:\n • 11–12 October 2025\n • 18–19 October 2025\n • 25–26 October 2025\n • Location: Banbury, Oxfordshire. Reasonable travel costs considered.\n • Short film — to be submitted to national and international film festivals.\n • Professional set with full crew.\n • Self-tape auditions required.\n\n📩 To apply / receive the self-tape brief:\nhttps://www.starnow.com/casting/failsafe-3020838/female-games-designer-5368483/ or DM directly.\n\n✨ This is a chance to be part of a powerful, festival-ready film with proven pedigree.",
-      "title": "CASTING CALL — FEMALE LEAD 🎬",
-      "source": "FacebookGroups",
-      "country": "EU",
-      "fetched_at": "2025-10-06T12:18:11.743Z",
-      "importedAt": "2025-10-06T12:18:11.743Z"
-    },
-    {
-      "facebookUrl": "https://www.facebook.com/groups/actorscastinguk/",
-      "url": "https://www.facebook.com/groups/actorscastinguk/",
-      "time": "2025-10-01T12:48:06.000Z",
-      "user": {
-        "id": "pfbid0EzXc9nYnYgcUGkWbG66vv4J9SZ6TsMHvGSAS46wNV6AFUNNTDTc6i166yM17fDvql",
-        "name": "Georgia Webb"
-      },
-      "text": "🚨 URGENT – SANTAS REQUIRED 🚨\nDue to dropouts, we are urgently recruiting Santas for events across November and December.\n\n💰 Starting from £38 per hour (negotiable if own costume).\n📅 Regular work available throughout the festive period.\n📍 Location - Oxford\n\n✅ Shift Dates & Times\n* Sat, Nov 15 - 8:30 TIL 6:00 \n* Sun, Nov 16 - 9:00 TIL 5:00 \n* Sat, Nov 22 - 8:30 TIL 6:00 \n* Sun, Nov 23 - 9:00 TIL 5:00 \n* Mon, Dec 1 - 8:30 TIL 6:00 \n* Tue, Dec 2 - 8:30 TIL 6:00\n* Wed, Dec 3 - 8:30 TIL 6:00 \n* Thu, Dec 4 - 8:30 TIL 6:00\n* Fri, Dec 5 - 8:30 TIL 6:00 \n* Mon, Dec 8 - 8:30 TIL 6:00 \n* Tue, Dec 9 - 8:30 TIL 6:00 \n* Wed, Dec 10 - 8:30 TIL 6:00 \n* Thu, Dec 11 - 8:30 TIL 6:00 \n* Fri, Dec 12 - 8:30 TIL 6:00 \n* Mon, Dec 15 - 8:30 TIL 6:00 \n* Tue, Dec 16 - 8:30 TIL 6:00 \n* Wed, Dec 17 - 8:30 TIL 6:00 \n* Thu, Dec 18 - 8:30 TIL 6:00 \n* Fri, Dec 19 - 8:30 TIL 6:00 \n* Wed, Dec 24 - 8:30 TIL 6:00 (DOUBLE PAY) \n\n📩 To apply:\nSend your CV, headshot, and any relevant performance footage to: castings@evokeents.com\nSubject line: SANTA OXFORD CHRISTMAS CONTRACT\nTell us a little about why you’d be a great fit & the dates you're interested in working — we’d love to hear from you!",
-      "topReactionsCount": 0,
-      "feedbackId": "ZmVlZGJhY2s6MTkyMjA3NzA1NTA0MTI0MA==",
-      "id": "UzpfSTEwMDAwMDk2MDI1MzMzNzpWSzoxOTIyMDc3MDU1MDQxMjQw",
-      "legacyId": "1922077055041240",
-      "attachments": [
-        {
-          "thumbnail": "https://scontent.fosu1-1.fna.fbcdn.net/v/t39.30808-6/556762044_31455722574043008_7917170776620073108_n.jpg?stp=dst-jpg_p526x296_tt6&_nc_cat=101&ccb=1-7&_nc_sid=aa7b47&_nc_ohc=b1dAPGth7W0Q7kNvwE-YjFo&_nc_oc=AdmAnD1kJQGvZ70qwXsOcWE3treqh5_rm9BfApuLLEDoJUMkARq9e2yHzvHAvQ63YzM&_nc_zt=23&_nc_ht=scontent.fosu1-1.fna&_nc_gid=q0_x2U_uDVrTdhmzKvEGSg&oh=00_AfcqEaOIWdAGXX29DdJUjeN9jAZVUMPFVeivp7BKaHn1FA&oe=68E7F74C",
-          "__typename": "Photo",
-          "photo_image": {
-            "uri": "https://scontent.fosu1-1.fna.fbcdn.net/v/t39.30808-6/556762044_31455722574043008_7917170776620073108_n.jpg?stp=dst-jpg_p526x296_tt6&_nc_cat=101&ccb=1-7&_nc_sid=aa7b47&_nc_ohc=b1dAPGth7W0Q7kNvwE-YjFo&_nc_oc=AdmAnD1kJQGvZ70qwXsOcWE3treqh5_rm9BfApuLLEDoJUMkARq9e2yHzvHAvQ63YzM&_nc_zt=23&_nc_ht=scontent.fosu1-1.fna&_nc_gid=q0_x2U_uDVrTdhmzKvEGSg&oh=00_AfcqEaOIWdAGXX29DdJUjeN9jAZVUMPFVeivp7BKaHn1FA&oe=68E7F74C",
-            "height": 706,
-            "width": 526
-          },
-          "__isMedia": "Photo",
-          "accent_color": "FF604A3C",
-          "photo_product_tags": [],
-          "url": "https://www.facebook.com/photo.php?fbid=31455753340706598&set=gm.1922077055041240&type=3",
-          "id": "31455753340706598",
-          "ocrText": "May be an image of 1 person and the Cotswolds"
-        }
-      ],
-      "likesCount": 0,
-      "sharesCount": 0,
-      "commentsCount": 0,
-      "topComments": [],
-      "facebookId": "590002431582049",
-      "groupTitle": "Casting Calls for Actors UK",
-      "pageAdLibrary": {
-        "is_business_page_active": false,
-        "id": "615093625009867"
-      },
-      "inputUrl": "https://www.facebook.com/groups/actorscastinguk/",
-      "summary": "🚨 URGENT – SANTAS REQUIRED 🚨\nDue to dropouts, we are urgently recruiting Santas for events across November and December.\n\n💰 Starting from £38 per hour (negotiable if own costume).\n📅 Regular work available throughout the festive period.\n📍 Location - Oxford\n\n✅ Shift Dates & Times\n* Sat, Nov 15 - 8:30 TIL 6:00 \n* Sun, Nov 16 - 9:00 TIL 5:00 \n* Sat, Nov 22 - 8:30 TIL 6:00 \n* Sun, Nov 23 - 9:00 TIL 5:00 \n* Mon, Dec 1 - 8:30 TIL 6:00 \n* Tue, Dec 2 - 8:30 TIL 6:00\n* Wed, Dec 3 - 8:30 TIL 6:00 \n* Thu, Dec 4 - 8:30 TIL 6:00\n* Fri, Dec 5 - 8:30 TIL 6:00 \n* Mon, Dec 8 - 8:30 TIL 6:00 \n* Tue, Dec 9 - 8:30 TIL 6:00 \n* Wed, Dec 10 - 8:30 TIL 6:00 \n* Thu, Dec 11 - 8:30 TIL 6:00 \n* Fri, Dec 12 - 8:30 TIL 6:00 \n* Mon, Dec 15 - 8:30 TIL 6:00 \n* Tue, Dec 16 - 8:30 TIL 6:00 \n* Wed, Dec 17 - 8:30 TIL 6:00 \n* Thu, Dec 18 - 8:30 TIL 6:00 \n* Fri, Dec 19 - 8:30 TIL 6:00 \n* Wed, Dec 24 - 8:30 TIL 6:00 (DOUBLE PAY) \n\n📩 To apply:\nSend your CV, headshot, and any relevant performance footage to: castings@evokeents.com\nSubject line: SANTA OXFORD CHRISTMAS CONTRACT\nTell us a little about why you’d be a great fit & the dates you're interested in working — we’d love to hear from you!",
-      "title": "🚨 URGENT – SANTAS REQUIRED 🚨",
-      "source": "FacebookGroups",
-      "country": "EU",
-      "fetched_at": "2025-10-06T12:18:11.743Z",
-      "importedAt": "2025-10-06T12:18:11.743Z"
-    },
-    {
-      "facebookUrl": "https://www.facebook.com/groups/actorscastinguk/",
-      "url": "https://www.facebook.com/groups/actorscastinguk/",
-      "time": "2025-10-01T08:28:11.000Z",
-      "user": {
-        "id": "100069178509607",
-        "name": "Enchanted Events Manchester"
-      },
-      "text": "✨✨**WE ARE HIRING - limited time only**✨✨\n\n**JOIN OUR MAGICAL BOOKS FOR FLEXIBLE WEEKEND AND SEASONAL WORK.**\n\n**Manchester/Greater Manchester UK  **📍\n\nWe're on the hunt for talented performers to bring beloved characters to life at our enchanting events! If you love creating unforgettable experiences and spreading joy, this is the role for YOU!\n\n✨**What’s in it for you?**\nCompetitive pay rates per booking.\nPremium costumes, wigs, and training provided\nA fun, rewarding, and exciting job\nFlexible work around other commitments.\n\n✨**Requirements:**\n\nMust be over 18, based in Manchester/Greater Manchester, have performing and singing experience, have good weekend and seasonal availability, hold a full UK drivers license and have own vehicle\n\n✨**Ready to be part of the magic?**\nApply now with your CV, headshot/showreel and step into a world of excitement, creativity, and wonder.\n\n✨**Apply here: **[enola.enchantedevents@gmail.com](mailto:enola.enchantedevents@gmail.com)\n\nWebsite: [www.enchantedeventsmanchester.com](https://www.enchantedeventsmanchester.com/)\n\nInstagram: [https://www.instagram.com/enchantedeventsmanchester](https://www.instagram.com/enchantedeventsmanchester)",
-      "link": "https://www.instagram.com/enchantedeventsmanchester",
-      "topReactionsCount": 1,
-      "feedbackId": "ZmVlZGJhY2s6MTkyMTM4MTgyODQ0NDA5Ng==",
-      "reactionLikeCount": 1,
-      "id": "UzpfSTEwMDA2OTE3ODUwOTYwNzpWSzoxOTIxMzgxODI4NDQ0MDk2",
-      "legacyId": "1921381828444096",
-      "attachments": [
-        {
-          "thumbnail": "https://scontent.fosu1-1.fna.fbcdn.net/v/t39.30808-6/556540029_1089568320025775_1375329842070720906_n.jpg?stp=dst-jpg_s600x600_tt6&_nc_cat=108&ccb=1-7&_nc_sid=aa7b47&_nc_ohc=if7R-rNk-DsQ7kNvwFpdts0&_nc_oc=AdnGgT-Wa1tMgwlea0t8Ol4T1JOzzbjTBPsnaDU_tXg7hINkJJKhM1kFI2V0nGwaycw&_nc_zt=23&_nc_ht=scontent.fosu1-1.fna&_nc_gid=q0_x2U_uDVrTdhmzKvEGSg&oh=00_AfcYwd5PcKAZ9WcGxQrtaQPnW6OdhQohPrJdzssxuGSl4g&oe=68E7DD32",
-          "__typename": "Photo",
-          "photo_image": {
-            "uri": "https://scontent.fosu1-1.fna.fbcdn.net/v/t39.30808-6/556540029_1089568320025775_1375329842070720906_n.jpg?stp=dst-jpg_s600x600_tt6&_nc_cat=108&ccb=1-7&_nc_sid=aa7b47&_nc_ohc=if7R-rNk-DsQ7kNvwFpdts0&_nc_oc=AdnGgT-Wa1tMgwlea0t8Ol4T1JOzzbjTBPsnaDU_tXg7hINkJJKhM1kFI2V0nGwaycw&_nc_zt=23&_nc_ht=scontent.fosu1-1.fna&_nc_gid=q0_x2U_uDVrTdhmzKvEGSg&oh=00_AfcYwd5PcKAZ9WcGxQrtaQPnW6OdhQohPrJdzssxuGSl4g&oe=68E7DD32",
-            "height": 503,
-            "width": 600
-          },
-          "__isMedia": "Photo",
-          "accent_color": "FFFEFFFF",
-          "photo_product_tags": [],
-          "url": "https://www.facebook.com/photo.php?fbid=1089568316692442&set=gm.1921381828444096&type=3",
-          "id": "1089568316692442",
-          "ocrText": "May be an image of 11 people and text that says 'We Are Hiring! Lkil Will you be crowned our next Royal? We are looking for talented, reliable and passionate performers to bring our characters to life! Must be based in Manchester/Greater Manchester and be over 18 with full drivers license and own vehicle. IMMEDIATE START FOR UPCOMING EVENTS AND THE FESTIVE PERIOD Eeents/ Manchestei สเต'"
-        }
-      ],
-      "likesCount": 1,
-      "sharesCount": 0,
-      "commentsCount": 0,
-      "topComments": [],
-      "facebookId": "590002431582049",
-      "groupTitle": "Casting Calls for Actors UK",
-      "pageAdLibrary": {
-        "is_business_page_active": false,
-        "id": "615093625009867"
-      },
-      "inputUrl": "https://www.facebook.com/groups/actorscastinguk/",
-      "summary": "✨✨**WE ARE HIRING - limited time only**✨✨\n\n**JOIN OUR MAGICAL BOOKS FOR FLEXIBLE WEEKEND AND SEASONAL WORK.**\n\n**Manchester/Greater Manchester UK  **📍\n\nWe're on the hunt for talented performers to bring beloved characters to life at our enchanting events! If you love creating unforgettable experiences and spreading joy, this is the role for YOU!\n\n✨**What’s in it for you?**\nCompetitive pay rates per booking.\nPremium costumes, wigs, and training provided\nA fun, rewarding, and exciting job\nFlexible work around other commitments.\n\n✨**Requirements:**\n\nMust be over 18, based in Manchester/Greater Manchester, have performing and singing experience, have good weekend and seasonal availability, hold a full UK drivers license and have own vehicle\n\n✨**Ready to be part of the magic?**\nApply now with your CV, headshot/showreel and step into a world of excitement, creativity, and wonder.\n\n✨**Apply here: **[enola.enchantedevents@gmail.com](mailto:enola.enchantedevents@gmail.com)\n\nWebsite: [www.enchantedeventsmanchester.com](https://www.enchantedeventsmanchester.com/)\n\nInstagram: [https://www.instagram.com/enchantedeventsmanchester](https://www.instagram.com/enchantedeventsmanchester)",
-      "title": "✨✨**WE ARE HIRING - limited time only**✨✨",
-      "source": "FacebookGroups",
-      "country": "EU",
-      "fetched_at": "2025-10-06T12:18:11.743Z",
-      "importedAt": "2025-10-06T12:18:11.743Z"
-    },
-    {
-      "url": "https://www.facebook.com/groups/Castingogauditions/",
-      "error": "no_items",
-      "errorDescription": "Empty or private data for provided input",
-      "facebookUrl": "https://www.facebook.com/groups/Castingogauditions/",
-      "id": "https://www.facebook.com/groups/Castingogauditions/|",
-      "title": "(no title)",
-      "source": "FacebookGroups",
-      "country": "EU",
-      "fetched_at": "2025-10-06T12:18:11.743Z",
-      "importedAt": "2025-10-06T12:18:11.743Z"
-    },
     {
       "facebookUrl": "https://www.facebook.com/groups/1295231977298952/",
       "url": "https://www.facebook.com/groups/1295231977298952/",
@@ -410,8 +62,8 @@
       "title": "(no title)",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2025-10-06T12:18:11.743Z",
-      "importedAt": "2025-10-06T12:18:11.743Z"
+      "fetched_at": "2025-10-06T13:22:00.116Z",
+      "importedAt": "2025-10-06T13:22:00.116Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/1295231977298952/",
@@ -682,8 +334,8 @@
       "title": "Håber det ok jeg deler, da min søn ønsker at få større netværk. Han håber på at i kan lide hans film! 🎥 Han er ikke ny til skuespil, og det er anden gang han deltager. Sidste år kom han i finale!",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2025-10-06T12:18:11.743Z",
-      "importedAt": "2025-10-06T12:18:11.743Z"
+      "fetched_at": "2025-10-06T13:22:00.116Z",
+      "importedAt": "2025-10-06T13:22:00.116Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/1295231977298952/",
@@ -1142,8 +794,8 @@
       "title": "Klar til nye headshots i KBH? 📸",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2025-10-06T12:18:11.743Z",
-      "importedAt": "2025-10-06T12:18:11.743Z"
+      "fetched_at": "2025-10-06T13:22:00.116Z",
+      "importedAt": "2025-10-06T13:22:00.116Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/2139111006302938/",
@@ -1219,8 +871,8 @@
       "title": "The Brookside Theatre, Romford is urgently looking for a male actor (playing age 45-60) for their Halloween production; THE ADDAMS FAMILY ",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2025-10-06T12:18:11.743Z",
-      "importedAt": "2025-10-06T12:18:11.743Z"
+      "fetched_at": "2025-10-06T13:22:00.116Z",
+      "importedAt": "2025-10-06T13:22:00.116Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/2139111006302938/",
@@ -1263,8 +915,8 @@
       "title": "Actors Wisdom for Wednesdays!",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2025-10-06T12:18:11.743Z",
-      "importedAt": "2025-10-06T12:18:11.743Z"
+      "fetched_at": "2025-10-06T13:22:00.116Z",
+      "importedAt": "2025-10-06T13:22:00.116Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/2139111006302938/",
@@ -1291,8 +943,8 @@
       "title": "UK Business Owners – We Want You! (Paid Opportunity) PLEASE KINDLY SHARE 🙏🏼",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2025-10-06T12:18:11.743Z",
-      "importedAt": "2025-10-06T12:18:11.743Z"
+      "fetched_at": "2025-10-06T13:22:00.116Z",
+      "importedAt": "2025-10-06T13:22:00.116Z"
     },
     {
       "url": "https://www.facebook.com/groups/731460400377555/",
@@ -1303,8 +955,8 @@
       "title": "(no title)",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2025-10-06T12:18:11.743Z",
-      "importedAt": "2025-10-06T12:18:11.743Z"
+      "fetched_at": "2025-10-06T13:22:00.116Z",
+      "importedAt": "2025-10-06T13:22:00.116Z"
     },
     {
       "url": "https://www.facebook.com/groups/783843595134854/",
@@ -1315,8 +967,8 @@
       "title": "(no title)",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2025-10-06T12:18:11.743Z",
-      "importedAt": "2025-10-06T12:18:11.743Z"
+      "fetched_at": "2025-10-06T13:22:00.116Z",
+      "importedAt": "2025-10-06T13:22:00.116Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/1466427976939831/",
@@ -1630,8 +1282,8 @@
       "title": "(no title)",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2025-10-06T12:18:11.743Z",
-      "importedAt": "2025-10-06T12:18:11.743Z"
+      "fetched_at": "2025-10-06T13:22:00.116Z",
+      "importedAt": "2025-10-06T13:22:00.116Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/1466427976939831/",
@@ -1891,8 +1543,8 @@
       "title": "(no title)",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2025-10-06T12:18:11.743Z",
-      "importedAt": "2025-10-06T12:18:11.743Z"
+      "fetched_at": "2025-10-06T13:22:00.116Z",
+      "importedAt": "2025-10-06T13:22:00.116Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/1466427976939831/",
@@ -2158,8 +1810,8 @@
       "title": "(no title)",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2025-10-06T12:18:11.743Z",
-      "importedAt": "2025-10-06T12:18:11.743Z"
+      "fetched_at": "2025-10-06T13:22:00.116Z",
+      "importedAt": "2025-10-06T13:22:00.116Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/allactorsonfacebook/",
@@ -2235,8 +1887,8 @@
       "title": "In this free 75-minute online class, actors read and perform monologues for feedback (or just watch), and I cover a lot about choosing monologues, including ",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2025-10-06T12:18:11.743Z",
-      "importedAt": "2025-10-06T12:18:11.743Z"
+      "fetched_at": "2025-10-06T13:22:00.116Z",
+      "importedAt": "2025-10-06T13:22:00.116Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/allactorsonfacebook/",
@@ -2297,8 +1949,8 @@
       "title": "In this free 75-minute online class, actors read and perform monologues for feedback (or just watch), and I cover a lot about choosing monologues, including ",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2025-10-06T12:18:11.743Z",
-      "importedAt": "2025-10-06T12:18:11.743Z"
+      "fetched_at": "2025-10-06T13:22:00.116Z",
+      "importedAt": "2025-10-06T13:22:00.116Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/allactorsonfacebook/",
@@ -2413,8 +2065,8 @@
       "summary": "Let’s contribute to those that maybe suffering.",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2025-10-06T12:18:11.743Z",
-      "importedAt": "2025-10-06T12:18:11.743Z"
+      "fetched_at": "2025-10-06T13:22:00.116Z",
+      "importedAt": "2025-10-06T13:22:00.116Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/actingcrewjobs/",
@@ -2461,8 +2113,8 @@
       "title": "(no title)",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2025-10-06T12:18:11.743Z",
-      "importedAt": "2025-10-06T12:18:11.743Z"
+      "fetched_at": "2025-10-06T13:22:00.116Z",
+      "importedAt": "2025-10-06T13:22:00.116Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/southafricancastings/",
@@ -2509,8 +2161,8 @@
       "title": "(no title)",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2025-10-06T12:18:11.743Z",
-      "importedAt": "2025-10-06T12:18:11.743Z"
+      "fetched_at": "2025-10-06T13:22:00.116Z",
+      "importedAt": "2025-10-06T13:22:00.116Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/southafricancastings/",
@@ -2556,8 +2208,8 @@
       "title": "🎭 CASTING CALL 🎭",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2025-10-06T12:18:11.743Z",
-      "importedAt": "2025-10-06T12:18:11.743Z"
+      "fetched_at": "2025-10-06T13:22:00.116Z",
+      "importedAt": "2025-10-06T13:22:00.116Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/actorsnetworking/",
@@ -2615,8 +2267,8 @@
       "title": "📸 Studio Day - Photography/Videography",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2025-10-06T12:18:11.743Z",
-      "importedAt": "2025-10-06T12:18:11.743Z"
+      "fetched_at": "2025-10-06T13:22:00.116Z",
+      "importedAt": "2025-10-06T13:22:00.116Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/actorsnetworking/",
@@ -2692,8 +2344,8 @@
       "title": "Casting for the few last spots on this incredible immersive Halloween experience. Seeking actors and actresses with high energy for this incredibly lavish production. Two venues in Wales and paid contracts. Email irishshowreelscasting@gmail.com or DM for details . Runs 30 October until 2nd November.",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2025-10-06T12:18:11.743Z",
-      "importedAt": "2025-10-06T12:18:11.743Z"
+      "fetched_at": "2025-10-06T13:22:00.116Z",
+      "importedAt": "2025-10-06T13:22:00.116Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/actorsnetworking/",
@@ -2736,8 +2388,8 @@
       "title": "I've finished up on A MAN FOR ALL SEASONS in the West End and I'm now back to teaching. ",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2025-10-06T12:18:11.743Z",
-      "importedAt": "2025-10-06T12:18:11.743Z"
+      "fetched_at": "2025-10-06T13:22:00.116Z",
+      "importedAt": "2025-10-06T13:22:00.116Z"
     },
     {
       "url": "https://www.facebook.com/groups/2039561149440704/",
@@ -2748,8 +2400,8 @@
       "title": "(no title)",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2025-10-06T12:18:11.743Z",
-      "importedAt": "2025-10-06T12:18:11.743Z"
+      "fetched_at": "2025-10-06T13:22:00.116Z",
+      "importedAt": "2025-10-06T13:22:00.116Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/197808410600313/",
@@ -2775,8 +2427,8 @@
       "title": "🍿WARSZAWA 5.10, NIEDZIELA🍿",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2025-10-06T12:18:11.743Z",
-      "importedAt": "2025-10-06T12:18:11.743Z"
+      "fetched_at": "2025-10-06T13:22:00.116Z",
+      "importedAt": "2025-10-06T13:22:00.116Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/197808410600313/",
@@ -2820,8 +2472,8 @@
       "title": "Na dzień 18.10 szukam chłopca w wieku 16 lat. Rola- nieśmiały chłopiec ,najlepiej z trądzikiem:) dyspozycyjność w godzinach 8.00-13.30 WROCŁAW.",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2025-10-06T12:18:11.743Z",
-      "importedAt": "2025-10-06T12:18:11.743Z"
+      "fetched_at": "2025-10-06T13:22:00.116Z",
+      "importedAt": "2025-10-06T13:22:00.116Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/197808410600313/",
@@ -2879,8 +2531,8 @@
       "title": "Cześć, cześć ☺️",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2025-10-06T12:18:11.743Z",
-      "importedAt": "2025-10-06T12:18:11.743Z"
+      "fetched_at": "2025-10-06T13:22:00.116Z",
+      "importedAt": "2025-10-06T13:22:00.116Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/schauspielergesucht/",
@@ -2934,8 +2586,8 @@
       "summary": "**Statistinnen gesucht für Kinodokumentarfilm**\n\nFür einen szenischen Kinodokumentarfilm zum Thema „Liebe im Alter“ (Koproduktion mit dem ZDF) suchen wir kurzfristig Statistinnen.\nDer Dreh findet morgen, Freitag 25.09., zwischen 16:00 und 18:00 Uhr im Museum in Bonn statt.\n\nBitte beachten Sie, dass lediglich eine kleine Aufwandsentschädigung (20 € die Stunde) gezahlt werden kann.\n\nWir freuen uns über Ihr Interesse und eine kurze Rückmeldung.\n\nHier unsere Website zu der Produktion:\n[https://solange-es-nicht-aufhoert.de/](https://solange-es-nicht-aufhoert.de/)",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2025-10-06T12:18:11.743Z",
-      "importedAt": "2025-10-06T12:18:11.743Z"
+      "fetched_at": "2025-10-06T13:22:00.116Z",
+      "importedAt": "2025-10-06T13:22:00.116Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/schauspielergesucht/",
@@ -2965,8 +2617,8 @@
       "title": "Hallo zusammen ,",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2025-10-06T12:18:11.743Z",
-      "importedAt": "2025-10-06T12:18:11.743Z"
+      "fetched_at": "2025-10-06T13:22:00.116Z",
+      "importedAt": "2025-10-06T13:22:00.116Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/177674932617561/",
@@ -3436,8 +3088,8 @@
       "title": "✨ Available for ",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2025-10-06T12:18:11.743Z",
-      "importedAt": "2025-10-06T12:18:11.743Z"
+      "fetched_at": "2025-10-06T13:22:00.116Z",
+      "importedAt": "2025-10-06T13:22:00.116Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/177674932617561/",
@@ -3707,8 +3359,8 @@
       "title": "(no title)",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2025-10-06T12:18:11.743Z",
-      "importedAt": "2025-10-06T12:18:11.743Z"
+      "fetched_at": "2025-10-06T13:22:00.116Z",
+      "importedAt": "2025-10-06T13:22:00.116Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/177674932617561/",
@@ -3924,8 +3576,8 @@
       "title": "Hi Friends! Available for season 2025-2026 (Christmas).",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2025-10-06T12:18:11.743Z",
-      "importedAt": "2025-10-06T12:18:11.743Z"
+      "fetched_at": "2025-10-06T13:22:00.116Z",
+      "importedAt": "2025-10-06T13:22:00.116Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/1876573592505254/",
@@ -3984,8 +3636,8 @@
       "title": "(no title)",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2025-10-06T12:18:11.743Z",
-      "importedAt": "2025-10-06T12:18:11.743Z"
+      "fetched_at": "2025-10-06T13:22:00.116Z",
+      "importedAt": "2025-10-06T13:22:00.116Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/1876573592505254/",
@@ -4044,8 +3696,8 @@
       "title": "(no title)",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2025-10-06T12:18:11.743Z",
-      "importedAt": "2025-10-06T12:18:11.743Z"
+      "fetched_at": "2025-10-06T13:22:00.116Z",
+      "importedAt": "2025-10-06T13:22:00.116Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/1876573592505254/",
@@ -4104,8 +3756,8 @@
       "title": "(no title)",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2025-10-06T12:18:11.743Z",
-      "importedAt": "2025-10-06T12:18:11.743Z"
+      "fetched_at": "2025-10-06T13:22:00.116Z",
+      "importedAt": "2025-10-06T13:22:00.116Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/Galinascasting/",
@@ -4131,8 +3783,8 @@
       "title": "In Living Colored Inc, a 501c3 social justice theater casting 2 Males and 1 Female. 25-45 ",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2025-10-06T12:18:11.743Z",
-      "importedAt": "2025-10-06T12:18:11.743Z"
+      "fetched_at": "2025-10-06T13:22:00.116Z",
+      "importedAt": "2025-10-06T13:22:00.116Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/Galinascasting/",
@@ -4190,8 +3842,8 @@
       "title": "CASTING CALL: EXTRAS / BACKGROUND FOR ZOMBIE SHORT FILM FILMING IN COLORADO SPRINGS",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2025-10-06T12:18:11.743Z",
-      "importedAt": "2025-10-06T12:18:11.743Z"
+      "fetched_at": "2025-10-06T13:22:00.116Z",
+      "importedAt": "2025-10-06T13:22:00.116Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/Galinascasting/",
@@ -4245,8 +3897,8 @@
       "title": "📣 **Casting & Crew Call – Indie Horror Short** 🎬",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2025-10-06T12:18:11.743Z",
-      "importedAt": "2025-10-06T12:18:11.743Z"
+      "fetched_at": "2025-10-06T13:22:00.116Z",
+      "importedAt": "2025-10-06T13:22:00.116Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/172426936281052/",
@@ -4290,8 +3942,8 @@
       "title": "**Sesja zdjęciowa**",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2025-10-06T12:18:11.743Z",
-      "importedAt": "2025-10-06T12:18:11.743Z"
+      "fetched_at": "2025-10-06T13:22:00.116Z",
+      "importedAt": "2025-10-06T13:22:00.116Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/172426936281052/",
@@ -4317,8 +3969,8 @@
       "title": "Na plan serialu kryminalnego, którego akcja dzieje się w latach współczesnych, poszukujemy:",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2025-10-06T12:18:11.743Z",
-      "importedAt": "2025-10-06T12:18:11.743Z"
+      "fetched_at": "2025-10-06T13:22:00.116Z",
+      "importedAt": "2025-10-06T13:22:00.116Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/172426936281052/",
@@ -4372,8 +4024,8 @@
       "title": "Hej!",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2025-10-06T12:18:11.743Z",
-      "importedAt": "2025-10-06T12:18:11.743Z"
+      "fetched_at": "2025-10-06T13:22:00.116Z",
+      "importedAt": "2025-10-06T13:22:00.116Z"
     },
     {
       "url": "https://www.facebook.com/groups/agencjapracyDE/",
@@ -4384,8 +4036,8 @@
       "title": "(no title)",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2025-10-06T12:18:11.742Z",
-      "importedAt": "2025-10-06T12:18:11.742Z"
+      "fetched_at": "2025-10-06T13:22:00.115Z",
+      "importedAt": "2025-10-06T13:22:00.115Z"
     },
     {
       "url": "https://www.facebook.com/groups/1279582452097121/",
@@ -4396,8 +4048,8 @@
       "title": "(no title)",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2025-10-06T12:18:11.742Z",
-      "importedAt": "2025-10-06T12:18:11.742Z"
+      "fetched_at": "2025-10-06T13:22:00.115Z",
+      "importedAt": "2025-10-06T13:22:00.115Z"
     },
     {
       "url": "https://www.facebook.com/groups/castings.berlin/",
@@ -4408,8 +4060,8 @@
       "title": "(no title)",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2025-10-06T12:18:11.742Z",
-      "importedAt": "2025-10-06T12:18:11.742Z"
+      "fetched_at": "2025-10-06T13:22:00.115Z",
+      "importedAt": "2025-10-06T13:22:00.115Z"
     },
     {
       "url": "https://www.facebook.com/groups/ModelSuche/",
@@ -4420,8 +4072,8 @@
       "title": "(no title)",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2025-10-06T12:18:11.742Z",
-      "importedAt": "2025-10-06T12:18:11.742Z"
+      "fetched_at": "2025-10-06T13:22:00.115Z",
+      "importedAt": "2025-10-06T13:22:00.115Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/Galinascasting/",
@@ -4466,8 +4118,8 @@
       "title": "**Casting Calls - Standard Posting Format**",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2025-10-06T12:18:11.742Z",
-      "importedAt": "2025-10-06T12:18:11.742Z"
+      "fetched_at": "2025-10-06T13:22:00.115Z",
+      "importedAt": "2025-10-06T13:22:00.115Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/Galinascasting/",
@@ -4524,8 +4176,8 @@
       "title": "NOW CASTING – “PLUS ONE” ",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2025-10-06T12:18:11.742Z",
-      "importedAt": "2025-10-06T12:18:11.742Z"
+      "fetched_at": "2025-10-06T13:22:00.115Z",
+      "importedAt": "2025-10-06T13:22:00.115Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/Galinascasting/",
@@ -4570,8 +4222,8 @@
       "title": "🚨 NOW CASTING – “PLUS ONE” 🚨",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2025-10-06T12:18:11.742Z",
-      "importedAt": "2025-10-06T12:18:11.742Z"
+      "fetched_at": "2025-10-06T13:22:00.115Z",
+      "importedAt": "2025-10-06T13:22:00.115Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/177674932617561/",
@@ -4800,8 +4452,8 @@
       "title": "I’m magician at the moment I’m free , if you know where a magic show please feel free to let me know. Thanks",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2025-10-06T12:18:11.742Z",
-      "importedAt": "2025-10-06T12:18:11.742Z"
+      "fetched_at": "2025-10-06T13:22:00.115Z",
+      "importedAt": "2025-10-06T13:22:00.115Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/177674932617561/",
@@ -5030,8 +4682,8 @@
       "title": "I’m magician in the moment free , if you know where need some magician , please let me know. Thanks",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2025-10-06T12:18:11.742Z",
-      "importedAt": "2025-10-06T12:18:11.742Z"
+      "fetched_at": "2025-10-06T13:22:00.115Z",
+      "importedAt": "2025-10-06T13:22:00.115Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/177674932617561/",
@@ -5582,8 +5234,8 @@
       "title": "Argentine artists available for the season starting January 10, 2026 Aerial strap Aerial hula hoop Handstands Contact: WhatsApp +5491160410160",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2025-10-06T12:18:11.742Z",
-      "importedAt": "2025-10-06T12:18:11.742Z"
+      "fetched_at": "2025-10-06T13:22:00.115Z",
+      "importedAt": "2025-10-06T13:22:00.115Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/schauspielergesucht/",
@@ -5659,8 +5311,8 @@
       "summary": "###Kompars:innen GESUCHT###\n\nFür den Spielfilm \"Und keiner geht hin\", Abschlussfilm der dffb und gefördert vom ZDF kleines Fernsehspiel, sind wir auf der Suche nach Kompars:innen in Leipzig und Umgebung. Besonders am 13. und 15. Oktober suchen wir noch Leute, da wir dort große Kirchenszenen haben. \n\nMeldet euch bei Interesse gerne hier an, wir melden uns dann schnell zurück. Wir freuen uns",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2025-10-06T12:18:11.742Z",
-      "importedAt": "2025-10-06T12:18:11.742Z"
+      "fetched_at": "2025-10-06T13:22:00.115Z",
+      "importedAt": "2025-10-06T13:22:00.115Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/schauspielergesucht/",
@@ -5721,8 +5373,8 @@
       "title": "(no title)",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2025-10-06T12:18:11.742Z",
-      "importedAt": "2025-10-06T12:18:11.742Z"
+      "fetched_at": "2025-10-06T13:22:00.115Z",
+      "importedAt": "2025-10-06T13:22:00.115Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/schauspielergesucht/",
@@ -5770,8 +5422,8 @@
       "title": "Ich bin vielleicht nicht der geborene Top-Schauspieler oder das nächste Supermodel für die Kamera – in der Werbekommunikation überlasse ich das Rampenlicht gerne anderen. ABER ich habe etwas Großes im Sinn und bin bereit, einen neuen Weg zu gehen: Ich möchte das Medienhaus Mond Jung eröffnen! 🌙🌟",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2025-10-06T12:18:11.742Z",
-      "importedAt": "2025-10-06T12:18:11.742Z"
+      "fetched_at": "2025-10-06T13:22:00.115Z",
+      "importedAt": "2025-10-06T13:22:00.115Z"
     },
     {
       "url": "https://www.facebook.com/groups/schauspielercastings/",
@@ -5782,8 +5434,8 @@
       "title": "(no title)",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2025-10-06T12:18:11.742Z",
-      "importedAt": "2025-10-06T12:18:11.742Z"
+      "fetched_at": "2025-10-06T13:22:00.115Z",
+      "importedAt": "2025-10-06T13:22:00.115Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/458581204199753/",
@@ -6097,8 +5749,8 @@
       "title": "(no title)",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2025-10-06T12:18:11.742Z",
-      "importedAt": "2025-10-06T12:18:11.742Z"
+      "fetched_at": "2025-10-06T13:22:00.115Z",
+      "importedAt": "2025-10-06T13:22:00.115Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/458581204199753/",
@@ -6175,8 +5827,8 @@
       "inputUrl": "https://www.facebook.com/groups/458581204199753/",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2025-10-06T12:18:11.742Z",
-      "importedAt": "2025-10-06T12:18:11.742Z"
+      "fetched_at": "2025-10-06T13:22:00.115Z",
+      "importedAt": "2025-10-06T13:22:00.115Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/458581204199753/",
@@ -6436,8 +6088,8 @@
       "title": "(no title)",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2025-10-06T12:18:11.742Z",
-      "importedAt": "2025-10-06T12:18:11.742Z"
+      "fetched_at": "2025-10-06T13:22:00.115Z",
+      "importedAt": "2025-10-06T13:22:00.115Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/2243003042485635/",
@@ -6486,8 +6138,8 @@
       "summary": "**CASTINGCALL!!! (Ulønnet)**\n\nHejsa. vi er i gang med vores andet projekt her på Potemkin, den jyske filmskole - Masterclass. Vi søger derfor skuespillere til Hovedrollen **Alfred**.\n\nLogline: “**Spildt Mælk**” I denne absurde coming-of-age komedie, om identitet, vaner og det at finde sig selv,  møder vi Alfred en ung mand der flytter til storbyen for at starte sit voksenliv. Alt imens hans bizarre afhængighed af mælk vender op og ned på hans nye hverdag og skaber kaos.\n\n**Alfred** (21-25) er en usikker ung gut der lige er flyttet fra landet og ind til storbyen. \n\nDenne transition er temmelig hård for en så tilbageholdende og usikker dreng som ham, og for at gøre det endnu værre så har han en afhængighed til mælk. Hvordan forklarer man lige sine nye roomies om det? Alfred er godhjertet og ser altid det bedste i folk og vil gerne lære folk at kende, men fordi han er rimelig kejtet så formår han nærmest altid at få et allerede nyt akavet møde til at blive endnu mere akavet.\n\nOptagelserne foregår i Aarhus C den **21. og 22. oktober**. \n\nder vil være forplejning på set, men jobbet er ulønnet.\n\nvedhæftet dette opslag er scene 01-03 som vi gerne vil se dit bud på i et selftape sendt til min mail. (showreel er velkommen, men vi foretrækker selftape til de valgte scener)\n\nMvh. Team **Spildt Mælk**. - Potemkin\n\nBastiankapela@gmail.com",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2025-10-06T12:18:11.742Z",
-      "importedAt": "2025-10-06T12:18:11.742Z"
+      "fetched_at": "2025-10-06T13:22:00.115Z",
+      "importedAt": "2025-10-06T13:22:00.115Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/2243003042485635/",
@@ -6541,8 +6193,8 @@
       "inputUrl": "https://www.facebook.com/groups/2243003042485635/",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2025-10-06T12:18:11.742Z",
-      "importedAt": "2025-10-06T12:18:11.742Z"
+      "fetched_at": "2025-10-06T13:22:00.115Z",
+      "importedAt": "2025-10-06T13:22:00.115Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/2243003042485635/",
@@ -6587,8 +6239,8 @@
       "title": "Statist søges til reklame i Jylland! :)",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2025-10-06T12:18:11.742Z",
-      "importedAt": "2025-10-06T12:18:11.742Z"
+      "fetched_at": "2025-10-06T13:22:00.115Z",
+      "importedAt": "2025-10-06T13:22:00.115Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/245568709343712/",
@@ -6631,8 +6283,8 @@
       "title": "LIMITED SLOTS !!!",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2025-10-06T12:18:11.742Z",
-      "importedAt": "2025-10-06T12:18:11.742Z"
+      "fetched_at": "2025-10-06T13:22:00.115Z",
+      "importedAt": "2025-10-06T13:22:00.115Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/245568709343712/",
@@ -6691,8 +6343,356 @@
       "title": "Hello! I’m a recruiter that is looking to make a career transition into casting and talent management! I’d love to find someone that would be open to me shadowing them for “a day in the life” type thing, to get a better feel for the industry. ",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2025-10-06T12:18:11.742Z",
-      "importedAt": "2025-10-06T12:18:11.742Z"
+      "fetched_at": "2025-10-06T13:22:00.115Z",
+      "importedAt": "2025-10-06T13:22:00.115Z"
+    },
+    {
+      "facebookUrl": "https://www.facebook.com/groups/245568709343712/",
+      "url": "https://www.facebook.com/groups/245568709343712/",
+      "time": "2025-10-02T17:03:22.000Z",
+      "user": {
+        "id": "100090622758524",
+        "name": "Saturation"
+      },
+      "text": "👋 Hey Filmmakers! Just wanted to let you know about us if you aren't yet familiar. Saturation helps producers, directors, and production teams in film, TV, commercials, documentaries, and music videos streamline every stage of production. Think budgeting, payments, actualization, and expense tracking - all in one collaborative cloud-based platform.\n\nWe have a demo on our website, and it's also free to join: https://saturation.io/join",
+      "textReferences": [
+        {
+          "id": "100090622758524",
+          "url": "https://www.facebook.com/saturation.io",
+          "answer_agent_group_id": null,
+          "profile_url": "https://www.facebook.com/saturation.io",
+          "short_name": "Saturation",
+          "work_info": null,
+          "work_foreign_entity_info": null,
+          "is_verified": false,
+          "mobileUrl": "https://m.facebook.com/saturation.io/"
+        },
+        {
+          "url": "https://l.facebook.com/l.php?u=https%3A%2F%2Fsaturation.io%2Fjoin&h=AT2wgWLSI3iVnXv6LBe7GI1LTkOqNLW83vzrE9DYCV6GcQ-_y25YuL_chbaDecZgLCxWDsh-Ne984zEsvvjatiBNo18Cc8AhmjR7uq40ubOEr5kGXqBnWdpgAbpn8OAw3egzj2fUGC8OOWbCNEndfqe_-vV5nsM8&s=1",
+          "external_url": "https://saturation.io/join",
+          "web_link": {
+            "__typename": "ExternalWebLink",
+            "url": "https://saturation.io/join",
+            "fbclid": null,
+            "lynx_mode": "ASYNCLAZY"
+          },
+          "mobileUrl": "https://lm.facebook.com/l.php?u=https%3A%2F%2Fsaturation.io%2Fjoin&h=AT01bAplaSjyMI7mh_RKOSaH9Oe9dsbScin8mYnviCuQQu75__a0xETfugb5ttLa69jqfYN2BNUFQWfSkz7vTiEF1n3zHrcVQPANqbD6SF74A9a0d4j7Z7vqBxHAmvMUbpxAG1W8SFASgMvZvp3jwW1H9Y_Ixt9p&s=1",
+          "id": "NjQyMTgzOTU5MjA4MTA3Omh0dHBzXGEvL3NhdHVyYXRpb24uaW8vam9pbjo6Ojo6MjAwMDQ2MjM4Mzg1NDMyNw=="
+        }
+      ],
+      "link": "https://saturation.io/join",
+      "topReactionsCount": 0,
+      "feedbackId": "ZmVlZGJhY2s6MjAwMDQ2MjM4Mzg1NDMyNw==",
+      "id": "UzpfSTEwMDA5MDYyMjc1ODUyNDpWSzoyMDAwNDYyMzgzODU0MzI3",
+      "legacyId": "2000462383854327",
+      "attachments": [
+        {
+          "mediaset_token": "pcb.2000462383854327",
+          "url": "https://www.facebook.com/media/set/?set=pcb.2000462383854327&type=1",
+          "comet_product_tag_feed_overlay_renderer": null
+        },
+        {
+          "thumbnail": "https://scontent-atl3-1.xx.fbcdn.net/v/t39.30808-6/557772898_762855390078546_5865840819658247431_n.jpg?stp=dst-jpg_p235x350_tt6&_nc_cat=103&ccb=1-7&_nc_sid=aa7b47&_nc_ohc=Ehu81NZ_hXsQ7kNvwHfEXdF&_nc_oc=AdmsDTzh6Yb3onu24qYt3dHh9WCVjVwNpTMKAtYtfh-VNN6tTmerZYjYF8dbJaCdcFI&_nc_zt=23&_nc_ht=scontent-atl3-1.xx&_nc_gid=9KKCtRGO277GWyUmIlfd5w&oh=00_Afc2KyHaJdQHc966AXhs6OI4YsENg-VRPNsH_HxZgeodUw&oe=68E7EAE2",
+          "__typename": "Photo",
+          "is_playable": false,
+          "image": {
+            "uri": "https://scontent-atl3-1.xx.fbcdn.net/v/t39.30808-6/557772898_762855390078546_5865840819658247431_n.jpg?stp=dst-jpg_p235x350_tt6&_nc_cat=103&ccb=1-7&_nc_sid=aa7b47&_nc_ohc=Ehu81NZ_hXsQ7kNvwHfEXdF&_nc_oc=AdmsDTzh6Yb3onu24qYt3dHh9WCVjVwNpTMKAtYtfh-VNN6tTmerZYjYF8dbJaCdcFI&_nc_zt=23&_nc_ht=scontent-atl3-1.xx&_nc_gid=9KKCtRGO277GWyUmIlfd5w&oh=00_Afc2KyHaJdQHc966AXhs6OI4YsENg-VRPNsH_HxZgeodUw&oe=68E7EAE2",
+            "height": 350,
+            "width": 591
+          },
+          "id": "762855386745213",
+          "__isMedia": "Photo",
+          "photo_cix_screen": null,
+          "copyright_banner_info": null,
+          "owner": {
+            "__typename": "User",
+            "id": "100090622758524"
+          },
+          "ocrText": "May be a graphic of text that says 'SpaceRanger Space Ranger Space Ranger 日 Descripten A ៣ B PrepCrew Shac.Crcw Share 田 Estimate D E ® JJ Working 506,498.5 Actual $426,629.34 $292,458.26 Var ance S20,871 $26,965.32 $256,032.56 $10,279.00 $77,347.10 Equipment $30.00 136,457.30 $30,294.03 StudoCosts $5,534.30 $18,04312 $8,715.16 Medis $9,990.00 $27.02 $14,548.46 $2,100.00 $18,078.00 Sub- -TotalAtoK Total tok $1,030.15 $16,228.00 $17,603.30 Director'&Fees 516,003.00 $1,667.97 $2,000.00 $1,100.00 5า0,000.00 $2,000.00 $1,100.00 $1,085,256.38 32,000.00 $3,023.53 $13,000.00 SB19,748.69 $130,806. 35 5 $18,869.20 $13,000.00 Space anger otal $18.789.20 13,600.00 GrandTotal Total $121.09 $0.00 $0.00 $1,283,864.18 $0.00 $856,840.09 an $1,283,864.18 $145,727.44 $856,840.89 $145,727.44'"
+        },
+        {
+          "thumbnail": "https://scontent-atl3-3.xx.fbcdn.net/v/t39.30808-6/557352324_762856040078481_9062500250156816406_n.jpg?stp=dst-jpg_s600x600_tt6&_nc_cat=110&ccb=1-7&_nc_sid=aa7b47&_nc_ohc=4KrEpv4tyMMQ7kNvwHnljO3&_nc_oc=Adk37leE6vUSAxMRT3-RHmZ0RcETmy24-OPdVlhpD44Ml0ugN_6edqIaD2Fu5JZaUJA&_nc_zt=23&_nc_ht=scontent-atl3-3.xx&_nc_gid=9KKCtRGO277GWyUmIlfd5w&oh=00_Afex0GfuxPMDdLO9pOYTshOuWX3MTYaqtqbF-xgz6WrrSw&oe=68E7CB93",
+          "__typename": "Photo",
+          "is_playable": false,
+          "image": {
+            "uri": "https://scontent-atl3-3.xx.fbcdn.net/v/t39.30808-6/557352324_762856040078481_9062500250156816406_n.jpg?stp=dst-jpg_s600x600_tt6&_nc_cat=110&ccb=1-7&_nc_sid=aa7b47&_nc_ohc=4KrEpv4tyMMQ7kNvwHnljO3&_nc_oc=Adk37leE6vUSAxMRT3-RHmZ0RcETmy24-OPdVlhpD44Ml0ugN_6edqIaD2Fu5JZaUJA&_nc_zt=23&_nc_ht=scontent-atl3-3.xx&_nc_gid=9KKCtRGO277GWyUmIlfd5w&oh=00_Afex0GfuxPMDdLO9pOYTshOuWX3MTYaqtqbF-xgz6WrrSw&oe=68E7CB93",
+            "height": 337,
+            "width": 600
+          },
+          "id": "762856033411815",
+          "__isMedia": "Photo",
+          "photo_cix_screen": null,
+          "copyright_banner_info": null,
+          "owner": {
+            "__typename": "User",
+            "id": "100090622758524"
+          },
+          "ocrText": "May be an image of text that says 'MPMiche MP Miche CG Export 1099 Report Casey Select date range ElginE 2024 (Year to Date) Jenny Include transaction details Miles| Include contact W-9s www.sy www.sy.pherfilms.com oherfi ilms.com Export'"
+        },
+        {
+          "thumbnail": "https://scontent-atl3-3.xx.fbcdn.net/v/t39.30808-6/558892589_762856450078440_2197902134778045725_n.jpg?stp=dst-jpg_s600x600_tt6&_nc_cat=108&ccb=1-7&_nc_sid=aa7b47&_nc_ohc=DuPPjRFuGyYQ7kNvwHN2IQX&_nc_oc=AdlMTiYOfg8wZUjBh_UfHsEVcFn2xbpKBaHdlHv_paU-cfM8kJqNTHc75KKgX5iT2Pc&_nc_zt=23&_nc_ht=scontent-atl3-3.xx&_nc_gid=9KKCtRGO277GWyUmIlfd5w&oh=00_AfevRpMDBbKHSr6py4r7-FknCgQDYMbOY8oOZYgGnAVuSA&oe=68E7F39A",
+          "__typename": "Photo",
+          "is_playable": false,
+          "image": {
+            "uri": "https://scontent-atl3-3.xx.fbcdn.net/v/t39.30808-6/558892589_762856450078440_2197902134778045725_n.jpg?stp=dst-jpg_s600x600_tt6&_nc_cat=108&ccb=1-7&_nc_sid=aa7b47&_nc_ohc=DuPPjRFuGyYQ7kNvwHN2IQX&_nc_oc=AdlMTiYOfg8wZUjBh_UfHsEVcFn2xbpKBaHdlHv_paU-cfM8kJqNTHc75KKgX5iT2Pc&_nc_zt=23&_nc_ht=scontent-atl3-3.xx&_nc_gid=9KKCtRGO277GWyUmIlfd5w&oh=00_AfevRpMDBbKHSr6py4r7-FknCgQDYMbOY8oOZYgGnAVuSA&oe=68E7F39A",
+            "height": 338,
+            "width": 600
+          },
+          "id": "762856446745107",
+          "__isMedia": "Photo",
+          "photo_cix_screen": null,
+          "copyright_banner_info": null,
+          "owner": {
+            "__typename": "User",
+            "id": "100090622758524"
+          },
+          "ocrText": "May be a graphic of 2 people and text that says 'saturation Production Management Supercharged.'"
+        },
+        {
+          "thumbnail": "https://scontent-atl3-2.xx.fbcdn.net/v/t39.30808-6/558827503_762856473411771_6936573065270089298_n.jpg?stp=dst-jpg_s600x600_tt6&_nc_cat=104&ccb=1-7&_nc_sid=aa7b47&_nc_ohc=nUG8f-rTPf8Q7kNvwEqy8uT&_nc_oc=Adl4ivDBk9zAYRWfggShww8MvE8dGxui6mhe_4rV_glYjbxPUEmYGV0mWXyEXXYQ4G8&_nc_zt=23&_nc_ht=scontent-atl3-2.xx&_nc_gid=9KKCtRGO277GWyUmIlfd5w&oh=00_Afck1G6BaNVRR9jUyrqcIwt1lbPCP2V39YQklQ0RK63Wmg&oe=68E7DE0F",
+          "__typename": "Photo",
+          "is_playable": false,
+          "image": {
+            "uri": "https://scontent-atl3-2.xx.fbcdn.net/v/t39.30808-6/558827503_762856473411771_6936573065270089298_n.jpg?stp=dst-jpg_s600x600_tt6&_nc_cat=104&ccb=1-7&_nc_sid=aa7b47&_nc_ohc=nUG8f-rTPf8Q7kNvwEqy8uT&_nc_oc=Adl4ivDBk9zAYRWfggShww8MvE8dGxui6mhe_4rV_glYjbxPUEmYGV0mWXyEXXYQ4G8&_nc_zt=23&_nc_ht=scontent-atl3-2.xx&_nc_gid=9KKCtRGO277GWyUmIlfd5w&oh=00_Afck1G6BaNVRR9jUyrqcIwt1lbPCP2V39YQklQ0RK63Wmg&oe=68E7DE0F",
+            "height": 338,
+            "width": 600
+          },
+          "id": "762856466745105",
+          "__isMedia": "Photo",
+          "photo_cix_screen": null,
+          "copyright_banner_info": null,
+          "owner": {
+            "__typename": "User",
+            "id": "100090622758524"
+          },
+          "ocrText": "May be a graphic of text that says 'Contact Management. Mike MikeStorm Storm CONTRACTOR > Title Email Email Cinemtographer mike@lightemup.com'"
+        }
+      ],
+      "likesCount": 0,
+      "sharesCount": 0,
+      "commentsCount": 0,
+      "topComments": [],
+      "facebookId": "245568709343712",
+      "groupTitle": "LA Actors, Agents, Casting Directors, Producers",
+      "inputUrl": "https://www.facebook.com/groups/245568709343712/",
+      "summary": "👋 Hey Filmmakers! Just wanted to let you know about us if you aren't yet familiar. Saturation helps producers, directors, and production teams in film, TV, commercials, documentaries, and music videos streamline every stage of production. Think budgeting, payments, actualization, and expense tracking - all in one collaborative cloud-based platform.\n\nWe have a demo on our website, and it's also free to join: https://saturation.io/join",
+      "title": "👋 Hey Filmmakers! Just wanted to let you know about us if you aren't yet familiar. Saturation helps producers, directors, and production teams in film, TV, commercials, documentaries, and music videos streamline every stage of production. Think budgeting, payments, actualization, and expense tracking - all in one collaborative cloud-based platform.",
+      "source": "FacebookGroups",
+      "country": "EU",
+      "fetched_at": "2025-10-06T13:22:00.115Z",
+      "importedAt": "2025-10-06T13:22:00.115Z"
+    },
+    {
+      "facebookUrl": "https://www.facebook.com/groups/actorscastinguk/",
+      "url": "https://www.facebook.com/groups/actorscastinguk/",
+      "time": "2025-10-02T21:27:48.000Z",
+      "user": {
+        "id": "100000506795271",
+        "name": "Rob Hutt"
+      },
+      "text": "CASTING CALL — FEMALE LEAD 🎬\n\nBanbury, Oxfordshire | £250 for 2 days + travel considered\n\nWe’re casting for the final scenes of Failsafe, a psychological short film currently in production with a professional crew.\n\nDirected by Rob Hutt — award-winning filmmaker of Time Spent (23 awards, 22 nominations, 8.8 IMDb rating). You can view Rob’s IMDb profile here:\n👉 https://www.imdb.com/name/nm4254248/?ref_=ext_shr_lnk\n\nThis project is already generating festival momentum and will be featured in Pro Movie Maker Magazine.\n\nROLE:\n • Female, playing age 25–35\n • Character: A game designer whose reality begins to fracture, blurring with the world she created. Performance requires range: strength, vulnerability, psychological depth.\n\nDETAILS:\n • £250 for 2 days filming.\n • Shoot will take place across one Saturday & Sunday, back-to-back.\n • Filming must be completed on one of the following weekends:\n • 11–12 October 2025\n • 18–19 October 2025\n • 25–26 October 2025\n • Location: Banbury, Oxfordshire. Reasonable travel costs considered.\n • Short film — to be submitted to national and international film festivals.\n • Professional set with full crew.\n • Self-tape auditions required.\n\n📩 To apply / receive the self-tape brief:\nhttps://www.starnow.com/casting/failsafe-3020838/female-games-designer-5368483/ or DM directly.\n\n✨ This is a chance to be part of a powerful, festival-ready film with proven pedigree.",
+      "textReferences": [
+        {
+          "url": "https://l.facebook.com/l.php?u=https%3A%2F%2Fwww.imdb.com%2Fname%2Fnm4254248%2F%3Fref_%3Dext_shr_lnk&h=AT3ePZx5aF5qq3ir7-8ziaj09mpLGk0s53wb-CH86cgYNgJfIQi3JL1HXya7ri0e3flTUnTPVBLoe4zi0x4LfPRS-HsRwggrpBvUAj_Gd7nV4DltHMw6qslWRKv90lT05zPXNUw6SSy-KlJwjFNwgPHKZbLLg5Lh&s=1",
+          "external_url": "https://www.imdb.com/name/nm4254248/?ref_=ext_shr_lnk",
+          "web_link": {
+            "__typename": "ExternalWebLink",
+            "url": "https://www.imdb.com/name/nm4254248/?ref_=ext_shr_lnk",
+            "fbclid": null,
+            "lynx_mode": "ASYNCLAZY"
+          },
+          "mobileUrl": "https://lm.facebook.com/l.php?u=https%3A%2F%2Fwww.imdb.com%2Fname%2Fnm4254248%2F%3Fref_%3Dext_shr_lnk&h=AT0oKq1q2R3mDOXqfcLr0ByaSFxCGSbpOwo2heJQDh-BFgqb-soyq3BeXLmC_h_kCFkjkfbfchpbmWCA9vlS3HO5TPcihKYvasWZ0Gey9LAH3ZfsdwdG6o06EgJIOOeVsUDA1qOqYrO2km72oo6NnlKg4mVh4syc&s=1",
+          "id": "NjQyMTgzOTU5MjA4MTA3Omh0dHBzXGEvL3d3dy5pbWRiLmNvbS9uYW1lL25tNDI1NDI0OC8/cmVmXGI9ZXh0XGJzaHJcYmxuazo6Ojo6MTkyMzMxMTg4ODI1MTA5MA=="
+        },
+        {
+          "url": "https://l.facebook.com/l.php?u=https%3A%2F%2Fwww.starnow.com%2Fcasting%2Ffailsafe-3020838%2Ffemale-games-designer-5368483%2F&h=AT0jJMf8C9AFR8JfZfw0s21xd_t3ZxPnDPSLKliYu_H0jR0ywrq5A6CjxBCMoBBwXw2B3mJbTDBmX8LYAL_WdSAMyNqtCSa2wd_ttONl9pgTK6Rw9SFjF3R7kitfoiD4_etEkisw8kOis1-C5eT3lZ448A9TzdCo&s=1",
+          "external_url": "https://www.starnow.com/casting/failsafe-3020838/female-games-designer-5368483/",
+          "web_link": {
+            "__typename": "ExternalWebLink",
+            "url": "https://www.starnow.com/casting/failsafe-3020838/female-games-designer-5368483/",
+            "fbclid": null,
+            "lynx_mode": "ASYNCLAZY"
+          },
+          "mobileUrl": "https://lm.facebook.com/l.php?u=https%3A%2F%2Fwww.starnow.com%2Fcasting%2Ffailsafe-3020838%2Ffemale-games-designer-5368483%2F&h=AT0ZVHAAeYVeXJ0ZtuTRwNDof71K02-InXAL2oEjVig5h8LL1WxwzYnI8ebr4awjtQfkrl0jEbabLo-ic5hx1P6zLm64oFg0JYa7-1QpMu2cch04ISKsQSbIV1LULmW9tVzP8ddh81B7gQVSW09jK2LUPsB65AbT&s=1",
+          "id": "NjQyMTgzOTU5MjA4MTA3Omh0dHBzXGEvL3d3dy5zdGFybm93LmNvbS9jYXN0aW5nL2ZhaWxzYWZlLTMwMjA4MzgvZmVtYWxlLWdhbWVzLWRlc2lnbmVyLTUzNjg0ODMvOjo6OjoxOTIzMzExODg4MjUxMDkw"
+        }
+      ],
+      "link": "https://www.imdb.com/name/nm4254248/?ref_=ext_shr_lnk",
+      "topReactionsCount": 2,
+      "feedbackId": "ZmVlZGJhY2s6MTkyMzMxMTg4ODI1MTA5MA==",
+      "reactionLikeCount": 22,
+      "reactionLoveCount": 1,
+      "id": "UzpfSTEwMDAwMDUwNjc5NTI3MTpWSzoxOTIzMzExODg4MjUxMDkw",
+      "legacyId": "1923311888251090",
+      "attachments": [
+        {
+          "thumbnail": "https://scontent.fosu1-1.fna.fbcdn.net/v/t39.30808-6/559299718_25693006933632848_4616189120339103949_n.jpg?stp=dst-jpg_p526x296_tt6&_nc_cat=107&ccb=1-7&_nc_sid=aa7b47&_nc_ohc=-rNOE66YzCMQ7kNvwFfdlTi&_nc_oc=Adm0AvipAnq-gV2BmrNdPnBieb9rkn_6wlA9pIxHA4v_1G8iYSqft4AAFnTI56wC-ZQ&_nc_zt=23&_nc_ht=scontent.fosu1-1.fna&_nc_gid=q0_x2U_uDVrTdhmzKvEGSg&oh=00_Afd-bsBssnwZKz6WZ0gXo0U28-u5-uNxFt-vOiedm2gNKw&oe=68E7DECF",
+          "__typename": "Photo",
+          "photo_image": {
+            "uri": "https://scontent.fosu1-1.fna.fbcdn.net/v/t39.30808-6/559299718_25693006933632848_4616189120339103949_n.jpg?stp=dst-jpg_p526x296_tt6&_nc_cat=107&ccb=1-7&_nc_sid=aa7b47&_nc_ohc=-rNOE66YzCMQ7kNvwFfdlTi&_nc_oc=Adm0AvipAnq-gV2BmrNdPnBieb9rkn_6wlA9pIxHA4v_1G8iYSqft4AAFnTI56wC-ZQ&_nc_zt=23&_nc_ht=scontent.fosu1-1.fna&_nc_gid=q0_x2U_uDVrTdhmzKvEGSg&oh=00_Afd-bsBssnwZKz6WZ0gXo0U28-u5-uNxFt-vOiedm2gNKw&oe=68E7DECF",
+            "height": 789,
+            "width": 526
+          },
+          "__isMedia": "Photo",
+          "accent_color": "FF05060B",
+          "photo_product_tags": [],
+          "url": "https://www.facebook.com/photo.php?fbid=25693006913632850&set=gm.1923311888251090&type=3",
+          "id": "25693006913632850",
+          "ocrText": "May be an image of 1 person and text that says 'CASTING FAILSAFE'"
+        }
+      ],
+      "likesCount": 23,
+      "sharesCount": 1,
+      "commentsCount": 9,
+      "topComments": [
+        {
+          "commentUrl": "https://www.facebook.com/groups/actorscastinguk/permalink/1923311888251090/?comment_id=1923701501545462",
+          "id": "Y29tbWVudDoxOTIzMzExODg4MjUxMDkwXzE5MjM3MDE1MDE1NDU0NjI=",
+          "feedbackId": "ZmVlZGJhY2s6MTkyMzMxMTg4ODI1MTA5MF8xOTIzNzAxNTAxNTQ1NDYy",
+          "date": "2025-10-03T09:00:31.000Z",
+          "text": "Messaged! ☺️",
+          "profilePicture": "https://scontent.fosu1-1.fna.fbcdn.net/v/t39.30808-1/451005599_10229776880399558_6780204466034942175_n.jpg?stp=cp6_dst-jpg_s32x32_tt6&_nc_cat=109&ccb=1-7&_nc_sid=e99d92&_nc_ohc=TyXmaMf4rBcQ7kNvwFsNK4u&_nc_oc=AdmxQZungTy7J2l1b1XmsT25lxD_l09oVchxAeeLguVeVJrxCbF9_pHWt4153Mv1yIU&_nc_zt=24&_nc_ht=scontent.fosu1-1.fna&_nc_gid=q0_x2U_uDVrTdhmzKvEGSg&oh=00_AfeKUjjEbnpmz2cxSsY_mzFx40EXuFwRtN7WgBdQX3zeww&oe=68E7F12E",
+          "profileId": "pfbid02r2vjEydLEeBkALg6VDeWc7v5ar5J7oWoWVjT67PY3ycLcMbd6NKFMJ5LZ9eTzjFZl",
+          "profileName": "Flavia Ferretti",
+          "likesCount": "1",
+          "threadingDepth": 0
+        },
+        {
+          "commentUrl": "https://www.facebook.com/groups/actorscastinguk/permalink/1923311888251090/?comment_id=1923692751546337",
+          "id": "Y29tbWVudDoxOTIzMzExODg4MjUxMDkwXzE5MjM2OTI3NTE1NDYzMzc=",
+          "feedbackId": "ZmVlZGJhY2s6MTkyMzMxMTg4ODI1MTA5MF8xOTIzNjkyNzUxNTQ2MzM3",
+          "date": "2025-10-03T08:46:21.000Z",
+          "text": "Sent you a DM, thanks X",
+          "profilePicture": "https://scontent.fosu1-1.fna.fbcdn.net/v/t39.30808-1/515545777_10161336441647927_5123200224180815833_n.jpg?stp=cp0_dst-jpg_s32x32_tt6&_nc_cat=101&ccb=1-7&_nc_sid=e99d92&_nc_ohc=HvoWlJC8aJQQ7kNvwFkkGmz&_nc_oc=Adk9mvq_nBXQ60IPtCA1UgY9OGIzJ2VFlmL6wmCxtAhGYQVj2o1bQXPP-1zdS090OCU&_nc_zt=24&_nc_ht=scontent.fosu1-1.fna&_nc_gid=q0_x2U_uDVrTdhmzKvEGSg&oh=00_Afd7Tk0mhw7YlkMQSoLf6gH1RlVczvoPfyb3cAXCfFwrbw&oe=68E7D97D",
+          "profileId": "pfbid02bQamcer2fLQKwMTJ7zd1yM3JHyGgSe8Gd7AWfjYo7mffAJ6SFYJYfSNC2omH6i3cl",
+          "profileName": "Jaz Reid",
+          "likesCount": "1",
+          "threadingDepth": 0
+        }
+      ],
+      "facebookId": "590002431582049",
+      "groupTitle": "Casting Calls for Actors UK",
+      "pageAdLibrary": {
+        "is_business_page_active": false,
+        "id": "615093625009867"
+      },
+      "inputUrl": "https://www.facebook.com/groups/actorscastinguk/",
+      "summary": "CASTING CALL — FEMALE LEAD 🎬\n\nBanbury, Oxfordshire | £250 for 2 days + travel considered\n\nWe’re casting for the final scenes of Failsafe, a psychological short film currently in production with a professional crew.\n\nDirected by Rob Hutt — award-winning filmmaker of Time Spent (23 awards, 22 nominations, 8.8 IMDb rating). You can view Rob’s IMDb profile here:\n👉 https://www.imdb.com/name/nm4254248/?ref_=ext_shr_lnk\n\nThis project is already generating festival momentum and will be featured in Pro Movie Maker Magazine.\n\nROLE:\n • Female, playing age 25–35\n • Character: A game designer whose reality begins to fracture, blurring with the world she created. Performance requires range: strength, vulnerability, psychological depth.\n\nDETAILS:\n • £250 for 2 days filming.\n • Shoot will take place across one Saturday & Sunday, back-to-back.\n • Filming must be completed on one of the following weekends:\n • 11–12 October 2025\n • 18–19 October 2025\n • 25–26 October 2025\n • Location: Banbury, Oxfordshire. Reasonable travel costs considered.\n • Short film — to be submitted to national and international film festivals.\n • Professional set with full crew.\n • Self-tape auditions required.\n\n📩 To apply / receive the self-tape brief:\nhttps://www.starnow.com/casting/failsafe-3020838/female-games-designer-5368483/ or DM directly.\n\n✨ This is a chance to be part of a powerful, festival-ready film with proven pedigree.",
+      "title": "CASTING CALL — FEMALE LEAD 🎬",
+      "source": "FacebookGroups",
+      "country": "EU",
+      "fetched_at": "2025-10-06T13:22:00.115Z",
+      "importedAt": "2025-10-06T13:22:00.115Z"
+    },
+    {
+      "facebookUrl": "https://www.facebook.com/groups/actorscastinguk/",
+      "url": "https://www.facebook.com/groups/actorscastinguk/",
+      "time": "2025-10-01T12:48:06.000Z",
+      "user": {
+        "id": "pfbid0EzXc9nYnYgcUGkWbG66vv4J9SZ6TsMHvGSAS46wNV6AFUNNTDTc6i166yM17fDvql",
+        "name": "Georgia Webb"
+      },
+      "text": "🚨 URGENT – SANTAS REQUIRED 🚨\nDue to dropouts, we are urgently recruiting Santas for events across November and December.\n\n💰 Starting from £38 per hour (negotiable if own costume).\n📅 Regular work available throughout the festive period.\n📍 Location - Oxford\n\n✅ Shift Dates & Times\n* Sat, Nov 15 - 8:30 TIL 6:00 \n* Sun, Nov 16 - 9:00 TIL 5:00 \n* Sat, Nov 22 - 8:30 TIL 6:00 \n* Sun, Nov 23 - 9:00 TIL 5:00 \n* Mon, Dec 1 - 8:30 TIL 6:00 \n* Tue, Dec 2 - 8:30 TIL 6:00\n* Wed, Dec 3 - 8:30 TIL 6:00 \n* Thu, Dec 4 - 8:30 TIL 6:00\n* Fri, Dec 5 - 8:30 TIL 6:00 \n* Mon, Dec 8 - 8:30 TIL 6:00 \n* Tue, Dec 9 - 8:30 TIL 6:00 \n* Wed, Dec 10 - 8:30 TIL 6:00 \n* Thu, Dec 11 - 8:30 TIL 6:00 \n* Fri, Dec 12 - 8:30 TIL 6:00 \n* Mon, Dec 15 - 8:30 TIL 6:00 \n* Tue, Dec 16 - 8:30 TIL 6:00 \n* Wed, Dec 17 - 8:30 TIL 6:00 \n* Thu, Dec 18 - 8:30 TIL 6:00 \n* Fri, Dec 19 - 8:30 TIL 6:00 \n* Wed, Dec 24 - 8:30 TIL 6:00 (DOUBLE PAY) \n\n📩 To apply:\nSend your CV, headshot, and any relevant performance footage to: castings@evokeents.com\nSubject line: SANTA OXFORD CHRISTMAS CONTRACT\nTell us a little about why you’d be a great fit & the dates you're interested in working — we’d love to hear from you!",
+      "topReactionsCount": 0,
+      "feedbackId": "ZmVlZGJhY2s6MTkyMjA3NzA1NTA0MTI0MA==",
+      "id": "UzpfSTEwMDAwMDk2MDI1MzMzNzpWSzoxOTIyMDc3MDU1MDQxMjQw",
+      "legacyId": "1922077055041240",
+      "attachments": [
+        {
+          "thumbnail": "https://scontent.fosu1-1.fna.fbcdn.net/v/t39.30808-6/556762044_31455722574043008_7917170776620073108_n.jpg?stp=dst-jpg_p526x296_tt6&_nc_cat=101&ccb=1-7&_nc_sid=aa7b47&_nc_ohc=b1dAPGth7W0Q7kNvwE-YjFo&_nc_oc=AdmAnD1kJQGvZ70qwXsOcWE3treqh5_rm9BfApuLLEDoJUMkARq9e2yHzvHAvQ63YzM&_nc_zt=23&_nc_ht=scontent.fosu1-1.fna&_nc_gid=q0_x2U_uDVrTdhmzKvEGSg&oh=00_AfcqEaOIWdAGXX29DdJUjeN9jAZVUMPFVeivp7BKaHn1FA&oe=68E7F74C",
+          "__typename": "Photo",
+          "photo_image": {
+            "uri": "https://scontent.fosu1-1.fna.fbcdn.net/v/t39.30808-6/556762044_31455722574043008_7917170776620073108_n.jpg?stp=dst-jpg_p526x296_tt6&_nc_cat=101&ccb=1-7&_nc_sid=aa7b47&_nc_ohc=b1dAPGth7W0Q7kNvwE-YjFo&_nc_oc=AdmAnD1kJQGvZ70qwXsOcWE3treqh5_rm9BfApuLLEDoJUMkARq9e2yHzvHAvQ63YzM&_nc_zt=23&_nc_ht=scontent.fosu1-1.fna&_nc_gid=q0_x2U_uDVrTdhmzKvEGSg&oh=00_AfcqEaOIWdAGXX29DdJUjeN9jAZVUMPFVeivp7BKaHn1FA&oe=68E7F74C",
+            "height": 706,
+            "width": 526
+          },
+          "__isMedia": "Photo",
+          "accent_color": "FF604A3C",
+          "photo_product_tags": [],
+          "url": "https://www.facebook.com/photo.php?fbid=31455753340706598&set=gm.1922077055041240&type=3",
+          "id": "31455753340706598",
+          "ocrText": "May be an image of 1 person and the Cotswolds"
+        }
+      ],
+      "likesCount": 0,
+      "sharesCount": 0,
+      "commentsCount": 0,
+      "topComments": [],
+      "facebookId": "590002431582049",
+      "groupTitle": "Casting Calls for Actors UK",
+      "pageAdLibrary": {
+        "is_business_page_active": false,
+        "id": "615093625009867"
+      },
+      "inputUrl": "https://www.facebook.com/groups/actorscastinguk/",
+      "summary": "🚨 URGENT – SANTAS REQUIRED 🚨\nDue to dropouts, we are urgently recruiting Santas for events across November and December.\n\n💰 Starting from £38 per hour (negotiable if own costume).\n📅 Regular work available throughout the festive period.\n📍 Location - Oxford\n\n✅ Shift Dates & Times\n* Sat, Nov 15 - 8:30 TIL 6:00 \n* Sun, Nov 16 - 9:00 TIL 5:00 \n* Sat, Nov 22 - 8:30 TIL 6:00 \n* Sun, Nov 23 - 9:00 TIL 5:00 \n* Mon, Dec 1 - 8:30 TIL 6:00 \n* Tue, Dec 2 - 8:30 TIL 6:00\n* Wed, Dec 3 - 8:30 TIL 6:00 \n* Thu, Dec 4 - 8:30 TIL 6:00\n* Fri, Dec 5 - 8:30 TIL 6:00 \n* Mon, Dec 8 - 8:30 TIL 6:00 \n* Tue, Dec 9 - 8:30 TIL 6:00 \n* Wed, Dec 10 - 8:30 TIL 6:00 \n* Thu, Dec 11 - 8:30 TIL 6:00 \n* Fri, Dec 12 - 8:30 TIL 6:00 \n* Mon, Dec 15 - 8:30 TIL 6:00 \n* Tue, Dec 16 - 8:30 TIL 6:00 \n* Wed, Dec 17 - 8:30 TIL 6:00 \n* Thu, Dec 18 - 8:30 TIL 6:00 \n* Fri, Dec 19 - 8:30 TIL 6:00 \n* Wed, Dec 24 - 8:30 TIL 6:00 (DOUBLE PAY) \n\n📩 To apply:\nSend your CV, headshot, and any relevant performance footage to: castings@evokeents.com\nSubject line: SANTA OXFORD CHRISTMAS CONTRACT\nTell us a little about why you’d be a great fit & the dates you're interested in working — we’d love to hear from you!",
+      "title": "🚨 URGENT – SANTAS REQUIRED 🚨",
+      "source": "FacebookGroups",
+      "country": "EU",
+      "fetched_at": "2025-10-06T13:22:00.115Z",
+      "importedAt": "2025-10-06T13:22:00.115Z"
+    },
+    {
+      "facebookUrl": "https://www.facebook.com/groups/actorscastinguk/",
+      "url": "https://www.facebook.com/groups/actorscastinguk/",
+      "time": "2025-10-01T08:28:11.000Z",
+      "user": {
+        "id": "100069178509607",
+        "name": "Enchanted Events Manchester"
+      },
+      "text": "✨✨**WE ARE HIRING - limited time only**✨✨\n\n**JOIN OUR MAGICAL BOOKS FOR FLEXIBLE WEEKEND AND SEASONAL WORK.**\n\n**Manchester/Greater Manchester UK  **📍\n\nWe're on the hunt for talented performers to bring beloved characters to life at our enchanting events! If you love creating unforgettable experiences and spreading joy, this is the role for YOU!\n\n✨**What’s in it for you?**\nCompetitive pay rates per booking.\nPremium costumes, wigs, and training provided\nA fun, rewarding, and exciting job\nFlexible work around other commitments.\n\n✨**Requirements:**\n\nMust be over 18, based in Manchester/Greater Manchester, have performing and singing experience, have good weekend and seasonal availability, hold a full UK drivers license and have own vehicle\n\n✨**Ready to be part of the magic?**\nApply now with your CV, headshot/showreel and step into a world of excitement, creativity, and wonder.\n\n✨**Apply here: **[enola.enchantedevents@gmail.com](mailto:enola.enchantedevents@gmail.com)\n\nWebsite: [www.enchantedeventsmanchester.com](https://www.enchantedeventsmanchester.com/)\n\nInstagram: [https://www.instagram.com/enchantedeventsmanchester](https://www.instagram.com/enchantedeventsmanchester)",
+      "link": "https://www.instagram.com/enchantedeventsmanchester",
+      "topReactionsCount": 1,
+      "feedbackId": "ZmVlZGJhY2s6MTkyMTM4MTgyODQ0NDA5Ng==",
+      "reactionLikeCount": 1,
+      "id": "UzpfSTEwMDA2OTE3ODUwOTYwNzpWSzoxOTIxMzgxODI4NDQ0MDk2",
+      "legacyId": "1921381828444096",
+      "attachments": [
+        {
+          "thumbnail": "https://scontent.fosu1-1.fna.fbcdn.net/v/t39.30808-6/556540029_1089568320025775_1375329842070720906_n.jpg?stp=dst-jpg_s600x600_tt6&_nc_cat=108&ccb=1-7&_nc_sid=aa7b47&_nc_ohc=if7R-rNk-DsQ7kNvwFpdts0&_nc_oc=AdnGgT-Wa1tMgwlea0t8Ol4T1JOzzbjTBPsnaDU_tXg7hINkJJKhM1kFI2V0nGwaycw&_nc_zt=23&_nc_ht=scontent.fosu1-1.fna&_nc_gid=q0_x2U_uDVrTdhmzKvEGSg&oh=00_AfcYwd5PcKAZ9WcGxQrtaQPnW6OdhQohPrJdzssxuGSl4g&oe=68E7DD32",
+          "__typename": "Photo",
+          "photo_image": {
+            "uri": "https://scontent.fosu1-1.fna.fbcdn.net/v/t39.30808-6/556540029_1089568320025775_1375329842070720906_n.jpg?stp=dst-jpg_s600x600_tt6&_nc_cat=108&ccb=1-7&_nc_sid=aa7b47&_nc_ohc=if7R-rNk-DsQ7kNvwFpdts0&_nc_oc=AdnGgT-Wa1tMgwlea0t8Ol4T1JOzzbjTBPsnaDU_tXg7hINkJJKhM1kFI2V0nGwaycw&_nc_zt=23&_nc_ht=scontent.fosu1-1.fna&_nc_gid=q0_x2U_uDVrTdhmzKvEGSg&oh=00_AfcYwd5PcKAZ9WcGxQrtaQPnW6OdhQohPrJdzssxuGSl4g&oe=68E7DD32",
+            "height": 503,
+            "width": 600
+          },
+          "__isMedia": "Photo",
+          "accent_color": "FFFEFFFF",
+          "photo_product_tags": [],
+          "url": "https://www.facebook.com/photo.php?fbid=1089568316692442&set=gm.1921381828444096&type=3",
+          "id": "1089568316692442",
+          "ocrText": "May be an image of 11 people and text that says 'We Are Hiring! Lkil Will you be crowned our next Royal? We are looking for talented, reliable and passionate performers to bring our characters to life! Must be based in Manchester/Greater Manchester and be over 18 with full drivers license and own vehicle. IMMEDIATE START FOR UPCOMING EVENTS AND THE FESTIVE PERIOD Eeents/ Manchestei สเต'"
+        }
+      ],
+      "likesCount": 1,
+      "sharesCount": 0,
+      "commentsCount": 0,
+      "topComments": [],
+      "facebookId": "590002431582049",
+      "groupTitle": "Casting Calls for Actors UK",
+      "pageAdLibrary": {
+        "is_business_page_active": false,
+        "id": "615093625009867"
+      },
+      "inputUrl": "https://www.facebook.com/groups/actorscastinguk/",
+      "summary": "✨✨**WE ARE HIRING - limited time only**✨✨\n\n**JOIN OUR MAGICAL BOOKS FOR FLEXIBLE WEEKEND AND SEASONAL WORK.**\n\n**Manchester/Greater Manchester UK  **📍\n\nWe're on the hunt for talented performers to bring beloved characters to life at our enchanting events! If you love creating unforgettable experiences and spreading joy, this is the role for YOU!\n\n✨**What’s in it for you?**\nCompetitive pay rates per booking.\nPremium costumes, wigs, and training provided\nA fun, rewarding, and exciting job\nFlexible work around other commitments.\n\n✨**Requirements:**\n\nMust be over 18, based in Manchester/Greater Manchester, have performing and singing experience, have good weekend and seasonal availability, hold a full UK drivers license and have own vehicle\n\n✨**Ready to be part of the magic?**\nApply now with your CV, headshot/showreel and step into a world of excitement, creativity, and wonder.\n\n✨**Apply here: **[enola.enchantedevents@gmail.com](mailto:enola.enchantedevents@gmail.com)\n\nWebsite: [www.enchantedeventsmanchester.com](https://www.enchantedeventsmanchester.com/)\n\nInstagram: [https://www.instagram.com/enchantedeventsmanchester](https://www.instagram.com/enchantedeventsmanchester)",
+      "title": "✨✨**WE ARE HIRING - limited time only**✨✨",
+      "source": "FacebookGroups",
+      "country": "EU",
+      "fetched_at": "2025-10-06T13:22:00.115Z",
+      "importedAt": "2025-10-06T13:22:00.115Z"
+    },
+    {
+      "url": "https://www.facebook.com/groups/Castingogauditions/",
+      "error": "no_items",
+      "errorDescription": "Empty or private data for provided input",
+      "facebookUrl": "https://www.facebook.com/groups/Castingogauditions/",
+      "id": "https://www.facebook.com/groups/Castingogauditions/|",
+      "title": "(no title)",
+      "source": "FacebookGroups",
+      "country": "EU",
+      "fetched_at": "2025-10-06T13:22:00.115Z",
+      "importedAt": "2025-10-06T13:22:00.115Z"
     }
   ]
 }
