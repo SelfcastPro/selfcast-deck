@@ -1,6 +1,309 @@
 {
-  "updatedAt": "2026-04-17T01:19:31.112Z",
+  "updatedAt": "2026-04-17T04:38:40.313Z",
   "items": [
+    {
+      "facebookUrl": "https://www.facebook.com/groups/castingcallsuk/",
+      "url": "https://www.facebook.com/groups/castingcallsuk/",
+      "time": "2026-04-15T23:13:26.000Z",
+      "user": {
+        "id": "pfbid02GDjMyKg96i2kmKbHiswcg98fAid1dvFSn6p8sZtMGMuzxC7AGugBbRJNmbSNCMfSl",
+        "name": "Aphelia Jones"
+      },
+      "text": "Casting Call for Jessie Ware fans!\n\nLink: https://app.kredd.io/contact/bruna-pias-eoeTBZ",
+      "textReferences": [
+        {
+          "url": "https://l.facebook.com/l.php?u=https%3A%2F%2Fapp.kredd.io%2Fcontact%2Fbruna-pias-eoeTBZ&h=AT5-sj058SNKyiXB04gtQhXikFVmMlQa0aznnqDow5uqJBxYWlldcjvrBeRGTmXpGv8ANx8OxLe5B7qMLv9SAJ6ZGc9zdESE7N7DpNUq2ZQqv0XTs2-PuX6rrWEgIFxvwPOoUyG_YzAd54Isr0WqGBwLceL9HKEP&s=1",
+          "external_url": "https://app.kredd.io/contact/bruna-pias-eoeTBZ",
+          "web_link": {
+            "__typename": "ExternalWebLink",
+            "url": "https://app.kredd.io/contact/bruna-pias-eoeTBZ",
+            "fbclid": null,
+            "lynx_mode": "ASYNCLAZY"
+          },
+          "mobileUrl": "https://lm.facebook.com/l.php?u=https%3A%2F%2Fapp.kredd.io%2Fcontact%2Fbruna-pias-eoeTBZ&h=AT7jjc-FY0QqeN2ai3J19QrhtYxY3Xh_Vbt_-LgDd5v7_RSdt3zUekvVRug2N9DUiT7Xy6N8x5Sq27k9kfCkUpoAne_7FieK_al-7KKrAq6_ddpBD2IJgtV48xIL7oh20JkNz6bSMpnL8ljrgGQZfHCRPkNvQgaI&s=1",
+          "id": "NjQyMTgzOTU5MjA4MTA3Omh0dHBzXGEvL2FwcC5rcmVkZC5pby9jb250YWN0L2JydW5hLXBpYXMtZW9lVEJaOjo6OjoxMDE2MzEwNTgwNjM4MjczNA=="
+        }
+      ],
+      "link": "https://app.kredd.io/contact/bruna-pias-eoeTBZ",
+      "topReactionsCount": 1,
+      "feedbackId": "ZmVlZGJhY2s6MTAxNjMxMDU4MDYzODI3MzQ=",
+      "reactionLikeCount": 5,
+      "id": "UzpfSTEwMDAwMDY4NjA3NDc3NTpWSzoxMDE2MzEwNTgwNjM4MjczNA==",
+      "legacyId": "10163105806382734",
+      "attachments": [
+        {
+          "thumbnail": "https://scontent-iad3-1.xx.fbcdn.net/v/t39.30808-6/674227705_27015353271404177_8523493770975230352_n.jpg?stp=cp6_dst-jpg_s640x640_tt6&_nc_cat=104&ccb=1-7&_nc_sid=e06c5d&_nc_ohc=PEsDO75PiS0Q7kNvwGFWpmE&_nc_oc=Adpssrca3syWO1ZwvBsIoiQGg_R1pH10B4Cz3uq42bW6-p8OayCPkuI5Vn0r8u36VqY&_nc_zt=23&_nc_ht=scontent-iad3-1.xx&_nc_gid=xteLYrzPm9cqa3pD5_Q4nw&_nc_ss=7a389&oh=00_Af1SEt7TNymkmlwnO7O2kesgyJH4WX1-P0fbJOtHVpkgUw&oe=69E663EB",
+          "__typename": "Photo",
+          "photo_image": {
+            "uri": "https://scontent-iad3-1.xx.fbcdn.net/v/t39.30808-6/674227705_27015353271404177_8523493770975230352_n.jpg?stp=cp6_dst-jpg_s640x640_tt6&_nc_cat=104&ccb=1-7&_nc_sid=e06c5d&_nc_ohc=PEsDO75PiS0Q7kNvwGFWpmE&_nc_oc=Adpssrca3syWO1ZwvBsIoiQGg_R1pH10B4Cz3uq42bW6-p8OayCPkuI5Vn0r8u36VqY&_nc_zt=23&_nc_ht=scontent-iad3-1.xx&_nc_gid=xteLYrzPm9cqa3pD5_Q4nw&_nc_ss=7a389&oh=00_Af1SEt7TNymkmlwnO7O2kesgyJH4WX1-P0fbJOtHVpkgUw&oe=69E663EB",
+            "height": 640,
+            "width": 511
+          },
+          "__isMedia": "Photo",
+          "accent_color": "FF1A01AE",
+          "photo_product_tags": [],
+          "url": "https://www.facebook.com/photo.php?fbid=27015353254737512&set=gm.10163105806382734&type=3",
+          "id": "27015353254737512",
+          "ocrText": "May be an image of text that says 'CASTING CALL AAA Fak Brought to you you by Broughtoyouby 0 Jessie Ware Fans We are looking for Jessie Ware fans to be part of a fun new YouTube mini series, Access All Areas. Filming on 24th April in London Paid Opportunity Plus a chance to win Jessie Ware tickets To Apply: Register your interest through the link or QR code. Contact ontact:kelsey@studiob.net'"
+        }
+      ],
+      "likesCount": 5,
+      "sharesCount": 1,
+      "commentsCount": 0,
+      "topComments": [],
+      "facebookId": "5076437733",
+      "groupTitle": "Casting Calls UK",
+      "pageAdLibrary": {
+        "is_business_page_active": false,
+        "id": "110971189577820"
+      },
+      "inputUrl": "https://www.facebook.com/groups/castingcallsuk/",
+      "summary": "Casting Call for Jessie Ware fans!\n\nLink: https://app.kredd.io/contact/bruna-pias-eoeTBZ",
+      "title": "Casting Call for Jessie Ware fans!",
+      "source": "FacebookGroups",
+      "country": "EU",
+      "fetched_at": "2026-04-17T04:38:40.311Z",
+      "importedAt": "2026-04-17T04:38:40.311Z"
+    },
+    {
+      "facebookUrl": "https://www.facebook.com/groups/castingcallsuk/",
+      "url": "https://www.facebook.com/groups/castingcallsuk/",
+      "time": "2026-04-15T23:12:03.000Z",
+      "user": {
+        "id": "pfbid02Rc9Jgrfkrr61JMSueQX2UBevBbAB27q8wCiPMdViEAfESXtPQGKrQBAP2mzSGQrnl",
+        "name": "Nina Willment"
+      },
+      "text": "I’m an academic researcher at the University of Nottingham, currently working with the TV Industry Human Rights Forum on a project exploring experiences of child performers in the TV industry.\n\nWe are looking to speak with adult actors who previously worked as child actors for a short online interview (30–60 minutes). These conversations are informal and focus on your experiences, reflections, and any insights you’d be willing to share.\n\nPlease note that this is an unpaid interview, but your contribution will help inform important research around children’s rights and working conditions in the industry.\n\nIf you’d be interested in taking part, or would like more information, feel free to get in touch at amelia.knott@tvhumanrights.org \n\nIt would also be hugely appreciated if you could share this with anyone who might be interested 🙏\n\nThanks!",
+      "topReactionsCount": 0,
+      "feedbackId": "ZmVlZGJhY2s6MTAxNjMxMDY3OTEyMjc3MzQ=",
+      "id": "UzpfSTc1NDQyODY5MjpWSzoxMDE2MzEwNjc5MTIyNzczNA==",
+      "legacyId": "10163106791227734",
+      "likesCount": 0,
+      "sharesCount": 0,
+      "commentsCount": 0,
+      "topComments": [],
+      "facebookId": "5076437733",
+      "groupTitle": "Casting Calls UK",
+      "pageAdLibrary": {
+        "is_business_page_active": false,
+        "id": "110971189577820"
+      },
+      "inputUrl": "https://www.facebook.com/groups/castingcallsuk/",
+      "summary": "I’m an academic researcher at the University of Nottingham, currently working with the TV Industry Human Rights Forum on a project exploring experiences of child performers in the TV industry.\n\nWe are looking to speak with adult actors who previously worked as child actors for a short online interview (30–60 minutes). These conversations are informal and focus on your experiences, reflections, and any insights you’d be willing to share.\n\nPlease note that this is an unpaid interview, but your contribution will help inform important research around children’s rights and working conditions in the industry.\n\nIf you’d be interested in taking part, or would like more information, feel free to get in touch at amelia.knott@tvhumanrights.org \n\nIt would also be hugely appreciated if you could share this with anyone who might be interested 🙏\n\nThanks!",
+      "title": "I’m an academic researcher at the University of Nottingham, currently working with the TV Industry Human Rights Forum on a project exploring experiences of child performers in the TV industry.",
+      "source": "FacebookGroups",
+      "country": "EU",
+      "fetched_at": "2026-04-17T04:38:40.311Z",
+      "importedAt": "2026-04-17T04:38:40.311Z"
+    },
+    {
+      "facebookUrl": "https://www.facebook.com/groups/castingcallsuk/",
+      "url": "https://www.facebook.com/groups/castingcallsuk/",
+      "time": "2026-04-15T16:40:01.000Z",
+      "user": {
+        "id": "pfbid0LY3Nq4RkMS4Pp6cCg5WF155u1bLbJo5FNTJSqNxJHVZsA3qXRvoiNJkAXXf4i1Nxl",
+        "name": "Melissa Kelsall"
+      },
+      "text": "",
+      "textReferences": [
+        {
+          "id": "61568130484458",
+          "url": "https://www.facebook.com/AlessiHartiganUK",
+          "answer_agent_group_id": null,
+          "profile_url": "https://www.facebook.com/AlessiHartiganUK",
+          "short_name": "Alessi Hartigan Casting UK",
+          "work_info": null,
+          "work_foreign_entity_info": null,
+          "is_verified": false,
+          "mobileUrl": "https://m.facebook.com/AlessiHartiganUK/"
+        },
+        {
+          "id": "485807584763838",
+          "url": "https://www.facebook.com/Cardiff-Wales-UK-485807584763838/",
+          "comet_url": "https://www.facebook.com/Cardiff-Wales-UK-485807584763838/",
+          "category_type": "LOCAL",
+          "verification_status": "NOT_VERIFIED",
+          "is_verified": false,
+          "profile_url": "https://www.facebook.com/pages/Cardiff-Wales-UK/485807584763838",
+          "mobileUrl": "https://m.facebook.com/485807584763838/"
+        }
+      ],
+      "link": "https://artists.alessihartigancasting.com/apps/e30058b2-91a4-4565-a6d4-192884f4e329",
+      "topReactionsCount": 1,
+      "feedbackId": "ZmVlZGJhY2s6MTAxNjMxMDcwMDQyNjI3MzQ=",
+      "sharedPost": {
+        "pageName": {
+          "id": "61568130484458",
+          "name": "Alessi Hartigan Casting UK",
+          "profileUrl": "https://www.facebook.com/AlessiHartiganUK",
+          "profilePic": "https://scontent-iad3-1.xx.fbcdn.net/v/t39.30808-1/465782904_122102158016604349_5283313344604256740_n.jpg?stp=cp0_dst-jpg_s40x40_tt6&_nc_cat=104&ccb=1-7&_nc_sid=2d3e12&_nc_ohc=AgEkPLH4hnEQ7kNvwF6Hx7K&_nc_oc=AdpdkCFB3TptzS_twiSZTSV_vj_fm-wx-4IKuUKdcwh8xqno3WJ4QJNvIRbi2p9mhfk&_nc_zt=24&_nc_ht=scontent-iad3-1.xx&_nc_gid=xteLYrzPm9cqa3pD5_Q4nw&_nc_ss=7a389&oh=00_Af0Mbj0gIRsHo14HYsM6AHxQ8uptr4suaoPnamOTNr4aVQ&oe=69E640C0"
+        },
+        "url": "https://www.facebook.com/AlessiHartiganUK/posts/pfbid02Az8MD99n56F3Jk2HaL6BUFzaHaSe6aZv9GsfkNN1mUC3Z4paaM2UeMQXVB4X9c16l",
+        "time": "2026-04-15T13:30:00.000Z",
+        "timestamp": 1776259800,
+        "user": {
+          "id": "61568130484458",
+          "name": "Alessi Hartigan Casting UK",
+          "profileUrl": "https://www.facebook.com/AlessiHartiganUK",
+          "profilePic": "https://scontent-iad3-1.xx.fbcdn.net/v/t39.30808-1/465782904_122102158016604349_5283313344604256740_n.jpg?stp=cp0_dst-jpg_s40x40_tt6&_nc_cat=104&ccb=1-7&_nc_sid=2d3e12&_nc_ohc=AgEkPLH4hnEQ7kNvwF6Hx7K&_nc_oc=AdpdkCFB3TptzS_twiSZTSV_vj_fm-wx-4IKuUKdcwh8xqno3WJ4QJNvIRbi2p9mhfk&_nc_zt=24&_nc_ht=scontent-iad3-1.xx&_nc_gid=xteLYrzPm9cqa3pD5_Q4nw&_nc_ss=7a389&oh=00_Af0Mbj0gIRsHo14HYsM6AHxQ8uptr4suaoPnamOTNr4aVQ&oe=69E640C0"
+        },
+        "text": "🔔CASTING CALL – SUPPORTING ARTISTS (CARDIFF)\n\nWe’re looking for people to play Clubbers for a large HETV show filming in Cardiff 🎬\n\nWe would really love to hear from supporting artists of African and Caribbean heritage, alongside a wide range of diverse faces aged 18–35.\n\nDate: Monday 27th April (est. 12:00 – 23:00)\nLocation: Wolf Studios, Cardiff\nRate: Equity Pact (£4 travel)\n\nSome of you may be required to attend a fitting the week commencing 20th April (also at Wolf Studios).\n\n🔗APPLY HERE: https://artists.alessihartigancasting.com/apps/e30058b2-91a4-4565-a6d4-192884f4e329\n\n#castingcalluk #cardiff #actorsneeded #cardiffevents",
+        "textReferences": [
+          {
+            "id": "61568130484458",
+            "url": "https://www.facebook.com/AlessiHartiganUK",
+            "answer_agent_group_id": null,
+            "profile_url": "https://www.facebook.com/AlessiHartiganUK",
+            "short_name": "Alessi Hartigan Casting UK",
+            "work_info": null,
+            "work_foreign_entity_info": null,
+            "is_verified": false,
+            "mobileUrl": "https://m.facebook.com/AlessiHartiganUK/"
+          },
+          {
+            "id": "485807584763838",
+            "url": "https://www.facebook.com/Cardiff-Wales-UK-485807584763838/",
+            "comet_url": "https://www.facebook.com/Cardiff-Wales-UK-485807584763838/",
+            "category_type": "LOCAL",
+            "verification_status": "NOT_VERIFIED",
+            "is_verified": false,
+            "profile_url": "https://www.facebook.com/pages/Cardiff-Wales-UK/485807584763838",
+            "mobileUrl": "https://m.facebook.com/485807584763838/"
+          }
+        ],
+        "link": "https://artists.alessihartigancasting.com/apps/e30058b2-91a4-4565-a6d4-192884f4e329",
+        "media": [
+          {
+            "thumbnail": "https://scontent-iad6-1.xx.fbcdn.net/v/t51.82787-15/672340297_17920525053327622_7441957316594916919_n.jpg?stp=dst-jpg_s640x640_tt6&_nc_cat=109&ccb=1-7&_nc_sid=13d280&_nc_ohc=kBSfXcfhsXYQ7kNvwFeRiam&_nc_oc=AdqaXpM0Om53xXm4-GmsU-KrzC31czftvSrn9zVrLbh_407Cdu1IyzAw0HFAh_xBRUc&_nc_zt=23&_nc_ht=scontent-iad6-1.xx&_nc_gid=xteLYrzPm9cqa3pD5_Q4nw&_nc_ss=7a389&oh=00_Af34UiquhOTDhc5VaaznyH9_Ja3X0G3gr6Jy8yoMr9llGg&oe=69E63544",
+            "__typename": "Photo",
+            "photo_image": {
+              "uri": "https://scontent-iad6-1.xx.fbcdn.net/v/t51.82787-15/672340297_17920525053327622_7441957316594916919_n.jpg?stp=dst-jpg_s640x640_tt6&_nc_cat=109&ccb=1-7&_nc_sid=13d280&_nc_ohc=kBSfXcfhsXYQ7kNvwFeRiam&_nc_oc=AdqaXpM0Om53xXm4-GmsU-KrzC31czftvSrn9zVrLbh_407Cdu1IyzAw0HFAh_xBRUc&_nc_zt=23&_nc_ht=scontent-iad6-1.xx&_nc_gid=xteLYrzPm9cqa3pD5_Q4nw&_nc_ss=7a389&oh=00_Af34UiquhOTDhc5VaaznyH9_Ja3X0G3gr6Jy8yoMr9llGg&oe=69E63544",
+              "height": 640,
+              "width": 512
+            },
+            "__isMedia": "Photo",
+            "accent_color": "FF6D6D6F",
+            "photo_product_tags": [],
+            "url": "https://www.facebook.com/photo.php?fbid=122203262714604349&set=a.122106349004604349&type=3",
+            "id": "122203262714604349",
+            "ocrText": "May be an image of text that says 'CARDIFF CASTING CALL We are currently casting for Supporting Artists of African and Caribbean heritage Role: Clubbers Date: Monday 27th April (est. 12：00－ -23：00） Location: Wolf Studios, Cardiff Rate: Equity Pact (E4 travel) Please read the caption below for more details. Head to Alessi Hartigan Casting UK to register!'"
+          }
+        ]
+      },
+      "reactionLikeCount": 2,
+      "id": "UzpfSTEwMDAyNTc5MTg1MTIzNjpWSzoxMDE2MzEwNzAwNDI2MjczNA==",
+      "legacyId": "10163107004262734",
+      "likesCount": 2,
+      "sharesCount": 0,
+      "commentsCount": 0,
+      "topComments": [],
+      "facebookId": "5076437733",
+      "groupTitle": "Casting Calls UK",
+      "pageAdLibrary": {
+        "is_business_page_active": false,
+        "id": "110971189577820"
+      },
+      "inputUrl": "https://www.facebook.com/groups/castingcallsuk/",
+      "title": "(no title)",
+      "source": "FacebookGroups",
+      "country": "EU",
+      "fetched_at": "2026-04-17T04:38:40.311Z",
+      "importedAt": "2026-04-17T04:38:40.311Z"
+    },
+    {
+      "facebookUrl": "https://www.facebook.com/groups/kidscasting/",
+      "url": "https://www.facebook.com/groups/kidscasting/",
+      "time": "2026-04-15T12:10:02.000Z",
+      "user": {
+        "id": "649215791",
+        "name": "Amarr Vvora"
+      },
+      "text": "PARSHV MEDIAA \n\nCasting For \n\nDigital Ad for Skincare Brand! \n\n6 Female Models  ( Clear  skin, common faces) \n\nAge - 26 to 35 \n\nShoot Date - 22nd April 2026\n\nShoot Location - Mumbai \n\nBudget - 8k to 10k Including 25% Agency Commission \n\nInterested may WhatsApp us their pics n profile on 9920780134\n\nShortlisted will be notified about further details about the project.\n\nCheers!!\n\nThanks n Regards \n\nAmarr Vvora,Managing Director\n\nKhyati Vora,Joint Managing Director\n\nFb Group: \n\n[https://www.facebook.com/groups/329437364008/](https://www.facebook.com/groups/ParshvMediaa/?__cft__[0]=AZap-GS50d3j5e1Yt1YnbehfNIflKJ8LsdLmmoQ-Ly53JOmpIl9g-RePq3t9JCNR42o7zWs8OSm-vszm2Nj-xkdd5MIjWLFiR5z027GiR1xbTB5MF6dgLf01vaVrGJxcs2zkKM35cEDBQAsdnjml-Dbq2NGBCQOcb5uz0KJi25btgN1YW49yIZqZWRWsUT4ufW23O4hB5TR6GnkVoCBbEjZb&__tn__=-UK-R)\n\nFb Page: \n\n[https://m.facebook.com/parshvmediaa](https://www.facebook.com/parshvmediaa?__cft__[0]=AZap-GS50d3j5e1Yt1YnbehfNIflKJ8LsdLmmoQ-Ly53JOmpIl9g-RePq3t9JCNR42o7zWs8OSm-vszm2Nj-xkdd5MIjWLFiR5z027GiR1xbTB5MF6dgLf01vaVrGJxcs2zkKM35cEDBQAsdnjml-Dbq2NGBCQOcb5uz0KJi25btgN1YW49yIZqZWRWsUT4ufW23O4hB5TR6GnkVoCBbEjZb&__tn__=-]K-R)\n\nInstagram Handle: [https://instagram.com/parshvmediaa?igshid=MTk0NTkyODZkYg==](https://instagram.com/parshvmediaa?igshid=MTk0NTkyODZkYg%3D%3D&fbclid=IwZXh0bgNhZW0CMTAAYnJpZBExNDJLajV6TEFVSHRucEtOOHNydGMGYXBwX2lkEDIyMjAzOTE3ODgyMDA4OTIAAR6CjJ2lJ9U3q2Ugr8PZQLvWfCy852eaXoURai9lddfbvZqJDDK5ITMsS0tcbA_aem_cHDpk4kBN8KktIhWAzADMQ)",
+      "textReferences": [
+        {
+          "id": "329437364008",
+          "url": "https://www.facebook.com/groups/ParshvMediaa/",
+          "profile_url": "https://www.facebook.com/groups/ParshvMediaa/",
+          "work_foreign_entity_info": null,
+          "is_multi_company_group": false,
+          "work_official_status": "UNOFFICIAL",
+          "mobileUrl": "https://m.facebook.com/groups/ParshvMediaa/"
+        },
+        {
+          "id": "329437364008",
+          "url": "https://www.facebook.com/groups/ParshvMediaa/",
+          "profile_url": "https://www.facebook.com/groups/ParshvMediaa/",
+          "work_foreign_entity_info": null,
+          "is_multi_company_group": false,
+          "work_official_status": "UNOFFICIAL",
+          "mobileUrl": "https://m.facebook.com/groups/ParshvMediaa/"
+        },
+        {
+          "id": "100064098729186",
+          "url": "https://www.facebook.com/parshvmediaa",
+          "answer_agent_group_id": null,
+          "profile_url": "https://www.facebook.com/parshvmediaa",
+          "short_name": "Parshv Mediaa",
+          "work_info": null,
+          "work_foreign_entity_info": null,
+          "is_verified": false,
+          "mobileUrl": "https://m.facebook.com/parshvmediaa/"
+        },
+        {
+          "id": "100064098729186",
+          "url": "https://www.facebook.com/parshvmediaa",
+          "answer_agent_group_id": null,
+          "profile_url": "https://www.facebook.com/parshvmediaa",
+          "short_name": "Parshv Mediaa",
+          "work_info": null,
+          "work_foreign_entity_info": null,
+          "is_verified": false,
+          "mobileUrl": "https://m.facebook.com/parshvmediaa/"
+        },
+        {
+          "url": "https://l.facebook.com/l.php?u=https%3A%2F%2Finstagram.com%2Fparshvmediaa%3Figshid%3DMTk0NTkyODZkYg%253D%253D&h=AT6Qjhk2E1n3A6cKmIE7PRCnOk9I8KfoymrC71U9opVq49BhlqNz8yxKcgEs1RkIkRHo_wWuJ4fwZkpKRcc4Rf2J0_972FxaUR032BoO7gwy4U7firNAvdC47S-1p5FSyhNv6XE7hblkI3VmeSfilCok-RWA3iKc&s=1",
+          "external_url": "https://instagram.com/parshvmediaa?igshid=MTk0NTkyODZkYg%3D%3D",
+          "web_link": {
+            "__typename": "ExternalWebLink",
+            "url": "https://instagram.com/parshvmediaa?igshid=MTk0NTkyODZkYg%3D%3D",
+            "fbclid": null,
+            "lynx_mode": "ASYNCLAZY"
+          },
+          "mobileUrl": "https://lm.facebook.com/l.php?u=https%3A%2F%2Finstagram.com%2Fparshvmediaa%3Figshid%3DMTk0NTkyODZkYg%253D%253D&h=AT61nRtQjY4qSF7SO3qwXl_y3dkIVwDkb74S6tkoGNOb4NYTiGYGrUuK-GulAx5h9DY1rSvRwubsEz_9QyweprLJF5HSSXBhzWIZEOqGYqV9-klw2s2o4Re9OMqpDJ-_k9asc48wmQZqk4ObnC45aiOGHEdFlbVI&s=1",
+          "id": "NjQyMTgzOTU5MjA4MTA3Omh0dHBzXGEvL2luc3RhZ3JhbS5jb20vcGFyc2h2bWVkaWFhP2lnc2hpZD1NVGswTlRreU9EWmtZZyUzRCUzRDo6Ojo6MzkwMTU3OTc5OTk3MTk1OQ=="
+        },
+        {
+          "url": "https://l.facebook.com/l.php?u=https%3A%2F%2Finstagram.com%2Fparshvmediaa%3Figshid%3DMTk0NTkyODZkYg%253D%253D%26fbclid%3DIwZXh0bgNhZW0CMTAAYnJpZBExNDJLajV6TEFVSHRucEtOOHNydGMGYXBwX2lkEDIyMjAzOTE3ODgyMDA4OTIAAR6CjJ2lJ9U3q2Ugr8PZQLvWfCy852eaXoURai9lddfbvZqJDDK5ITMsS0tcbA_aem_cHDpk4kBN8KktIhWAzADMQ&h=AT4z93pRbl3Z2vtS_VCkY7Q7gj8J3jBpfkHRRqDQYE7y6ZcnemaxMrD_QCe2BU30IqsvnEwBCndXU261jzzu_-nne3SAZcu4AuMYg-g9ANbfrEpQJRAB-6I2VzqWSXneK4_8UB5iF1yxSgrHA4c8ouYOkCRX5vRs&s=1",
+          "external_url": "https://instagram.com/parshvmediaa?igshid=MTk0NTkyODZkYg%3D%3D&fbclid=IwZXh0bgNhZW0CMTAAYnJpZBExNDJLajV6TEFVSHRucEtOOHNydGMGYXBwX2lkEDIyMjAzOTE3ODgyMDA4OTIAAR6CjJ2lJ9U3q2Ugr8PZQLvWfCy852eaXoURai9lddfbvZqJDDK5ITMsS0tcbA_aem_cHDpk4kBN8KktIhWAzADMQ",
+          "web_link": {
+            "__typename": "ExternalWebLink",
+            "url": "https://instagram.com/parshvmediaa?igshid=MTk0NTkyODZkYg%3D%3D&fbclid=IwZXh0bgNhZW0CMTAAYnJpZBExNDJLajV6TEFVSHRucEtOOHNydGMGYXBwX2lkEDIyMjAzOTE3ODgyMDA4OTIAAR6CjJ2lJ9U3q2Ugr8PZQLvWfCy852eaXoURai9lddfbvZqJDDK5ITMsS0tcbA_aem_cHDpk4kBN8KktIhWAzADMQ",
+            "fbclid": null,
+            "lynx_mode": "ASYNCLAZY"
+          },
+          "mobileUrl": "https://lm.facebook.com/l.php?u=https%3A%2F%2Finstagram.com%2Fparshvmediaa%3Figshid%3DMTk0NTkyODZkYg%253D%253D%26fbclid%3DIwZXh0bgNhZW0CMTAAYnJpZBExNDJLajV6TEFVSHRucEtOOHNydGMGYXBwX2lkEDIyMjAzOTE3ODgyMDA4OTIAAR6CjJ2lJ9U3q2Ugr8PZQLvWfCy852eaXoURai9lddfbvZqJDDK5ITMsS0tcbA_aem_cHDpk4kBN8KktIhWAzADMQ&h=AT7Ad2dK70a3Vg7DAtY5yzmB9vupBimyttEGf0CJg3TEjlWafLoKL6TrN8cbU090EgM7sDtSySLBBiwX9a0CNXq0huSbqyC9JUeS7QBGuIYA1avP8PUftfsGIvUw8_kOVz51Yj2kYCNXcJeKNmBNHHB5V-wh7aTZ&s=1",
+          "id": "NjQyMTgzOTU5MjA4MTA3Omh0dHBzXGEvL2luc3RhZ3JhbS5jb20vcGFyc2h2bWVkaWFhP2lnc2hpZD1NVGswTlRreU9EWmtZZyUzRCUzRCZmYmNsaWQ9SXdaWGgwYmdOaFpXMENNVEFBWW5KcFpCRXhOREpMYWpWNlRFRlZTSFJ1Y0V0T09ITnlkR01HWVhCd1gybGtFREl5TWpBek9URTNPRGd5TURBNE9USUFBUjZDakoybEo5VTNxMlVncjhQWlFMdldmQ3k4NTJlYVhvVVJhaTlsZGRmYnZacUpEREs1SVRNc1MwdGNiQVxiYWVtXGJjSERwazRrQk44S2t0SWhXQXpBRE1ROjo6OjozOTAxNTc5Nzk5OTcxOTU5"
+        }
+      ],
+      "link": "https://instagram.com/parshvmediaa?igshid=MTk0NTkyODZkYg%3D%3D",
+      "topReactionsCount": 0,
+      "feedbackId": "ZmVlZGJhY2s6MzkwMTU3OTc5OTk3MTk1OQ==",
+      "id": "UzpfSTY0OTIxNTc5MTpWSzozOTAxNTc5Nzk5OTcxOTU5",
+      "legacyId": "3901579799971959",
+      "likesCount": 0,
+      "sharesCount": 0,
+      "commentsCount": 0,
+      "topComments": [],
+      "facebookId": "624761564320482",
+      "groupTitle": "KIDS CASTING CALL!",
+      "inputUrl": "https://www.facebook.com/groups/kidscasting/",
+      "summary": "PARSHV MEDIAA \n\nCasting For \n\nDigital Ad for Skincare Brand! \n\n6 Female Models  ( Clear  skin, common faces) \n\nAge - 26 to 35 \n\nShoot Date - 22nd April 2026\n\nShoot Location - Mumbai \n\nBudget - 8k to 10k Including 25% Agency Commission \n\nInterested may WhatsApp us their pics n profile on 9920780134\n\nShortlisted will be notified about further details about the project.\n\nCheers!!\n\nThanks n Regards \n\nAmarr Vvora,Managing Director\n\nKhyati Vora,Joint Managing Director\n\nFb Group: \n\n[https://www.facebook.com/groups/329437364008/](https://www.facebook.com/groups/ParshvMediaa/?__cft__[0]=AZap-GS50d3j5e1Yt1YnbehfNIflKJ8LsdLmmoQ-Ly53JOmpIl9g-RePq3t9JCNR42o7zWs8OSm-vszm2Nj-xkdd5MIjWLFiR5z027GiR1xbTB5MF6dgLf01vaVrGJxcs2zkKM35cEDBQAsdnjml-Dbq2NGBCQOcb5uz0KJi25btgN1YW49yIZqZWRWsUT4ufW23O4hB5TR6GnkVoCBbEjZb&__tn__=-UK-R)\n\nFb Page: \n\n[https://m.facebook.com/parshvmediaa](https://www.facebook.com/parshvmediaa?__cft__[0]=AZap-GS50d3j5e1Yt1YnbehfNIflKJ8LsdLmmoQ-Ly53JOmpIl9g-RePq3t9JCNR42o7zWs8OSm-vszm2Nj-xkdd5MIjWLFiR5z027GiR1xbTB5MF6dgLf01vaVrGJxcs2zkKM35cEDBQAsdnjml-Dbq2NGBCQOcb5uz0KJi25btgN1YW49yIZqZWRWsUT4ufW23O4hB5TR6GnkVoCBbEjZb&__tn__=-]K-R)\n\nInstagram Handle: [https://instagram.com/parshvmediaa?igshid=MTk0NTkyODZkYg==](https://instagram.com/parshvmediaa?igshid=MTk0NTkyODZkYg%3D%3D&fbclid=IwZXh0bgNhZW0CMTAAYnJpZBExNDJLajV6TEFVSHRucEtOOHNydGMGYXBwX2lkEDIyMjAzOTE3ODgyMDA4OTIAAR6CjJ2lJ9U3q2Ugr8PZQLvWfCy852eaXoURai9lddfbvZqJDDK5ITMsS0tcbA_aem_cHDpk4kBN8KktIhWAzADMQ)",
+      "title": "PARSHV MEDIAA ",
+      "source": "FacebookGroups",
+      "country": "EU",
+      "fetched_at": "2026-04-17T04:38:40.311Z",
+      "importedAt": "2026-04-17T04:38:40.311Z"
+    },
     {
       "facebookUrl": "https://www.facebook.com/groups/kidscasting/",
       "url": "https://www.facebook.com/groups/kidscasting/",
@@ -98,8 +401,8 @@
       "title": "Excellent work ",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.109Z",
-      "importedAt": "2026-04-17T01:19:31.109Z"
+      "fetched_at": "2026-04-17T04:38:40.311Z",
+      "importedAt": "2026-04-17T04:38:40.311Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/kidscasting/",
@@ -142,8 +445,8 @@
       "title": "This amazing photographer lost his entire IG page through no fault of his own . 8 years of hard work and artistic expression 😥. He’s an excellent  photographer who does lots of brand work in Europe and remote shoots  anywhere in the world. Andre lives in Europe I’ve used him for Emperor five times in different parts of the world and his work is always stunning and under $200 . Check out his IG page and follow him. He’s doing a remote photoshoot raffle for the next 100 of 1 thousand followers .",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.109Z",
-      "importedAt": "2026-04-17T01:19:31.109Z"
+      "fetched_at": "2026-04-17T04:38:40.311Z",
+      "importedAt": "2026-04-17T04:38:40.311Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/southafricancastings/",
@@ -262,8 +565,8 @@
       "title": "(no title)",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.109Z",
-      "importedAt": "2026-04-17T01:19:31.109Z"
+      "fetched_at": "2026-04-17T04:38:40.311Z",
+      "importedAt": "2026-04-17T04:38:40.311Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/southafricancastings/",
@@ -373,8 +676,8 @@
       "title": "If you know of anyone that fits this brief, please share!",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.109Z",
-      "importedAt": "2026-04-17T01:19:31.109Z"
+      "fetched_at": "2026-04-17T04:38:40.311Z",
+      "importedAt": "2026-04-17T04:38:40.311Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/southafricancastings/",
@@ -421,8 +724,8 @@
       "title": "(no title)",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.109Z",
-      "importedAt": "2026-04-17T01:19:31.109Z"
+      "fetched_at": "2026-04-17T04:38:40.311Z",
+      "importedAt": "2026-04-17T04:38:40.311Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/1466427976939831/",
@@ -694,8 +997,8 @@
       "title": "(no title)",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.109Z",
-      "importedAt": "2026-04-17T01:19:31.109Z"
+      "fetched_at": "2026-04-17T04:38:40.311Z",
+      "importedAt": "2026-04-17T04:38:40.311Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/1466427976939831/",
@@ -975,8 +1278,8 @@
       "title": "(no title)",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.109Z",
-      "importedAt": "2026-04-17T01:19:31.109Z"
+      "fetched_at": "2026-04-17T04:38:40.311Z",
+      "importedAt": "2026-04-17T04:38:40.311Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/1466427976939831/",
@@ -1266,8 +1569,8 @@
       "title": "(no title)",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.109Z",
-      "importedAt": "2026-04-17T01:19:31.109Z"
+      "fetched_at": "2026-04-17T04:38:40.311Z",
+      "importedAt": "2026-04-17T04:38:40.311Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/197808410600313/",
@@ -1381,8 +1684,8 @@
       "title": "ŁÓDŹ/ POSZUKIWANI STATYŚCI i EPIZODYŚCI",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.109Z",
-      "importedAt": "2026-04-17T01:19:31.109Z"
+      "fetched_at": "2026-04-17T04:38:40.311Z",
+      "importedAt": "2026-04-17T04:38:40.311Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/197808410600313/",
@@ -1458,8 +1761,8 @@
       "title": "Cześć do etiudy teatralno-filmowej, zaliczeniowej na AST we Wrocławiu, zaliczenie w formie filmu nagrywanego w Warszawie poszukiwani aktorzy i operator DOP do pomocy: ",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.109Z",
-      "importedAt": "2026-04-17T01:19:31.109Z"
+      "fetched_at": "2026-04-17T04:38:40.311Z",
+      "importedAt": "2026-04-17T04:38:40.311Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/197808410600313/",
@@ -1507,8 +1810,8 @@
       "title": "WROCŁAW.(non profit) Poszukiwani aktorzy do",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.109Z",
-      "importedAt": "2026-04-17T01:19:31.109Z"
+      "fetched_at": "2026-04-17T04:38:40.311Z",
+      "importedAt": "2026-04-17T04:38:40.311Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/458581204199753/",
@@ -1552,8 +1855,8 @@
       "title": "Musiker Suche",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.109Z",
-      "importedAt": "2026-04-17T01:19:31.109Z"
+      "fetched_at": "2026-04-17T04:38:40.311Z",
+      "importedAt": "2026-04-17T04:38:40.311Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/458581204199753/",
@@ -1823,8 +2126,8 @@
       "title": "Stunt-Trained Actress Kirstin Weiser actionactress casting video ",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.109Z",
-      "importedAt": "2026-04-17T01:19:31.109Z"
+      "fetched_at": "2026-04-17T04:38:40.311Z",
+      "importedAt": "2026-04-17T04:38:40.311Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/458581204199753/",
@@ -1910,8 +2213,8 @@
       "title": "Ralf Scharrer und ich, wenn Erfahrung sichtbar wird - Wo Bühne, Buch, Kamera und Verantwortung einander begegnen ",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.109Z",
-      "importedAt": "2026-04-17T01:19:31.109Z"
+      "fetched_at": "2026-04-17T04:38:40.311Z",
+      "importedAt": "2026-04-17T04:38:40.311Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/Galinascasting/",
@@ -1967,8 +2270,8 @@
       "title": "\"Mechanic\" for Short Film (20-30y/o)",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.109Z",
-      "importedAt": "2026-04-17T01:19:31.109Z"
+      "fetched_at": "2026-04-17T04:38:40.311Z",
+      "importedAt": "2026-04-17T04:38:40.311Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/177674932617561/",
@@ -2236,8 +2539,8 @@
       "title": "(no title)",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.109Z",
-      "importedAt": "2026-04-17T01:19:31.109Z"
+      "fetched_at": "2026-04-17T04:38:40.311Z",
+      "importedAt": "2026-04-17T04:38:40.311Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/177674932617561/",
@@ -2301,8 +2604,8 @@
       "summary": "VQ THE FASHION QUEEN COMMYNITY\nOPEN SPACE FOR ALL CREATIVES\nTFP SHOOTS PAID GIGS\nDAILY FASHION UPDATES\nONGOING COLLABS\nJOIN MY WHATSAPP GROUP \n\nhttps://chat.whatsapp.com/LrNHfWy6pZcCTxNOHDT7WB?mode=gi_t",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.109Z",
-      "importedAt": "2026-04-17T01:19:31.109Z"
+      "fetched_at": "2026-04-17T04:38:40.311Z",
+      "importedAt": "2026-04-17T04:38:40.311Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/177674932617561/",
@@ -2584,8 +2887,8 @@
       "title": "Hiring: Tiktok Dancer ",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.109Z",
-      "importedAt": "2026-04-17T01:19:31.109Z"
+      "fetched_at": "2026-04-17T04:38:40.311Z",
+      "importedAt": "2026-04-17T04:38:40.311Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/185209480407950/",
@@ -2649,8 +2952,8 @@
       "title": "(no title)",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.109Z",
-      "importedAt": "2026-04-17T01:19:31.109Z"
+      "fetched_at": "2026-04-17T04:38:40.311Z",
+      "importedAt": "2026-04-17T04:38:40.311Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/185209480407950/",
@@ -2753,8 +3056,8 @@
       "title": "We’re so excited for our Acting for Screen Workshop, which is now fully booked and starting tomorrow!",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.109Z",
-      "importedAt": "2026-04-17T01:19:31.109Z"
+      "fetched_at": "2026-04-17T04:38:40.311Z",
+      "importedAt": "2026-04-17T04:38:40.311Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/185209480407950/",
@@ -2813,8 +3116,8 @@
       "title": "Hi everyone , bit of a random query ~  I have signed up to Entertainment partners as apparently this can help with connecting with an Agency. I'm fine with putting all my other details in but parents are hesistant for me to put personal things in such as passport info - is this a safe and legitimate site which could genuinely help me ?? Has anyone used this ??",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.109Z",
-      "importedAt": "2026-04-17T01:19:31.109Z"
+      "fetched_at": "2026-04-17T04:38:40.311Z",
+      "importedAt": "2026-04-17T04:38:40.311Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/245568709343712/",
@@ -2869,8 +3172,8 @@
       "title": "Looking for a 40+ woman to come to Formosa Cafe tomorrow, 04.14.2026 to act for an hour maximum, shooting from 5am-12pm there. She would have one line only and an action is sitting at the restaurant with her husband as someone comes up to meet them, please message me🙏🏼",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.109Z",
-      "importedAt": "2026-04-17T01:19:31.109Z"
+      "fetched_at": "2026-04-17T04:38:40.311Z",
+      "importedAt": "2026-04-17T04:38:40.311Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/245568709343712/",
@@ -2914,8 +3217,8 @@
       "title": "**Casting: LA area locals.  ****Seeking families and friends to be contestants on a fun, family friendly game show.  **",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.109Z",
-      "importedAt": "2026-04-17T01:19:31.109Z"
+      "fetched_at": "2026-04-17T04:38:40.311Z",
+      "importedAt": "2026-04-17T04:38:40.311Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/245568709343712/",
@@ -3106,8 +3409,8 @@
       "title": "(no title)",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.109Z",
-      "importedAt": "2026-04-17T01:19:31.109Z"
+      "fetched_at": "2026-04-17T04:38:40.311Z",
+      "importedAt": "2026-04-17T04:38:40.311Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/actorscastinguk/",
@@ -3138,8 +3441,8 @@
       "title": "**CALL FOR VOICES: Immigrant Actors in the UK**",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.109Z",
-      "importedAt": "2026-04-17T01:19:31.109Z"
+      "fetched_at": "2026-04-17T04:38:40.311Z",
+      "importedAt": "2026-04-17T04:38:40.311Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/actorscastinguk/",
@@ -3281,8 +3584,8 @@
       "title": "Hi my name is Chloe and I’m 14 yrs old. I have done many professional stage shows and I have been given the opportunity to do some short films. I would love to advance my portfolio by landing some TV and film. Thank you for your time.",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.109Z",
-      "importedAt": "2026-04-17T01:19:31.109Z"
+      "fetched_at": "2026-04-17T04:38:40.311Z",
+      "importedAt": "2026-04-17T04:38:40.311Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/actorscastinguk/",
@@ -3393,8 +3696,8 @@
       "title": "Hello, ",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.109Z",
-      "importedAt": "2026-04-17T01:19:31.109Z"
+      "fetched_at": "2026-04-17T04:38:40.311Z",
+      "importedAt": "2026-04-17T04:38:40.311Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/actorsactors/",
@@ -3683,8 +3986,8 @@
       "title": "History isn’t coming… it’s already in motion.",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.109Z",
-      "importedAt": "2026-04-17T01:19:31.109Z"
+      "fetched_at": "2026-04-17T04:38:40.311Z",
+      "importedAt": "2026-04-17T04:38:40.311Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/actorsactors/",
@@ -3890,8 +4193,8 @@
       "title": "Casting Now!! Call 📞 216-474-3072",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.109Z",
-      "importedAt": "2026-04-17T01:19:31.109Z"
+      "fetched_at": "2026-04-17T04:38:40.311Z",
+      "importedAt": "2026-04-17T04:38:40.311Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/actorsactors/",
@@ -3938,8 +4241,8 @@
       "title": "Day 2 On The Set !!!",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.109Z",
-      "importedAt": "2026-04-17T01:19:31.109Z"
+      "fetched_at": "2026-04-17T04:38:40.311Z",
+      "importedAt": "2026-04-17T04:38:40.311Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/2139111006302938/",
@@ -4168,8 +4471,8 @@
       "title": "(no title)",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.109Z",
-      "importedAt": "2026-04-17T01:19:31.109Z"
+      "fetched_at": "2026-04-17T04:38:40.311Z",
+      "importedAt": "2026-04-17T04:38:40.311Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/2139111006302938/",
@@ -4214,8 +4517,8 @@
       "title": "Introducing K.A Global© an Award Winning Production House and a innovative Creative Powerhouse, proudly established in the UK, operating at the forefront of the Entertainment Industry since 2020.",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.109Z",
-      "importedAt": "2026-04-17T01:19:31.109Z"
+      "fetched_at": "2026-04-17T04:38:40.311Z",
+      "importedAt": "2026-04-17T04:38:40.311Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/2139111006302938/",
@@ -4258,8 +4561,8 @@
       "title": "(no title)",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.109Z",
-      "importedAt": "2026-04-17T01:19:31.109Z"
+      "fetched_at": "2026-04-17T04:38:40.311Z",
+      "importedAt": "2026-04-17T04:38:40.311Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/1308251035953941/",
@@ -4384,8 +4687,8 @@
       "title": "(no title)",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.109Z",
-      "importedAt": "2026-04-17T01:19:31.109Z"
+      "fetched_at": "2026-04-17T04:38:40.311Z",
+      "importedAt": "2026-04-17T04:38:40.311Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/actorsnetworking/",
@@ -4411,8 +4714,8 @@
       "title": "🎬 CASTING CALL – SHORT FILM London (PAID / EXPENSES COVERED) 🇮🇪",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.109Z",
-      "importedAt": "2026-04-17T01:19:31.109Z"
+      "fetched_at": "2026-04-17T04:38:40.311Z",
+      "importedAt": "2026-04-17T04:38:40.311Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/actorsnetworking/",
@@ -4641,8 +4944,8 @@
       "title": "(no title)",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.109Z",
-      "importedAt": "2026-04-17T01:19:31.109Z"
+      "fetched_at": "2026-04-17T04:38:40.311Z",
+      "importedAt": "2026-04-17T04:38:40.311Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/actorsnetworking/",
@@ -4748,8 +5051,8 @@
       "title": "Google: Rambo Stephen Chang ",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.109Z",
-      "importedAt": "2026-04-17T01:19:31.109Z"
+      "fetched_at": "2026-04-17T04:38:40.311Z",
+      "importedAt": "2026-04-17T04:38:40.311Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/castingcallsuk/",
@@ -4795,8 +5098,8 @@
       "title": "(no title)",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.109Z",
-      "importedAt": "2026-04-17T01:19:31.109Z"
+      "fetched_at": "2026-04-17T04:38:40.311Z",
+      "importedAt": "2026-04-17T04:38:40.311Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/castingcallsuk/",
@@ -4843,8 +5146,8 @@
       "title": "(no title)",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.109Z",
-      "importedAt": "2026-04-17T01:19:31.109Z"
+      "fetched_at": "2026-04-17T04:38:40.311Z",
+      "importedAt": "2026-04-17T04:38:40.311Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/castingcallsuk/",
@@ -4984,8 +5287,8 @@
       "title": "(no title)",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.109Z",
-      "importedAt": "2026-04-17T01:19:31.109Z"
+      "fetched_at": "2026-04-17T04:38:40.311Z",
+      "importedAt": "2026-04-17T04:38:40.311Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/172426936281052/",
@@ -5118,8 +5421,8 @@
       "title": "‼️ Casting do Notre Dame de Paris!",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.109Z",
-      "importedAt": "2026-04-17T01:19:31.109Z"
+      "fetched_at": "2026-04-17T04:38:40.311Z",
+      "importedAt": "2026-04-17T04:38:40.311Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/172426936281052/",
@@ -5146,8 +5449,8 @@
       "title": "CASTING DLA FANÓW KULINARIÓW 🍽️ 🧚🏻‍♀️",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.109Z",
-      "importedAt": "2026-04-17T01:19:31.109Z"
+      "fetched_at": "2026-04-17T04:38:40.311Z",
+      "importedAt": "2026-04-17T04:38:40.311Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/172426936281052/",
@@ -5173,8 +5476,8 @@
       "title": "WARSZAWA 16 KWIETNIA ‼️",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.109Z",
-      "importedAt": "2026-04-17T01:19:31.109Z"
+      "fetched_at": "2026-04-17T04:38:40.311Z",
+      "importedAt": "2026-04-17T04:38:40.311Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/1295231977298952/",
@@ -5246,8 +5549,8 @@
       "summary": "Enkle trin til at dyrke ingefær i en potte derhjemme  Se den første kommentar",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.109Z",
-      "importedAt": "2026-04-17T01:19:31.109Z"
+      "fetched_at": "2026-04-17T04:38:40.311Z",
+      "importedAt": "2026-04-17T04:38:40.311Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/1295231977298952/",
@@ -5336,8 +5639,8 @@
       "title": "Nul kulhydrater! Du kan spise så meget, du vil, og det hjælper dig med at tørre ud! Lækkert uden mel, nemt og hurtigt. Jeg sendte til dem, der sendte Hej",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.109Z",
-      "importedAt": "2026-04-17T01:19:31.109Z"
+      "fetched_at": "2026-04-17T04:38:40.311Z",
+      "importedAt": "2026-04-17T04:38:40.311Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/1295231977298952/",
@@ -5408,8 +5711,8 @@
       "summary": "Ingredienser til avocado-æggesalat: Avocadoer, kogte æg, tomater, rødløgFuld opskrift i første omgang",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.109Z",
-      "importedAt": "2026-04-17T01:19:31.109Z"
+      "fetched_at": "2026-04-17T04:38:40.311Z",
+      "importedAt": "2026-04-17T04:38:40.311Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/kidscasting/",
@@ -5435,8 +5738,8 @@
       "title": "Calling all kids and teens nag hahanap po kami ng mga batang nangangarap maging model at artista age 2 to 19 years old we are partner at tv network just pm in my inbox",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.109Z",
-      "importedAt": "2026-04-17T01:19:31.109Z"
+      "fetched_at": "2026-04-17T04:38:40.311Z",
+      "importedAt": "2026-04-17T04:38:40.311Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/kidscasting/",
@@ -5555,8 +5858,8 @@
       "title": "My daughter is mild on the autism spectrum but I’d love for her to get into acting or modeling! When she is In the mood for pictures she is just the cutest little model! I know it’ll probably be hard but just wanted to get this out there incase anyone has a similar experience! We are NYC based",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.109Z",
-      "importedAt": "2026-04-17T01:19:31.109Z"
+      "fetched_at": "2026-04-17T04:38:40.311Z",
+      "importedAt": "2026-04-17T04:38:40.311Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/kidscasting/",
@@ -5606,8 +5909,8 @@
       "summary": "Found an amazing camp/intensive to send my kids to and just wanted to share. They are doing some info sessions this week and next week. \n\n",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.109Z",
-      "importedAt": "2026-04-17T01:19:31.109Z"
+      "fetched_at": "2026-04-17T04:38:40.311Z",
+      "importedAt": "2026-04-17T04:38:40.311Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/southafricancastings/",
@@ -5735,8 +6038,8 @@
       "title": "(no title)",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.109Z",
-      "importedAt": "2026-04-17T01:19:31.109Z"
+      "fetched_at": "2026-04-17T04:38:40.311Z",
+      "importedAt": "2026-04-17T04:38:40.311Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/185209480407950/",
@@ -5783,8 +6086,8 @@
       "title": "(no title)",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.109Z",
-      "importedAt": "2026-04-17T01:19:31.109Z"
+      "fetched_at": "2026-04-17T04:38:40.311Z",
+      "importedAt": "2026-04-17T04:38:40.311Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/185209480407950/",
@@ -5932,8 +6235,8 @@
       "title": "ACTOR HEADSHOTS - SALFORD / GREATER MANCHESTER 📸 ",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.109Z",
-      "importedAt": "2026-04-17T01:19:31.109Z"
+      "fetched_at": "2026-04-17T04:38:40.311Z",
+      "importedAt": "2026-04-17T04:38:40.311Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/185209480407950/",
@@ -6043,8 +6346,183 @@
       "title": "(no title)",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.109Z",
-      "importedAt": "2026-04-17T01:19:31.109Z"
+      "fetched_at": "2026-04-17T04:38:40.311Z",
+      "importedAt": "2026-04-17T04:38:40.311Z"
+    },
+    {
+      "facebookUrl": "https://www.facebook.com/groups/allactorsonfacebook/",
+      "url": "https://www.facebook.com/groups/allactorsonfacebook/",
+      "time": "2026-04-10T14:20:05.000Z",
+      "user": {
+        "id": "100002966899232",
+        "name": "Jeff Seymour"
+      },
+      "text": "GIVE THESE PEOPLE A BREAK, WILL YA?\nMeet the cast of my upcoming feature, Scenes of a Certain Nature. Your GoFundMe donation, no matter how small will help make this dream a reality for these very talented actors.\nhttps://gofund.me/8a626bcdf",
+      "textReferences": [
+        {
+          "url": "https://l.facebook.com/l.php?u=https%3A%2F%2Fgofund.me%2F8a626bcdf&h=AT4HTcmm61tmcIpxxkS4mcR8PWq1NLHLJwmXTYgo5t05rZVCV8zsTZaNaDasOahmlBpR4UJpGcoygTNf6FeeBtVnn1CFdwr3Uh8HoTazQs3NyS2Z0plgUAAymWQN7EFNalBkWs2EuTwUZYDyRi_ZEQZrWv5abcXI&s=1",
+          "external_url": "https://gofund.me/8a626bcdf",
+          "web_link": {
+            "__typename": "ExternalWebLink",
+            "url": "https://gofund.me/8a626bcdf",
+            "fbclid": null,
+            "lynx_mode": "ASYNCLAZY"
+          },
+          "mobileUrl": "https://lm.facebook.com/l.php?u=https%3A%2F%2Fgofund.me%2F8a626bcdf&h=AT5zXAmJljCJHuD1Tr-iEVVEAQ6O5qoiqOF7AaA50Dh9VFA0k53WOoxzch6eq6SpmbGaeS1l6CZlr30HNNrvS-LecGCaoKJuT1kkifc43LrXxbWO5TPw3EYIVK8rA49TwbEKXApglOaFg1C4_KxzfGxyFvoy5De7&s=1",
+          "id": "NjQyMTgzOTU5MjA4MTA3Omh0dHBzXGEvL2dvZnVuZC5tZS84YTYyNmJjZGY6Ojo6OjEwMTY0NDIwMTIyMzA1MTU1"
+        }
+      ],
+      "link": "https://gofund.me/8a626bcdf",
+      "topReactionsCount": 1,
+      "feedbackId": "ZmVlZGJhY2s6MTAxNjQ0MjAxMjIzMDUxNTU=",
+      "reactionLikeCount": 3,
+      "id": "UzpfSTEwMDAwMjk2Njg5OTIzMjpWSzoxMDE2NDQyMDEyMjMwNTE1NQ==",
+      "legacyId": "10164420122305155",
+      "title": "The Diary of a Manic OCD Bookseller",
+      "attachments": [
+        {
+          "mediaset_token": "pcb.10164420122305155",
+          "url": "https://www.facebook.com/media/set/?set=pcb.10164420122305155&type=1",
+          "comet_product_tag_feed_overlay_renderer": null
+        },
+        {
+          "thumbnail": "https://scontent-sea5-1.xx.fbcdn.net/v/t39.30808-6/668165342_26356248140724057_8857709248445850628_n.jpg?stp=cp6_dst-jpg_s590x590_tt6&_nc_cat=103&ccb=1-7&_nc_sid=e06c5d&_nc_ohc=P4BZPRM9Df4Q7kNvwFbcokr&_nc_oc=Adp7c5dpFwN7OR8g6-b1daBtcpSoMeA1jP5odp0fv_KFLdxV9BC63CN0YlIwoPRn4bw&_nc_zt=23&_nc_ht=scontent-sea5-1.xx&_nc_gid=NGf2T1QLqy_ebW2YN-neAA&_nc_ss=7a389&oh=00_Af2ycvD2tCiyDfNHWIIWoqw_xc0IYHVgDjDdc7otNEMW_A&oe=69E661D4",
+          "__typename": "Photo",
+          "is_playable": false,
+          "image": {
+            "uri": "https://scontent-sea5-1.xx.fbcdn.net/v/t39.30808-6/668165342_26356248140724057_8857709248445850628_n.jpg?stp=cp6_dst-jpg_s590x590_tt6&_nc_cat=103&ccb=1-7&_nc_sid=e06c5d&_nc_ohc=P4BZPRM9Df4Q7kNvwFbcokr&_nc_oc=Adp7c5dpFwN7OR8g6-b1daBtcpSoMeA1jP5odp0fv_KFLdxV9BC63CN0YlIwoPRn4bw&_nc_zt=23&_nc_ht=scontent-sea5-1.xx&_nc_gid=NGf2T1QLqy_ebW2YN-neAA&_nc_ss=7a389&oh=00_Af2ycvD2tCiyDfNHWIIWoqw_xc0IYHVgDjDdc7otNEMW_A&oe=69E661D4",
+            "height": 590,
+            "width": 389
+          },
+          "id": "26364439866571551",
+          "__isMedia": "Photo",
+          "photo_cix_screen": null,
+          "copyright_banner_info": null,
+          "owner": {
+            "__typename": "User",
+            "id": "100002966899232"
+          },
+          "ocrText": "May be an image of one or more people"
+        },
+        {
+          "thumbnail": "https://scontent-sea5-1.xx.fbcdn.net/v/t39.30808-6/667801836_26356249264057278_2903956992421837719_n.jpg?stp=dst-jpg_s590x590_tt6&_nc_cat=110&ccb=1-7&_nc_sid=e06c5d&_nc_ohc=TRgL8_V2qt0Q7kNvwH1MqvE&_nc_oc=Adotq2ZpYgmYrtWzWD8LMp9D-3BaxzX5sB2R6lOR8Rd5vuYU3qbEYupYI4cEsUdw8ms&_nc_zt=23&_nc_ht=scontent-sea5-1.xx&_nc_gid=NGf2T1QLqy_ebW2YN-neAA&_nc_ss=7a389&oh=00_Af10kdT5bwkvbMwJey5jadBOnKg9u_sPvnYn-LabJw8P4g&oe=69E654C1",
+          "__typename": "Photo",
+          "is_playable": false,
+          "image": {
+            "uri": "https://scontent-sea5-1.xx.fbcdn.net/v/t39.30808-6/667801836_26356249264057278_2903956992421837719_n.jpg?stp=dst-jpg_s590x590_tt6&_nc_cat=110&ccb=1-7&_nc_sid=e06c5d&_nc_ohc=TRgL8_V2qt0Q7kNvwH1MqvE&_nc_oc=Adotq2ZpYgmYrtWzWD8LMp9D-3BaxzX5sB2R6lOR8Rd5vuYU3qbEYupYI4cEsUdw8ms&_nc_zt=23&_nc_ht=scontent-sea5-1.xx&_nc_gid=NGf2T1QLqy_ebW2YN-neAA&_nc_ss=7a389&oh=00_Af10kdT5bwkvbMwJey5jadBOnKg9u_sPvnYn-LabJw8P4g&oe=69E654C1",
+            "height": 590,
+            "width": 472
+          },
+          "id": "26364439889904882",
+          "__isMedia": "Photo",
+          "photo_cix_screen": null,
+          "copyright_banner_info": null,
+          "owner": {
+            "__typename": "User",
+            "id": "100002966899232"
+          },
+          "ocrText": "May be an image of one or more people, blonde hair and braids"
+        },
+        {
+          "thumbnail": "https://scontent-sea1-1.xx.fbcdn.net/v/t39.30808-6/668512930_26356250717390466_7150075463302189461_n.jpg?stp=dst-jpg_s590x590_tt6&_nc_cat=104&ccb=1-7&_nc_sid=e06c5d&_nc_ohc=b3PLBP7E-tcQ7kNvwEDe3IT&_nc_oc=AdrH191OCE6dbHseIt1ntUxZfn-nwXuhhY7s523oJ1uSdawqrG7EpYqfHn2r4n7dlP8&_nc_zt=23&_nc_ht=scontent-sea1-1.xx&_nc_gid=NGf2T1QLqy_ebW2YN-neAA&_nc_ss=7a389&oh=00_Af1gVShwxiIpIATZJwgKeA6ejhrl_JCxcapL9PPFpXkkGg&oe=69E63737",
+          "__typename": "Photo",
+          "is_playable": false,
+          "image": {
+            "uri": "https://scontent-sea1-1.xx.fbcdn.net/v/t39.30808-6/668512930_26356250717390466_7150075463302189461_n.jpg?stp=dst-jpg_s590x590_tt6&_nc_cat=104&ccb=1-7&_nc_sid=e06c5d&_nc_ohc=b3PLBP7E-tcQ7kNvwEDe3IT&_nc_oc=AdrH191OCE6dbHseIt1ntUxZfn-nwXuhhY7s523oJ1uSdawqrG7EpYqfHn2r4n7dlP8&_nc_zt=23&_nc_ht=scontent-sea1-1.xx&_nc_gid=NGf2T1QLqy_ebW2YN-neAA&_nc_ss=7a389&oh=00_Af1gVShwxiIpIATZJwgKeA6ejhrl_JCxcapL9PPFpXkkGg&oe=69E63737",
+            "height": 590,
+            "width": 393
+          },
+          "id": "26364439903238214",
+          "__isMedia": "Photo",
+          "photo_cix_screen": null,
+          "copyright_banner_info": null,
+          "owner": {
+            "__typename": "User",
+            "id": "100002966899232"
+          },
+          "ocrText": "May be an image of one or more people"
+        },
+        {
+          "thumbnail": "https://scontent-sea5-1.xx.fbcdn.net/v/t39.30808-6/663234997_26356252110723660_8689000460010253145_n.jpg?stp=cp6_dst-jpg_s590x590_tt6&_nc_cat=103&ccb=1-7&_nc_sid=e06c5d&_nc_ohc=GjTdHyqkJ4cQ7kNvwF2Jcyt&_nc_oc=AdpX1zbopdYC3VcgGIhlh53FdJHE6EOlY6L6w0sniH2dqGUbQKVs4KIhMBytzicAnyY&_nc_zt=23&_nc_ht=scontent-sea5-1.xx&_nc_gid=NGf2T1QLqy_ebW2YN-neAA&_nc_ss=7a389&oh=00_Af3AwnJgI5oQ0jZCD2VfFY4AxoNmUAPVC18wp4NVSf6Qjg&oe=69E631B2",
+          "__typename": "Photo",
+          "is_playable": false,
+          "image": {
+            "uri": "https://scontent-sea5-1.xx.fbcdn.net/v/t39.30808-6/663234997_26356252110723660_8689000460010253145_n.jpg?stp=cp6_dst-jpg_s590x590_tt6&_nc_cat=103&ccb=1-7&_nc_sid=e06c5d&_nc_ohc=GjTdHyqkJ4cQ7kNvwF2Jcyt&_nc_oc=AdpX1zbopdYC3VcgGIhlh53FdJHE6EOlY6L6w0sniH2dqGUbQKVs4KIhMBytzicAnyY&_nc_zt=23&_nc_ht=scontent-sea5-1.xx&_nc_gid=NGf2T1QLqy_ebW2YN-neAA&_nc_ss=7a389&oh=00_Af3AwnJgI5oQ0jZCD2VfFY4AxoNmUAPVC18wp4NVSf6Qjg&oe=69E631B2",
+            "height": 590,
+            "width": 393
+          },
+          "id": "26364439869904884",
+          "__isMedia": "Photo",
+          "photo_cix_screen": null,
+          "copyright_banner_info": null,
+          "owner": {
+            "__typename": "User",
+            "id": "100002966899232"
+          },
+          "ocrText": "No photo description available."
+        },
+        {
+          "thumbnail": "https://scontent-sea5-1.xx.fbcdn.net/v/t39.30808-6/669675084_26356253490723522_7172467205701110926_n.jpg?stp=dst-jpg_p417x417_tt6&_nc_cat=103&ccb=1-7&_nc_sid=e06c5d&_nc_ohc=6WxIWvUm7nwQ7kNvwE1J2EX&_nc_oc=Adr00tMpwMD3CyIOJC8SMY5AryZe86sFCHhAGeOrdOHc2VpBQXkuAnUqBKGT1vw6iTY&_nc_zt=23&_nc_ht=scontent-sea5-1.xx&_nc_gid=NGf2T1QLqy_ebW2YN-neAA&_nc_ss=7a389&oh=00_Af1Itm-QzuQzrxGPhoXZKeASu_SjQR7JXeqy5m-cV3U2ig&oe=69E63587",
+          "__typename": "Photo",
+          "is_playable": false,
+          "image": {
+            "uri": "https://scontent-sea5-1.xx.fbcdn.net/v/t39.30808-6/669675084_26356253490723522_7172467205701110926_n.jpg?stp=dst-jpg_p417x417_tt6&_nc_cat=103&ccb=1-7&_nc_sid=e06c5d&_nc_ohc=6WxIWvUm7nwQ7kNvwE1J2EX&_nc_oc=Adr00tMpwMD3CyIOJC8SMY5AryZe86sFCHhAGeOrdOHc2VpBQXkuAnUqBKGT1vw6iTY&_nc_zt=23&_nc_ht=scontent-sea5-1.xx&_nc_gid=NGf2T1QLqy_ebW2YN-neAA&_nc_ss=7a389&oh=00_Af1Itm-QzuQzrxGPhoXZKeASu_SjQR7JXeqy5m-cV3U2ig&oe=69E63587",
+            "height": 584,
+            "width": 417
+          },
+          "id": "26364439883238216",
+          "__isMedia": "Photo",
+          "photo_cix_screen": null,
+          "copyright_banner_info": null,
+          "owner": {
+            "__typename": "User",
+            "id": "100002966899232"
+          },
+          "ocrText": "May be an image of one or more people"
+        }
+      ],
+      "likesCount": 3,
+      "sharesCount": 0,
+      "commentsCount": 1,
+      "topComments": [
+        {
+          "commentUrl": "https://www.facebook.com/groups/allactorsonfacebook/permalink/10164420122305155/?comment_id=10164422112990155",
+          "commentId": "10164422112990155",
+          "id": "Y29tbWVudDoxMDE2NDQyMDEyMjMwNTE1NV8xMDE2NDQyMjExMjk5MDE1NQ==",
+          "feedbackId": "ZmVlZGJhY2s6MTAxNjQ0MjAxMjIzMDUxNTVfMTAxNjQ0MjIxMTI5OTAxNTU=",
+          "date": "2026-04-10T23:29:20.000Z",
+          "text": "Good stuff if you get a chance check out my book I'm working on getting the movie version going let me know.      https://a.co/d/00A1o3pt",
+          "attachments": [
+            {
+              "__typename": "GenericAttachmentMedia",
+              "fallback_image": {
+                "height": 98,
+                "uri": "https://external-sea1-1.xx.fbcdn.net/emg1/v/t13/12609074988071034495?url=https%3A%2F%2Fm.media-amazon.com%2Fimages%2FI%2F71FRUk8oBgL.jpg_BO30%2C255%2C255%2C255_UF750%2C750_SR1910%2C1000%2C0%2CC_QL100_.jpg&fb_obo=1&utld=media-amazon.com&stp=c0.5000x0.5000f_dst-emg0_p98x98_q75_tt6&_nc_gid=NGf2T1QLqy_ebW2YN-neAA&_nc_oc=Adr_1y9rQ3l1uwYIjt1Cz1ntm7Buk0pKM189vNPbU_7AEY6RfyuIH8FxUz6abRqwPCc&ccb=13-1&oh=06_Q3--AYGXkzkX3sMUFvXIMlKmALQyRYWjleVVpZrmRVV5Rah-&oe=69E2526F&_nc_sid=085657",
+                "width": 98
+              },
+              "is_playable": false,
+              "id": "35938954845703973"
+            }
+          ],
+          "profilePicture": "https://scontent-sea5-1.xx.fbcdn.net/v/t39.30808-1/387042069_25130627933203439_3909574456592731020_n.jpg?stp=cp0_dst-jpg_s32x32_tt6&_nc_cat=105&ccb=1-7&_nc_sid=1d2534&_nc_ohc=0bLl70dj4XcQ7kNvwHN5sFy&_nc_oc=AdrVyflKNA3ThtFyXMIUWZP6LUwOe6H5DlceqM7CbHxzGUNeNQuPfNNT5540Yc9NPV8&_nc_zt=24&_nc_ht=scontent-sea5-1.xx&_nc_gid=NGf2T1QLqy_ebW2YN-neAA&_nc_ss=7a389&oh=00_Af30EqNYp027jY-wOsPwWkGqWySx1S5MuGQdt7tnAESM8A&oe=69E651D0",
+          "profileId": "100000487357424",
+          "profileName": "James Bailey",
+          "likesCount": "0",
+          "threadingDepth": 0
+        }
+      ],
+      "facebookId": "2728905154",
+      "groupTitle": "All Actors on Facebook.",
+      "pageAdLibrary": {
+        "is_business_page_active": false,
+        "id": "682052748331968"
+      },
+      "inputUrl": "https://www.facebook.com/groups/allactorsonfacebook/",
+      "summary": "GIVE THESE PEOPLE A BREAK, WILL YA?\nMeet the cast of my upcoming feature, Scenes of a Certain Nature. Your GoFundMe donation, no matter how small will help make this dream a reality for these very talented actors.\nhttps://gofund.me/8a626bcdf",
+      "source": "FacebookGroups",
+      "country": "EU",
+      "fetched_at": "2026-04-17T04:38:40.310Z",
+      "importedAt": "2026-04-17T04:38:40.310Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/allactorsonfacebook/",
@@ -6118,8 +6596,8 @@
       "title": "Want to polish or learn an RP or American accent!? ",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.108Z",
-      "importedAt": "2026-04-17T01:19:31.108Z"
+      "fetched_at": "2026-04-17T04:38:40.310Z",
+      "importedAt": "2026-04-17T04:38:40.310Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/allactorsonfacebook/",
@@ -6166,8 +6644,8 @@
       "title": "Es gibt noch sechs Plätze für den Juni Workshop ☺️",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.108Z",
-      "importedAt": "2026-04-17T01:19:31.108Z"
+      "fetched_at": "2026-04-17T04:38:40.310Z",
+      "importedAt": "2026-04-17T04:38:40.310Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/197808410600313/",
@@ -6228,8 +6706,8 @@
       "title": "Głowna rola męska poszukiwana- casting do filmu📽️🎬",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.108Z",
-      "importedAt": "2026-04-17T01:19:31.108Z"
+      "fetched_at": "2026-04-17T04:38:40.310Z",
+      "importedAt": "2026-04-17T04:38:40.310Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/197808410600313/",
@@ -6381,8 +6859,8 @@
       "title": "‼️ Casting do Notre Dame de Paris!",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.108Z",
-      "importedAt": "2026-04-17T01:19:31.108Z"
+      "fetched_at": "2026-04-17T04:38:40.310Z",
+      "importedAt": "2026-04-17T04:38:40.310Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/197808410600313/",
@@ -6413,8 +6891,8 @@
       "title": "🎬 Cześć Warszawa! 🌿",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.108Z",
-      "importedAt": "2026-04-17T01:19:31.108Z"
+      "fetched_at": "2026-04-17T04:38:40.310Z",
+      "importedAt": "2026-04-17T04:38:40.310Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/245568709343712/",
@@ -6441,8 +6919,8 @@
       "title": "[LA CASTING CALL]",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.108Z",
-      "importedAt": "2026-04-17T01:19:31.108Z"
+      "fetched_at": "2026-04-17T04:38:40.310Z",
+      "importedAt": "2026-04-17T04:38:40.310Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/245568709343712/",
@@ -6487,8 +6965,8 @@
       "title": "The A-Z Commercial Class is happening next week and spots are filling up 🚨",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.108Z",
-      "importedAt": "2026-04-17T01:19:31.108Z"
+      "fetched_at": "2026-04-17T04:38:40.310Z",
+      "importedAt": "2026-04-17T04:38:40.310Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/245568709343712/",
@@ -6532,8 +7010,8 @@
       "title": "Happy Happy Birthday to my heart's love, Isabella 🩷. I fall in love with you more every single day ✨ May this next lap around the sun bring even more peace, joy,",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.108Z",
-      "importedAt": "2026-04-17T01:19:31.108Z"
+      "fetched_at": "2026-04-17T04:38:40.310Z",
+      "importedAt": "2026-04-17T04:38:40.310Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/actorsactors/",
@@ -6563,8 +7041,8 @@
       "title": "Hvis i har brug for en Dansker så er jeg klar😊👍",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.108Z",
-      "importedAt": "2026-04-17T01:19:31.108Z"
+      "fetched_at": "2026-04-17T04:38:40.310Z",
+      "importedAt": "2026-04-17T04:38:40.310Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/actorsactors/",
@@ -7660,8 +8138,8 @@
       "title": "Let's welcome our new members!",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.108Z",
-      "importedAt": "2026-04-17T01:19:31.108Z"
+      "fetched_at": "2026-04-17T04:38:40.310Z",
+      "importedAt": "2026-04-17T04:38:40.310Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/actorsactors/",
@@ -7739,8 +8217,8 @@
       "title": "I’m a character actor with 40 years of stage experience transitioning more into film and voice work. I enjoy working in grounded,  story-driven projects and collaborating with filmmakers to discover the character that best serves the story. I live Oregon and Available to travel. ",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.108Z",
-      "importedAt": "2026-04-17T01:19:31.108Z"
+      "fetched_at": "2026-04-17T04:38:40.310Z",
+      "importedAt": "2026-04-17T04:38:40.310Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/2139111006302938/",
@@ -8002,8 +8480,8 @@
       "title": "Please support my channel by subscribing and sharing.If you enjoy my content, don’t forget to subscribe.Your subscription means a lot and motivates me to do better.Kindly subscribe to my channel for more interesting content.Thank you for watching—subscribe to stay connected.",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.108Z",
-      "importedAt": "2026-04-17T01:19:31.108Z"
+      "fetched_at": "2026-04-17T04:38:40.310Z",
+      "importedAt": "2026-04-17T04:38:40.310Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/2139111006302938/",
@@ -8064,8 +8542,8 @@
       "title": "My IMDB & Spotlight profile has been updated with new headshots and additions to my acting showreel... take a look. ",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.108Z",
-      "importedAt": "2026-04-17T01:19:31.108Z"
+      "fetched_at": "2026-04-17T04:38:40.310Z",
+      "importedAt": "2026-04-17T04:38:40.310Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/2139111006302938/",
@@ -8123,8 +8601,8 @@
       "title": "Talent needed for London based shoot - Wednesday 22nd April",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.108Z",
-      "importedAt": "2026-04-17T01:19:31.108Z"
+      "fetched_at": "2026-04-17T04:38:40.310Z",
+      "importedAt": "2026-04-17T04:38:40.310Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/1295231977298952/",
@@ -8195,8 +8673,8 @@
       "summary": "En måde at lave lækre, sprøde pommes frites uden olie\nfuld opskrift",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.108Z",
-      "importedAt": "2026-04-17T01:19:31.108Z"
+      "fetched_at": "2026-04-17T04:38:40.310Z",
+      "importedAt": "2026-04-17T04:38:40.310Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/1295231977298952/",
@@ -8267,8 +8745,8 @@
       "summary": "Må udtrykke noget for at blive ved med at få mine opskrifter.... Tak. Opskrift i første (C.O.M.M.E.N.T).",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.108Z",
-      "importedAt": "2026-04-17T01:19:31.108Z"
+      "fetched_at": "2026-04-17T04:38:40.310Z",
+      "importedAt": "2026-04-17T04:38:40.310Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/1295231977298952/",
@@ -8311,8 +8789,8 @@
       "title": "Korte og iørefaldende Disse er uden tvivl mine mest efterspurgte småkager! Jeg bager mindst 400 hver jul, og de er væk på ingen tid. Nemme at lave, fyldt med smag og altid en publikumsfavorit.",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.108Z",
-      "importedAt": "2026-04-17T01:19:31.108Z"
+      "fetched_at": "2026-04-17T04:38:40.310Z",
+      "importedAt": "2026-04-17T04:38:40.310Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/1308251035953941/",
@@ -8375,8 +8853,8 @@
       "title": "**CASTING CALL – PAID NON-UNION COMMERCIAL - Vancouver/Hope BC **",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.108Z",
-      "importedAt": "2026-04-17T01:19:31.108Z"
+      "fetched_at": "2026-04-17T04:38:40.310Z",
+      "importedAt": "2026-04-17T04:38:40.310Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/1308251035953941/",
@@ -8436,8 +8914,8 @@
       "title": "VANCOUVER/HOPE - CASTING CALL – PAID COMMERCIAL SHOOT",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.108Z",
-      "importedAt": "2026-04-17T01:19:31.108Z"
+      "fetched_at": "2026-04-17T04:38:40.310Z",
+      "importedAt": "2026-04-17T04:38:40.310Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/1308251035953941/",
@@ -8498,8 +8976,8 @@
       "title": "**Casting Call: Female Actors (20-30) – Sisters**",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.108Z",
-      "importedAt": "2026-04-17T01:19:31.108Z"
+      "fetched_at": "2026-04-17T04:38:40.310Z",
+      "importedAt": "2026-04-17T04:38:40.310Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/actorsnetworking/",
@@ -8585,8 +9063,8 @@
       "title": "Join our next 12-week Screen Acting Course - Professional Actors Workshop.",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.108Z",
-      "importedAt": "2026-04-17T01:19:31.108Z"
+      "fetched_at": "2026-04-17T04:38:40.310Z",
+      "importedAt": "2026-04-17T04:38:40.310Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/actorsnetworking/",
@@ -8903,8 +9381,8 @@
       "title": "What are you watching tonight? 👀",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.108Z",
-      "importedAt": "2026-04-17T01:19:31.108Z"
+      "fetched_at": "2026-04-17T04:38:40.310Z",
+      "importedAt": "2026-04-17T04:38:40.310Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/actorsnetworking/",
@@ -8962,8 +9440,8 @@
       "title": "https://youtu.be/3m597hMqMRI?feature=shared",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.108Z",
-      "importedAt": "2026-04-17T01:19:31.108Z"
+      "fetched_at": "2026-04-17T04:38:40.310Z",
+      "importedAt": "2026-04-17T04:38:40.310Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/172426936281052/",
@@ -8989,8 +9467,8 @@
       "title": "Cześć bardzo chciałbym wystąpić jako statysta w jakimś serialu, mieszkam we Wrocławiu, w ogóle jetsem Włochem, może lepiej powiedzieć pół polakiem, pół wloch, mieszkam od peaie 6 lat we Wrocławiu.",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.108Z",
-      "importedAt": "2026-04-17T01:19:31.108Z"
+      "fetched_at": "2026-04-17T04:38:40.310Z",
+      "importedAt": "2026-04-17T04:38:40.310Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/172426936281052/",
@@ -9081,8 +9559,8 @@
       "title": "Cenisz dobrą zabawę?",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.108Z",
-      "importedAt": "2026-04-17T01:19:31.108Z"
+      "fetched_at": "2026-04-17T04:38:40.310Z",
+      "importedAt": "2026-04-17T04:38:40.310Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/172426936281052/",
@@ -9156,311 +9634,216 @@
       "title": "Warszawa ",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.108Z",
-      "importedAt": "2026-04-17T01:19:31.108Z"
+      "fetched_at": "2026-04-17T04:38:40.310Z",
+      "importedAt": "2026-04-17T04:38:40.310Z"
     },
     {
-      "facebookUrl": "https://www.facebook.com/groups/castingcallsuk/",
-      "url": "https://www.facebook.com/groups/castingcallsuk/",
-      "time": "2026-04-15T23:13:26.000Z",
+      "facebookUrl": "https://www.facebook.com/groups/actorsactors/",
+      "url": "https://www.facebook.com/groups/actorsactors/",
+      "time": "2026-04-16T02:06:06.000Z",
       "user": {
-        "id": "pfbid02GDjMyKg96i2kmKbHiswcg98fAid1dvFSn6p8sZtMGMuzxC7AGugBbRJNmbSNCMfSl",
-        "name": "Aphelia Jones"
+        "id": "100078755692289",
+        "name": "Eric Aello"
       },
-      "text": "Casting Call for Jessie Ware fans!\n\nLink: https://app.kredd.io/contact/bruna-pias-eoeTBZ",
-      "textReferences": [
-        {
-          "url": "https://l.facebook.com/l.php?u=https%3A%2F%2Fapp.kredd.io%2Fcontact%2Fbruna-pias-eoeTBZ&h=AT5-sj058SNKyiXB04gtQhXikFVmMlQa0aznnqDow5uqJBxYWlldcjvrBeRGTmXpGv8ANx8OxLe5B7qMLv9SAJ6ZGc9zdESE7N7DpNUq2ZQqv0XTs2-PuX6rrWEgIFxvwPOoUyG_YzAd54Isr0WqGBwLceL9HKEP&s=1",
-          "external_url": "https://app.kredd.io/contact/bruna-pias-eoeTBZ",
-          "web_link": {
-            "__typename": "ExternalWebLink",
-            "url": "https://app.kredd.io/contact/bruna-pias-eoeTBZ",
-            "fbclid": null,
-            "lynx_mode": "ASYNCLAZY"
-          },
-          "mobileUrl": "https://lm.facebook.com/l.php?u=https%3A%2F%2Fapp.kredd.io%2Fcontact%2Fbruna-pias-eoeTBZ&h=AT7jjc-FY0QqeN2ai3J19QrhtYxY3Xh_Vbt_-LgDd5v7_RSdt3zUekvVRug2N9DUiT7Xy6N8x5Sq27k9kfCkUpoAne_7FieK_al-7KKrAq6_ddpBD2IJgtV48xIL7oh20JkNz6bSMpnL8ljrgGQZfHCRPkNvQgaI&s=1",
-          "id": "NjQyMTgzOTU5MjA4MTA3Omh0dHBzXGEvL2FwcC5rcmVkZC5pby9jb250YWN0L2JydW5hLXBpYXMtZW9lVEJaOjo6OjoxMDE2MzEwNTgwNjM4MjczNA=="
-        }
-      ],
-      "link": "https://app.kredd.io/contact/bruna-pias-eoeTBZ",
+      "text": "I don't know anything about the industry, but if you need a weird guy in the background eating tacos, just let me know! 😂",
       "topReactionsCount": 1,
-      "feedbackId": "ZmVlZGJhY2s6MTAxNjMxMDU4MDYzODI3MzQ=",
-      "reactionLikeCount": 5,
-      "id": "UzpfSTEwMDAwMDY4NjA3NDc3NTpWSzoxMDE2MzEwNTgwNjM4MjczNA==",
-      "legacyId": "10163105806382734",
+      "feedbackId": "ZmVlZGJhY2s6MjYzNjE4NTYxMTM1MDgzNjc=",
+      "reactionLikeCount": 3,
+      "id": "UzpfSTEwMDA3ODc1NTY5MjI4OTpWSzoyNjM2MTg1NjExMzUwODM2Nw==",
+      "legacyId": "26361856113508367",
       "attachments": [
         {
-          "thumbnail": "https://scontent-iad3-1.xx.fbcdn.net/v/t39.30808-6/674227705_27015353271404177_8523493770975230352_n.jpg?stp=cp6_dst-jpg_s640x640_tt6&_nc_cat=104&ccb=1-7&_nc_sid=e06c5d&_nc_ohc=PEsDO75PiS0Q7kNvwGFWpmE&_nc_oc=Adpssrca3syWO1ZwvBsIoiQGg_R1pH10B4Cz3uq42bW6-p8OayCPkuI5Vn0r8u36VqY&_nc_zt=23&_nc_ht=scontent-iad3-1.xx&_nc_gid=xteLYrzPm9cqa3pD5_Q4nw&_nc_ss=7a389&oh=00_Af1SEt7TNymkmlwnO7O2kesgyJH4WX1-P0fbJOtHVpkgUw&oe=69E663EB",
+          "thumbnail": "https://scontent.fagc1-2.fna.fbcdn.net/v/t39.30808-6/669832009_973618915273289_7977356985991599729_n.jpg?stp=cp6_dst-jpg_p526x296_tt6&_nc_cat=104&ccb=1-7&_nc_sid=e06c5d&_nc_ohc=PS5pw_kY_VQQ7kNvwGKLi3d&_nc_oc=Adqds3r69m0oQ7UhCK-5fcP3cef0VkFyEfO-MrLRLTqU6NVBusWBjTBL8RwaP0olChCDV1Dpl6wPFbdKN3rtB5qP&_nc_zt=23&_nc_ht=scontent.fagc1-2.fna&_nc_gid=dVMtK9TLe0rtkL6mBDghzw&_nc_ss=7a389&oh=00_Af3YxoiEd2YlkBhylGlQU5GqblPsjmFmQhds1GUP3Ktw0Q&oe=69E641AD",
           "__typename": "Photo",
           "photo_image": {
-            "uri": "https://scontent-iad3-1.xx.fbcdn.net/v/t39.30808-6/674227705_27015353271404177_8523493770975230352_n.jpg?stp=cp6_dst-jpg_s640x640_tt6&_nc_cat=104&ccb=1-7&_nc_sid=e06c5d&_nc_ohc=PEsDO75PiS0Q7kNvwGFWpmE&_nc_oc=Adpssrca3syWO1ZwvBsIoiQGg_R1pH10B4Cz3uq42bW6-p8OayCPkuI5Vn0r8u36VqY&_nc_zt=23&_nc_ht=scontent-iad3-1.xx&_nc_gid=xteLYrzPm9cqa3pD5_Q4nw&_nc_ss=7a389&oh=00_Af1SEt7TNymkmlwnO7O2kesgyJH4WX1-P0fbJOtHVpkgUw&oe=69E663EB",
-            "height": 640,
-            "width": 511
+            "uri": "https://scontent.fagc1-2.fna.fbcdn.net/v/t39.30808-6/669832009_973618915273289_7977356985991599729_n.jpg?stp=cp6_dst-jpg_p526x296_tt6&_nc_cat=104&ccb=1-7&_nc_sid=e06c5d&_nc_ohc=PS5pw_kY_VQQ7kNvwGKLi3d&_nc_oc=Adqds3r69m0oQ7UhCK-5fcP3cef0VkFyEfO-MrLRLTqU6NVBusWBjTBL8RwaP0olChCDV1Dpl6wPFbdKN3rtB5qP&_nc_zt=23&_nc_ht=scontent.fagc1-2.fna&_nc_gid=dVMtK9TLe0rtkL6mBDghzw&_nc_ss=7a389&oh=00_Af3YxoiEd2YlkBhylGlQU5GqblPsjmFmQhds1GUP3Ktw0Q&oe=69E641AD",
+            "height": 1040,
+            "width": 526
           },
           "__isMedia": "Photo",
-          "accent_color": "FF1A01AE",
+          "accent_color": "FF83B7DE",
           "photo_product_tags": [],
-          "url": "https://www.facebook.com/photo.php?fbid=27015353254737512&set=gm.10163105806382734&type=3",
-          "id": "27015353254737512",
-          "ocrText": "May be an image of text that says 'CASTING CALL AAA Fak Brought to you you by Broughtoyouby 0 Jessie Ware Fans We are looking for Jessie Ware fans to be part of a fun new YouTube mini series, Access All Areas. Filming on 24th April in London Paid Opportunity Plus a chance to win Jessie Ware tickets To Apply: Register your interest through the link or QR code. Contact ontact:kelsey@studiob.net'"
+          "url": "https://www.facebook.com/photo.php?fbid=973618911939956&set=gm.26361856113508367&type=3",
+          "id": "973618911939956",
+          "ocrText": "May be an image of one or more people, people smiling, eyewear and ocean"
         }
       ],
-      "likesCount": 5,
-      "sharesCount": 1,
-      "commentsCount": 0,
-      "topComments": [],
-      "facebookId": "5076437733",
-      "groupTitle": "Casting Calls UK",
+      "likesCount": 3,
+      "sharesCount": 0,
+      "commentsCount": 1,
+      "topComments": [
+        {
+          "commentUrl": "https://www.facebook.com/groups/actorsactors/permalink/26361856113508367/?comment_id=26362183816808930",
+          "commentId": "26362183816808930",
+          "id": "Y29tbWVudDoyNjM2MTg1NjExMzUwODM2N18yNjM2MjE4MzgxNjgwODkzMA==",
+          "feedbackId": "ZmVlZGJhY2s6MjYzNjE4NTYxMTM1MDgzNjdfMjYzNjIxODM4MTY4MDg5MzA=",
+          "date": "2026-04-16T02:47:55.000Z",
+          "text": "Go to Actors Access and sign up to be a background actor…no experience necessary but  patience is required! Break a leg! ✌️",
+          "profileUrl": "https://www.facebook.com/char.leonard.98",
+          "profilePicture": "https://scontent.fagc1-2.fna.fbcdn.net/v/t39.30808-1/625200518_10241786711390188_3447002767623649027_n.jpg?stp=cp0_dst-jpg_s32x32_tt6&_nc_cat=100&ccb=1-7&_nc_sid=1d2534&_nc_ohc=_RFXrSQDZfEQ7kNvwFW15Ym&_nc_oc=Adq0vUIRuXsmE2nvZ0K8bLversbe_fqK3gon1V2AG9PBiiz6pByjGpstTUz6Mowc_5pTGVzpmxPx-9IXbGbjDuy1&_nc_zt=24&_nc_ht=scontent.fagc1-2.fna&_nc_gid=dVMtK9TLe0rtkL6mBDghzw&_nc_ss=7a389&oh=00_Af0MHN7uJm1VdDlreTlh2iP0J7fQDHrFRQfPEiQpGk2skA&oe=69E660D3",
+          "profileId": "1403815080",
+          "profileName": "MamaChar Leonard",
+          "likesCount": "0",
+          "threadingDepth": 0
+        }
+      ],
+      "facebookId": "1012558328864828",
+      "groupTitle": "Actors Actors Actors! Wanted!",
       "pageAdLibrary": {
         "is_business_page_active": false,
-        "id": "110971189577820"
+        "id": "1027009100490722"
       },
-      "inputUrl": "https://www.facebook.com/groups/castingcallsuk/",
-      "summary": "Casting Call for Jessie Ware fans!\n\nLink: https://app.kredd.io/contact/bruna-pias-eoeTBZ",
-      "title": "Casting Call for Jessie Ware fans!",
+      "inputUrl": "https://www.facebook.com/groups/actorsactors/",
+      "summary": "I don't know anything about the industry, but if you need a weird guy in the background eating tacos, just let me know! 😂",
+      "title": "I don't know anything about the industry, but if you need a weird guy in the background eating tacos, just let me know! 😂",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.108Z",
-      "importedAt": "2026-04-17T01:19:31.108Z"
+      "fetched_at": "2026-04-17T04:38:40.309Z",
+      "importedAt": "2026-04-17T04:38:40.309Z"
     },
     {
-      "facebookUrl": "https://www.facebook.com/groups/castingcallsuk/",
-      "url": "https://www.facebook.com/groups/castingcallsuk/",
-      "time": "2026-04-15T23:12:03.000Z",
+      "facebookUrl": "https://www.facebook.com/groups/1295231977298952/",
+      "url": "https://www.facebook.com/groups/1295231977298952/",
+      "time": "2026-04-15T23:52:11.000Z",
       "user": {
-        "id": "pfbid02Rc9Jgrfkrr61JMSueQX2UBevBbAB27q8wCiPMdViEAfESXtPQGKrQBAP2mzSGQrnl",
-        "name": "Nina Willment"
+        "id": "pfbid02YLEzdYwd9wNPzaLQTSAqdAH1ZibPe79D81wabd9wjwrqpN439Z2xo5oAft2XkbZWl",
+        "name": "Yassine Rap"
       },
-      "text": "I’m an academic researcher at the University of Nottingham, currently working with the TV Industry Human Rights Forum on a project exploring experiences of child performers in the TV industry.\n\nWe are looking to speak with adult actors who previously worked as child actors for a short online interview (30–60 minutes). These conversations are informal and focus on your experiences, reflections, and any insights you’d be willing to share.\n\nPlease note that this is an unpaid interview, but your contribution will help inform important research around children’s rights and working conditions in the industry.\n\nIf you’d be interested in taking part, or would like more information, feel free to get in touch at amelia.knott@tvhumanrights.org \n\nIt would also be hugely appreciated if you could share this with anyone who might be interested 🙏\n\nThanks!",
+      "text": "De er så lækre, at jeg laver dem hver weekend! Enkel og velsmagende opskrift med kål!\nIngredienser:\nKål: 1 mellemstort hoved\nOlivenolie: 50 ml\nSalt: 1 tsk\nKværnet sort peber: efter smag\nRød peber: efter smag\n\"Jeg skal sige noget for at blive ved med at få mine opskrifter...\nTak. Opskrift i første kommentar Se mindre",
+      "link": "https://alleopskrifter.serpin.biz/bagte-kalboffer/",
       "topReactionsCount": 0,
-      "feedbackId": "ZmVlZGJhY2s6MTAxNjMxMDY3OTEyMjc3MzQ=",
-      "id": "UzpfSTc1NDQyODY5MjpWSzoxMDE2MzEwNjc5MTIyNzczNA==",
-      "legacyId": "10163106791227734",
+      "feedbackId": "ZmVlZGJhY2s6MzQ1MjY3NzQwODIyMTA1NA==",
+      "id": "UzpfSTYxNTYxMTYxNTM2NzUzOlZLOjM0NTI2Nzc0MDgyMjEwNTQ=",
+      "legacyId": "3452677408221054",
+      "title": "Bagte kålbøffer – Serpin Recipes",
+      "attachments": [
+        {
+          "thumbnail": "https://scontent-atl3-1.xx.fbcdn.net/v/t39.30808-6/672481127_122211399002372051_1308284325096114314_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=e06c5d&_nc_ohc=ufjU_0KldCYQ7kNvwGpLKT3&_nc_oc=AdpCKJDBKKxA2NtAfKrec6MKEXBw0-9LK0aTWg_MoOdMLcqdUjWQpckLhF1OaRTGaSk&_nc_zt=23&_nc_ht=scontent-atl3-1.xx&_nc_gid=tMIJdWU0f1MVOOBJW5_96Q&_nc_ss=7a389&oh=00_Af0LAyGNopWCmUK5braXEwI2hpIoIvEg_edIrHpzrXAfKg&oe=69E640CE",
+          "__typename": "Photo",
+          "photo_image": {
+            "uri": "https://scontent-atl3-1.xx.fbcdn.net/v/t39.30808-6/672481127_122211399002372051_1308284325096114314_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=e06c5d&_nc_ohc=ufjU_0KldCYQ7kNvwGpLKT3&_nc_oc=AdpCKJDBKKxA2NtAfKrec6MKEXBw0-9LK0aTWg_MoOdMLcqdUjWQpckLhF1OaRTGaSk&_nc_zt=23&_nc_ht=scontent-atl3-1.xx&_nc_gid=tMIJdWU0f1MVOOBJW5_96Q&_nc_ss=7a389&oh=00_Af0LAyGNopWCmUK5braXEwI2hpIoIvEg_edIrHpzrXAfKg&oe=69E640CE",
+            "height": 640,
+            "width": 512
+          },
+          "__isMedia": "Photo",
+          "accent_color": "FFCAB580",
+          "photo_product_tags": [],
+          "url": "https://www.facebook.com/photo.php?fbid=122211398996372051&set=gm.3452677408221054&type=3",
+          "id": "122211398996372051",
+          "ocrText": "May be an image of food"
+        }
+      ],
       "likesCount": 0,
       "sharesCount": 0,
-      "commentsCount": 0,
-      "topComments": [],
-      "facebookId": "5076437733",
-      "groupTitle": "Casting Calls UK",
-      "pageAdLibrary": {
-        "is_business_page_active": false,
-        "id": "110971189577820"
-      },
-      "inputUrl": "https://www.facebook.com/groups/castingcallsuk/",
-      "summary": "I’m an academic researcher at the University of Nottingham, currently working with the TV Industry Human Rights Forum on a project exploring experiences of child performers in the TV industry.\n\nWe are looking to speak with adult actors who previously worked as child actors for a short online interview (30–60 minutes). These conversations are informal and focus on your experiences, reflections, and any insights you’d be willing to share.\n\nPlease note that this is an unpaid interview, but your contribution will help inform important research around children’s rights and working conditions in the industry.\n\nIf you’d be interested in taking part, or would like more information, feel free to get in touch at amelia.knott@tvhumanrights.org \n\nIt would also be hugely appreciated if you could share this with anyone who might be interested 🙏\n\nThanks!",
-      "title": "I’m an academic researcher at the University of Nottingham, currently working with the TV Industry Human Rights Forum on a project exploring experiences of child performers in the TV industry.",
-      "source": "FacebookGroups",
-      "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.108Z",
-      "importedAt": "2026-04-17T01:19:31.108Z"
-    },
-    {
-      "facebookUrl": "https://www.facebook.com/groups/castingcallsuk/",
-      "url": "https://www.facebook.com/groups/castingcallsuk/",
-      "time": "2026-04-15T16:40:01.000Z",
-      "user": {
-        "id": "pfbid0LY3Nq4RkMS4Pp6cCg5WF155u1bLbJo5FNTJSqNxJHVZsA3qXRvoiNJkAXXf4i1Nxl",
-        "name": "Melissa Kelsall"
-      },
-      "text": "",
-      "textReferences": [
+      "commentsCount": 1,
+      "topComments": [
         {
-          "id": "61568130484458",
-          "url": "https://www.facebook.com/AlessiHartiganUK",
-          "answer_agent_group_id": null,
-          "profile_url": "https://www.facebook.com/AlessiHartiganUK",
-          "short_name": "Alessi Hartigan Casting UK",
-          "work_info": null,
-          "work_foreign_entity_info": null,
-          "is_verified": false,
-          "mobileUrl": "https://m.facebook.com/AlessiHartiganUK/"
-        },
-        {
-          "id": "485807584763838",
-          "url": "https://www.facebook.com/Cardiff-Wales-UK-485807584763838/",
-          "comet_url": "https://www.facebook.com/Cardiff-Wales-UK-485807584763838/",
-          "category_type": "LOCAL",
-          "verification_status": "NOT_VERIFIED",
-          "is_verified": false,
-          "profile_url": "https://www.facebook.com/pages/Cardiff-Wales-UK/485807584763838",
-          "mobileUrl": "https://m.facebook.com/485807584763838/"
+          "commentUrl": "https://www.facebook.com/groups/1295231977298952/permalink/3452677408221054/?comment_id=3452677828221012",
+          "commentId": "3452677828221012",
+          "id": "Y29tbWVudDozNDUyNjc3NDA4MjIxMDU0XzM0NTI2Nzc4MjgyMjEwMTI=",
+          "feedbackId": "ZmVlZGJhY2s6MzQ1MjY3NzQwODIyMTA1NF8zNDUyNjc3ODI4MjIxMDEy",
+          "date": "2026-04-15T23:52:41.000Z",
+          "text": "https://alleopskrifter.serpin.biz/bagte-kalboffer/",
+          "attachments": [
+            {
+              "__typename": "GenericAttachmentMedia",
+              "fallback_image": {
+                "height": 98,
+                "uri": "https://external-atl3-2.xx.fbcdn.net/emg1/v/t13/13260573803359267967?url=https%3A%2F%2Falleopskrifter.serpin.biz%2Fwp-content%2Fuploads%2F2026%2F02%2F624718220_122261954648132336_6327239688394765996_n.jpg&fb_obo=1&utld=serpin.biz&stp=c0.5000x0.5000f_dst-emg0_p98x98_q75_tt6&_nc_gid=tMIJdWU0f1MVOOBJW5_96Q&_nc_oc=AdqE_7s4VYF_UQdvLKViU8CIzNFDWj2pjULAMXrWVnfSOtB3UzbHIahWeYX7Vx1L7ZE&ccb=13-1&oh=06_Q3--ASXLDYoGMi66gyg5j2stijVIbabl-JW15bivj-ZgDlN5&oe=69E26A13&_nc_sid=085657",
+                "width": 98
+              },
+              "is_playable": false,
+              "id": "122211399134372051"
+            }
+          ],
+          "profileUrl": "https://www.facebook.com/people/Yassine-Rap/pfbid02YLEzdYwd9wNPzaLQTSAqdAH1ZibPe79D81wabd9wjwrqpN439Z2xo5oAft2XkbZWl/",
+          "profilePicture": "https://scontent-atl3-2.xx.fbcdn.net/v/t39.30808-1/461297808_122130231440372051_4216640942238863849_n.jpg?stp=cp0_dst-jpg_s32x32_tt6&_nc_cat=101&ccb=1-7&_nc_sid=e99d92&_nc_ohc=g_eFxAuVgVUQ7kNvwFNxrva&_nc_oc=AdrN0rxM4bbuH2xygzXjuGMdjocWQ7MxlPy72W4zE04sD_Fo5vemwBRBuQofGvkZ2i4&_nc_zt=24&_nc_ht=scontent-atl3-2.xx&_nc_gid=tMIJdWU0f1MVOOBJW5_96Q&_nc_ss=7a389&oh=00_Af158hXVQR3XBTe3nka4WCIJ8GC4SdoNg1zMuw7HC8NSWQ&oe=69E65E4D",
+          "profileId": "pfbid02YLEzdYwd9wNPzaLQTSAqdAH1ZibPe79D81wabd9wjwrqpN439Z2xo5oAft2XkbZWl",
+          "profileName": "Yassine Rap",
+          "likesCount": "0",
+          "threadingDepth": 0
         }
       ],
-      "link": "https://artists.alessihartigancasting.com/apps/e30058b2-91a4-4565-a6d4-192884f4e329",
-      "topReactionsCount": 1,
-      "feedbackId": "ZmVlZGJhY2s6MTAxNjMxMDcwMDQyNjI3MzQ=",
-      "sharedPost": {
-        "pageName": {
-          "id": "61568130484458",
-          "name": "Alessi Hartigan Casting UK",
-          "profileUrl": "https://www.facebook.com/AlessiHartiganUK",
-          "profilePic": "https://scontent-iad3-1.xx.fbcdn.net/v/t39.30808-1/465782904_122102158016604349_5283313344604256740_n.jpg?stp=cp0_dst-jpg_s40x40_tt6&_nc_cat=104&ccb=1-7&_nc_sid=2d3e12&_nc_ohc=AgEkPLH4hnEQ7kNvwF6Hx7K&_nc_oc=AdpdkCFB3TptzS_twiSZTSV_vj_fm-wx-4IKuUKdcwh8xqno3WJ4QJNvIRbi2p9mhfk&_nc_zt=24&_nc_ht=scontent-iad3-1.xx&_nc_gid=xteLYrzPm9cqa3pD5_Q4nw&_nc_ss=7a389&oh=00_Af0Mbj0gIRsHo14HYsM6AHxQ8uptr4suaoPnamOTNr4aVQ&oe=69E640C0"
-        },
-        "url": "https://www.facebook.com/AlessiHartiganUK/posts/pfbid02Az8MD99n56F3Jk2HaL6BUFzaHaSe6aZv9GsfkNN1mUC3Z4paaM2UeMQXVB4X9c16l",
-        "time": "2026-04-15T13:30:00.000Z",
-        "timestamp": 1776259800,
-        "user": {
-          "id": "61568130484458",
-          "name": "Alessi Hartigan Casting UK",
-          "profileUrl": "https://www.facebook.com/AlessiHartiganUK",
-          "profilePic": "https://scontent-iad3-1.xx.fbcdn.net/v/t39.30808-1/465782904_122102158016604349_5283313344604256740_n.jpg?stp=cp0_dst-jpg_s40x40_tt6&_nc_cat=104&ccb=1-7&_nc_sid=2d3e12&_nc_ohc=AgEkPLH4hnEQ7kNvwF6Hx7K&_nc_oc=AdpdkCFB3TptzS_twiSZTSV_vj_fm-wx-4IKuUKdcwh8xqno3WJ4QJNvIRbi2p9mhfk&_nc_zt=24&_nc_ht=scontent-iad3-1.xx&_nc_gid=xteLYrzPm9cqa3pD5_Q4nw&_nc_ss=7a389&oh=00_Af0Mbj0gIRsHo14HYsM6AHxQ8uptr4suaoPnamOTNr4aVQ&oe=69E640C0"
-        },
-        "text": "🔔CASTING CALL – SUPPORTING ARTISTS (CARDIFF)\n\nWe’re looking for people to play Clubbers for a large HETV show filming in Cardiff 🎬\n\nWe would really love to hear from supporting artists of African and Caribbean heritage, alongside a wide range of diverse faces aged 18–35.\n\nDate: Monday 27th April (est. 12:00 – 23:00)\nLocation: Wolf Studios, Cardiff\nRate: Equity Pact (£4 travel)\n\nSome of you may be required to attend a fitting the week commencing 20th April (also at Wolf Studios).\n\n🔗APPLY HERE: https://artists.alessihartigancasting.com/apps/e30058b2-91a4-4565-a6d4-192884f4e329\n\n#castingcalluk #cardiff #actorsneeded #cardiffevents",
-        "textReferences": [
-          {
-            "id": "61568130484458",
-            "url": "https://www.facebook.com/AlessiHartiganUK",
-            "answer_agent_group_id": null,
-            "profile_url": "https://www.facebook.com/AlessiHartiganUK",
-            "short_name": "Alessi Hartigan Casting UK",
-            "work_info": null,
-            "work_foreign_entity_info": null,
-            "is_verified": false,
-            "mobileUrl": "https://m.facebook.com/AlessiHartiganUK/"
-          },
-          {
-            "id": "485807584763838",
-            "url": "https://www.facebook.com/Cardiff-Wales-UK-485807584763838/",
-            "comet_url": "https://www.facebook.com/Cardiff-Wales-UK-485807584763838/",
-            "category_type": "LOCAL",
-            "verification_status": "NOT_VERIFIED",
-            "is_verified": false,
-            "profile_url": "https://www.facebook.com/pages/Cardiff-Wales-UK/485807584763838",
-            "mobileUrl": "https://m.facebook.com/485807584763838/"
-          }
-        ],
-        "link": "https://artists.alessihartigancasting.com/apps/e30058b2-91a4-4565-a6d4-192884f4e329",
-        "media": [
-          {
-            "thumbnail": "https://scontent-iad6-1.xx.fbcdn.net/v/t51.82787-15/672340297_17920525053327622_7441957316594916919_n.jpg?stp=dst-jpg_s640x640_tt6&_nc_cat=109&ccb=1-7&_nc_sid=13d280&_nc_ohc=kBSfXcfhsXYQ7kNvwFeRiam&_nc_oc=AdqaXpM0Om53xXm4-GmsU-KrzC31czftvSrn9zVrLbh_407Cdu1IyzAw0HFAh_xBRUc&_nc_zt=23&_nc_ht=scontent-iad6-1.xx&_nc_gid=xteLYrzPm9cqa3pD5_Q4nw&_nc_ss=7a389&oh=00_Af34UiquhOTDhc5VaaznyH9_Ja3X0G3gr6Jy8yoMr9llGg&oe=69E63544",
-            "__typename": "Photo",
-            "photo_image": {
-              "uri": "https://scontent-iad6-1.xx.fbcdn.net/v/t51.82787-15/672340297_17920525053327622_7441957316594916919_n.jpg?stp=dst-jpg_s640x640_tt6&_nc_cat=109&ccb=1-7&_nc_sid=13d280&_nc_ohc=kBSfXcfhsXYQ7kNvwFeRiam&_nc_oc=AdqaXpM0Om53xXm4-GmsU-KrzC31czftvSrn9zVrLbh_407Cdu1IyzAw0HFAh_xBRUc&_nc_zt=23&_nc_ht=scontent-iad6-1.xx&_nc_gid=xteLYrzPm9cqa3pD5_Q4nw&_nc_ss=7a389&oh=00_Af34UiquhOTDhc5VaaznyH9_Ja3X0G3gr6Jy8yoMr9llGg&oe=69E63544",
-              "height": 640,
-              "width": 512
-            },
-            "__isMedia": "Photo",
-            "accent_color": "FF6D6D6F",
-            "photo_product_tags": [],
-            "url": "https://www.facebook.com/photo.php?fbid=122203262714604349&set=a.122106349004604349&type=3",
-            "id": "122203262714604349",
-            "ocrText": "May be an image of text that says 'CARDIFF CASTING CALL We are currently casting for Supporting Artists of African and Caribbean heritage Role: Clubbers Date: Monday 27th April (est. 12：00－ -23：00） Location: Wolf Studios, Cardiff Rate: Equity Pact (E4 travel) Please read the caption below for more details. Head to Alessi Hartigan Casting UK to register!'"
-          }
-        ]
-      },
-      "reactionLikeCount": 2,
-      "id": "UzpfSTEwMDAyNTc5MTg1MTIzNjpWSzoxMDE2MzEwNzAwNDI2MjczNA==",
-      "legacyId": "10163107004262734",
-      "likesCount": 2,
-      "sharesCount": 0,
-      "commentsCount": 0,
-      "topComments": [],
-      "facebookId": "5076437733",
-      "groupTitle": "Casting Calls UK",
-      "pageAdLibrary": {
-        "is_business_page_active": false,
-        "id": "110971189577820"
-      },
-      "inputUrl": "https://www.facebook.com/groups/castingcallsuk/",
-      "title": "(no title)",
+      "facebookId": "1295231977298952",
+      "groupTitle": "Bedstemors Køkkenmagi",
+      "inputUrl": "https://www.facebook.com/groups/1295231977298952/",
+      "summary": "De er så lækre, at jeg laver dem hver weekend! Enkel og velsmagende opskrift med kål!\nIngredienser:\nKål: 1 mellemstort hoved\nOlivenolie: 50 ml\nSalt: 1 tsk\nKværnet sort peber: efter smag\nRød peber: efter smag\n\"Jeg skal sige noget for at blive ved med at få mine opskrifter...\nTak. Opskrift i første kommentar Se mindre",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.108Z",
-      "importedAt": "2026-04-17T01:19:31.108Z"
+      "fetched_at": "2026-04-17T04:38:40.309Z",
+      "importedAt": "2026-04-17T04:38:40.309Z"
     },
     {
-      "facebookUrl": "https://www.facebook.com/groups/kidscasting/",
-      "url": "https://www.facebook.com/groups/kidscasting/",
-      "time": "2026-04-15T12:10:02.000Z",
+      "facebookUrl": "https://www.facebook.com/groups/1295231977298952/",
+      "url": "https://www.facebook.com/groups/1295231977298952/",
+      "time": "2026-04-15T23:46:39.000Z",
       "user": {
-        "id": "649215791",
-        "name": "Amarr Vvora"
+        "id": "pfbid0aygawXF8wqTmfojS1rJ6jWB6mrSumDjK7m2Brgx2h1tQZf4H6k4GToX1bq2F5cz5l",
+        "name": "Achraf Zwayni"
       },
-      "text": "PARSHV MEDIAA \n\nCasting For \n\nDigital Ad for Skincare Brand! \n\n6 Female Models  ( Clear  skin, common faces) \n\nAge - 26 to 35 \n\nShoot Date - 22nd April 2026\n\nShoot Location - Mumbai \n\nBudget - 8k to 10k Including 25% Agency Commission \n\nInterested may WhatsApp us their pics n profile on 9920780134\n\nShortlisted will be notified about further details about the project.\n\nCheers!!\n\nThanks n Regards \n\nAmarr Vvora,Managing Director\n\nKhyati Vora,Joint Managing Director\n\nFb Group: \n\n[https://www.facebook.com/groups/329437364008/](https://www.facebook.com/groups/ParshvMediaa/?__cft__[0]=AZap-GS50d3j5e1Yt1YnbehfNIflKJ8LsdLmmoQ-Ly53JOmpIl9g-RePq3t9JCNR42o7zWs8OSm-vszm2Nj-xkdd5MIjWLFiR5z027GiR1xbTB5MF6dgLf01vaVrGJxcs2zkKM35cEDBQAsdnjml-Dbq2NGBCQOcb5uz0KJi25btgN1YW49yIZqZWRWsUT4ufW23O4hB5TR6GnkVoCBbEjZb&__tn__=-UK-R)\n\nFb Page: \n\n[https://m.facebook.com/parshvmediaa](https://www.facebook.com/parshvmediaa?__cft__[0]=AZap-GS50d3j5e1Yt1YnbehfNIflKJ8LsdLmmoQ-Ly53JOmpIl9g-RePq3t9JCNR42o7zWs8OSm-vszm2Nj-xkdd5MIjWLFiR5z027GiR1xbTB5MF6dgLf01vaVrGJxcs2zkKM35cEDBQAsdnjml-Dbq2NGBCQOcb5uz0KJi25btgN1YW49yIZqZWRWsUT4ufW23O4hB5TR6GnkVoCBbEjZb&__tn__=-]K-R)\n\nInstagram Handle: [https://instagram.com/parshvmediaa?igshid=MTk0NTkyODZkYg==](https://instagram.com/parshvmediaa?igshid=MTk0NTkyODZkYg%3D%3D&fbclid=IwZXh0bgNhZW0CMTAAYnJpZBExNDJLajV6TEFVSHRucEtOOHNydGMGYXBwX2lkEDIyMjAzOTE3ODgyMDA4OTIAAR6CjJ2lJ9U3q2Ugr8PZQLvWfCy852eaXoURai9lddfbvZqJDDK5ITMsS0tcbA_aem_cHDpk4kBN8KktIhWAzADMQ)",
-      "textReferences": [
-        {
-          "id": "329437364008",
-          "url": "https://www.facebook.com/groups/ParshvMediaa/",
-          "profile_url": "https://www.facebook.com/groups/ParshvMediaa/",
-          "work_foreign_entity_info": null,
-          "is_multi_company_group": false,
-          "work_official_status": "UNOFFICIAL",
-          "mobileUrl": "https://m.facebook.com/groups/ParshvMediaa/"
-        },
-        {
-          "id": "329437364008",
-          "url": "https://www.facebook.com/groups/ParshvMediaa/",
-          "profile_url": "https://www.facebook.com/groups/ParshvMediaa/",
-          "work_foreign_entity_info": null,
-          "is_multi_company_group": false,
-          "work_official_status": "UNOFFICIAL",
-          "mobileUrl": "https://m.facebook.com/groups/ParshvMediaa/"
-        },
-        {
-          "id": "100064098729186",
-          "url": "https://www.facebook.com/parshvmediaa",
-          "answer_agent_group_id": null,
-          "profile_url": "https://www.facebook.com/parshvmediaa",
-          "short_name": "Parshv Mediaa",
-          "work_info": null,
-          "work_foreign_entity_info": null,
-          "is_verified": false,
-          "mobileUrl": "https://m.facebook.com/parshvmediaa/"
-        },
-        {
-          "id": "100064098729186",
-          "url": "https://www.facebook.com/parshvmediaa",
-          "answer_agent_group_id": null,
-          "profile_url": "https://www.facebook.com/parshvmediaa",
-          "short_name": "Parshv Mediaa",
-          "work_info": null,
-          "work_foreign_entity_info": null,
-          "is_verified": false,
-          "mobileUrl": "https://m.facebook.com/parshvmediaa/"
-        },
-        {
-          "url": "https://l.facebook.com/l.php?u=https%3A%2F%2Finstagram.com%2Fparshvmediaa%3Figshid%3DMTk0NTkyODZkYg%253D%253D&h=AT6Qjhk2E1n3A6cKmIE7PRCnOk9I8KfoymrC71U9opVq49BhlqNz8yxKcgEs1RkIkRHo_wWuJ4fwZkpKRcc4Rf2J0_972FxaUR032BoO7gwy4U7firNAvdC47S-1p5FSyhNv6XE7hblkI3VmeSfilCok-RWA3iKc&s=1",
-          "external_url": "https://instagram.com/parshvmediaa?igshid=MTk0NTkyODZkYg%3D%3D",
-          "web_link": {
-            "__typename": "ExternalWebLink",
-            "url": "https://instagram.com/parshvmediaa?igshid=MTk0NTkyODZkYg%3D%3D",
-            "fbclid": null,
-            "lynx_mode": "ASYNCLAZY"
-          },
-          "mobileUrl": "https://lm.facebook.com/l.php?u=https%3A%2F%2Finstagram.com%2Fparshvmediaa%3Figshid%3DMTk0NTkyODZkYg%253D%253D&h=AT61nRtQjY4qSF7SO3qwXl_y3dkIVwDkb74S6tkoGNOb4NYTiGYGrUuK-GulAx5h9DY1rSvRwubsEz_9QyweprLJF5HSSXBhzWIZEOqGYqV9-klw2s2o4Re9OMqpDJ-_k9asc48wmQZqk4ObnC45aiOGHEdFlbVI&s=1",
-          "id": "NjQyMTgzOTU5MjA4MTA3Omh0dHBzXGEvL2luc3RhZ3JhbS5jb20vcGFyc2h2bWVkaWFhP2lnc2hpZD1NVGswTlRreU9EWmtZZyUzRCUzRDo6Ojo6MzkwMTU3OTc5OTk3MTk1OQ=="
-        },
-        {
-          "url": "https://l.facebook.com/l.php?u=https%3A%2F%2Finstagram.com%2Fparshvmediaa%3Figshid%3DMTk0NTkyODZkYg%253D%253D%26fbclid%3DIwZXh0bgNhZW0CMTAAYnJpZBExNDJLajV6TEFVSHRucEtOOHNydGMGYXBwX2lkEDIyMjAzOTE3ODgyMDA4OTIAAR6CjJ2lJ9U3q2Ugr8PZQLvWfCy852eaXoURai9lddfbvZqJDDK5ITMsS0tcbA_aem_cHDpk4kBN8KktIhWAzADMQ&h=AT4z93pRbl3Z2vtS_VCkY7Q7gj8J3jBpfkHRRqDQYE7y6ZcnemaxMrD_QCe2BU30IqsvnEwBCndXU261jzzu_-nne3SAZcu4AuMYg-g9ANbfrEpQJRAB-6I2VzqWSXneK4_8UB5iF1yxSgrHA4c8ouYOkCRX5vRs&s=1",
-          "external_url": "https://instagram.com/parshvmediaa?igshid=MTk0NTkyODZkYg%3D%3D&fbclid=IwZXh0bgNhZW0CMTAAYnJpZBExNDJLajV6TEFVSHRucEtOOHNydGMGYXBwX2lkEDIyMjAzOTE3ODgyMDA4OTIAAR6CjJ2lJ9U3q2Ugr8PZQLvWfCy852eaXoURai9lddfbvZqJDDK5ITMsS0tcbA_aem_cHDpk4kBN8KktIhWAzADMQ",
-          "web_link": {
-            "__typename": "ExternalWebLink",
-            "url": "https://instagram.com/parshvmediaa?igshid=MTk0NTkyODZkYg%3D%3D&fbclid=IwZXh0bgNhZW0CMTAAYnJpZBExNDJLajV6TEFVSHRucEtOOHNydGMGYXBwX2lkEDIyMjAzOTE3ODgyMDA4OTIAAR6CjJ2lJ9U3q2Ugr8PZQLvWfCy852eaXoURai9lddfbvZqJDDK5ITMsS0tcbA_aem_cHDpk4kBN8KktIhWAzADMQ",
-            "fbclid": null,
-            "lynx_mode": "ASYNCLAZY"
-          },
-          "mobileUrl": "https://lm.facebook.com/l.php?u=https%3A%2F%2Finstagram.com%2Fparshvmediaa%3Figshid%3DMTk0NTkyODZkYg%253D%253D%26fbclid%3DIwZXh0bgNhZW0CMTAAYnJpZBExNDJLajV6TEFVSHRucEtOOHNydGMGYXBwX2lkEDIyMjAzOTE3ODgyMDA4OTIAAR6CjJ2lJ9U3q2Ugr8PZQLvWfCy852eaXoURai9lddfbvZqJDDK5ITMsS0tcbA_aem_cHDpk4kBN8KktIhWAzADMQ&h=AT7Ad2dK70a3Vg7DAtY5yzmB9vupBimyttEGf0CJg3TEjlWafLoKL6TrN8cbU090EgM7sDtSySLBBiwX9a0CNXq0huSbqyC9JUeS7QBGuIYA1avP8PUftfsGIvUw8_kOVz51Yj2kYCNXcJeKNmBNHHB5V-wh7aTZ&s=1",
-          "id": "NjQyMTgzOTU5MjA4MTA3Omh0dHBzXGEvL2luc3RhZ3JhbS5jb20vcGFyc2h2bWVkaWFhP2lnc2hpZD1NVGswTlRreU9EWmtZZyUzRCUzRCZmYmNsaWQ9SXdaWGgwYmdOaFpXMENNVEFBWW5KcFpCRXhOREpMYWpWNlRFRlZTSFJ1Y0V0T09ITnlkR01HWVhCd1gybGtFREl5TWpBek9URTNPRGd5TURBNE9USUFBUjZDakoybEo5VTNxMlVncjhQWlFMdldmQ3k4NTJlYVhvVVJhaTlsZGRmYnZacUpEREs1SVRNc1MwdGNiQVxiYWVtXGJjSERwazRrQk44S2t0SWhXQXpBRE1ROjo6OjozOTAxNTc5Nzk5OTcxOTU5"
-        }
-      ],
-      "link": "https://instagram.com/parshvmediaa?igshid=MTk0NTkyODZkYg%3D%3D",
+      "text": "FOR DENNE OPSKRIFT SKAL DU BARE SIG HEJ, OG JEG SENDER DIGOPSKRIFT I FØRSTE KOMMENTA",
+      "link": "https://alleopskrifter.serpin.biz/morgeningefaer-citron-morgentonic/",
       "topReactionsCount": 0,
-      "feedbackId": "ZmVlZGJhY2s6MzkwMTU3OTc5OTk3MTk1OQ==",
-      "id": "UzpfSTY0OTIxNTc5MTpWSzozOTAxNTc5Nzk5OTcxOTU5",
-      "legacyId": "3901579799971959",
+      "feedbackId": "ZmVlZGJhY2s6MzQ1MjY3Mzk3ODIyMTM5Nw==",
+      "id": "UzpfSTYxNTc4MzQ1OTUzNDE4OlZLOjM0NTI2NzM5NzgyMjEzOTc=",
+      "legacyId": "3452673978221397",
+      "title": "Morgeningefær citron morgentonic – Serpin Recipes",
+      "attachments": [
+        {
+          "thumbnail": "https://scontent-atl3-3.xx.fbcdn.net/v/t39.30808-6/672236418_122172896642944865_4025329802224660700_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=e06c5d&_nc_ohc=9eZYnBcrMIAQ7kNvwE7A4fY&_nc_oc=AdpiADJvG6dD2wKkL8VDWHc2duv6G5SgSanzj7g4pkwejrHUEPbeYdrr6Mqh7PN1lQk&_nc_zt=23&_nc_ht=scontent-atl3-3.xx&_nc_gid=tMIJdWU0f1MVOOBJW5_96Q&_nc_ss=7a389&oh=00_Af3EsHGAR0JuBSol-gdNa1Fh0oM-7g1MMGKWYVlAELLW2w&oe=69E65C44",
+          "__typename": "Photo",
+          "photo_image": {
+            "uri": "https://scontent-atl3-3.xx.fbcdn.net/v/t39.30808-6/672236418_122172896642944865_4025329802224660700_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=e06c5d&_nc_ohc=9eZYnBcrMIAQ7kNvwE7A4fY&_nc_oc=AdpiADJvG6dD2wKkL8VDWHc2duv6G5SgSanzj7g4pkwejrHUEPbeYdrr6Mqh7PN1lQk&_nc_zt=23&_nc_ht=scontent-atl3-3.xx&_nc_gid=tMIJdWU0f1MVOOBJW5_96Q&_nc_ss=7a389&oh=00_Af3EsHGAR0JuBSol-gdNa1Fh0oM-7g1MMGKWYVlAELLW2w&oe=69E65C44",
+            "height": 800,
+            "width": 451
+          },
+          "__isMedia": "Photo",
+          "accent_color": "FFF7C63B",
+          "photo_product_tags": [],
+          "url": "https://www.facebook.com/photo.php?fbid=122172896636944865&set=gm.3452673978221397&type=3",
+          "id": "122172896636944865",
+          "ocrText": "May be an image of drink and text that says 'Drik 1 kop for morgenmad i 5 dage, og dit mavefedt vil smelte fuldstaendigt'"
+        }
+      ],
       "likesCount": 0,
       "sharesCount": 0,
-      "commentsCount": 0,
-      "topComments": [],
-      "facebookId": "624761564320482",
-      "groupTitle": "KIDS CASTING CALL!",
-      "inputUrl": "https://www.facebook.com/groups/kidscasting/",
-      "summary": "PARSHV MEDIAA \n\nCasting For \n\nDigital Ad for Skincare Brand! \n\n6 Female Models  ( Clear  skin, common faces) \n\nAge - 26 to 35 \n\nShoot Date - 22nd April 2026\n\nShoot Location - Mumbai \n\nBudget - 8k to 10k Including 25% Agency Commission \n\nInterested may WhatsApp us their pics n profile on 9920780134\n\nShortlisted will be notified about further details about the project.\n\nCheers!!\n\nThanks n Regards \n\nAmarr Vvora,Managing Director\n\nKhyati Vora,Joint Managing Director\n\nFb Group: \n\n[https://www.facebook.com/groups/329437364008/](https://www.facebook.com/groups/ParshvMediaa/?__cft__[0]=AZap-GS50d3j5e1Yt1YnbehfNIflKJ8LsdLmmoQ-Ly53JOmpIl9g-RePq3t9JCNR42o7zWs8OSm-vszm2Nj-xkdd5MIjWLFiR5z027GiR1xbTB5MF6dgLf01vaVrGJxcs2zkKM35cEDBQAsdnjml-Dbq2NGBCQOcb5uz0KJi25btgN1YW49yIZqZWRWsUT4ufW23O4hB5TR6GnkVoCBbEjZb&__tn__=-UK-R)\n\nFb Page: \n\n[https://m.facebook.com/parshvmediaa](https://www.facebook.com/parshvmediaa?__cft__[0]=AZap-GS50d3j5e1Yt1YnbehfNIflKJ8LsdLmmoQ-Ly53JOmpIl9g-RePq3t9JCNR42o7zWs8OSm-vszm2Nj-xkdd5MIjWLFiR5z027GiR1xbTB5MF6dgLf01vaVrGJxcs2zkKM35cEDBQAsdnjml-Dbq2NGBCQOcb5uz0KJi25btgN1YW49yIZqZWRWsUT4ufW23O4hB5TR6GnkVoCBbEjZb&__tn__=-]K-R)\n\nInstagram Handle: [https://instagram.com/parshvmediaa?igshid=MTk0NTkyODZkYg==](https://instagram.com/parshvmediaa?igshid=MTk0NTkyODZkYg%3D%3D&fbclid=IwZXh0bgNhZW0CMTAAYnJpZBExNDJLajV6TEFVSHRucEtOOHNydGMGYXBwX2lkEDIyMjAzOTE3ODgyMDA4OTIAAR6CjJ2lJ9U3q2Ugr8PZQLvWfCy852eaXoURai9lddfbvZqJDDK5ITMsS0tcbA_aem_cHDpk4kBN8KktIhWAzADMQ)",
-      "title": "PARSHV MEDIAA ",
+      "commentsCount": 1,
+      "topComments": [
+        {
+          "commentUrl": "https://www.facebook.com/groups/1295231977298952/permalink/3452673978221397/?comment_id=3452674301554698",
+          "commentId": "3452674301554698",
+          "id": "Y29tbWVudDozNDUyNjczOTc4MjIxMzk3XzM0NTI2NzQzMDE1NTQ2OTg=",
+          "feedbackId": "ZmVlZGJhY2s6MzQ1MjY3Mzk3ODIyMTM5N18zNDUyNjc0MzAxNTU0Njk4",
+          "date": "2026-04-15T23:47:03.000Z",
+          "text": "https://alleopskrifter.serpin.biz/morgeningefaer-citron-morgentonic/",
+          "attachments": [
+            {
+              "__typename": "GenericAttachmentMedia",
+              "fallback_image": {
+                "height": 98,
+                "uri": "https://external-atl3-2.xx.fbcdn.net/emg1/v/t13/4962978138848776361?url=https%3A%2F%2Falleopskrifter.serpin.biz%2Fwp-content%2Fuploads%2F2026%2F03%2F1060b299-a035-4ed9-b0fc-7ca14effd36c.png&fb_obo=1&utld=serpin.biz&stp=c0.5000x0.5000f_dst-emg0_p98x98_q75_tt6&_nc_gid=tMIJdWU0f1MVOOBJW5_96Q&_nc_oc=AdpSbVQFBQ2HFmXYMn37M14xO2YQi_N53Zi4gbVpTATvIoCDxrlEA1KqOXePE9ORk2g&ccb=13-1&oh=06_Q3--Ab3K9b21uor5h1hb5dSyf4tSMbE00Hr30uzWoG2PInZA&oe=69E26821&_nc_sid=085657",
+                "width": 98
+              },
+              "is_playable": false,
+              "id": "122172896732944865"
+            }
+          ],
+          "profileUrl": "https://www.facebook.com/people/Achraf-Zwayni/pfbid0aygawXF8wqTmfojS1rJ6jWB6mrSumDjK7m2Brgx2h1tQZf4H6k4GToX1bq2F5cz5l/",
+          "profilePicture": "https://scontent-atl3-1.xx.fbcdn.net/v/t39.30808-1/517068385_122094401816944865_7527022311654331848_n.jpg?stp=cp0_dst-jpg_s32x32_tt6&_nc_cat=106&ccb=1-7&_nc_sid=e99d92&_nc_ohc=wf9EVb2mTjwQ7kNvwEXp9Rr&_nc_oc=AdrgPCPQnXdivOmaxP_5h-FAxmoU2Y-gQB_-2Oytny-Di-FtsZ6b_uEw4hSLFQp_W_0&_nc_zt=24&_nc_ht=scontent-atl3-1.xx&_nc_gid=tMIJdWU0f1MVOOBJW5_96Q&_nc_ss=7a389&oh=00_Af3KXHOCZxQkIOGnREtVn0WZdgw3t2mwVk_bss_Btqn5iw&oe=69E6697C",
+          "profileId": "pfbid0aygawXF8wqTmfojS1rJ6jWB6mrSumDjK7m2Brgx2h1tQZf4H6k4GToX1bq2F5cz5l",
+          "profileName": "Achraf Zwayni",
+          "likesCount": "0",
+          "threadingDepth": 0
+        }
+      ],
+      "facebookId": "1295231977298952",
+      "groupTitle": "Bedstemors Køkkenmagi",
+      "inputUrl": "https://www.facebook.com/groups/1295231977298952/",
+      "summary": "FOR DENNE OPSKRIFT SKAL DU BARE SIG HEJ, OG JEG SENDER DIGOPSKRIFT I FØRSTE KOMMENTA",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.108Z",
-      "importedAt": "2026-04-17T01:19:31.108Z"
+      "fetched_at": "2026-04-17T04:38:40.309Z",
+      "importedAt": "2026-04-17T04:38:40.309Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/1295231977298952/",
@@ -9545,8 +9928,8 @@
       "summary": "Jeg fandt en lille rød genstand i en køkkenskuffe, der ligner en kam og har lange metalben. Ved du, hvad det er?\nHele artiklen",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.107Z",
-      "importedAt": "2026-04-17T01:19:31.107Z"
+      "fetched_at": "2026-04-17T04:38:40.309Z",
+      "importedAt": "2026-04-17T04:38:40.309Z"
     },
     {
       "url": "https://www.facebook.com/groups/783843595134854/",
@@ -9557,8 +9940,8 @@
       "title": "(no title)",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.107Z",
-      "importedAt": "2026-04-17T01:19:31.107Z"
+      "fetched_at": "2026-04-17T04:38:40.309Z",
+      "importedAt": "2026-04-17T04:38:40.309Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/afmpostings/",
@@ -9599,8 +9982,8 @@
       "title": "‼️CREW CALL‼️",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.107Z",
-      "importedAt": "2026-04-17T01:19:31.107Z"
+      "fetched_at": "2026-04-17T04:38:40.309Z",
+      "importedAt": "2026-04-17T04:38:40.309Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/afmpostings/",
@@ -9628,8 +10011,8 @@
       "title": "Hi Everyone! ",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.107Z",
-      "importedAt": "2026-04-17T01:19:31.107Z"
+      "fetched_at": "2026-04-17T04:38:40.309Z",
+      "importedAt": "2026-04-17T04:38:40.309Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/afmpostings/",
@@ -9688,8 +10071,8 @@
       "title": "**A BEAUTIFUL TOMORROW**",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.107Z",
-      "importedAt": "2026-04-17T01:19:31.107Z"
+      "fetched_at": "2026-04-17T04:38:40.309Z",
+      "importedAt": "2026-04-17T04:38:40.309Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/426580301253041/",
@@ -9728,8 +10111,8 @@
       "summary": "**CALL FOR VOICES: Immigrant Actors in the UK**\n\nHi everyone! I’m an anthropology master’s student at UCL working on a creative research project.\n\nI’m looking to better understand the lived experience of immigrant actors in the UK.  If you’re an international actor aged 18+, I’d really love to hear your perspective!\n\nTo take part, you just answer three simple questions.\nEven a few lines is enough.\n\nNo pressure - it can be raw, messy, poetic, funny, honest. You can respond in writing or via voice note, and you can choose to remain anonymous.\n\nYou’re also invited (completely optional) to share something creative that captures your experience - a poem, photo, drawing, monologue, dance, or anything else.\n\n**That’s it.**\n\nYour response will become part of a multivoiced digital artwork / exhibition built from real lived experiences.\n\nIf you’d like to take part, please follow the link below.\n\n",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.107Z",
-      "importedAt": "2026-04-17T01:19:31.107Z"
+      "fetched_at": "2026-04-17T04:38:40.309Z",
+      "importedAt": "2026-04-17T04:38:40.309Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/1466427976939831/",
@@ -10053,8 +10436,8 @@
       "title": "(no title)",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.107Z",
-      "importedAt": "2026-04-17T01:19:31.107Z"
+      "fetched_at": "2026-04-17T04:38:40.309Z",
+      "importedAt": "2026-04-17T04:38:40.309Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/1466427976939831/",
@@ -10108,8 +10491,8 @@
       "title": "Wie erkennt man \"schlechten Dialog\"? Schöner Input von Wilson Gonzalez Ochsenknecht",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.107Z",
-      "importedAt": "2026-04-17T01:19:31.107Z"
+      "fetched_at": "2026-04-17T04:38:40.309Z",
+      "importedAt": "2026-04-17T04:38:40.309Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/1466427976939831/",
@@ -10443,8 +10826,8 @@
       "title": "(no title)",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.107Z",
-      "importedAt": "2026-04-17T01:19:31.107Z"
+      "fetched_at": "2026-04-17T04:38:40.309Z",
+      "importedAt": "2026-04-17T04:38:40.309Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/actorsnetworking/",
@@ -10494,8 +10877,8 @@
       "summary": "An interesting insight into the darker side of life by @dorsetborntheatre @lighthousepoole @dramagroups @rohan_gotobed @carlanorris1 @ourgodshaine\n\n",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.107Z",
-      "importedAt": "2026-04-17T01:19:31.107Z"
+      "fetched_at": "2026-04-17T04:38:40.309Z",
+      "importedAt": "2026-04-17T04:38:40.309Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/actorsnetworking/",
@@ -10645,8 +11028,8 @@
       "title": "(no title)",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.107Z",
-      "importedAt": "2026-04-17T01:19:31.107Z"
+      "fetched_at": "2026-04-17T04:38:40.309Z",
+      "importedAt": "2026-04-17T04:38:40.309Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/actorsnetworking/",
@@ -10882,8 +11265,8 @@
       "title": "(no title)",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.107Z",
-      "importedAt": "2026-04-17T01:19:31.107Z"
+      "fetched_at": "2026-04-17T04:38:40.309Z",
+      "importedAt": "2026-04-17T04:38:40.309Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/185209480407950/",
@@ -10930,8 +11313,8 @@
       "title": "🎬 CASTING CALL - FEATURE FILM 🎬",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.107Z",
-      "importedAt": "2026-04-17T01:19:31.107Z"
+      "fetched_at": "2026-04-17T04:38:40.309Z",
+      "importedAt": "2026-04-17T04:38:40.309Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/185209480407950/",
@@ -11012,8 +11395,8 @@
       "title": "🚨 WE STILL NEED ADULT CAST! 🚨",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.107Z",
-      "importedAt": "2026-04-17T01:19:31.107Z"
+      "fetched_at": "2026-04-17T04:38:40.309Z",
+      "importedAt": "2026-04-17T04:38:40.309Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/185209480407950/",
@@ -11135,8 +11518,8 @@
       "title": "(no title)",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.107Z",
-      "importedAt": "2026-04-17T01:19:31.107Z"
+      "fetched_at": "2026-04-17T04:38:40.309Z",
+      "importedAt": "2026-04-17T04:38:40.309Z"
     },
     {
       "url": "https://www.facebook.com/groups/1279582452097121/",
@@ -11147,8 +11530,8 @@
       "title": "(no title)",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.107Z",
-      "importedAt": "2026-04-17T01:19:31.107Z"
+      "fetched_at": "2026-04-17T04:38:40.309Z",
+      "importedAt": "2026-04-17T04:38:40.309Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/1308251035953941/",
@@ -11238,8 +11621,8 @@
       "title": "🚨 CASTING CALL - COMEDIC, ENERGETIC, ORIGINAL MUSICAL 🚨 ",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.107Z",
-      "importedAt": "2026-04-17T01:19:31.107Z"
+      "fetched_at": "2026-04-17T04:38:40.309Z",
+      "importedAt": "2026-04-17T04:38:40.309Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/1308251035953941/",
@@ -11285,8 +11668,8 @@
       "title": "CASTING CALL / PAID / Non-Union",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.107Z",
-      "importedAt": "2026-04-17T01:19:31.107Z"
+      "fetched_at": "2026-04-17T04:38:40.309Z",
+      "importedAt": "2026-04-17T04:38:40.309Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/1308251035953941/",
@@ -11540,8 +11923,8 @@
       "title": "**CASTING CALL — FILMING SATURDAY, APRIL 25TH IN VANCOUVER**",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.107Z",
-      "importedAt": "2026-04-17T01:19:31.107Z"
+      "fetched_at": "2026-04-17T04:38:40.309Z",
+      "importedAt": "2026-04-17T04:38:40.309Z"
     },
     {
       "url": "https://www.facebook.com/groups/ModelSuche/",
@@ -11552,8 +11935,8 @@
       "title": "(no title)",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.107Z",
-      "importedAt": "2026-04-17T01:19:31.107Z"
+      "fetched_at": "2026-04-17T04:38:40.309Z",
+      "importedAt": "2026-04-17T04:38:40.309Z"
     },
     {
       "url": "https://www.facebook.com/groups/agencjapracyDE/",
@@ -11564,8 +11947,8 @@
       "title": "(no title)",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.107Z",
-      "importedAt": "2026-04-17T01:19:31.107Z"
+      "fetched_at": "2026-04-17T04:38:40.309Z",
+      "importedAt": "2026-04-17T04:38:40.309Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/actottawa/",
@@ -11610,8 +11993,8 @@
       "title": "Today marks 19 years of A.C.T. (Acting for Cinema & Television)! Thank you all for helping keep this community strong.",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.107Z",
-      "importedAt": "2026-04-17T01:19:31.107Z"
+      "fetched_at": "2026-04-17T04:38:40.309Z",
+      "importedAt": "2026-04-17T04:38:40.309Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/kidscasting/",
@@ -11660,8 +12043,8 @@
       "inputUrl": "https://www.facebook.com/groups/kidscasting/",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.107Z",
-      "importedAt": "2026-04-17T01:19:31.107Z"
+      "fetched_at": "2026-04-17T04:38:40.309Z",
+      "importedAt": "2026-04-17T04:38:40.309Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/kidscasting/",
@@ -11688,8 +12071,8 @@
       "title": "Anyone know of a good acting class or intro education for acting in the Austin area for my 10 year old daughter? Any other beginner tips welcome!",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.107Z",
-      "importedAt": "2026-04-17T01:19:31.107Z"
+      "fetched_at": "2026-04-17T04:38:40.309Z",
+      "importedAt": "2026-04-17T04:38:40.309Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/kidscasting/",
@@ -11979,8 +12362,8 @@
       "title": "(no title)",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.107Z",
-      "importedAt": "2026-04-17T01:19:31.107Z"
+      "fetched_at": "2026-04-17T04:38:40.309Z",
+      "importedAt": "2026-04-17T04:38:40.309Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/schauspielergesucht/",
@@ -12028,8 +12411,8 @@
       "title": "CASTING CALL",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.107Z",
-      "importedAt": "2026-04-17T01:19:31.107Z"
+      "fetched_at": "2026-04-17T04:38:40.309Z",
+      "importedAt": "2026-04-17T04:38:40.309Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/Galinascasting/",
@@ -12058,8 +12441,8 @@
       "title": "Stunt Performer Casting Call!",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.107Z",
-      "importedAt": "2026-04-17T01:19:31.107Z"
+      "fetched_at": "2026-04-17T04:38:40.309Z",
+      "importedAt": "2026-04-17T04:38:40.309Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/Galinascasting/",
@@ -12101,8 +12484,8 @@
       "title": "WESTWARD - Student western directed by Nico Guin",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.107Z",
-      "importedAt": "2026-04-17T01:19:31.107Z"
+      "fetched_at": "2026-04-17T04:38:40.309Z",
+      "importedAt": "2026-04-17T04:38:40.309Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/Galinascasting/",
@@ -12191,8 +12574,8 @@
       "title": "CALL FOR EXTRAS! ",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.107Z",
-      "importedAt": "2026-04-17T01:19:31.107Z"
+      "fetched_at": "2026-04-17T04:38:40.309Z",
+      "importedAt": "2026-04-17T04:38:40.309Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/458581204199753/",
@@ -12252,8 +12635,8 @@
       "title": "(no title)",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.107Z",
-      "importedAt": "2026-04-17T01:19:31.107Z"
+      "fetched_at": "2026-04-17T04:38:40.309Z",
+      "importedAt": "2026-04-17T04:38:40.309Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/458581204199753/",
@@ -12296,8 +12679,8 @@
       "title": "Es gibt noch ein paar freie Plätze für den Juni Workshop 🙂",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.107Z",
-      "importedAt": "2026-04-17T01:19:31.107Z"
+      "fetched_at": "2026-04-17T04:38:40.309Z",
+      "importedAt": "2026-04-17T04:38:40.309Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/458581204199753/",
@@ -12349,8 +12732,8 @@
       "summary": "https://open.spotify.com/intl-de/album/2fLw0Qgn5DJiGzdJoIWNzY?si=zNdQIcPhTzO97bn8vesqDQ",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.107Z",
-      "importedAt": "2026-04-17T01:19:31.107Z"
+      "fetched_at": "2026-04-17T04:38:40.309Z",
+      "importedAt": "2026-04-17T04:38:40.309Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/allactorsonfacebook/",
@@ -12397,8 +12780,8 @@
       "title": "Es gibt noch ein paar freie Plätze für den Juni Workshop 🙂",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.107Z",
-      "importedAt": "2026-04-17T01:19:31.107Z"
+      "fetched_at": "2026-04-17T04:38:40.309Z",
+      "importedAt": "2026-04-17T04:38:40.309Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/allactorsonfacebook/",
@@ -12531,8 +12914,8 @@
       "title": "Hi! I just started professionally modeling & in the acting/film program at university! Would love to collab with other amazing creatives! Totally reach on ig!🦋",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.107Z",
-      "importedAt": "2026-04-17T01:19:31.107Z"
+      "fetched_at": "2026-04-17T04:38:40.309Z",
+      "importedAt": "2026-04-17T04:38:40.309Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/allactorsonfacebook/",
@@ -12579,8 +12962,8 @@
       "title": "Happy birthday steven seagel",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.107Z",
-      "importedAt": "2026-04-17T01:19:31.107Z"
+      "fetched_at": "2026-04-17T04:38:40.309Z",
+      "importedAt": "2026-04-17T04:38:40.309Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/actorsactors/",
@@ -12675,8 +13058,8 @@
       "title": "Hi just wanted to introduce myself as a fresh face.",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.107Z",
-      "importedAt": "2026-04-17T01:19:31.107Z"
+      "fetched_at": "2026-04-17T04:38:40.309Z",
+      "importedAt": "2026-04-17T04:38:40.309Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/actorsactors/",
@@ -12740,8 +13123,8 @@
       "title": "VIDEO AUDITIONS ARE DUE TODAY!!",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.107Z",
-      "importedAt": "2026-04-17T01:19:31.107Z"
+      "fetched_at": "2026-04-17T04:38:40.309Z",
+      "importedAt": "2026-04-17T04:38:40.309Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/actorsactors/",
@@ -13047,8 +13430,8 @@
       "title": "ShaquilleKiing",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.107Z",
-      "importedAt": "2026-04-17T01:19:31.107Z"
+      "fetched_at": "2026-04-17T04:38:40.309Z",
+      "importedAt": "2026-04-17T04:38:40.309Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/2139111006302938/",
@@ -13092,8 +13475,8 @@
       "title": "(no title)",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.107Z",
-      "importedAt": "2026-04-17T01:19:31.107Z"
+      "fetched_at": "2026-04-17T04:38:40.309Z",
+      "importedAt": "2026-04-17T04:38:40.309Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/2139111006302938/",
@@ -13180,8 +13563,8 @@
       "title": "(no title)",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.107Z",
-      "importedAt": "2026-04-17T01:19:31.107Z"
+      "fetched_at": "2026-04-17T04:38:40.309Z",
+      "importedAt": "2026-04-17T04:38:40.309Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/2139111006302938/",
@@ -13433,8 +13816,8 @@
       "title": "Please support my channel by subscribing and sharing.If you enjoy my content, don’t forget to subscribe.Your subscription means a lot and motivates me to do better.Kindly subscribe to my channel for more interesting content.Thank you for watching—subscribe to stay connected.",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.107Z",
-      "importedAt": "2026-04-17T01:19:31.107Z"
+      "fetched_at": "2026-04-17T04:38:40.309Z",
+      "importedAt": "2026-04-17T04:38:40.309Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/1295231977298952/",
@@ -13477,8 +13860,8 @@
       "title": "Behold denne opskrift, den er en sand perle. Jeg sendte den til dem, der takkede mig.",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.107Z",
-      "importedAt": "2026-04-17T01:19:31.107Z"
+      "fetched_at": "2026-04-17T04:38:40.309Z",
+      "importedAt": "2026-04-17T04:38:40.309Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/1295231977298952/",
@@ -13521,8 +13904,8 @@
       "title": "Fjern fedt fra arme, mave og ryg. Jeg deler opskriften i kommentarerne.",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.107Z",
-      "importedAt": "2026-04-17T01:19:31.107Z"
+      "fetched_at": "2026-04-17T04:38:40.309Z",
+      "importedAt": "2026-04-17T04:38:40.309Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/1295231977298952/",
@@ -13593,8 +13976,8 @@
       "summary": "WW Dobbelte Chokolade Bananmuffins\nForberedelsestid: 10 min | Bagetid: 18-20 min\nUdbytter: 12 muffins\nIngredienser\n3 store overmodne bananer, mosede (0 point)\n1 stort æg (0 point)\n1/4 kop usødet æblemos (0 point)\n1 tsk vaniljeekstrakt (0 point)\nOPSKRIFT I FØRSTE KOMMENTAR",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.107Z",
-      "importedAt": "2026-04-17T01:19:31.107Z"
+      "fetched_at": "2026-04-17T04:38:40.309Z",
+      "importedAt": "2026-04-17T04:38:40.309Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/afmpostings/",
@@ -13684,8 +14067,8 @@
       "title": "(no title)",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.107Z",
-      "importedAt": "2026-04-17T01:19:31.107Z"
+      "fetched_at": "2026-04-17T04:38:40.309Z",
+      "importedAt": "2026-04-17T04:38:40.309Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/afmpostings/",
@@ -13758,8 +14141,8 @@
       "summary": "Casting now !",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.107Z",
-      "importedAt": "2026-04-17T01:19:31.107Z"
+      "fetched_at": "2026-04-17T04:38:40.309Z",
+      "importedAt": "2026-04-17T04:38:40.309Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/afmpostings/",
@@ -13818,8 +14201,8 @@
       "title": "CASTING NATIONWIDE!",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.107Z",
-      "importedAt": "2026-04-17T01:19:31.107Z"
+      "fetched_at": "2026-04-17T04:38:40.309Z",
+      "importedAt": "2026-04-17T04:38:40.309Z"
     },
     {
       "url": "https://www.facebook.com/groups/731460400377555/",
@@ -13830,8 +14213,8 @@
       "title": "(no title)",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.107Z",
-      "importedAt": "2026-04-17T01:19:31.107Z"
+      "fetched_at": "2026-04-17T04:38:40.309Z",
+      "importedAt": "2026-04-17T04:38:40.309Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/185209480407950/",
@@ -13941,8 +14324,8 @@
       "title": "(no title)",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.107Z",
-      "importedAt": "2026-04-17T01:19:31.107Z"
+      "fetched_at": "2026-04-17T04:38:40.309Z",
+      "importedAt": "2026-04-17T04:38:40.309Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/185209480407950/",
@@ -13989,8 +14372,8 @@
       "title": "Does your child shine at home, but struggle socially around other kids?",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.107Z",
-      "importedAt": "2026-04-17T01:19:31.107Z"
+      "fetched_at": "2026-04-17T04:38:40.309Z",
+      "importedAt": "2026-04-17T04:38:40.309Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/185209480407950/",
@@ -14124,8 +14507,8 @@
       "title": "Hi! I just started professionally modeling & in the acting/film program & university! Would love to collab with other amazing creatives! Totally reach on ig!🦋",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.107Z",
-      "importedAt": "2026-04-17T01:19:31.107Z"
+      "fetched_at": "2026-04-17T04:38:40.309Z",
+      "importedAt": "2026-04-17T04:38:40.309Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/actorscastinguk/",
@@ -14195,8 +14578,8 @@
       "summary": "🎭 MALE IMMERSIVE PERFORMER NEEDED – PAID OPPORTUNITY (£400) 🎭\n\nHi all! I’m Avgi, founder of Genome Theatre – we create high-end immersive and interactive experiences (murder mysteries, bespoke events, luxury parties).\n\nWe’re currently casting a male performer for an event on 25th April.\n\nThis is NOT a standard acting role – we’re specifically looking for someone with immersive / interactive performance experience.\n\nYou must be:\n– Confident leading and presenting to groups\n– Strong at improvisation and guest interaction\n– Able to build atmosphere and “hold a room”\n– Experienced in immersive theatre & events.\n\nDetails:\n– Location: Amberley Castle\n– Fee: approx. £400\n– Role includes leading interactive games + being part of an immersive storyline\n\nWe’re also actively growing our performer team, so this could lead to regular paid work.\n\n👉 Please ONLY apply if you have relevant immersive/interactive experience.\n\nTo apply:\n– DM me or\n– Email: info@genometheatre.co.uk\n(Include a short intro + relevant experience/showreel if you have one)\n\nYou can see our work here:\n",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.107Z",
-      "importedAt": "2026-04-17T01:19:31.107Z"
+      "fetched_at": "2026-04-17T04:38:40.309Z",
+      "importedAt": "2026-04-17T04:38:40.309Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/actorscastinguk/",
@@ -14287,8 +14670,8 @@
       "title": "CASTING CALL",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.107Z",
-      "importedAt": "2026-04-17T01:19:31.107Z"
+      "fetched_at": "2026-04-17T04:38:40.309Z",
+      "importedAt": "2026-04-17T04:38:40.309Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/actorscastinguk/",
@@ -14336,8 +14719,8 @@
       "title": "URGENT CAST CALL - CLARITY SHORT FILM",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.107Z",
-      "importedAt": "2026-04-17T01:19:31.107Z"
+      "fetched_at": "2026-04-17T04:38:40.309Z",
+      "importedAt": "2026-04-17T04:38:40.309Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/actorsnetworking/",
@@ -14424,8 +14807,8 @@
       "title": "(no title)",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.107Z",
-      "importedAt": "2026-04-17T01:19:31.107Z"
+      "fetched_at": "2026-04-17T04:38:40.309Z",
+      "importedAt": "2026-04-17T04:38:40.309Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/actorsnetworking/",
@@ -14545,8 +14928,8 @@
       "title": "CASTING CALL!",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.107Z",
-      "importedAt": "2026-04-17T01:19:31.107Z"
+      "fetched_at": "2026-04-17T04:38:40.309Z",
+      "importedAt": "2026-04-17T04:38:40.309Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/actorsnetworking/",
@@ -14572,8 +14955,8 @@
       "title": "Hi everyone 👋",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.107Z",
-      "importedAt": "2026-04-17T01:19:31.107Z"
+      "fetched_at": "2026-04-17T04:38:40.309Z",
+      "importedAt": "2026-04-17T04:38:40.309Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/1308251035953941/",
@@ -14620,8 +15003,8 @@
       "title": "(no title)",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.107Z",
-      "importedAt": "2026-04-17T01:19:31.107Z"
+      "fetched_at": "2026-04-17T04:38:40.309Z",
+      "importedAt": "2026-04-17T04:38:40.309Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/1308251035953941/",
@@ -14669,8 +15052,8 @@
       "title": "Casting Asian Actors for some Proof-of-Concept scenes I'm shooting in the last week of April.",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.107Z",
-      "importedAt": "2026-04-17T01:19:31.107Z"
+      "fetched_at": "2026-04-17T04:38:40.309Z",
+      "importedAt": "2026-04-17T04:38:40.309Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/1308251035953941/",
@@ -14719,8 +15102,8 @@
       "title": "**ULTRA SHORT FILM CASTING CALL**",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.107Z",
-      "importedAt": "2026-04-17T01:19:31.107Z"
+      "fetched_at": "2026-04-17T04:38:40.309Z",
+      "importedAt": "2026-04-17T04:38:40.309Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/kidscasting/",
@@ -14746,8 +15129,8 @@
       "title": "Hi is anyone aware of any good agencies in Manchester taking on 14year olds pls ?",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.107Z",
-      "importedAt": "2026-04-17T01:19:31.107Z"
+      "fetched_at": "2026-04-17T04:38:40.309Z",
+      "importedAt": "2026-04-17T04:38:40.309Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/kidscasting/",
@@ -14845,8 +15228,8 @@
       "summary": "New to this... need help. This is our 1st time. Our 9 year old would like to do modeling and acting. We have a portfolio already. Spoken with a couple of agencies but want a upfront cost. Any tips or recommendations of agencies in Yorkshire UK area would be very grateful 🙏",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.107Z",
-      "importedAt": "2026-04-17T01:19:31.107Z"
+      "fetched_at": "2026-04-17T04:38:40.309Z",
+      "importedAt": "2026-04-17T04:38:40.309Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/kidscasting/",
@@ -14887,8 +15270,8 @@
       "title": "Currently searching for someone to represent my daughter. She has SAG set experience. Area is PA/NJ/DE/NYC. Anyone currently searching for kids?! We do have an ACTORS ACCESS Account & SLATE/REEL as well as performance links. Thank you",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.107Z",
-      "importedAt": "2026-04-17T01:19:31.107Z"
+      "fetched_at": "2026-04-17T04:38:40.309Z",
+      "importedAt": "2026-04-17T04:38:40.309Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/Galinascasting/",
@@ -14932,8 +15315,8 @@
       "title": "**CASTING CALL – MUSIC VIDEO SHORT FILM**",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.107Z",
-      "importedAt": "2026-04-17T01:19:31.107Z"
+      "fetched_at": "2026-04-17T04:38:40.309Z",
+      "importedAt": "2026-04-17T04:38:40.309Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/Galinascasting/",
@@ -14991,8 +15374,8 @@
       "title": "CASTING!!!!!",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.107Z",
-      "importedAt": "2026-04-17T01:19:31.107Z"
+      "fetched_at": "2026-04-17T04:38:40.309Z",
+      "importedAt": "2026-04-17T04:38:40.309Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/Galinascasting/",
@@ -15044,8 +15427,8 @@
       "summary": "🎬 **Colorado Filmmakers – Hospital Scene Setup Available**\n\nIf anyone needs a **hospital/ER setup** for an upcoming project, I just listed a **medical gurney + full prop/wardrobe bundle**.\n\n     Includes IV setup, gown, scrubs, doctor coat, etc — pretty much everything to make a scene feel real without sourcing multiple props.\n\n📍 Colorado Springs\n\nFull details + booking here:\n👉 ",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.107Z",
-      "importedAt": "2026-04-17T01:19:31.107Z"
+      "fetched_at": "2026-04-17T04:38:40.309Z",
+      "importedAt": "2026-04-17T04:38:40.309Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/458581204199753/",
@@ -15135,8 +15518,8 @@
       "title": "(no title)",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.107Z",
-      "importedAt": "2026-04-17T01:19:31.107Z"
+      "fetched_at": "2026-04-17T04:38:40.309Z",
+      "importedAt": "2026-04-17T04:38:40.309Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/458581204199753/",
@@ -15430,8 +15813,8 @@
       "title": "KarrideoTV, founded by Christian Weiße, shows you in this channel trailer what this channel is truly about: mindset, business, technology, performance, travel, documentaries, interviews, and stories with real substance. ",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.107Z",
-      "importedAt": "2026-04-17T01:19:31.107Z"
+      "fetched_at": "2026-04-17T04:38:40.309Z",
+      "importedAt": "2026-04-17T04:38:40.309Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/458581204199753/",
@@ -15490,183 +15873,20 @@
       "title": "Liebe Filmemacher & Schauspieler, ",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.107Z",
-      "importedAt": "2026-04-17T01:19:31.107Z"
+      "fetched_at": "2026-04-17T04:38:40.309Z",
+      "importedAt": "2026-04-17T04:38:40.309Z"
     },
     {
-      "facebookUrl": "https://www.facebook.com/groups/allactorsonfacebook/",
-      "url": "https://www.facebook.com/groups/allactorsonfacebook/",
-      "time": "2026-04-10T14:20:05.000Z",
-      "user": {
-        "id": "100002966899232",
-        "name": "Jeff Seymour"
-      },
-      "text": "GIVE THESE PEOPLE A BREAK, WILL YA?\nMeet the cast of my upcoming feature, Scenes of a Certain Nature. Your GoFundMe donation, no matter how small will help make this dream a reality for these very talented actors.\nhttps://gofund.me/8a626bcdf",
-      "textReferences": [
-        {
-          "url": "https://l.facebook.com/l.php?u=https%3A%2F%2Fgofund.me%2F8a626bcdf&h=AT4HTcmm61tmcIpxxkS4mcR8PWq1NLHLJwmXTYgo5t05rZVCV8zsTZaNaDasOahmlBpR4UJpGcoygTNf6FeeBtVnn1CFdwr3Uh8HoTazQs3NyS2Z0plgUAAymWQN7EFNalBkWs2EuTwUZYDyRi_ZEQZrWv5abcXI&s=1",
-          "external_url": "https://gofund.me/8a626bcdf",
-          "web_link": {
-            "__typename": "ExternalWebLink",
-            "url": "https://gofund.me/8a626bcdf",
-            "fbclid": null,
-            "lynx_mode": "ASYNCLAZY"
-          },
-          "mobileUrl": "https://lm.facebook.com/l.php?u=https%3A%2F%2Fgofund.me%2F8a626bcdf&h=AT5zXAmJljCJHuD1Tr-iEVVEAQ6O5qoiqOF7AaA50Dh9VFA0k53WOoxzch6eq6SpmbGaeS1l6CZlr30HNNrvS-LecGCaoKJuT1kkifc43LrXxbWO5TPw3EYIVK8rA49TwbEKXApglOaFg1C4_KxzfGxyFvoy5De7&s=1",
-          "id": "NjQyMTgzOTU5MjA4MTA3Omh0dHBzXGEvL2dvZnVuZC5tZS84YTYyNmJjZGY6Ojo6OjEwMTY0NDIwMTIyMzA1MTU1"
-        }
-      ],
-      "link": "https://gofund.me/8a626bcdf",
-      "topReactionsCount": 1,
-      "feedbackId": "ZmVlZGJhY2s6MTAxNjQ0MjAxMjIzMDUxNTU=",
-      "reactionLikeCount": 3,
-      "id": "UzpfSTEwMDAwMjk2Njg5OTIzMjpWSzoxMDE2NDQyMDEyMjMwNTE1NQ==",
-      "legacyId": "10164420122305155",
-      "title": "The Diary of a Manic OCD Bookseller",
-      "attachments": [
-        {
-          "mediaset_token": "pcb.10164420122305155",
-          "url": "https://www.facebook.com/media/set/?set=pcb.10164420122305155&type=1",
-          "comet_product_tag_feed_overlay_renderer": null
-        },
-        {
-          "thumbnail": "https://scontent-sea5-1.xx.fbcdn.net/v/t39.30808-6/668165342_26356248140724057_8857709248445850628_n.jpg?stp=cp6_dst-jpg_s590x590_tt6&_nc_cat=103&ccb=1-7&_nc_sid=e06c5d&_nc_ohc=P4BZPRM9Df4Q7kNvwFbcokr&_nc_oc=Adp7c5dpFwN7OR8g6-b1daBtcpSoMeA1jP5odp0fv_KFLdxV9BC63CN0YlIwoPRn4bw&_nc_zt=23&_nc_ht=scontent-sea5-1.xx&_nc_gid=NGf2T1QLqy_ebW2YN-neAA&_nc_ss=7a389&oh=00_Af2ycvD2tCiyDfNHWIIWoqw_xc0IYHVgDjDdc7otNEMW_A&oe=69E661D4",
-          "__typename": "Photo",
-          "is_playable": false,
-          "image": {
-            "uri": "https://scontent-sea5-1.xx.fbcdn.net/v/t39.30808-6/668165342_26356248140724057_8857709248445850628_n.jpg?stp=cp6_dst-jpg_s590x590_tt6&_nc_cat=103&ccb=1-7&_nc_sid=e06c5d&_nc_ohc=P4BZPRM9Df4Q7kNvwFbcokr&_nc_oc=Adp7c5dpFwN7OR8g6-b1daBtcpSoMeA1jP5odp0fv_KFLdxV9BC63CN0YlIwoPRn4bw&_nc_zt=23&_nc_ht=scontent-sea5-1.xx&_nc_gid=NGf2T1QLqy_ebW2YN-neAA&_nc_ss=7a389&oh=00_Af2ycvD2tCiyDfNHWIIWoqw_xc0IYHVgDjDdc7otNEMW_A&oe=69E661D4",
-            "height": 590,
-            "width": 389
-          },
-          "id": "26364439866571551",
-          "__isMedia": "Photo",
-          "photo_cix_screen": null,
-          "copyright_banner_info": null,
-          "owner": {
-            "__typename": "User",
-            "id": "100002966899232"
-          },
-          "ocrText": "May be an image of one or more people"
-        },
-        {
-          "thumbnail": "https://scontent-sea5-1.xx.fbcdn.net/v/t39.30808-6/667801836_26356249264057278_2903956992421837719_n.jpg?stp=dst-jpg_s590x590_tt6&_nc_cat=110&ccb=1-7&_nc_sid=e06c5d&_nc_ohc=TRgL8_V2qt0Q7kNvwH1MqvE&_nc_oc=Adotq2ZpYgmYrtWzWD8LMp9D-3BaxzX5sB2R6lOR8Rd5vuYU3qbEYupYI4cEsUdw8ms&_nc_zt=23&_nc_ht=scontent-sea5-1.xx&_nc_gid=NGf2T1QLqy_ebW2YN-neAA&_nc_ss=7a389&oh=00_Af10kdT5bwkvbMwJey5jadBOnKg9u_sPvnYn-LabJw8P4g&oe=69E654C1",
-          "__typename": "Photo",
-          "is_playable": false,
-          "image": {
-            "uri": "https://scontent-sea5-1.xx.fbcdn.net/v/t39.30808-6/667801836_26356249264057278_2903956992421837719_n.jpg?stp=dst-jpg_s590x590_tt6&_nc_cat=110&ccb=1-7&_nc_sid=e06c5d&_nc_ohc=TRgL8_V2qt0Q7kNvwH1MqvE&_nc_oc=Adotq2ZpYgmYrtWzWD8LMp9D-3BaxzX5sB2R6lOR8Rd5vuYU3qbEYupYI4cEsUdw8ms&_nc_zt=23&_nc_ht=scontent-sea5-1.xx&_nc_gid=NGf2T1QLqy_ebW2YN-neAA&_nc_ss=7a389&oh=00_Af10kdT5bwkvbMwJey5jadBOnKg9u_sPvnYn-LabJw8P4g&oe=69E654C1",
-            "height": 590,
-            "width": 472
-          },
-          "id": "26364439889904882",
-          "__isMedia": "Photo",
-          "photo_cix_screen": null,
-          "copyright_banner_info": null,
-          "owner": {
-            "__typename": "User",
-            "id": "100002966899232"
-          },
-          "ocrText": "May be an image of one or more people, blonde hair and braids"
-        },
-        {
-          "thumbnail": "https://scontent-sea1-1.xx.fbcdn.net/v/t39.30808-6/668512930_26356250717390466_7150075463302189461_n.jpg?stp=dst-jpg_s590x590_tt6&_nc_cat=104&ccb=1-7&_nc_sid=e06c5d&_nc_ohc=b3PLBP7E-tcQ7kNvwEDe3IT&_nc_oc=AdrH191OCE6dbHseIt1ntUxZfn-nwXuhhY7s523oJ1uSdawqrG7EpYqfHn2r4n7dlP8&_nc_zt=23&_nc_ht=scontent-sea1-1.xx&_nc_gid=NGf2T1QLqy_ebW2YN-neAA&_nc_ss=7a389&oh=00_Af1gVShwxiIpIATZJwgKeA6ejhrl_JCxcapL9PPFpXkkGg&oe=69E63737",
-          "__typename": "Photo",
-          "is_playable": false,
-          "image": {
-            "uri": "https://scontent-sea1-1.xx.fbcdn.net/v/t39.30808-6/668512930_26356250717390466_7150075463302189461_n.jpg?stp=dst-jpg_s590x590_tt6&_nc_cat=104&ccb=1-7&_nc_sid=e06c5d&_nc_ohc=b3PLBP7E-tcQ7kNvwEDe3IT&_nc_oc=AdrH191OCE6dbHseIt1ntUxZfn-nwXuhhY7s523oJ1uSdawqrG7EpYqfHn2r4n7dlP8&_nc_zt=23&_nc_ht=scontent-sea1-1.xx&_nc_gid=NGf2T1QLqy_ebW2YN-neAA&_nc_ss=7a389&oh=00_Af1gVShwxiIpIATZJwgKeA6ejhrl_JCxcapL9PPFpXkkGg&oe=69E63737",
-            "height": 590,
-            "width": 393
-          },
-          "id": "26364439903238214",
-          "__isMedia": "Photo",
-          "photo_cix_screen": null,
-          "copyright_banner_info": null,
-          "owner": {
-            "__typename": "User",
-            "id": "100002966899232"
-          },
-          "ocrText": "May be an image of one or more people"
-        },
-        {
-          "thumbnail": "https://scontent-sea5-1.xx.fbcdn.net/v/t39.30808-6/663234997_26356252110723660_8689000460010253145_n.jpg?stp=cp6_dst-jpg_s590x590_tt6&_nc_cat=103&ccb=1-7&_nc_sid=e06c5d&_nc_ohc=GjTdHyqkJ4cQ7kNvwF2Jcyt&_nc_oc=AdpX1zbopdYC3VcgGIhlh53FdJHE6EOlY6L6w0sniH2dqGUbQKVs4KIhMBytzicAnyY&_nc_zt=23&_nc_ht=scontent-sea5-1.xx&_nc_gid=NGf2T1QLqy_ebW2YN-neAA&_nc_ss=7a389&oh=00_Af3AwnJgI5oQ0jZCD2VfFY4AxoNmUAPVC18wp4NVSf6Qjg&oe=69E631B2",
-          "__typename": "Photo",
-          "is_playable": false,
-          "image": {
-            "uri": "https://scontent-sea5-1.xx.fbcdn.net/v/t39.30808-6/663234997_26356252110723660_8689000460010253145_n.jpg?stp=cp6_dst-jpg_s590x590_tt6&_nc_cat=103&ccb=1-7&_nc_sid=e06c5d&_nc_ohc=GjTdHyqkJ4cQ7kNvwF2Jcyt&_nc_oc=AdpX1zbopdYC3VcgGIhlh53FdJHE6EOlY6L6w0sniH2dqGUbQKVs4KIhMBytzicAnyY&_nc_zt=23&_nc_ht=scontent-sea5-1.xx&_nc_gid=NGf2T1QLqy_ebW2YN-neAA&_nc_ss=7a389&oh=00_Af3AwnJgI5oQ0jZCD2VfFY4AxoNmUAPVC18wp4NVSf6Qjg&oe=69E631B2",
-            "height": 590,
-            "width": 393
-          },
-          "id": "26364439869904884",
-          "__isMedia": "Photo",
-          "photo_cix_screen": null,
-          "copyright_banner_info": null,
-          "owner": {
-            "__typename": "User",
-            "id": "100002966899232"
-          },
-          "ocrText": "No photo description available."
-        },
-        {
-          "thumbnail": "https://scontent-sea5-1.xx.fbcdn.net/v/t39.30808-6/669675084_26356253490723522_7172467205701110926_n.jpg?stp=dst-jpg_p417x417_tt6&_nc_cat=103&ccb=1-7&_nc_sid=e06c5d&_nc_ohc=6WxIWvUm7nwQ7kNvwE1J2EX&_nc_oc=Adr00tMpwMD3CyIOJC8SMY5AryZe86sFCHhAGeOrdOHc2VpBQXkuAnUqBKGT1vw6iTY&_nc_zt=23&_nc_ht=scontent-sea5-1.xx&_nc_gid=NGf2T1QLqy_ebW2YN-neAA&_nc_ss=7a389&oh=00_Af1Itm-QzuQzrxGPhoXZKeASu_SjQR7JXeqy5m-cV3U2ig&oe=69E63587",
-          "__typename": "Photo",
-          "is_playable": false,
-          "image": {
-            "uri": "https://scontent-sea5-1.xx.fbcdn.net/v/t39.30808-6/669675084_26356253490723522_7172467205701110926_n.jpg?stp=dst-jpg_p417x417_tt6&_nc_cat=103&ccb=1-7&_nc_sid=e06c5d&_nc_ohc=6WxIWvUm7nwQ7kNvwE1J2EX&_nc_oc=Adr00tMpwMD3CyIOJC8SMY5AryZe86sFCHhAGeOrdOHc2VpBQXkuAnUqBKGT1vw6iTY&_nc_zt=23&_nc_ht=scontent-sea5-1.xx&_nc_gid=NGf2T1QLqy_ebW2YN-neAA&_nc_ss=7a389&oh=00_Af1Itm-QzuQzrxGPhoXZKeASu_SjQR7JXeqy5m-cV3U2ig&oe=69E63587",
-            "height": 584,
-            "width": 417
-          },
-          "id": "26364439883238216",
-          "__isMedia": "Photo",
-          "photo_cix_screen": null,
-          "copyright_banner_info": null,
-          "owner": {
-            "__typename": "User",
-            "id": "100002966899232"
-          },
-          "ocrText": "May be an image of one or more people"
-        }
-      ],
-      "likesCount": 3,
-      "sharesCount": 0,
-      "commentsCount": 1,
-      "topComments": [
-        {
-          "commentUrl": "https://www.facebook.com/groups/allactorsonfacebook/permalink/10164420122305155/?comment_id=10164422112990155",
-          "commentId": "10164422112990155",
-          "id": "Y29tbWVudDoxMDE2NDQyMDEyMjMwNTE1NV8xMDE2NDQyMjExMjk5MDE1NQ==",
-          "feedbackId": "ZmVlZGJhY2s6MTAxNjQ0MjAxMjIzMDUxNTVfMTAxNjQ0MjIxMTI5OTAxNTU=",
-          "date": "2026-04-10T23:29:20.000Z",
-          "text": "Good stuff if you get a chance check out my book I'm working on getting the movie version going let me know.      https://a.co/d/00A1o3pt",
-          "attachments": [
-            {
-              "__typename": "GenericAttachmentMedia",
-              "fallback_image": {
-                "height": 98,
-                "uri": "https://external-sea1-1.xx.fbcdn.net/emg1/v/t13/12609074988071034495?url=https%3A%2F%2Fm.media-amazon.com%2Fimages%2FI%2F71FRUk8oBgL.jpg_BO30%2C255%2C255%2C255_UF750%2C750_SR1910%2C1000%2C0%2CC_QL100_.jpg&fb_obo=1&utld=media-amazon.com&stp=c0.5000x0.5000f_dst-emg0_p98x98_q75_tt6&_nc_gid=NGf2T1QLqy_ebW2YN-neAA&_nc_oc=Adr_1y9rQ3l1uwYIjt1Cz1ntm7Buk0pKM189vNPbU_7AEY6RfyuIH8FxUz6abRqwPCc&ccb=13-1&oh=06_Q3--AYGXkzkX3sMUFvXIMlKmALQyRYWjleVVpZrmRVV5Rah-&oe=69E2526F&_nc_sid=085657",
-                "width": 98
-              },
-              "is_playable": false,
-              "id": "35938954845703973"
-            }
-          ],
-          "profilePicture": "https://scontent-sea5-1.xx.fbcdn.net/v/t39.30808-1/387042069_25130627933203439_3909574456592731020_n.jpg?stp=cp0_dst-jpg_s32x32_tt6&_nc_cat=105&ccb=1-7&_nc_sid=1d2534&_nc_ohc=0bLl70dj4XcQ7kNvwHN5sFy&_nc_oc=AdrVyflKNA3ThtFyXMIUWZP6LUwOe6H5DlceqM7CbHxzGUNeNQuPfNNT5540Yc9NPV8&_nc_zt=24&_nc_ht=scontent-sea5-1.xx&_nc_gid=NGf2T1QLqy_ebW2YN-neAA&_nc_ss=7a389&oh=00_Af30EqNYp027jY-wOsPwWkGqWySx1S5MuGQdt7tnAESM8A&oe=69E651D0",
-          "profileId": "100000487357424",
-          "profileName": "James Bailey",
-          "likesCount": "0",
-          "threadingDepth": 0
-        }
-      ],
-      "facebookId": "2728905154",
-      "groupTitle": "All Actors on Facebook.",
-      "pageAdLibrary": {
-        "is_business_page_active": false,
-        "id": "682052748331968"
-      },
-      "inputUrl": "https://www.facebook.com/groups/allactorsonfacebook/",
-      "summary": "GIVE THESE PEOPLE A BREAK, WILL YA?\nMeet the cast of my upcoming feature, Scenes of a Certain Nature. Your GoFundMe donation, no matter how small will help make this dream a reality for these very talented actors.\nhttps://gofund.me/8a626bcdf",
+      "url": "https://www.facebook.com/groups/2039561149440704/",
+      "error": "no_items",
+      "errorDescription": "Empty or private data for provided input",
+      "facebookUrl": "https://www.facebook.com/groups/2039561149440704/",
+      "id": "https://www.facebook.com/groups/2039561149440704/|",
+      "title": "(no title)",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.107Z",
-      "importedAt": "2026-04-17T01:19:31.107Z"
+      "fetched_at": "2026-04-17T04:38:40.308Z",
+      "importedAt": "2026-04-17T04:38:40.308Z"
     },
     {
       "url": "https://www.facebook.com/groups/castings.berlin/",
@@ -15677,8 +15897,8 @@
       "title": "(no title)",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.106Z",
-      "importedAt": "2026-04-17T01:19:31.106Z"
+      "fetched_at": "2026-04-17T04:38:40.308Z",
+      "importedAt": "2026-04-17T04:38:40.308Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/Galinascasting/",
@@ -15733,8 +15953,8 @@
       "title": "CASTING – COMEDIC LEGAL WEB SERIES (DENVER)",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.106Z",
-      "importedAt": "2026-04-17T01:19:31.106Z"
+      "fetched_at": "2026-04-17T04:38:40.308Z",
+      "importedAt": "2026-04-17T04:38:40.308Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/Galinascasting/",
@@ -15790,8 +16010,8 @@
       "title": "Background Casting Call",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.106Z",
-      "importedAt": "2026-04-17T01:19:31.106Z"
+      "fetched_at": "2026-04-17T04:38:40.308Z",
+      "importedAt": "2026-04-17T04:38:40.308Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/Galinascasting/",
@@ -15971,8 +16191,8 @@
       "title": "Looking forward to seeing everyone at the May Festival! ",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.106Z",
-      "importedAt": "2026-04-17T01:19:31.106Z"
+      "fetched_at": "2026-04-17T04:38:40.308Z",
+      "importedAt": "2026-04-17T04:38:40.308Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/241224289233076/",
@@ -16025,8 +16245,8 @@
       "inputUrl": "https://www.facebook.com/groups/241224289233076/",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.106Z",
-      "importedAt": "2026-04-17T01:19:31.106Z"
+      "fetched_at": "2026-04-17T04:38:40.308Z",
+      "importedAt": "2026-04-17T04:38:40.308Z"
     },
     {
       "url": "https://www.facebook.com/groups/schauspielercastings/",
@@ -16037,8 +16257,8 @@
       "title": "(no title)",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.106Z",
-      "importedAt": "2026-04-17T01:19:31.106Z"
+      "fetched_at": "2026-04-17T04:38:40.308Z",
+      "importedAt": "2026-04-17T04:38:40.308Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/schauspielergesucht/",
@@ -16081,8 +16301,8 @@
       "summary": "Casting Call - Wien\nalle Erfahrungsgrade, jedes Alter, alle sind herzlich willkommen! :-)\n",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.106Z",
-      "importedAt": "2026-04-17T01:19:31.106Z"
+      "fetched_at": "2026-04-17T04:38:40.308Z",
+      "importedAt": "2026-04-17T04:38:40.308Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/schauspielergesucht/",
@@ -16144,8 +16364,8 @@
       "title": "**Casting Call**",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.106Z",
-      "importedAt": "2026-04-17T01:19:31.106Z"
+      "fetched_at": "2026-04-17T04:38:40.308Z",
+      "importedAt": "2026-04-17T04:38:40.308Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/schauspielergesucht/",
@@ -16209,8 +16429,8 @@
       "title": "(no title)",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.106Z",
-      "importedAt": "2026-04-17T01:19:31.106Z"
+      "fetched_at": "2026-04-17T04:38:40.308Z",
+      "importedAt": "2026-04-17T04:38:40.308Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/458581204199753/",
@@ -16287,8 +16507,8 @@
       "inputUrl": "https://www.facebook.com/groups/458581204199753/",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.106Z",
-      "importedAt": "2026-04-17T01:19:31.106Z"
+      "fetched_at": "2026-04-17T04:38:40.308Z",
+      "importedAt": "2026-04-17T04:38:40.308Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/458581204199753/",
@@ -16438,8 +16658,8 @@
       "summary": "Die Musikerin und Sängerin Eva Piazza singt zusammen mit ihrem Bruder Yoann Piazza wieder im Lindenhof Theater Braunschweig. Auf dem Programm stehen französische Chansons nicht nur von Edith Piaf. Das Konzert findet am 18. Mai um 19.30 Uhr im Lindenhof Theater in Braunschweig statt. Die Karten gibt es hier https://lindenhof-braunschweig.de/veranstaltung/eva-piazza-singt-franzoesische-chansons-nicht-nur-von-edith-piaf-2-teil und bei der Konzertkasse und bei Musikalien Bartels und an der Abendkasse.",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.106Z",
-      "importedAt": "2026-04-17T01:19:31.106Z"
+      "fetched_at": "2026-04-17T04:38:40.308Z",
+      "importedAt": "2026-04-17T04:38:40.308Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/458581204199753/",
@@ -16529,8 +16749,8 @@
       "title": "(no title)",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.106Z",
-      "importedAt": "2026-04-17T01:19:31.106Z"
+      "fetched_at": "2026-04-17T04:38:40.308Z",
+      "importedAt": "2026-04-17T04:38:40.308Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/allactorsonfacebook/",
@@ -16560,8 +16780,8 @@
       "title": "Hi! I'm new to this group. I recently joined because I love acting",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.106Z",
-      "importedAt": "2026-04-17T01:19:31.106Z"
+      "fetched_at": "2026-04-17T04:38:40.308Z",
+      "importedAt": "2026-04-17T04:38:40.308Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/allactorsonfacebook/",
@@ -16591,8 +16811,8 @@
       "title": "I have a 14-episode script being pitched to RTÉ. I am looking for a Director/DP who wants to partner on this project. No upfront fee, but a full Producer credit and a share of the production deal.\"",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.106Z",
-      "importedAt": "2026-04-17T01:19:31.106Z"
+      "fetched_at": "2026-04-17T04:38:40.308Z",
+      "importedAt": "2026-04-17T04:38:40.308Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/allactorsonfacebook/",
@@ -16679,8 +16899,8 @@
       "title": "🎬 CASTING CALL — HARD KNOTS 🎬",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.106Z",
-      "importedAt": "2026-04-17T01:19:31.106Z"
+      "fetched_at": "2026-04-17T04:38:40.308Z",
+      "importedAt": "2026-04-17T04:38:40.308Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/castfinder.de/",
@@ -16823,8 +17043,8 @@
       "title": "Falls jemand ein preiswertes großes Casting-Studio in Wien braucht (auch für Drehs, Mini-Kinovorführungen, Proben oder Podcasts,...), sehr zu empfehlen:",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.106Z",
-      "importedAt": "2026-04-17T01:19:31.106Z"
+      "fetched_at": "2026-04-17T04:38:40.308Z",
+      "importedAt": "2026-04-17T04:38:40.308Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/castfinder.de/",
@@ -16897,8 +17117,8 @@
       "title": "Schon mal eine Rolle angenommen…",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.106Z",
-      "importedAt": "2026-04-17T01:19:31.106Z"
+      "fetched_at": "2026-04-17T04:38:40.308Z",
+      "importedAt": "2026-04-17T04:38:40.308Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/castfinder.de/",
@@ -17155,8 +17375,8 @@
       "title": "🎬 Wir besetzen aktuell neue Projekte und suchen:",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.106Z",
-      "importedAt": "2026-04-17T01:19:31.106Z"
+      "fetched_at": "2026-04-17T04:38:40.308Z",
+      "importedAt": "2026-04-17T04:38:40.308Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/2139111006302938/",
@@ -17372,8 +17592,8 @@
       "title": "Sunday 26th April ",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.106Z",
-      "importedAt": "2026-04-17T01:19:31.106Z"
+      "fetched_at": "2026-04-17T04:38:40.308Z",
+      "importedAt": "2026-04-17T04:38:40.308Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/2139111006302938/",
@@ -17415,8 +17635,8 @@
       "title": "(no title)",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.106Z",
-      "importedAt": "2026-04-17T01:19:31.106Z"
+      "fetched_at": "2026-04-17T04:38:40.308Z",
+      "importedAt": "2026-04-17T04:38:40.308Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/2139111006302938/",
@@ -17502,8 +17722,8 @@
       "title": "(no title)",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.106Z",
-      "importedAt": "2026-04-17T01:19:31.106Z"
+      "fetched_at": "2026-04-17T04:38:40.308Z",
+      "importedAt": "2026-04-17T04:38:40.308Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/245568709343712/",
@@ -17578,8 +17798,8 @@
       "title": "Wrestling has more than one royal family…",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.106Z",
-      "importedAt": "2026-04-17T01:19:31.106Z"
+      "fetched_at": "2026-04-17T04:38:40.308Z",
+      "importedAt": "2026-04-17T04:38:40.308Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/245568709343712/",
@@ -17605,8 +17825,8 @@
       "title": "Posting on behalf of one of my students.  Looking for a male actor, age 21-25, for a one-day shoot on Wed, April 22nd from 1-5pm in Los Angeles.",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.106Z",
-      "importedAt": "2026-04-17T01:19:31.106Z"
+      "fetched_at": "2026-04-17T04:38:40.308Z",
+      "importedAt": "2026-04-17T04:38:40.308Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/245568709343712/",
@@ -17648,8 +17868,8 @@
       "title": "🎥 We’re Hiring an Actor for Company Videos (Sherman Oaks)",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.106Z",
-      "importedAt": "2026-04-17T01:19:31.106Z"
+      "fetched_at": "2026-04-17T04:38:40.308Z",
+      "importedAt": "2026-04-17T04:38:40.308Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/actorscastinguk/",
@@ -17698,8 +17918,8 @@
       "title": "Introducing K.A Global© an Award Winning Production House and a innovative Creative Powerhouse, proudly established in the UK, operating at the forefront of the Entertainment Industry since 2020.",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.106Z",
-      "importedAt": "2026-04-17T01:19:31.106Z"
+      "fetched_at": "2026-04-17T04:38:40.308Z",
+      "importedAt": "2026-04-17T04:38:40.308Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/actorscastinguk/",
@@ -17790,8 +18010,8 @@
       "title": "CASTING CALL:",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.106Z",
-      "importedAt": "2026-04-17T01:19:31.106Z"
+      "fetched_at": "2026-04-17T04:38:40.308Z",
+      "importedAt": "2026-04-17T04:38:40.308Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/actorscastinguk/",
@@ -17868,8 +18088,8 @@
       "title": "CASTING CALL:",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.106Z",
-      "importedAt": "2026-04-17T01:19:31.106Z"
+      "fetched_at": "2026-04-17T04:38:40.308Z",
+      "importedAt": "2026-04-17T04:38:40.308Z"
     },
     {
       "url": "https://www.facebook.com/groups/Castingogauditions/",
@@ -17880,8 +18100,8 @@
       "title": "(no title)",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.106Z",
-      "importedAt": "2026-04-17T01:19:31.106Z"
+      "fetched_at": "2026-04-17T04:38:40.308Z",
+      "importedAt": "2026-04-17T04:38:40.308Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/actorsactors/",
@@ -17975,8 +18195,8 @@
       "title": "Greetings! I'm an actress and Stand-Up Comedian with experience in movies, TV and theater. Based in Philadelphia PA but I'll travel for a buck!! DM me for more details, pics, vids and resume. Thank you!",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.106Z",
-      "importedAt": "2026-04-17T01:19:31.106Z"
+      "fetched_at": "2026-04-17T04:38:40.308Z",
+      "importedAt": "2026-04-17T04:38:40.308Z"
     },
     {
       "facebookUrl": "https://www.facebook.com/groups/actorsactors/",
@@ -18044,228 +18264,8 @@
       "summary": "https://entrepreneurofimpact.org/2026/james-white-brown\n\nTop 10 selected tomorrow at 7 pm PSDT. Help me make it to Top 3 by voting beyond the free vote and proceeds from vote support 100 percent youth initiatives from GenYouth. A triple impact effect. Vote Nashville’s “from the dirt to the boardroom” for Top 10 while supporting important initiatives for youth.",
       "source": "FacebookGroups",
       "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.106Z",
-      "importedAt": "2026-04-17T01:19:31.106Z"
-    },
-    {
-      "facebookUrl": "https://www.facebook.com/groups/actorsactors/",
-      "url": "https://www.facebook.com/groups/actorsactors/",
-      "time": "2026-04-16T02:06:06.000Z",
-      "user": {
-        "id": "100078755692289",
-        "name": "Eric Aello"
-      },
-      "text": "I don't know anything about the industry, but if you need a weird guy in the background eating tacos, just let me know! 😂",
-      "topReactionsCount": 1,
-      "feedbackId": "ZmVlZGJhY2s6MjYzNjE4NTYxMTM1MDgzNjc=",
-      "reactionLikeCount": 3,
-      "id": "UzpfSTEwMDA3ODc1NTY5MjI4OTpWSzoyNjM2MTg1NjExMzUwODM2Nw==",
-      "legacyId": "26361856113508367",
-      "attachments": [
-        {
-          "thumbnail": "https://scontent.fagc1-2.fna.fbcdn.net/v/t39.30808-6/669832009_973618915273289_7977356985991599729_n.jpg?stp=cp6_dst-jpg_p526x296_tt6&_nc_cat=104&ccb=1-7&_nc_sid=e06c5d&_nc_ohc=PS5pw_kY_VQQ7kNvwGKLi3d&_nc_oc=Adqds3r69m0oQ7UhCK-5fcP3cef0VkFyEfO-MrLRLTqU6NVBusWBjTBL8RwaP0olChCDV1Dpl6wPFbdKN3rtB5qP&_nc_zt=23&_nc_ht=scontent.fagc1-2.fna&_nc_gid=dVMtK9TLe0rtkL6mBDghzw&_nc_ss=7a389&oh=00_Af3YxoiEd2YlkBhylGlQU5GqblPsjmFmQhds1GUP3Ktw0Q&oe=69E641AD",
-          "__typename": "Photo",
-          "photo_image": {
-            "uri": "https://scontent.fagc1-2.fna.fbcdn.net/v/t39.30808-6/669832009_973618915273289_7977356985991599729_n.jpg?stp=cp6_dst-jpg_p526x296_tt6&_nc_cat=104&ccb=1-7&_nc_sid=e06c5d&_nc_ohc=PS5pw_kY_VQQ7kNvwGKLi3d&_nc_oc=Adqds3r69m0oQ7UhCK-5fcP3cef0VkFyEfO-MrLRLTqU6NVBusWBjTBL8RwaP0olChCDV1Dpl6wPFbdKN3rtB5qP&_nc_zt=23&_nc_ht=scontent.fagc1-2.fna&_nc_gid=dVMtK9TLe0rtkL6mBDghzw&_nc_ss=7a389&oh=00_Af3YxoiEd2YlkBhylGlQU5GqblPsjmFmQhds1GUP3Ktw0Q&oe=69E641AD",
-            "height": 1040,
-            "width": 526
-          },
-          "__isMedia": "Photo",
-          "accent_color": "FF83B7DE",
-          "photo_product_tags": [],
-          "url": "https://www.facebook.com/photo.php?fbid=973618911939956&set=gm.26361856113508367&type=3",
-          "id": "973618911939956",
-          "ocrText": "May be an image of one or more people, people smiling, eyewear and ocean"
-        }
-      ],
-      "likesCount": 3,
-      "sharesCount": 0,
-      "commentsCount": 1,
-      "topComments": [
-        {
-          "commentUrl": "https://www.facebook.com/groups/actorsactors/permalink/26361856113508367/?comment_id=26362183816808930",
-          "commentId": "26362183816808930",
-          "id": "Y29tbWVudDoyNjM2MTg1NjExMzUwODM2N18yNjM2MjE4MzgxNjgwODkzMA==",
-          "feedbackId": "ZmVlZGJhY2s6MjYzNjE4NTYxMTM1MDgzNjdfMjYzNjIxODM4MTY4MDg5MzA=",
-          "date": "2026-04-16T02:47:55.000Z",
-          "text": "Go to Actors Access and sign up to be a background actor…no experience necessary but  patience is required! Break a leg! ✌️",
-          "profileUrl": "https://www.facebook.com/char.leonard.98",
-          "profilePicture": "https://scontent.fagc1-2.fna.fbcdn.net/v/t39.30808-1/625200518_10241786711390188_3447002767623649027_n.jpg?stp=cp0_dst-jpg_s32x32_tt6&_nc_cat=100&ccb=1-7&_nc_sid=1d2534&_nc_ohc=_RFXrSQDZfEQ7kNvwFW15Ym&_nc_oc=Adq0vUIRuXsmE2nvZ0K8bLversbe_fqK3gon1V2AG9PBiiz6pByjGpstTUz6Mowc_5pTGVzpmxPx-9IXbGbjDuy1&_nc_zt=24&_nc_ht=scontent.fagc1-2.fna&_nc_gid=dVMtK9TLe0rtkL6mBDghzw&_nc_ss=7a389&oh=00_Af0MHN7uJm1VdDlreTlh2iP0J7fQDHrFRQfPEiQpGk2skA&oe=69E660D3",
-          "profileId": "1403815080",
-          "profileName": "MamaChar Leonard",
-          "likesCount": "0",
-          "threadingDepth": 0
-        }
-      ],
-      "facebookId": "1012558328864828",
-      "groupTitle": "Actors Actors Actors! Wanted!",
-      "pageAdLibrary": {
-        "is_business_page_active": false,
-        "id": "1027009100490722"
-      },
-      "inputUrl": "https://www.facebook.com/groups/actorsactors/",
-      "summary": "I don't know anything about the industry, but if you need a weird guy in the background eating tacos, just let me know! 😂",
-      "title": "I don't know anything about the industry, but if you need a weird guy in the background eating tacos, just let me know! 😂",
-      "source": "FacebookGroups",
-      "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.106Z",
-      "importedAt": "2026-04-17T01:19:31.106Z"
-    },
-    {
-      "facebookUrl": "https://www.facebook.com/groups/1295231977298952/",
-      "url": "https://www.facebook.com/groups/1295231977298952/",
-      "time": "2026-04-15T23:52:11.000Z",
-      "user": {
-        "id": "pfbid02YLEzdYwd9wNPzaLQTSAqdAH1ZibPe79D81wabd9wjwrqpN439Z2xo5oAft2XkbZWl",
-        "name": "Yassine Rap"
-      },
-      "text": "De er så lækre, at jeg laver dem hver weekend! Enkel og velsmagende opskrift med kål!\nIngredienser:\nKål: 1 mellemstort hoved\nOlivenolie: 50 ml\nSalt: 1 tsk\nKværnet sort peber: efter smag\nRød peber: efter smag\n\"Jeg skal sige noget for at blive ved med at få mine opskrifter...\nTak. Opskrift i første kommentar Se mindre",
-      "link": "https://alleopskrifter.serpin.biz/bagte-kalboffer/",
-      "topReactionsCount": 0,
-      "feedbackId": "ZmVlZGJhY2s6MzQ1MjY3NzQwODIyMTA1NA==",
-      "id": "UzpfSTYxNTYxMTYxNTM2NzUzOlZLOjM0NTI2Nzc0MDgyMjEwNTQ=",
-      "legacyId": "3452677408221054",
-      "title": "Bagte kålbøffer – Serpin Recipes",
-      "attachments": [
-        {
-          "thumbnail": "https://scontent-atl3-1.xx.fbcdn.net/v/t39.30808-6/672481127_122211399002372051_1308284325096114314_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=e06c5d&_nc_ohc=ufjU_0KldCYQ7kNvwGpLKT3&_nc_oc=AdpCKJDBKKxA2NtAfKrec6MKEXBw0-9LK0aTWg_MoOdMLcqdUjWQpckLhF1OaRTGaSk&_nc_zt=23&_nc_ht=scontent-atl3-1.xx&_nc_gid=tMIJdWU0f1MVOOBJW5_96Q&_nc_ss=7a389&oh=00_Af0LAyGNopWCmUK5braXEwI2hpIoIvEg_edIrHpzrXAfKg&oe=69E640CE",
-          "__typename": "Photo",
-          "photo_image": {
-            "uri": "https://scontent-atl3-1.xx.fbcdn.net/v/t39.30808-6/672481127_122211399002372051_1308284325096114314_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=e06c5d&_nc_ohc=ufjU_0KldCYQ7kNvwGpLKT3&_nc_oc=AdpCKJDBKKxA2NtAfKrec6MKEXBw0-9LK0aTWg_MoOdMLcqdUjWQpckLhF1OaRTGaSk&_nc_zt=23&_nc_ht=scontent-atl3-1.xx&_nc_gid=tMIJdWU0f1MVOOBJW5_96Q&_nc_ss=7a389&oh=00_Af0LAyGNopWCmUK5braXEwI2hpIoIvEg_edIrHpzrXAfKg&oe=69E640CE",
-            "height": 640,
-            "width": 512
-          },
-          "__isMedia": "Photo",
-          "accent_color": "FFCAB580",
-          "photo_product_tags": [],
-          "url": "https://www.facebook.com/photo.php?fbid=122211398996372051&set=gm.3452677408221054&type=3",
-          "id": "122211398996372051",
-          "ocrText": "May be an image of food"
-        }
-      ],
-      "likesCount": 0,
-      "sharesCount": 0,
-      "commentsCount": 1,
-      "topComments": [
-        {
-          "commentUrl": "https://www.facebook.com/groups/1295231977298952/permalink/3452677408221054/?comment_id=3452677828221012",
-          "commentId": "3452677828221012",
-          "id": "Y29tbWVudDozNDUyNjc3NDA4MjIxMDU0XzM0NTI2Nzc4MjgyMjEwMTI=",
-          "feedbackId": "ZmVlZGJhY2s6MzQ1MjY3NzQwODIyMTA1NF8zNDUyNjc3ODI4MjIxMDEy",
-          "date": "2026-04-15T23:52:41.000Z",
-          "text": "https://alleopskrifter.serpin.biz/bagte-kalboffer/",
-          "attachments": [
-            {
-              "__typename": "GenericAttachmentMedia",
-              "fallback_image": {
-                "height": 98,
-                "uri": "https://external-atl3-2.xx.fbcdn.net/emg1/v/t13/13260573803359267967?url=https%3A%2F%2Falleopskrifter.serpin.biz%2Fwp-content%2Fuploads%2F2026%2F02%2F624718220_122261954648132336_6327239688394765996_n.jpg&fb_obo=1&utld=serpin.biz&stp=c0.5000x0.5000f_dst-emg0_p98x98_q75_tt6&_nc_gid=tMIJdWU0f1MVOOBJW5_96Q&_nc_oc=AdqE_7s4VYF_UQdvLKViU8CIzNFDWj2pjULAMXrWVnfSOtB3UzbHIahWeYX7Vx1L7ZE&ccb=13-1&oh=06_Q3--ASXLDYoGMi66gyg5j2stijVIbabl-JW15bivj-ZgDlN5&oe=69E26A13&_nc_sid=085657",
-                "width": 98
-              },
-              "is_playable": false,
-              "id": "122211399134372051"
-            }
-          ],
-          "profileUrl": "https://www.facebook.com/people/Yassine-Rap/pfbid02YLEzdYwd9wNPzaLQTSAqdAH1ZibPe79D81wabd9wjwrqpN439Z2xo5oAft2XkbZWl/",
-          "profilePicture": "https://scontent-atl3-2.xx.fbcdn.net/v/t39.30808-1/461297808_122130231440372051_4216640942238863849_n.jpg?stp=cp0_dst-jpg_s32x32_tt6&_nc_cat=101&ccb=1-7&_nc_sid=e99d92&_nc_ohc=g_eFxAuVgVUQ7kNvwFNxrva&_nc_oc=AdrN0rxM4bbuH2xygzXjuGMdjocWQ7MxlPy72W4zE04sD_Fo5vemwBRBuQofGvkZ2i4&_nc_zt=24&_nc_ht=scontent-atl3-2.xx&_nc_gid=tMIJdWU0f1MVOOBJW5_96Q&_nc_ss=7a389&oh=00_Af158hXVQR3XBTe3nka4WCIJ8GC4SdoNg1zMuw7HC8NSWQ&oe=69E65E4D",
-          "profileId": "pfbid02YLEzdYwd9wNPzaLQTSAqdAH1ZibPe79D81wabd9wjwrqpN439Z2xo5oAft2XkbZWl",
-          "profileName": "Yassine Rap",
-          "likesCount": "0",
-          "threadingDepth": 0
-        }
-      ],
-      "facebookId": "1295231977298952",
-      "groupTitle": "Bedstemors Køkkenmagi",
-      "inputUrl": "https://www.facebook.com/groups/1295231977298952/",
-      "summary": "De er så lækre, at jeg laver dem hver weekend! Enkel og velsmagende opskrift med kål!\nIngredienser:\nKål: 1 mellemstort hoved\nOlivenolie: 50 ml\nSalt: 1 tsk\nKværnet sort peber: efter smag\nRød peber: efter smag\n\"Jeg skal sige noget for at blive ved med at få mine opskrifter...\nTak. Opskrift i første kommentar Se mindre",
-      "source": "FacebookGroups",
-      "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.106Z",
-      "importedAt": "2026-04-17T01:19:31.106Z"
-    },
-    {
-      "facebookUrl": "https://www.facebook.com/groups/1295231977298952/",
-      "url": "https://www.facebook.com/groups/1295231977298952/",
-      "time": "2026-04-15T23:46:39.000Z",
-      "user": {
-        "id": "pfbid0aygawXF8wqTmfojS1rJ6jWB6mrSumDjK7m2Brgx2h1tQZf4H6k4GToX1bq2F5cz5l",
-        "name": "Achraf Zwayni"
-      },
-      "text": "FOR DENNE OPSKRIFT SKAL DU BARE SIG HEJ, OG JEG SENDER DIGOPSKRIFT I FØRSTE KOMMENTA",
-      "link": "https://alleopskrifter.serpin.biz/morgeningefaer-citron-morgentonic/",
-      "topReactionsCount": 0,
-      "feedbackId": "ZmVlZGJhY2s6MzQ1MjY3Mzk3ODIyMTM5Nw==",
-      "id": "UzpfSTYxNTc4MzQ1OTUzNDE4OlZLOjM0NTI2NzM5NzgyMjEzOTc=",
-      "legacyId": "3452673978221397",
-      "title": "Morgeningefær citron morgentonic – Serpin Recipes",
-      "attachments": [
-        {
-          "thumbnail": "https://scontent-atl3-3.xx.fbcdn.net/v/t39.30808-6/672236418_122172896642944865_4025329802224660700_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=e06c5d&_nc_ohc=9eZYnBcrMIAQ7kNvwE7A4fY&_nc_oc=AdpiADJvG6dD2wKkL8VDWHc2duv6G5SgSanzj7g4pkwejrHUEPbeYdrr6Mqh7PN1lQk&_nc_zt=23&_nc_ht=scontent-atl3-3.xx&_nc_gid=tMIJdWU0f1MVOOBJW5_96Q&_nc_ss=7a389&oh=00_Af3EsHGAR0JuBSol-gdNa1Fh0oM-7g1MMGKWYVlAELLW2w&oe=69E65C44",
-          "__typename": "Photo",
-          "photo_image": {
-            "uri": "https://scontent-atl3-3.xx.fbcdn.net/v/t39.30808-6/672236418_122172896642944865_4025329802224660700_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=e06c5d&_nc_ohc=9eZYnBcrMIAQ7kNvwE7A4fY&_nc_oc=AdpiADJvG6dD2wKkL8VDWHc2duv6G5SgSanzj7g4pkwejrHUEPbeYdrr6Mqh7PN1lQk&_nc_zt=23&_nc_ht=scontent-atl3-3.xx&_nc_gid=tMIJdWU0f1MVOOBJW5_96Q&_nc_ss=7a389&oh=00_Af3EsHGAR0JuBSol-gdNa1Fh0oM-7g1MMGKWYVlAELLW2w&oe=69E65C44",
-            "height": 800,
-            "width": 451
-          },
-          "__isMedia": "Photo",
-          "accent_color": "FFF7C63B",
-          "photo_product_tags": [],
-          "url": "https://www.facebook.com/photo.php?fbid=122172896636944865&set=gm.3452673978221397&type=3",
-          "id": "122172896636944865",
-          "ocrText": "May be an image of drink and text that says 'Drik 1 kop for morgenmad i 5 dage, og dit mavefedt vil smelte fuldstaendigt'"
-        }
-      ],
-      "likesCount": 0,
-      "sharesCount": 0,
-      "commentsCount": 1,
-      "topComments": [
-        {
-          "commentUrl": "https://www.facebook.com/groups/1295231977298952/permalink/3452673978221397/?comment_id=3452674301554698",
-          "commentId": "3452674301554698",
-          "id": "Y29tbWVudDozNDUyNjczOTc4MjIxMzk3XzM0NTI2NzQzMDE1NTQ2OTg=",
-          "feedbackId": "ZmVlZGJhY2s6MzQ1MjY3Mzk3ODIyMTM5N18zNDUyNjc0MzAxNTU0Njk4",
-          "date": "2026-04-15T23:47:03.000Z",
-          "text": "https://alleopskrifter.serpin.biz/morgeningefaer-citron-morgentonic/",
-          "attachments": [
-            {
-              "__typename": "GenericAttachmentMedia",
-              "fallback_image": {
-                "height": 98,
-                "uri": "https://external-atl3-2.xx.fbcdn.net/emg1/v/t13/4962978138848776361?url=https%3A%2F%2Falleopskrifter.serpin.biz%2Fwp-content%2Fuploads%2F2026%2F03%2F1060b299-a035-4ed9-b0fc-7ca14effd36c.png&fb_obo=1&utld=serpin.biz&stp=c0.5000x0.5000f_dst-emg0_p98x98_q75_tt6&_nc_gid=tMIJdWU0f1MVOOBJW5_96Q&_nc_oc=AdpSbVQFBQ2HFmXYMn37M14xO2YQi_N53Zi4gbVpTATvIoCDxrlEA1KqOXePE9ORk2g&ccb=13-1&oh=06_Q3--Ab3K9b21uor5h1hb5dSyf4tSMbE00Hr30uzWoG2PInZA&oe=69E26821&_nc_sid=085657",
-                "width": 98
-              },
-              "is_playable": false,
-              "id": "122172896732944865"
-            }
-          ],
-          "profileUrl": "https://www.facebook.com/people/Achraf-Zwayni/pfbid0aygawXF8wqTmfojS1rJ6jWB6mrSumDjK7m2Brgx2h1tQZf4H6k4GToX1bq2F5cz5l/",
-          "profilePicture": "https://scontent-atl3-1.xx.fbcdn.net/v/t39.30808-1/517068385_122094401816944865_7527022311654331848_n.jpg?stp=cp0_dst-jpg_s32x32_tt6&_nc_cat=106&ccb=1-7&_nc_sid=e99d92&_nc_ohc=wf9EVb2mTjwQ7kNvwEXp9Rr&_nc_oc=AdrgPCPQnXdivOmaxP_5h-FAxmoU2Y-gQB_-2Oytny-Di-FtsZ6b_uEw4hSLFQp_W_0&_nc_zt=24&_nc_ht=scontent-atl3-1.xx&_nc_gid=tMIJdWU0f1MVOOBJW5_96Q&_nc_ss=7a389&oh=00_Af3KXHOCZxQkIOGnREtVn0WZdgw3t2mwVk_bss_Btqn5iw&oe=69E6697C",
-          "profileId": "pfbid0aygawXF8wqTmfojS1rJ6jWB6mrSumDjK7m2Brgx2h1tQZf4H6k4GToX1bq2F5cz5l",
-          "profileName": "Achraf Zwayni",
-          "likesCount": "0",
-          "threadingDepth": 0
-        }
-      ],
-      "facebookId": "1295231977298952",
-      "groupTitle": "Bedstemors Køkkenmagi",
-      "inputUrl": "https://www.facebook.com/groups/1295231977298952/",
-      "summary": "FOR DENNE OPSKRIFT SKAL DU BARE SIG HEJ, OG JEG SENDER DIGOPSKRIFT I FØRSTE KOMMENTA",
-      "source": "FacebookGroups",
-      "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.106Z",
-      "importedAt": "2026-04-17T01:19:31.106Z"
-    },
-    {
-      "url": "https://www.facebook.com/groups/2039561149440704/",
-      "error": "no_items",
-      "errorDescription": "Empty or private data for provided input",
-      "facebookUrl": "https://www.facebook.com/groups/2039561149440704/",
-      "id": "https://www.facebook.com/groups/2039561149440704/|",
-      "title": "(no title)",
-      "source": "FacebookGroups",
-      "country": "EU",
-      "fetched_at": "2026-04-17T01:19:31.105Z",
-      "importedAt": "2026-04-17T01:19:31.105Z"
+      "fetched_at": "2026-04-17T04:38:40.308Z",
+      "importedAt": "2026-04-17T04:38:40.308Z"
     }
   ]
 }
